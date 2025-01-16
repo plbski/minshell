@@ -3,53 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/15 18:07:04 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/01/15 00:13:28 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-char	*get_home(char *working_dir_buff)
-{
-	int	i;
-	int	j; 
-	
-	i = 0;
-	j = 0;
-	while (working_dir_buff[j])
-	{
-		if (working_dir_buff[j] == '/')
-			i ++;
-		if (i > 2)
-		{
-			working_dir_buff[j] = '\0';
-			break;
-		}
-		j ++;
-	}
-	return (working_dir_buff);
-}
-
-char	*init_cwd(t_data *data)
+int	update_cwd(t_data *data)
 {
 	char	*working_dir_buff;
 
-	data->status = running;
 	working_dir_buff = malloc(MAX_DIR_LEN);
 	if (!working_dir_buff)
-		return (data->status = closing, NULL);
+		return (data->status = closing, 0);
 	if (!getcwd(working_dir_buff, MAX_DIR_LEN))
-	{
-		free(working_dir_buff);
-		return (data->status = closing, NULL);
-	}
-	working_dir_buff = get_home(working_dir_buff);
-	data->home = ft_strdup(working_dir_buff);
-	data->cwd =working_dir_buff;
-	return (data->cwd);
+		return (free(working_dir_buff), data->status = closing, 0);
+	return (data->cwd = working_dir_buff, 1);
+}
+
+int	init_data_directories(t_data *data)
+{
+	char	*working_dir_buff;
+
+	working_dir_buff = malloc(MAX_DIR_LEN);
+	if (!working_dir_buff)
+		return (data->status = closing, 0);
+	if (!getcwd(working_dir_buff, MAX_DIR_LEN))
+		return (free(working_dir_buff), data->status = closing, 0);
+	data->start_wd = working_dir_buff;
+	data->doc_wd = ft_strjoin(working_dir_buff, "/DOC/");
+	return (1);
+}
+
+int	init_cwd(t_data *data)
+{
+	init_data_directories(data);
+	if (chdir("/home/") == -1)
+		return (printf("ERROR\n"), 0);
+	update_cwd(data);
+	return (1);
 }
 
 void	init_data(t_data *data)

@@ -1,0 +1,12 @@
+unlink
+
+Synopsis:
+
+int unlink(const char *pathname);
+
+Description:
+Deletes a file. If the file is a symbolic link, the link itself is removed.
+
+Example:
+
+unlink("/path/to/file");

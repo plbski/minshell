@@ -1,0 +1,28 @@
+tgetstr
+
+Synopsis:
+
+char *tgetstr(const char *id, char **area);
+
+Description:
+Gets the string value of a terminal capability.
+
+String Value of a Terminal Capability
+
+The string value of a terminal capability refers to a sequence of characters or escape codes used by a terminal to perform a specific action. These actions can include clearing the screen, moving the cursor, enabling bold text, etc.
+
+For example, in the terminfo database:
+
+    "cl" is the capability for clearing the screen.
+    "cm" is the capability for moving the cursor to a specified position.
+
+The tgetstr function retrieves such sequences for the terminal you are working with.
+Example:
+
+char *clear_screen = tgetstr("cl", NULL);
+tputs(clear_screen, 1, putchar); // Clears the screen.
+
+Example:
+
+char *clear = tgetstr("cl", NULL);
+printf("Clear sequence: %s\n", clear);

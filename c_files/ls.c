@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ls.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/14 21:37:07 by gvalente         ###   ########.fr       */
+/*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
+/*   Updated: 2025/01/14 22:50:13 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-int	main()
+int	ls(t_data *d)
 {
-	t_data	data;
+	struct dirent	*entry;
+	DIR				*directory;
+	(void)d;
 
-	signal(SIGINT, handle_sigint);
-	write_animated_txt(START_ANIM_TEXT, 30000, 100000);
-	init_data(&data);
-	while (data.status == running)
+	directory = opendir(d->cwd);
+	if (directory == NULL)
+		return (0);
+	entry = readdir(directory);
+	while (entry != NULL)
 	{
-		if (!get_terminal_prompt(&data))
-			break ;
+		printf("%s	", entry->d_name);
+		entry = readdir(directory);
 	}
-	write_animated_txt(END_ANIM_TEXT, 10000, 0);
-	return (0);
+	printf("\n");
+	closedir(directory);
+	return (1);
 }

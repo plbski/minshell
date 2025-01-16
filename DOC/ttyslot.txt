@@ -1,0 +1,13 @@
+ttyslot
+
+Synopsis:
+
+int ttyslot(void);
+
+Description:
+Returns the slot number of the terminal.
+
+Example:
+
+int slot = ttyslot();
+printf("Terminal slot: %d\n", slot);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/15 16:46:43 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/01/15 00:16:09 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # include <time.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <dirent.h>
 
 # define START_ANIM_TEXT "~~~ Minishell by gvlente & pbuet ~~~"
 # define END_ANIM_TEXT	 "~~~ EXIT ~~~"
-
 # define MAX_DIR_LEN 500
 # define PROMPT_ICON "$ "
 
@@ -49,24 +49,32 @@ typedef enum e_data_status
 typedef struct s_data
 {
 	char		*cwd;
-	char		*home;
+	char		*doc_wd;
+	char		*start_wd;
 	t_status	status;
 }	t_data;
 
+//		init.c
+void	init_data(t_data *data);
+int		init_cwd(t_data *data);
+int		write_animated_txt(char *txt_to_display, int interval, int exit_wait);
+int		init_env(t_data *data);
+
 //		prompt.c
-int		show_doc(char *prompt_line);
 void	execute_prompt(t_data *d, char *prompt);
 int		get_terminal_prompt(t_data *d);
 
+//		functions.c
+void    pwd(t_data *d);
+void    cd(t_data *d, char *prompt);
+int		man(t_data *d, char *prompt_line);
+int		ls(t_data *d);
+
 //		utils.c
 void	handle_sigint(int sig);
-
-//		init.c
-void	init_data(t_data *data);
-char	*init_cwd(t_data *data);
-int		write_animated_txt(char *txt_to_display, int interval, int exit_wait);
-int		init_env(t_data *data);
-void	ft_cd(t_data *d, char *arg);
-void	pwd(t_data *d);
+char 	*ft_remove_prefix(char *str, char *prefix);
+char	*truncate_at_end(char *str, const char cut_letter);
+int		update_cwd(t_data *data);
+char	*get_next_line(int fd);
 
 #endif

@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/14 21:37:07 by gvalente         ###   ########.fr       */
+/*   Created: 2024/10/08 16:14:16 by gvalente          #+#    #+#             */
+/*   Updated: 2025/01/14 21:17:14 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-int	main()
+# include "stdlib.h"
+# include "unistd.h"
+# include "stdio.h"
+
+# define MAXSIZE 99999
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 30
+# endif
+
+typedef struct s_t_data
 {
-	t_data	data;
+	char	buffer[MAXSIZE];
+	char	leftover[MAXSIZE];
+}	t_data;
+char	*get_next_line(int fd);
 
-	signal(SIGINT, handle_sigint);
-	write_animated_txt(START_ANIM_TEXT, 30000, 100000);
-	init_data(&data);
-	while (data.status == running)
-	{
-		if (!get_terminal_prompt(&data))
-			break ;
-	}
-	write_animated_txt(END_ANIM_TEXT, 10000, 0);
-	return (0);
-}
+#endif

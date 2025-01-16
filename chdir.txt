@@ -1,0 +1,12 @@
+chdir
+
+Synopsis:
+
+int chdir(const char *path);
+
+Description:
+Changes the current working directory to the specified path.
+
+Example:
+
+chdir("/home/user");

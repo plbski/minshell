@@ -1,0 +1,14 @@
+tgetflag
+
+Synopsis:
+
+int tgetflag(const char *id);
+
+Description:
+Checks if a terminal capability (boolean flag) is present.
+
+Example:
+
+if (tgetflag("am")) {
+    printf("Terminal has auto-margins.\n");
+}

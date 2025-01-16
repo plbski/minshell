@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 21:52:18 by pbuet             #+#    #+#             */
-/*   Updated: 2025/01/14 22:03:32 by pbuet            ###   ########.fr       */
+/*   Created: 2025/01/14 22:40:34 by gvalente          #+#    #+#             */
+/*   Updated: 2025/01/14 23:27:44 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-void	pwd(t_data *d)
+void    pwd(t_data *d)
 {
-	printf("%s\n", d->cwd);
+    printf("%s\n", d->cwd);
 }

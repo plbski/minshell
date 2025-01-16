@@ -1,0 +1,12 @@
+tcsetattr
+
+Synopsis:
+
+int tcsetattr(int fd, int optional_actions, const struct termios *termios_p);
+
+Description:
+Sets the terminal attributes for a file descriptor.
+
+Example:
+
+tcsetattr(STDIN_FILENO, TCSANOW, &termios_p);

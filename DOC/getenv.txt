@@ -1,0 +1,13 @@
+getenv
+
+Synopsis:
+
+char *getenv(const char *name);
+
+Description:
+Gets the value of an environment variable.
+
+Example:
+
+char *path = getenv("PATH");
+printf("PATH: %s\n", path);
