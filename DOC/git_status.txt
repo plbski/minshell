@@ -1,7 +1,0 @@
-git status [<options>]
-
-Options:
-
-    --short: Displays a concise output.
-    --branch: Shows branch information.
-    --ignored: Lists ignored files.

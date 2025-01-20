@@ -1,7 +1,0 @@
-git reset [<options>] [<commit>] [--] [<paths>…]
-
-Options:
-
-    --soft: Resets HEAD without modifying the index or working tree.
-    --mixed: Resets HEAD and the index, but leaves the working tree.
-    --hard: Resets everything, including the working tree.

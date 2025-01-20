@@ -1,7 +1,0 @@
-git commit [<options>] [--] [<file>…]
-
-Options:
-
-    -m <message>: Provide a commit message.
-    -a: Commit all tracked changes without using git add.
-    --amend: Modify the last commit.

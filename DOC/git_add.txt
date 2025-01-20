@@ -1,8 +1,0 @@
-git add [<pathspec>…] [--interactive | --patch | --all | --update | --intent-to-add]
-
-<pathspec>: File(s) or directory to add.
-
-Options:
-
-    --all (-A): Adds all changes (tracked and untracked).
-    --patch (-p): Interactively select portions of changes.

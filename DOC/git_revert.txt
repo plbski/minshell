@@ -1,6 +1,0 @@
-git revert [<options>] <commit>…
-
-Options:
-
-    --no-commit: Stages the changes for manual commit.
-    --edit: Opens the commit message editor.

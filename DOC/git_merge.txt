@@ -1,7 +1,0 @@
-git merge [<options>] <commit>…
-
-Options:
-
-    --no-ff: Creates a merge commit even for fast-forward merges.
-    --abort: Aborts a conflicted merge.
-    
