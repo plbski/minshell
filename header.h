@@ -6,11 +6,10 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/20 17:23:13 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:54:15 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# define cool 1
 #ifndef HEADER_H
 # define HEADER_H
 
