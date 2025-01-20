@@ -1,22 +1,27 @@
 ## Tasks
 
-| Task                | Status | Notes                     | Dependencies		|
-|---------------------|--------|---------------------------|					|
-| Parse               | [0]    | Implement parsing logic   |	Pipe			|
-| Import env          | [0]    | Load environment vars     |					|
-| Pipe                | [0]    | Implement pipe handling   |					|
-| $?                  | [0]    | Handle exit status        |					|
-| Ctrl-C              | [0]    | Handle signal interruption|					|
-| Ctrl-D              | [0]    | Handle EOF signal         |					|
-| Ctrl-\              | [0]    | Handle quit signal        |					|
-| Echo -n             | [0]    | Implement echo options    |					|
-| cd                  | [0]    | Implement directory change|					|
-| pwd                 | [0]    | Print working directory   |					|
-| export              | [0]    | Set environment variables |					|
-| unset               | [0]    | Remove environment vars   |					|
-| env                 | [0]    | Display environment vars  |					|
-| exit                | [0]    | Exit shell properly       |					|
-| "<>" redirection    | [0]    | Handle file redirection   | 					|
+| Task                | Status | Notes                     | Dependencies		|	Person in charge
+|---------------------|--------|---------------------------|--------------------|---------------------
+| Parse prompt        | [0]    | Implement parsing logic   |	Pipe			| Pilou & Giulio	|
+| Import env          | [0]    | Load environment vars     |					| Pilou				|
+| Pipe                | [0]    | Implement pipe handling   |					| Giulio			|
+| $?                  | [0]    | Handle exit status        |					| Pilou				|
+| Ctrl-C              | [1]    | Handle signal interruption|	exit			| Giulio			|
+| Ctrl-D              | [1]    | Handle EOF signal         |	exit			| Giulio			|
+| Ctrl-\              | [1]    | Handle quit signal        |	exit			| Giulio			|
+| Echo -n             | [0]    | Implement echo options    |					| Pilou				|
+| cd                  | [2]    | Implement: ~, -, relative |					| Giulio			|
+| pwd                 | [2]    | Print working directory   |					| Giulio			|
+| export              | [0]    | Set environment variables |	env				| Pilou				|
+| unset               | [0]    | Remove environment vars   |					| Pilou				|
+| env                 | [0]    | Display environment vars  |	Import env		| Pilou				|
+| exit                | [0]    | Exit shell properly       |					| Giulio			|
+| "<>" redirection    | [0]    | Handle file redirection   | 					| Giulio			|
+
+[0] Not started
+[1] In progress
+[2] Working
+[3] Finished
 
 ## Notes
 
