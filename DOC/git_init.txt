@@ -1,0 +1,9 @@
+git init [<directory>] [--bare] [--initial-branch <branch_name>] [--separate-git-dir <git_dir>]
+
+<directory>: Specifies where to create the repository. Default is the current directory.
+
+--bare: Creates a bare repository without a working directory.
+
+--initial-branch <branch_name>: Sets the initial branch name (default is main or master).
+
+--separate-git-dir <git_dir>: Places the Git directory elsewhere.

@@ -1,0 +1,6 @@
+git switch [<options>] <branch_name>
+
+Options:
+
+    -c <branch_name>: Create and switch to a new branch.
+    --track: Set up tracking of a remote branch.

@@ -1,0 +1,14 @@
+wait4
+
+Synopsis:
+
+pid_t wait4(pid_t pid, int *status, int options, struct rusage *rusage);
+
+Description:
+Waits for a specific child process to terminate, providing additional resource usage information.
+
+Example:
+
+struct rusage usage;
+int status;
+pid_t result = wait4(pid, &status, 0, &usage);

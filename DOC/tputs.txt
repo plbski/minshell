@@ -1,0 +1,12 @@
+tputs
+
+Synopsis:
+
+int tputs(const char *str, int affcnt, int (*putc)(int));
+
+Description:
+Outputs a terminal string with padding.
+
+Example:
+
+tputs(clear, 1, putchar);

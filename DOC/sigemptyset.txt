@@ -1,0 +1,13 @@
+sigemptyset
+
+Synopsis:
+
+int sigemptyset(sigset_t *set);
+
+Description:
+Initializes a signal set to exclude all signals.
+
+Example:
+
+sigset_t set;
+sigemptyset(&set);

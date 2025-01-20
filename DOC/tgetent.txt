@@ -1,0 +1,12 @@
+tgetent
+
+Synopsis:
+
+int tgetent(char *bp, const char *termtype);
+
+Description:
+Loads the terminfo database entry for the terminal type.
+
+Example:
+
+tgetent(NULL, getenv("TERM"));

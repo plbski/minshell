@@ -1,0 +1,12 @@
+closedir
+
+Synopsis:
+
+int closedir(DIR *dirp);
+
+Description:
+Closes a directory stream opened by opendir.
+
+Example:
+
+closedir(dir);

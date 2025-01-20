@@ -1,0 +1,13 @@
+stat
+
+Synopsis:
+
+int stat(const char *pathname, struct stat *statbuf);
+
+Description:
+Gets information about a file.
+
+Example:
+
+struct stat sb;
+stat("/path/to/file", &sb);
