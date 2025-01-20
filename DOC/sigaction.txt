@@ -1,0 +1,14 @@
+sigaction
+
+Synopsis:
+
+int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
+
+Description:
+Examines or modifies the action associated with a signal.
+
+Example:
+
+struct sigaction sa;
+sa.sa_handler = handler;
+sigaction(SIGINT, &sa, NULL);

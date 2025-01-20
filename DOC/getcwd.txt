@@ -1,0 +1,13 @@
+getcwd
+
+Synopsis:
+
+char *getcwd(char *buf, size_t size);
+
+Description:
+Gets the current working directory.
+
+Example:
+
+char buffer[1024];
+getcwd(buffer, sizeof(buffer));

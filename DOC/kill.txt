@@ -1,0 +1,12 @@
+kill
+
+Synopsis:
+
+int kill(pid_t pid, int sig);
+
+Description:
+Sends a signal to a process or group of processes.
+
+Example:
+
+kill(pid, SIGKILL);

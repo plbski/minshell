@@ -1,0 +1,12 @@
+opendir
+
+Synopsis:
+
+DIR *opendir(const char *name);
+
+Description:
+Opens a directory stream corresponding to the directory name.
+
+Example:
+
+DIR *dir = opendir("/path/to/dir");

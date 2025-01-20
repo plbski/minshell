@@ -1,0 +1,11 @@
+git branch [<options>] [<branch_name>]
+
+Options:
+
+    <branch_name>: Name of the branch to create, delete, or manage.
+
+    -d <branch>: Delete a branch.
+
+    -m <old_name> <new_name>: Rename a branch.
+
+    -a: List all branches (local and remote).

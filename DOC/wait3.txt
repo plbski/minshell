@@ -1,0 +1,14 @@
+wait3
+
+Synopsis:
+
+pid_t wait3(int *status, int options, struct rusage *rusage);
+
+Description:
+Waits for any child process to terminate, providing additional resource usage information.
+
+Example:
+
+struct rusage usage;
+int status;
+pid_t result = wait3(&status, 0, &usage);

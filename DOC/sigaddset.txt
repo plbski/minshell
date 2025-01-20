@@ -1,0 +1,13 @@
+sigaddset
+
+Synopsis:
+
+int sigaddset(sigset_t *set, int signum);
+
+Description:
+Adds a signal to a signal set.
+
+Example:
+
+sigset_t set;
+sigaddset(&set, SIGINT);

@@ -1,0 +1,16 @@
+waitpid
+
+Synopsis:
+
+pid_t waitpid(pid_t pid, int *status, int options);
+
+Description:
+Waits for a specific child process to terminate.
+
+Return Value:
+Returns the process ID of the terminated child or -1 on error.
+
+Example:
+
+int status;
+pid_t result = waitpid(pid, &status, 0);

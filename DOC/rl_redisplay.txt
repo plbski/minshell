@@ -1,0 +1,12 @@
+rl_redisplay
+
+Synopsis:
+
+void rl_redisplay(void);
+
+Description:
+Redraws the current readline input line.
+
+Example:
+
+rl_redisplay();
