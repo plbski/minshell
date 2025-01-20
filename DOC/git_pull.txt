@@ -1,6 +1,0 @@
-git pull [<options>] [<repository> [<refspec>…]]
-
-Options:
-
-    --rebase: Rebase instead of merge.
-    --depth <depth>: Limit the commit history.

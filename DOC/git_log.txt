@@ -1,7 +1,0 @@
-git log [<options>] [<revision_range>] [--] [<paths>…]
-
-Options:
-
-    --oneline: Shows each commit as a single line.
-    --graph: Displays a graph of branches and merges.
-    --author=<author>: Filters commits by author.
