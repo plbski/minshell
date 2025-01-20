@@ -10,7 +10,7 @@
 | Ctrl-D              | [0]    | Handle EOF signal         |					|
 | Ctrl-\              | [0]    | Handle quit signal        |					|
 | Echo -n             | [0]    | Implement echo options    |					|
-| cd                  | [0]    | Implement directory change|					|
+| cd                  | [0]    | Implement: ~, -, relative |					|
 | pwd                 | [0]    | Print working directory   |					|
 | export              | [0]    | Set environment variables |					|
 | unset               | [0]    | Remove environment vars   |					|
