@@ -5,7 +5,7 @@ MINISHELL_SRC = c_files/minishell.c c_files/prompt.c c_files/utils.c c_files/ini
 				c_files/ls.c c_files/cd.c c_files/pwd.c c_files/man.c c_files/signal.c
 
 LIBFT_SRC = libft/
-GNL_SRC = GNL/
+GNL_SRC = gnl/
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror

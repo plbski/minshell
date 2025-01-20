@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/15 00:13:28 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:50:29 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_data_directories(t_data *data)
 	if (!getcwd(working_dir_buff, MAX_DIR_LEN))
 		return (free(working_dir_buff), data->status = closing, 0);
 	data->start_wd = working_dir_buff;
-	data->doc_wd = ft_strjoin(working_dir_buff, "/DOC/");
+	data->doc_wd = ft_strjoin(working_dir_buff, "/doc/");
 	return (1);
 }
 
