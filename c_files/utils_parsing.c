@@ -1,38 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 22:50:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/20 17:29:09 by gvalente         ###   ########.fr       */
+/*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
+/*   Updated: 2025/01/21 17:23:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
-
-int	write_animated_txt(char *txt_to_display, int interval, int exit_wait)
-{
-	int		i;
-	char	*txt;
-
-	txt = ft_strdup(txt_to_display);
-	if (!txt)
-		return (0);
-	printf(RED);
-	printf("\n");
-	i = -1;
-	while (txt[++i])
-	{
-		usleep(interval);
-		printf("%c", txt[i]);
-		fflush(stdout);
-	}
-	printf("\n\n");
-	printf(RESET);
-	return (usleep(exit_wait), free(txt), 1);
-}
 
 char	*ft_remove_prefix(char *str, char *prefix)
 {
@@ -51,12 +29,10 @@ char	*truncate_at_end(char *str, char cut_letter)
 	char	*trunc_str;
 	int		i;
 	int		trunc_index;
-	int		str_len;
 
 	if (!str)
 		return (NULL);
-	str_len = ft_strlen(str);
-	i = str_len - 1;
+	i = ft_strlen(str) - 1;
 	while (i >= 0)
 	{
 		if (str[i] == cut_letter)
@@ -69,24 +45,73 @@ char	*truncate_at_end(char *str, char cut_letter)
 	trunc_str = malloc(trunc_index + 1);
 	if (!trunc_str)
 		return (NULL);
-	i = 0;
-	while (i++ < trunc_index)
+	i = -1;
+	while (++i < trunc_index)
 		trunc_str[i] = str[i];
 	trunc_str[i] = '\0';
 	return (trunc_str);
 }
 
-int	create_file(t_data *d, char *content, char *file_name)
+char	*get_array_element_with_prefix(char **array, \
+	char *prefix)
 {
-	char	*full_path;
-	int		fd;
+	int		i;
+	int		j;
 
-	printf("CREATING FILE\n");
-	full_path = ft_strjoin(d->cwd, file_name);
-	printf("%s\n", full_path);
-	fd = open(full_path, O_CREAT, O_TRUNC, 0644);
-	if (fd == -1)
+	if (!array || !prefix)
+		return (NULL);
+	i = 0;
+	while (array[i] != NULL)
+	{
+		j = 0;
+		while (array[i][j] == prefix[j])
+			j++;
+		if (!prefix[j])
+			return (array[i]);
+		i++;
+	}
+	return (NULL);
+}
+
+char	*ft_str_mega_join(char *a, char *b, char *c, char *d)
+{
+	char	*ab;
+	char	*abc;
+	char	*abcd;
+
+	if (a == NULL || b == NULL)
+		return (NULL);
+	ab = ft_strjoin(a, b);
+	if (!ab)
+		return (NULL);
+	if (c == NULL)
+		return (ab);
+	abc = ft_strjoin(ab, c);
+	free(ab);
+	if (!abc)
+		return (NULL);
+	if (!d)
+		return (abc);
+	abcd = ft_strjoin(abc, d);
+	free(abc);
+	if (!abcd)
+		return (NULL);
+	return (abcd);
+}
+
+int	get_char_occurence(char *str, char c)
+{
+	int	i;
+	int	occurence;
+
+	if (!str)
 		return (0);
-	write(fd, content, ft_strlen(content));
-	return (1);
+	occurence = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == c)
+			occurence++;
+	}
+	return (occurence);
 }

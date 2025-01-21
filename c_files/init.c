@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/20 19:50:29 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:32:50 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,24 @@ int	update_cwd(t_data *data)
 
 	working_dir_buff = malloc(MAX_DIR_LEN);
 	if (!working_dir_buff)
-		return (data->status = closing, 0);
+		return (data->status = quitting, 0);
 	if (!getcwd(working_dir_buff, MAX_DIR_LEN))
-		return (free(working_dir_buff), data->status = closing, 0);
-	return (data->cwd = working_dir_buff, 1);
+		return (free(working_dir_buff), data->status = quitting, 0);
+	if (data->cwd)
+	{
+		if (data->prev_cwd)
+			free(data->prev_cwd);
+		data->prev_cwd = ft_strdup(data->cwd);
+		free(data->cwd);
+	}
+	else
+	{
+		if (data->prev_cwd)
+			free(data->prev_cwd);
+		data->prev_cwd = ft_strdup(working_dir_buff);
+	}
+	data->cwd = working_dir_buff;
+	return (1);
 }
 
 int	init_data_directories(t_data *data)
@@ -30,9 +44,9 @@ int	init_data_directories(t_data *data)
 
 	working_dir_buff = malloc(MAX_DIR_LEN);
 	if (!working_dir_buff)
-		return (data->status = closing, 0);
+		return (data->status = quitting, 0);
 	if (!getcwd(working_dir_buff, MAX_DIR_LEN))
-		return (free(working_dir_buff), data->status = closing, 0);
+		return (free(working_dir_buff), data->status = quitting, 0);
 	data->start_wd = working_dir_buff;
 	data->doc_wd = ft_strjoin(working_dir_buff, "/doc/");
 	return (1);
@@ -41,8 +55,6 @@ int	init_data_directories(t_data *data)
 int	init_cwd(t_data *data)
 {
 	init_data_directories(data);
-	if (chdir("/home/") == -1)
-		return (printf("ERROR\n"), 0);
 	update_cwd(data);
 	return (1);
 }
@@ -50,17 +62,14 @@ int	init_cwd(t_data *data)
 void	init_data(t_data *data)
 {
 	data->status = running;
+	data->cwd = NULL;
+	data->prev_cwd = NULL;
+	data->start_wd = NULL;
+	data->home_wd = NULL;
+	data->logname = NULL;
+	data->doc_wd = NULL;
+	data->env = NULL;
+	init_env_variables(data);
+	update_env_variables(data);
 	init_cwd(data);
-	init_env(data);
-}
-
-int	init_env(t_data *data)
-{
-	char	*env;
-
-	env = getenv("PATH");
-	if (!env)
-		return (data->status = closing, 0);
-	printf("Env received:\n\"%s\"\n\n", env);
-	return (1);
 }

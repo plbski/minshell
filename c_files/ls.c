@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/14 22:50:13 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:57:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ int	ls(t_data *d)
 {
 	struct dirent	*entry;
 	DIR				*directory;
-	(void)d;
 
+	(void)d;
 	directory = opendir(d->cwd);
 	if (directory == NULL)
 		return (0);
 	entry = readdir(directory);
 	while (entry != NULL)
 	{
-		printf("%s	", entry->d_name);
+		printf("%-10s", entry->d_name);
 		entry = readdir(directory);
+		printf("\n");
 	}
 	printf("\n");
 	closedir(directory);

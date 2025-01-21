@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/04 16:33:59 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 14:05:20 by giuliovalen      ###   ########.fr       */
+/*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
+/*   Updated: 2025/01/21 12:49:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../header.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	create_file(t_data *d, char *content, char *file_name)
 {
-	t_list	*cur;
+	char	*full_path;
+	int		fd;
 
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	cur = *lst;
-	while (cur->next != NULL)
-		cur = cur->next;
-	cur->next = new;
+	printf("CREATING FILE\n");
+	full_path = ft_strjoin(d->cwd, file_name);
+	printf("%s\n", full_path);
+	fd = open(full_path, O_CREAT, O_TRUNC, 0644);
+	if (fd == -1)
+		return (0);
+	write(fd, content, ft_strlen(content));
+	return (1);
 }

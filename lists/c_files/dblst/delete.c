@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   delete.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/04 16:41:22 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 14:05:37 by giuliovalen      ###   ########.fr       */
+/*   Created: 2025/01/21 14:23:03 by giuliovalen       #+#    #+#             */
+/*   Updated: 2025/01/21 15:20:34 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../lists.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	dblst_clear(t_dblist **lst, void (*del)(void *))
 {
-	t_list	*cur;
-	t_list	*tmp;
+	t_dblist	*cur;
+	t_dblist	*tmp;
 
 	if (!lst || !*lst)
 		return ;
@@ -28,4 +28,17 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		cur = tmp;
 	}
 	*lst = NULL;
+}
+
+void	dblst_delone(t_dblist *lst, void (*del)(void *))
+{
+	if (!lst)
+		return ;
+	if (lst->content)
+		del(lst->content);
+	if (lst->next)
+		lst->next->prev = lst->prev;
+	if (lst->prev)
+		lst->prev->next = lst->next;
+	free(lst);
 }

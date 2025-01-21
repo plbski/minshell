@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/20 17:23:13 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:32:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define HEADER_H
 
 # include "libft/libft.h"
+# include "lists/lists.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -28,7 +29,6 @@
 # define START_ANIM_TEXT "~~~ Minishell by gvlente & pbuet ~~~"
 # define END_ANIM_TEXT	 "~~~ EXIT ~~~"
 # define MAX_DIR_LEN 500
-# define PROMPT_ICON "$ "
 
 # define PROMPT_SQARE "U+2589"
 # define RED "\033[31m"
@@ -39,19 +39,26 @@
 # define CYAN "\033[36m"
 # define RESET "\033[0m"
 
+# define PROMPT_LOGNAME_COL 	GREEN
+# define PROMPT_CWD_COL			YELLOW
+
 typedef enum e_data_status
 {
 	running,
-	closing,
+	quitting,
 	waiting,
 }	t_status;
 
 typedef struct s_data
 {
+	int			debug_mode;
 	char		*cwd;
+	char		*prev_cwd;
 	char		*doc_wd;
 	char		*start_wd;
-	int			debug_mode;
+	char		*home_wd;
+	char		*logname;
+	t_dblist	*env;
 	t_status	status;
 }	t_data;
 
@@ -59,24 +66,42 @@ typedef struct s_data
 void	init_data(t_data *data);
 int		init_cwd(t_data *data);
 int		write_animated_txt(char *txt_to_display, int interval, int exit_wait);
-int		init_env(t_data *data);
+void	init_env_variables(t_data *d);
 
 //		prompt.c
 void	execute_prompt(t_data *d, char *prompt);
 int		get_terminal_prompt(t_data *d);
+void	export_env(t_data *d, char *prompt);
 
 //		functions.c
-void    pwd(t_data *d);
-void    cd(t_data *d, char *prompt);
+void	pwd(t_data *d);
+void	cd(t_data *d, char *prompt);
 int		man(t_data *d, char *prompt_line);
 int		ls(t_data *d);
+void	custom_exit(t_data *data, int status);
 
-//		utils.c
+//		signal
 void	setup_signal(void);
-char 	*ft_remove_prefix(char *str, char *prefix);
+
+//		utils_parsing
+char	*ft_remove_prefix(char *str, char *prefix);
 char	*truncate_at_end(char *str, const char cut_letter);
 int		update_cwd(t_data *data);
 char	*get_next_line(int fd);
 int		create_file(t_data *d, char *content, char *file_name);
+char	*get_array_element_with_prefix(char **array, char *prefix);
+char	*ft_str_mega_join(char *a, char *b, char *c, char *d);
+int		get_char_occurence(char *str, char c);
+
+//		utils_design
+void	set_string_color(char **str, char *color);
+
+//		env
+int		update_env_variables(t_data *d);
+void	show_env(t_data *d);
+
+//		free
+void	safe_free(void *line);
+int		free_void_array(void ***item);
 
 #endif
