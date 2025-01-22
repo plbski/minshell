@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/22 16:44:46 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:44:28 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	export(t_data *d, char *prompt)
 	t_dblist	*new_node;
 	t_dblist	*element;
 
-	trimmed_prompt = ft_remove_prefix(prompt, "export ");
+	trimmed_prompt = ft_remove_prefix(prompt, "export", 1);
 	if (!trimmed_prompt)
 		custom_exit(d, 0);
 	key = truncate_at_end(trimmed_prompt, '=');

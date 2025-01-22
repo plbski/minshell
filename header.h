@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:43:40 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ typedef enum e_data_status
 	waiting,
 }	t_status;
 
+
 typedef struct s_data
 {
+	char		**env;
+	int			env_size;
 	int			debug_mode;
 	char		*cwd;
 	char		*prev_cwd;
@@ -79,17 +82,18 @@ void	pwd(t_data *d);
 void	cd(t_data *d, char *prompt);
 int		man(t_data *d, char *prompt_line);
 int		ls(t_data *d);
+void	env(t_data *data);
 void	custom_exit(t_data *data, int status);
+void	echo(t_data *d, char *prompt);
 
 //		signal
 void	setup_signal(void);
 
 //		utils_parsing
-char	*ft_remove_prefix(char *str, char *prefix);
+char	*ft_remove_prefix(char *str, char *prefix, int space);
 char	*truncate_at_end(char *str, const char cut_letter);
 int		update_cwd(t_data *data);
 char	*get_next_line(int fd);
-int		create_file(t_data *d, char *content, char *file_name);
 char	*get_array_element_with_prefix(char **array, char *prefix);
 char	*ft_str_mega_join(char *a, char *b, char *c, char *d);
 int		get_char_occurence(char *str, char c);

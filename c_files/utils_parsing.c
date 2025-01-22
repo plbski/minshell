@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 21:06:42 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:43:37 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-char	*ft_remove_prefix(char *str, char *prefix)
+char	*ft_remove_prefix(char *str, char *prefix, int space)
 {
 	size_t	prefix_len;
 
@@ -20,7 +20,14 @@ char	*ft_remove_prefix(char *str, char *prefix)
 		return (NULL);
 	prefix_len = ft_strlen(prefix);
 	if (ft_strncmp(str, prefix, prefix_len) == 0)
+	{
+		if (space == 1)
+		{
+			while(str[prefix_len] == 32)
+			prefix_len ++;
+		}
 		return (ft_strdup(str + prefix_len));
+	}
 	return (ft_strdup(str));
 }
 

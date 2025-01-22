@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:39:02 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	execute_prompt(t_data *d, char *prompt)
 	else if (!ft_strncmp(prompt, "pwd", 4))
 		pwd(d);
 	else if (!ft_strncmp(prompt, "echo ", 5))
-		create_file(d, "hello", "/coucou.txt");
+		echo(d, prompt);
 }
 
 char	*get_prompt_message(t_data *d)

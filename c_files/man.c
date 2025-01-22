@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   man.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/16 19:44:18 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:29:52 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	man(t_data *d, char *prompt_line)
 	char	*arg_with_txt;
 	char	*full_path;
 
-	arg_name = ft_remove_prefix(prompt_line, "man ");
+	arg_name = ft_remove_prefix(prompt_line, "man", 1);
 	if (!arg_name)
 		return (0);
 	arg_with_txt = ft_strjoin(arg_name, ".txt");

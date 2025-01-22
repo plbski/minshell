@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 00:14:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:44:25 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_env_value(t_data *d, char *key)
 	if (!element || !element->content)
 		return (NULL);
 	content_copy = ft_strdup(element->content);
-	value = ft_remove_prefix(content_copy, key);
+	value = ft_remove_prefix(content_copy, key, 1);
 	return (value);
 }
 

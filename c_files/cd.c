@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 12:49:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/22 19:29:25 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	cd(t_data *d, char *prompt)
 {
 	char	*prompt_path;
 
-	prompt_path = ft_remove_prefix(prompt, "cd ");
+	prompt_path = ft_remove_prefix(prompt, "cd ", 1);
 	if (!ft_strncmp(prompt_path, "~", 2) && d->home_wd != NULL)
 	{
 		free(prompt_path);
