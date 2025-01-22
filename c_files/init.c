@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 17:32:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/21 21:26:48 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	init_cwd(t_data *data)
 	return (1);
 }
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, char **env)
 {
 	data->status = running;
 	data->cwd = NULL;
@@ -68,7 +68,8 @@ void	init_data(t_data *data)
 	data->home_wd = NULL;
 	data->logname = NULL;
 	data->doc_wd = NULL;
-	data->env = NULL;
+	data->environ = env;
+	data->env_list = NULL;
 	init_env_variables(data);
 	update_env_variables(data);
 	init_cwd(data);

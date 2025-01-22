@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 12:50:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/21 21:29:12 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-int	main(void)
+int	main(int argc, char *argv[], char **env)
 {
 	t_data	data;
 
+	(void)argc;
+	(void)argv;
 	setup_signal();
 	write_animated_txt(START_ANIM_TEXT, 3000, 10000);
-	init_data(&data);
+	init_data(&data, env);
 	while (data.status == running)
 	{
 		if (!get_terminal_prompt(&data))

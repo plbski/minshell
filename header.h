@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 17:32:41 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/21 21:26:22 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,13 @@ typedef struct s_data
 	char		*start_wd;
 	char		*home_wd;
 	char		*logname;
-	t_dblist	*env;
+	char		**environ;
+	t_dblist	*env_list;
 	t_status	status;
 }	t_data;
 
 //		init.c
-void	init_data(t_data *data);
+void	init_data(t_data *data, char **env);
 int		init_cwd(t_data *data);
 int		write_animated_txt(char *txt_to_display, int interval, int exit_wait);
 void	init_env_variables(t_data *d);

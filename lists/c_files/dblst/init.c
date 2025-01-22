@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:07:37 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 17:02:35 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/21 21:12:55 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	dblst_add_front(t_dblist **lst, t_dblist *new)
 	*lst = new;
 }
 
-t_dblist	*dblst_init(void **values)
+t_dblist	*arr_to_dblst(void **values)
 {
 	t_dblist	*lst;
 	t_dblist	*new_node;

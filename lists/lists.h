@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:07:59 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 17:38:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/21 21:13:56 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		dblst_clear(t_dblist **lst, void (*del)(void *));
 void		dblst_delone(t_dblist *lst, void (*del)(void *));
 //			initlear
 t_dblist	*dblst_new(void *content);
-t_dblist	*dblst_init(void **values);
+t_dblist	*arr_to_dblst(void **values);
 void		dblst_add_back(t_dblist **lst, t_dblist *new);
 void		dblst_add_front(t_dblist **lst, t_dblist *new);
 //			use
@@ -71,6 +71,7 @@ t_clst		*clst_map(t_clst *lst, void *(*f)(void *), \
 void		clst_iter(t_clst *lst, void (*f)(void *));
 
 //		UTILS
-char	*list_strdup(const char *str);
+char		*list_strdup(const char *str);
+char		**list_to_arr(t_dblist *l);
 
 #endif

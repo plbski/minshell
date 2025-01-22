@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 22:41:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 17:08:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/21 21:28:46 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	free_data(t_data *data)
 	int	free_count;
 
 	free_count = 0;
-	dblst_clear(&data->env, free);
+	dblst_clear(&data->env_list, free);
 	if (data->cwd)
 		free_count += (free(data->cwd), 1);
 	if (data->prev_cwd)
