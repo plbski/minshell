@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 16:50:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
  */
 void	execute_prompt(t_data *d, char *prompt)
 {
-	if (get_char_occurence(prompt, '=') == 1)
-		export_env(d, prompt);
+	if (!ft_strncmp(prompt, "export ", 7))
+		export(d, prompt);
 	else if (!ft_strncmp(prompt, "env", 4))
-		show_env(d);
+		print_env(d);
 	else if (!ft_strncmp(prompt, "clear", 5))
 		system("clear");
 	else if (!ft_strncmp(prompt, "exit", 5))

@@ -9,6 +9,7 @@
 | Ctrl-C              | [1]    | Handle signal interruption|	exit			| Giulio			|
 | Ctrl-D              | [1]    | Handle EOF signal         |	exit			| Giulio			|
 | Ctrl-\              | [1]    | Handle quit signal        |	exit			| Giulio			|
+| exec ./             | [1]    | Handle quit signal        |	exit			| Giulio			|
 | Echo -n             | [0]    | Implement echo options    |					| Pilou				|
 | cd                  | [2]    | Implement: ~, -, relative |					| Giulio			|
 | pwd                 | [2]    | Print working directory   |					| Giulio			|

@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 00:14:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 21:29:00 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ char	*get_env_value(t_data *d, char *key)
 	return (value);
 }
 
-void	init_env_variables(t_data *d)
+void	update_env_list(t_data *d, char **env)
 {
 	if (d->env_list)
 		dblst_clear(&d->env_list, free);
-	d->env_list = arr_to_dblst((void **)d->environ);
+	d->env_list = arr_to_dblst((void **)env);
 	if (!d->env_list)
 		custom_exit(d, 0);
 }
@@ -48,7 +48,7 @@ int	update_env_variables(t_data *d)
 	return (1);
 }
 
-void	show_env(t_data *d)
+void	print_env(t_data *d)
 {
 	dblst_print_list(d->env_list);
 }
@@ -60,34 +60,7 @@ void	update_environ(t_data *d)
 	new_env = list_to_arr(d->env_list);
 	if (!new_env)
 		return ;
+	if (d->environ)
+		free_void_array((void ***)&d->environ);
 	d->environ = new_env;
-	for (int i = 0; d->environ[i]; i++)
-		printf("%s\n", d->environ[i]);
-}
-
-void	export_env(t_data *d, char *prompt)
-{
-	char		*new_content;
-	char		*key;
-	t_dblist	*new_node;
-	t_dblist	*element;
-
-	if (!get_char_occurence(prompt, '='))
-		return ;
-	key = truncate_at_end(prompt, '=');
-	if (!key)
-		return ;
-	element = get_dblst_at_key(d->env_list, key);
-	if (element)
-	{
-		free(element->content);
-		element->content = ft_strdup(prompt);
-		update_env_variables(d);
-		update_environ(d);
-		return ;
-	}
-	new_content = ft_strdup(prompt);
-	new_node = dblst_new(new_content);
-	dblst_add_back(&d->env_list, new_node);
-	update_environ(d);
 }

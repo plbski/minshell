@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 21:26:22 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ typedef struct s_data
 void	init_data(t_data *data, char **env);
 int		init_cwd(t_data *data);
 int		write_animated_txt(char *txt_to_display, int interval, int exit_wait);
-void	init_env_variables(t_data *d);
+void	update_env_list(t_data *d, char **env);
 
 //		prompt.c
 void	execute_prompt(t_data *d, char *prompt);
 int		get_terminal_prompt(t_data *d);
-void	export_env(t_data *d, char *prompt);
+void	export(t_data *d, char *prompt);
 
 //		functions.c
 void	pwd(t_data *d);
@@ -99,7 +99,8 @@ void	set_string_color(char **str, char *color);
 
 //		env
 int		update_env_variables(t_data *d);
-void	show_env(t_data *d);
+void	print_env(t_data *d);
+void	update_environ(t_data *d);
 
 //		free
 void	safe_free(void *line);

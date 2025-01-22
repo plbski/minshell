@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:09:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 17:44:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/22 16:55:27 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,30 @@ t_dblist	*dblst_last(t_dblist *lst)
 
 t_dblist	*get_dblst_at_key(t_dblist *lst, char *prefix)
 {
-	char	*content;
-	int		j;
+	t_dblist	*start;
+	char		*content;
+	int			j;
 
-	if (!prefix)
+	if (!lst || !prefix)
 		return (NULL);
 	lst = dblst_first(lst);
-	while (lst->next && lst->next->content)
+	if (!lst)
+		return (NULL);
+	start = lst;
+	while (lst)
 	{
 		content = (char *)lst->content;
+		printf("CHECKING : %s is %s?\n", content, prefix);
 		j = 0;
 		while (content[j] == prefix[j])
 			j++;
 		if (!prefix[j])
 			return (lst);
 		lst = lst->next;
+		if (lst == start)
+			break ;
 	}
+	printf("%s not found in list\n", prefix);
 	return (NULL);
 }
+

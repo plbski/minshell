@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 21:26:48 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:42:54 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ void	init_data(t_data *data, char **env)
 	data->home_wd = NULL;
 	data->logname = NULL;
 	data->doc_wd = NULL;
-	data->environ = env;
+	data->environ = NULL;
 	data->env_list = NULL;
-	init_env_variables(data);
+	update_env_list(data, env);
+	data->environ = list_to_arr(data->env_list);
 	update_env_variables(data);
 	init_cwd(data);
 }
