@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/22 16:44:46 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:09:45 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	export(t_data *d, char *prompt)
 	element = get_dblst_at_key(d->env_list, key);
 	if (element)
 	{
-		printf("%s found in list\n", key);
 		free(element->content);
 		element->content = ft_strdup(trimmed_prompt);
 		update_env_variables(d);

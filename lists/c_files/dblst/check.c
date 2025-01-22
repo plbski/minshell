@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:09:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/22 16:55:27 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:09:40 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_dblist	*get_dblst_at_key(t_dblist *lst, char *prefix)
 	while (lst)
 	{
 		content = (char *)lst->content;
-		printf("CHECKING : %s is %s?\n", content, prefix);
 		j = 0;
 		while (content[j] == prefix[j])
 			j++;
@@ -68,7 +67,6 @@ t_dblist	*get_dblst_at_key(t_dblist *lst, char *prefix)
 		if (lst == start)
 			break ;
 	}
-	printf("%s not found in list\n", prefix);
 	return (NULL);
 }
 
