@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/22 17:09:45 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:13:22 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	export(t_data *d, char *prompt)
 {
 	char		*trimmed_prompt;
-	char		*new_content;
 	char		*key;
 	t_dblist	*new_node;
 	t_dblist	*element;
@@ -30,13 +29,12 @@ void	export(t_data *d, char *prompt)
 	if (element)
 	{
 		free(element->content);
-		element->content = ft_strdup(trimmed_prompt);
+		element->content = trimmed_prompt;
 		update_env_variables(d);
 		update_environ(d);
 		return ;
 	}
-	new_content = ft_strdup(trimmed_prompt);
-	new_node = dblst_new(new_content);
+	new_node = dblst_new(trimmed_prompt);
 	dblst_add_back(&d->env_list, new_node);
 	update_environ(d);
 }
