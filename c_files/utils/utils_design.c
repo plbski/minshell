@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:50:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 13:09:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 15:07:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	write_animated_txt(char *txt_to_display, int interval, int exit_wait)
 	if (!txt)
 		return (0);
 	printf(RED);
-	printf("\n");
 	i = -1;
 	while (txt[++i])
 	{
@@ -29,7 +28,7 @@ int	write_animated_txt(char *txt_to_display, int interval, int exit_wait)
 		printf("%c", txt[i]);
 		fflush(stdout);
 	}
-	printf("\n\n");
+	printf("\n");
 	printf(RESET);
 	return (usleep(exit_wait), free(txt), 1);
 }

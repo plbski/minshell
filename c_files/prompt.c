@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 14:08:17 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 19:49:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,38 @@ int	handle_splits(t_data *d, char *prompt)
 	return (1);
 }
 
-void	execute_prompt(t_data *d, char *prompt)
+int	execute_prompt(t_data *d, char *prmpt)
 {
-	char	**splits;
+	char	**tokens;
 	char	*arg;
 	char	*flag;
 	int		i;
 
+	if (get_char_occurence(prmpt, '=') == 1 && ft_strncmp(prmpt, "export", 6))
+		return (export(d, prmpt, NULL, 1));
 	arg = NULL;
 	flag = NULL;
-	splits = ft_split(prompt, ' ');
-	if (splits)
+	tokens = ft_split(prmpt, ' ');
+	if (tokens)
 	{
-		arg = splits[1];
+		arg = tokens[1];
 		if (arg)
-			flag = splits[2];
+		{
+			(arg[0] == '$' && (arg = get_env_value(d, arg + 1)));
+			flag = tokens[2];
+		}
 	}
+	if (!ft_strncmp(prmpt, "./", 2))
+		return (exec(d, tokens[0], tokens[1], 0), \
+			free_void_array((void ***)&tokens)), 1;
 	i = -1;
 	while (d->bltin_names[++i])
-		if (!ft_strncmp(prompt, d->bltin_names[i], ft_strlen(d->bltin_names[i])))
-			d->builtin_funcs[i](d, arg, flag, 1);
+		if (!ft_strncmp(prmpt, d->bltin_names[i], \
+		ft_strlen(d->bltin_names[i])))
+			return (d->builtin_funcs[i](d, arg, flag, 1), \
+				free_void_array((void ***)&tokens), 1);
+	printf("mshell: %s: command not found\n", prmpt);
+	return (free_void_array((void ***)&tokens), 0);
 }
 
 char	*get_prompt_message(t_data *d)
@@ -61,19 +73,15 @@ char	*get_prompt_message(t_data *d)
 	char	*prompt_msg;
 	char	*icon_part;
 
-	logname_part = ft_strjoin(d->logname, " ");
+	logname_part = ft_str_mega_join(PROMPT_LOGNAME_COL, d->logname, " ", RESET);
 	if (!logname_part)
 		return (NULL);
-	set_string_color(&logname_part, PROMPT_LOGNAME_COL);
 	icon_part = ft_str_mega_join(MAGENTA, "$ ", RESET, NULL);
-	cwd_part = ft_strjoin(d->cwd, icon_part);
-	free(icon_part);
-	if (!cwd_part)
-		return (NULL);
-	set_string_color(&cwd_part, PROMPT_CWD_COL);
+	cwd_part = ft_str_mega_join(PROMPT_CWD_COL, d->cwd, icon_part, RESET);
 	prompt_msg = ft_strjoin(logname_part, cwd_part);
-	free(logname_part);
+	free(icon_part);
 	free(cwd_part);
+	free(logname_part);
 	return (prompt_msg);
 }
 
@@ -87,13 +95,13 @@ int	get_terminal_prompt(t_data *d)
 		prompt_msg = get_prompt_message(d);
 		terminal_line = readline(prompt_msg);
 		if (!terminal_line)
-			custom_exit(d, NULL, NULL, 0);
+			custom_exit(d, NULL, NULL, 1);
 		add_history(terminal_line);
 		handle_splits(d, terminal_line);
 		free(terminal_line);
 		free(prompt_msg);
 	}
 	else
-		perror("getcwd");
+		custom_exit(d, "No cwd", NULL, 1);
 	return (1);
 }

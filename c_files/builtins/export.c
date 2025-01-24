@@ -6,35 +6,66 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 13:58:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 19:55:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	export(t_data *d, char *arg, char *flags, int status)
+void	reorder_dblst(t_dblist *list)
 {
-	t_dblist	*new_node;
-	t_dblist	*element;
+	t_dblist	*db_b;
+	char		*tmp;
+	int			min_len;
 
-	(void)status;
+	while (list->next)
+	{
+		db_b = list->next;
+		while (db_b->next)
+		{
+			if (!list->content || !db_b->content)
+				continue ;
+			min_len = ft_strlen((char *)list->content);
+			if (min_len > ft_strlen((char *)db_b->content))
+				min_len = ft_strlen((char *)db_b->content);
+			if (ft_strncmp((char *)list->content, (char *)db_b->content, \
+				min_len) > 0)
+			{
+				tmp = list->content;
+				list->content = db_b->content;
+				db_b->content = tmp;
+			}
+			db_b = db_b->next;
+		}
+		list = list->next;
+	}
+}
+
+int	export(t_data *d, char *arg, char *flags, int create_in_env)
+{
+	char		*key;
+	char		*value;
+	t_dblist	*new_node;
+
+	(void)flags;
 	if (!arg)
 	{
 		reorder_dblst(dblst_first(d->env_list));
 		env(d, NULL, NULL, 1);
 		return (1);
 	}
-	element = get_dblst_at_key(d->env_list, arg);
-	if (element)
+	key = truncate_at_end(arg, '=');
+	value = ft_strchr(arg, '=') + 1;
+	if (!set_key_value(d, d->env_list, key, value))
 	{
-		free(element->content);
-		element->content = flags;
-		update_env_variables(d);
-		update_environ(d);
-		return (1);
+		new_node = dblst_new(ft_str_mega_join(key, "=", value, NULL));
+		if (!new_node->content)
+			custom_exit(d, "No prompt for node", NULL, 1);
+		if (create_in_env)
+			dblst_add_back(&d->env_list, new_node);
+		else if (!set_key_value(d, d->tmp_list, key, value))
+			dblst_add_back(&d->tmp_list, new_node);
 	}
-	new_node = dblst_new(flags);
-	dblst_add_back(&d->env_list, new_node);
 	update_environ(d);
 	return (1);
 }

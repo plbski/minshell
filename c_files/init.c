@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 14:06:06 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 20:01:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,54 +28,9 @@ int	update_cwd(t_data *data)
 		data->prev_cwd = ft_strdup(data->cwd);
 		free(data->cwd);
 	}
-	else
-	{
-		if (data->prev_cwd)
-			free(data->prev_cwd);
-		data->prev_cwd = ft_strdup(working_dir_buff);
-	}
+	set_key_value(data, data->env_list, "OLDPWD", data->prev_cwd);
 	data->cwd = working_dir_buff;
 	return (1);
-}
-
-void	init_builtins_pointers(t_data *data)
-{
-	data->builtin_funcs[e_cd] = cd;
-	data->builtin_funcs[e_clear] = clear;
-	data->builtin_funcs[e_echo] = echo;
-	data->builtin_funcs[e_env] = env;
-	data->builtin_funcs[e_exit] = custom_exit;
-	data->builtin_funcs[e_export] = export;
-	data->builtin_funcs[e_ls] = ls;
-	data->builtin_funcs[e_man] = man;
-	data->builtin_funcs[e_pwd] = pwd;
-	data->builtin_funcs[e_unset] = unset;
-}
-
-void	init_builtins_names(t_data *data)
-{
-	int	i;
-
-	data->bltin_names = malloc(11 * sizeof(char *));
-	if (!data->bltin_names)
-		custom_exit(data, NULL, NULL, 0);
-	data->bltin_names[e_cd] = ft_strdup("cd");
-	data->bltin_names[e_clear] = ft_strdup("clear");
-	data->bltin_names[e_echo] = ft_strdup("echo");
-	data->bltin_names[e_env] = ft_strdup("env");
-	data->bltin_names[e_exit] = ft_strdup("exit");
-	data->bltin_names[e_export] = ft_strdup("export");
-	data->bltin_names[e_ls] = ft_strdup("ls");
-	data->bltin_names[e_man] = ft_strdup("man");
-	data->bltin_names[e_pwd] = ft_strdup("pwd");
-	data->bltin_names[e_unset] = ft_strdup("unset");
-	data->bltin_names[10] = NULL;
-	i = -1;
-	while (data->bltin_names[++i])
-		continue ;
-	if (i != 10)
-		custom_exit(data, NULL, NULL, 0);
-	init_builtins_pointers(data);
 }
 
 int	init_data_directories(t_data *data)
@@ -101,6 +56,16 @@ int	init_cwd(t_data *data)
 	return (1);
 }
 
+void	init_shlvl(t_data *data)
+{
+	char	*lvl;
+
+	data->shlvl = 1;
+	lvl = get_env_value(data, "SHLVL");
+	if (lvl)
+		data->shlvl = ft_atoi(lvl);
+}
+
 void	init_data(t_data *data, char **env)
 {
 	g_sa_quit = 0;
@@ -113,9 +78,19 @@ void	init_data(t_data *data, char **env)
 	data->doc_wd = NULL;
 	data->environ = NULL;
 	data->env_list = NULL;
+	data->tmp_list = NULL;
 	update_env_list(data, env);
 	data->environ = list_to_arr(data->env_list);
 	update_env_variables(data);
 	init_cwd(data);
-	init_builtins_names(data);
+	init_shlvl(data);
+	init_builtins_data(data);
+	// printf("lvl : %s\n", get_env_value(data, "SHLVL"));
+	// printf("cwd : %s\n", data->cwd);
+	// printf("prv_cwd : %s\n", data->prev_cwd);
+	// printf("doc_wd : %s\n", data->doc_wd);
+	// printf("home_wd : %s\n", data->home_wd);
+	// printf("start_wd : %s\n", data->start_wd);
+	// printf("logname : %s\n", data->logname);
+	// printf("shlvl : %d\n", data->shlvl);
 }

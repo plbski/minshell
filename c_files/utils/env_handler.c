@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 14:02:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 17:44:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*get_env_value(t_data *d, char *key)
 {
 	t_dblist	*element;
 	char		*content_copy;
+	char		*no_key;
 	char		*value;
 
 	if (!d->env_list)
@@ -36,8 +37,15 @@ char	*get_env_value(t_data *d, char *key)
 	if (!element || !element->content)
 		return (NULL);
 	content_copy = ft_strdup(element->content);
-	value = ft_remove_prefix(content_copy, key);
-	return (value);
+	if (!content_copy)
+		return (NULL);
+	no_key = ft_remove_prefix(content_copy, key);
+	if (!no_key)
+		return (NULL);
+	value = ft_remove_prefix(no_key, "=");
+	if (!value)
+		return (NULL);
+	return (free(content_copy), free(no_key), value);
 }
 
 void	update_env_list(t_data *d, char **env)
@@ -46,7 +54,7 @@ void	update_env_list(t_data *d, char **env)
 		dblst_clear(&d->env_list, free);
 	d->env_list = arr_to_dblst((void **)env);
 	if (!d->env_list)
-		custom_exit(d, NULL, NULL, 0);
+		custom_exit(d, "List alloc failed", NULL, 1);
 }
 
 int	update_env_variables(t_data *d)
@@ -60,31 +68,19 @@ int	update_env_variables(t_data *d)
 	return (1);
 }
 
-void	reorder_dblst(t_dblist *list)
+int	set_key_value(t_data *d, t_dblist *list, char *key, char *value)
 {
-	t_dblist	*db_b;
-	char		*tmp;
-	int			min_len;
+	t_dblist	*element;
+	char		*new_line;
 
-	while (list->next)
-	{
-		db_b = list->next;
-		while (db_b->next)
-		{
-			if (!list->content || !db_b->content)
-				continue ;
-			min_len = ft_strlen((char *)list->content);
-			if (min_len > ft_strlen((char *)db_b->content))
-				min_len = ft_strlen((char *)db_b->content);
-			if (ft_strncmp((char *)list->content, (char *)db_b->content, \
-				min_len) > 0)
-			{
-				tmp = list->content;
-				list->content = db_b->content;
-				db_b->content = tmp;
-			}
-			db_b = db_b->next;
-		}
-		list = list->next;
-	}
+	element = get_dblst_at_key(list, key);
+	if (!element)
+		return (0);
+	new_line = ft_str_mega_join(key, "=", value, NULL);
+	if (!new_line)
+		return (custom_exit(d, "Node alloc failed", NULL, 1));
+	if (element->content)
+		free(element->content);
+	element->content = new_line;
+	return (1);
 }

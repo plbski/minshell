@@ -9,12 +9,12 @@
 | Ctrl-C              | [1]    | Handle signal interruption|	exit			| Giulio			|
 | Ctrl-D              | [1]    | Handle EOF signal         |	exit			| Giulio			|
 | Ctrl-\              | [1]    | Handle quit signal        |	exit			| Giulio			|
-| exec ./             | [1]    | Handle quit signal        |	exit			| Giulio			|
-| Echo -n             | [0]    | Implement echo options    |					| Pilou				|
+| exec ./             | [2]    | Handle quit signal        |	exit			| Giulio			|
+| Echo -n             | [2]    | Implement echo options    |					| Pilou				|
 | cd                  | [2]    | Implement: ~, -, relative |					| Giulio			|
 | pwd                 | [2]    | Print working directory   |					| Giulio			|
-| export              | [0]    | Set environment variables |	env				| Pilou				|
-| unset               | [0]    | Remove environment vars   |					| Pilou				|
+| export              | [2]    | Set environment variables |	env				| Pilou				|
+| unset               | [2]    | Remove environment vars   |					| Pilou				|
 | env                 | [2]    | Display environment vars  |	Import env		| Pilou				|
 | exit                | [2]    | Exit shell properly       |					| Giulio			|
 | "<>" redirection    | [0]    | Handle file redirection   | 					| Giulio			|

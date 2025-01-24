@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 13:58:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 15:00:22 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int	echo(t_data *d, char *arg, char *flags, int status)
 	(void)d;
 	(void)flags;
 	(void)status;
-	printf("%s\n", arg);
+	if (!ft_strncmp(arg, "$$", 3))
+		printf("%d\n", getpid());
+	else
+		printf("%s\n", arg);
 	return (1);
 }

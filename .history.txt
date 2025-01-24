@@ -1,40 +1,383 @@
-data
-pasta
-clear
+ola
+COOL
+cool
 ls
 pwd
+cd /Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3
+ls
+cd Philosophers/
+cd ..
+clear
+clear
+cool
+clear
+make re
+cool
+echo "cool"
+clear
+clear
+./minishel
+./minishell
+./ola
+clear
+make re
+./minishell
+exit
+env
+./minishell
+env
+./minishell 
+exit
+./minishell
+./minishell 
+./minishell 
+cd ..
+echo $SHLVL
+clear
+./minishell
+env
+./minishell 
+./minishell 
+./minishell 
+clear
+cd ..
 cd ..
 cd -
+cd minishell
+./minishell
+make re
+./minishell
+env
 cd ..
-cd ..
-cd ..
-cd
-clear
-cd
 ls
+cd Philosophers/
+ls
+./a.out
 clear
 clear
 ls
-pwd
-echo 
-echo ola
+cd ..
+cd ..
+ls
 cd ..
 clear
-cd ..
-cd ..
-clear
-cd ..
-cd ola
 ls
 cd 42_Projects_GIT/
+ls
+cd core_2
 clear
 ls
-cd .git
+cd So_Long/
+clear
+ls
+make re
+cd ..
+cd ..
+clear
+ls
+cd core_1
+clear
+ls
+cd FT_PRINTF/
+clear
+ls
+./a.out
 ls
 cd ..
-pwd
-echo ola
-echo COOOOOL
 clear
-sudo apt install brew
-sudo apt install homebrew
+ls
+env
+./minishell 
+./minishell
+clear
+ls
+pwd
+cd ..
+ped
+pwd
+cd      minishell
+cd       .. minishell
+ls
+cat .history.txt
+ehco $$
+echo $$
+./minishell 
+cd ..-
+cd . .
+cd .
+cd . .
+cd . o
+cd . o
+cd . oal
+cd . -d
+man cd
+man git_init
+cleqr
+man git_init
+man cd
+man git_init
+make re
+man git_init
+man git_init
+man git_init
+man git_init
+make re
+man git_init
+make re
+man git_init
+man git_init
+man git_init
+make re
+man git_init
+man git_init
+man git_init
+man git_init
+man git_init
+man cd
+man ls
+ls
+pwd
+man ls
+ls
+cd ..
+./minishell/minishell
+clear
+env
+export ola=3
+env
+exec minishell
+export
+clear
+export ola=3
+clear
+export ola=3
+clear
+export ola=3
+clear
+export ola=
+export ola=1
+export ola=3
+env
+export ola=5
+env
+export olo=5
+env
+exit
+clear
+ls
+pwd
+clear
+./minishell
+clear
+ls
+pwd
+clear
+ls
+export ola=3
+env
+ola=3
+env
+export ola=3
+env
+ola=5
+env
+ola=6
+env
+clear
+ola=3
+export=3
+ola=3
+env
+clear
+ola=5
+ola=5
+clear
+export
+clear
+exit
+exit
+cd ..
+exit
+env
+exit
+export 3=3
+exit
+export 3=3
+exit
+ola=3
+ola=5
+$ola
+alo
+pao
+msoal
+olap
+ola=3
+ola=3
+ls ola 3
+ls ola 3 1
+clear ls
+ls . .
+echo ol ol
+echo ola
+echo ol al
+cd ol al
+ola ola
+ola ola ola
+cd . .
+echo . .
+pwd ola
+clear
+ls ls
+ls a
+ls -a -a
+clear
+ls la
+ls
+ls 
+make re
+ls
+ls
+ls
+ls
+clear
+ls
+ls
+ls
+ls
+ls
+pwd
+ls
+exit ola
+exit
+export ola alo
+env
+clear
+export ola ola
+env
+export ola= ola
+env
+alo=3
+export alo=3
+env
+unset alo
+env
+export
+alo=3
+ola=3
+$ola
+export ola=..
+cd $ola
+env
+ola=3
+env
+export ola=3
+env
+export cool=5
+env
+export
+export ola=3
+env
+make re
+export ola=3
+env
+export Ola=3
+env
+export ola=..
+cd $ola
+env
+cd $ola
+clear
+cd $arg
+cd -
+cd -
+clear
+cd . .
+cd ola
+cd ..
+ls
+pwd
+clear
+cd ..
+clear
+cd ..
+export cd_env=..
+cd $cd_env
+cd ..
+cd ....
+cd ..
+env
+export $ola=.
+cd $ola
+ls
+cd -
+cd ..
+cd -
+cd -
+cd -
+export arg=..
+cd $arg
+export ola=3
+cd $olva
+cd $ola
+cd ..
+export ola=3
+cd $ola
+env
+export ola=3
+env
+env
+export ola=3
+env
+make re
+export ola=3
+export ola=3
+export ola=3
+ls
+pwd
+clear
+ls
+clear
+env
+clear
+echo ola
+export ola=3
+export ola=3
+export ola=3
+env
+export cool=3
+env
+export ola=3
+export ola=3
+export ola=3
+env
+export
+export ola=5
+env
+export ola=3
+env
+export alo=3
+env
+export cd_dir=..
+cd $cd_dir
+cd $cd_dir
+export cd_cidr=/Users/giuliovalente/
+cd $cd_dir
+env
+cd $cd_cidr
+cd -
+cd -
+cd ..
+cd -
+cd -
+cd -
+cd -
+cd -
+cd ..
+cd -
+cd -
+cd -
+clear
+ls
+pwd
+echo cool
+echo cool >> ola.txt
