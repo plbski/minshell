@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 04:35:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/23 05:24:40 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 13:09:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "../../header.h"
 
 // Your ft_strstr function (unchanged)
 char	*ft_strstr(char *str, char *to_find)
@@ -123,16 +123,16 @@ char	*remove_char(char **txt, char c)
 		if (*txt[i] == c)
 			new_len--;
 	}
+	if (new_len == ft_strlen(*txt))
+		return (*txt);
 	new_str = malloc(new_len + 1);
 	j = 0;
 	i = -1;
 	while (*txt[++i])
 	{
 		if (*txt[i] != c)
-			new_str[j++] = c;
+			new_str[j++] = *txt[i];
 	}
 	new_str[j] = '\0';
-	free(*txt);
-	*txt = new_str;
-	return (*txt);
+	return (free(*txt), *txt = new_str, *txt);
 }

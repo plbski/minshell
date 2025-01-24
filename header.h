@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/23 05:24:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 14:02:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <time.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <dirent.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define START_ANIM_TEXT "~~~ Minishell by gvlente & pbuet ~~~"
 # define END_ANIM_TEXT	 "~~~ EXIT ~~~"
@@ -42,6 +42,20 @@
 # define PROMPT_LOGNAME_COL 	GREEN
 # define PROMPT_CWD_COL			YELLOW
 
+typedef enum e_builtins
+{
+	e_cd,
+	e_clear,
+	e_echo,
+	e_env,
+	e_exit,
+	e_export,
+	e_ls,
+	e_man,
+	e_pwd,
+	e_unset
+}	t_builtins_types;
+
 typedef enum e_data_status
 {
 	running,
@@ -56,12 +70,18 @@ typedef struct s_data
 	char		*prev_cwd;
 	char		*doc_wd;
 	char		*start_wd;
+	char		*history_wd;
 	char		*home_wd;
 	char		*logname;
 	char		**environ;
 	t_dblist	*env_list;
 	t_status	status;
+	char		**bltin_names;
+	int			(*builtin_funcs[])(struct s_data *data, \
+		char *arg, char *flag, int status);
 }	t_data;
+
+int		g_sa_quit;
 
 //		init.c
 void	init_data(t_data *data, char **env);
@@ -72,15 +92,25 @@ void	update_env_list(t_data *d, char **env);
 //		prompt.c
 void	execute_prompt(t_data *d, char *prompt);
 int		get_terminal_prompt(t_data *d);
-void	export(t_data *d, char *prompt);
-void	echo(t_data *d, char *prompt);
 
-//		functions.c
-void	pwd(t_data *d);
-void	cd(t_data *d, char *prompt);
-int		man(t_data *d, char *prompt_line);
-int		ls(t_data *d);
-void	custom_exit(t_data *data, int status);
+//		builtins
+int		cd(t_data *d, char *arg, char *flags, int status);
+int		clear(t_data *d, char *arg, char *flags, int status);
+int		echo(t_data *d, char *arg, char *flags, int status);
+int		env(t_data *d, char *arg, char *flags, int status);
+int		custom_exit(t_data *data, char *arg, char *flags, int status);
+int		export(t_data *d, char *arg, char *flags, int status);
+int		ls(t_data *d, char *arg, char *flags, int status);
+int		man(t_data *d, char *arg, char *flags, int status);
+int		pwd(t_data *d, char *arg, char *flags, int status);
+int		unset(t_data *d, char *arg, char *flags, int status);
+
+//		utils
+void	update_environ(t_data *d);
+char	*get_env_value(t_data *d, char *key);
+void	update_env_list(t_data *d, char **env);
+int		update_env_variables(t_data *d);
+void	reorder_dblst(t_dblist *list);
 
 //		signal
 void	setup_signal(void);
@@ -99,9 +129,7 @@ void	set_string_color(char **str, char *color);
 
 //		env
 int		update_env_variables(t_data *d);
-void	print_env(t_data *d);
 void	update_environ(t_data *d);
-void	unset(t_data *d, char *prompt);
 
 //		STRSTR
 char	**ft_split_str(char *str, char *sep);
@@ -111,5 +139,9 @@ char	*remove_char(char **txt, char c);
 //		free
 void	safe_free(void *line);
 int		free_void_array(void ***item);
+int		free_data(t_data *data);
+
+int		write_at_rel_path(t_data *d, char *content, char *file_name);
+int		write_at_abs_path(char *content, char *path, int flags);
 
 #endif

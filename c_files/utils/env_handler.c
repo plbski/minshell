@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 00:14:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
+/*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
+/*   Updated: 2025/01/24 14:02:20 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "../../header.h"
+
+void	update_environ(t_data *d)
+{
+	char		**new_env;
+
+	new_env = list_to_arr(d->env_list);
+	if (!new_env)
+		return ;
+	if (d->environ)
+		free_void_array((void ***)&d->environ);
+	d->environ = new_env;
+}
 
 char	*get_env_value(t_data *d, char *key)
 {
@@ -34,7 +46,7 @@ void	update_env_list(t_data *d, char **env)
 		dblst_clear(&d->env_list, free);
 	d->env_list = arr_to_dblst((void **)env);
 	if (!d->env_list)
-		custom_exit(d, 0);
+		custom_exit(d, NULL, NULL, 0);
 }
 
 int	update_env_variables(t_data *d)
@@ -48,19 +60,31 @@ int	update_env_variables(t_data *d)
 	return (1);
 }
 
-void	print_env(t_data *d)
+void	reorder_dblst(t_dblist *list)
 {
-	dblst_print_list(d->env_list);
-}
+	t_dblist	*db_b;
+	char		*tmp;
+	int			min_len;
 
-void	update_environ(t_data *d)
-{
-	char		**new_env;
-
-	new_env = list_to_arr(d->env_list);
-	if (!new_env)
-		return ;
-	if (d->environ)
-		free_void_array((void ***)&d->environ);
-	d->environ = new_env;
+	while (list->next)
+	{
+		db_b = list->next;
+		while (db_b->next)
+		{
+			if (!list->content || !db_b->content)
+				continue ;
+			min_len = ft_strlen((char *)list->content);
+			if (min_len > ft_strlen((char *)db_b->content))
+				min_len = ft_strlen((char *)db_b->content);
+			if (ft_strncmp((char *)list->content, (char *)db_b->content, \
+				min_len) > 0)
+			{
+				tmp = list->content;
+				list->content = db_b->content;
+				db_b->content = tmp;
+			}
+			db_b = db_b->next;
+		}
+		list = list->next;
+	}
 }

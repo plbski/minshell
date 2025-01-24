@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:14:36 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 12:50:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 12:34:28 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	sigquit_handler(int sig __attribute__((unused)))
  */
 void	sigterm_handler(int sig __attribute__((unused)))
 {
-	exit(0);
+	g_sa_quit = 1;
 }
 
 void	setup_signal(void)

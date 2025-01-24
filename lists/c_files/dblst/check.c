@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:09:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/22 17:09:40 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:01:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,3 @@ t_dblist	*get_dblst_at_key(t_dblist *lst, char *prefix)
 	}
 	return (NULL);
 }
-

@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls.c                                               :+:      :+:    :+:   */
+/*   man.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 00:57:08 by giuliovalen      ###   ########.fr       */
+/*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
+/*   Updated: 2025/01/24 13:56:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "../../header.h"
 
-int	ls(t_data *d)
+void	open_doc_content(char *path)
 {
-	struct dirent	*entry;
-	DIR				*directory;
+	int		fd;
+	char	*line;
 
-	(void)d;
-	directory = opendir(d->cwd);
-	if (directory == NULL)
-		return (0);
-	entry = readdir(directory);
-	while (entry != NULL)
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return ;
+	line = get_next_line(fd);
+	while (line)
 	{
-		printf("%-10s", entry->d_name);
-		entry = readdir(directory);
-		printf("\n");
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
 	}
 	printf("\n");
-	closedir(directory);
+}
+
+int	man(t_data *d, char *arg, char *flags, int status)
+{
+	(void)d;
+	(void)flags;
+	(void)status;
+
+	if (access(arg, F_OK) == -1)
+		printf("file not in %s\n", arg);
+	open_doc_content(arg);
 	return (1);
 }

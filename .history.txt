@@ -1,0 +1,40 @@
+data
+pasta
+clear
+ls
+pwd
+cd ..
+cd -
+cd ..
+cd ..
+cd ..
+cd
+clear
+cd
+ls
+clear
+clear
+ls
+pwd
+echo 
+echo ola
+cd ..
+clear
+cd ..
+cd ..
+clear
+cd ..
+cd ola
+ls
+cd 42_Projects_GIT/
+clear
+ls
+cd .git
+ls
+cd ..
+pwd
+echo ola
+echo COOOOOL
+clear
+sudo apt install brew
+sudo apt install homebrew

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/23 05:13:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 14:08:17 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,24 @@ int	handle_splits(t_data *d, char *prompt)
 
 void	execute_prompt(t_data *d, char *prompt)
 {
-	if (!ft_strncmp(prompt, "export", 6))
-		export(d, prompt);
-	else if (!ft_strncmp(prompt, "unset ", 6))
-		unset(d, prompt);
-	else if (!ft_strncmp(prompt, "env", 4))
-		print_env(d);
-	else if (!ft_strncmp(prompt, "clear", 5))
-		system("clear");
-	else if (!ft_strncmp(prompt, "exit", 5))
-		custom_exit(d, 0);
-	else if (!ft_strncmp(prompt, "man ", 4))
-		man(d, prompt);
-	else if (!ft_strncmp(prompt, "ls", 2))
-		ls(d);
-	else if (!ft_strncmp(prompt, "cd ", 3))
-		cd(d, prompt);
-	else if (!ft_strncmp(prompt, "pwd", 4))
-		pwd(d);
-	else if (!ft_strncmp(prompt, "echo ", 5))
-		echo(d, prompt);
+	char	**splits;
+	char	*arg;
+	char	*flag;
+	int		i;
+
+	arg = NULL;
+	flag = NULL;
+	splits = ft_split(prompt, ' ');
+	if (splits)
+	{
+		arg = splits[1];
+		if (arg)
+			flag = splits[2];
+	}
+	i = -1;
+	while (d->bltin_names[++i])
+		if (!ft_strncmp(prompt, d->bltin_names[i], ft_strlen(d->bltin_names[i])))
+			d->builtin_funcs[i](d, arg, flag, 1);
 }
 
 char	*get_prompt_message(t_data *d)
@@ -89,7 +87,7 @@ int	get_terminal_prompt(t_data *d)
 		prompt_msg = get_prompt_message(d);
 		terminal_line = readline(prompt_msg);
 		if (!terminal_line)
-			return (d->status = quitting, 0);
+			custom_exit(d, NULL, NULL, 0);
 		add_history(terminal_line);
 		handle_splits(d, terminal_line);
 		free(terminal_line);

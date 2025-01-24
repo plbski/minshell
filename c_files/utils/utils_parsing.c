@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/23 03:29:36 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/24 13:09:13 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "../../header.h"
 
 char	*ft_remove_prefix(char *str, char *prefix)
 {
