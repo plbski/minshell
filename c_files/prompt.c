@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/23 05:13:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,27 @@
  * @attention 
  * @todo 
  */
+int	handle_splits(t_data *d, char *prompt)
+{
+	char	**splits;
+	int		i;
+
+	(void)d;
+	splits = ft_split_str(prompt, "&&");
+	if (!splits)
+		return (0);
+	i = -1;
+	while (splits[++i])
+		execute_prompt(d, splits[i]);
+	return (1);
+}
+
 void	execute_prompt(t_data *d, char *prompt)
 {
-	if (!ft_strncmp(prompt, "export ", 7))
+	if (!ft_strncmp(prompt, "export", 6))
 		export(d, prompt);
+	else if (!ft_strncmp(prompt, "unset ", 6))
+		unset(d, prompt);
 	else if (!ft_strncmp(prompt, "env", 4))
 		print_env(d);
 	else if (!ft_strncmp(prompt, "clear", 5))
@@ -36,7 +53,7 @@ void	execute_prompt(t_data *d, char *prompt)
 	else if (!ft_strncmp(prompt, "pwd", 4))
 		pwd(d);
 	else if (!ft_strncmp(prompt, "echo ", 5))
-		create_file(d, "hello", "/coucou.txt");
+		echo(d, prompt);
 }
 
 char	*get_prompt_message(t_data *d)
@@ -74,7 +91,7 @@ int	get_terminal_prompt(t_data *d)
 		if (!terminal_line)
 			return (d->status = quitting, 0);
 		add_history(terminal_line);
-		execute_prompt(d, terminal_line);
+		handle_splits(d, terminal_line);
 		free(terminal_line);
 		free(prompt_msg);
 	}

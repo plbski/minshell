@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:22:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 21:19:37 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/23 03:27:35 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

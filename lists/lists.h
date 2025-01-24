@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:07:59 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 21:13:56 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/23 03:38:02 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ typedef struct s_dblink_list
 	struct s_dblink_list	*prev;
 }	t_dblist;
 
+typedef struct s_dictionary
+{
+	char				*key;
+	char				*value;
+}	t_key_value;
 
 //		DB_LIST
 //			check
@@ -54,7 +59,6 @@ t_dblist	*get_dblst_at_key(t_dblist *lst, char *prefix);
 void		dblst_print_list(t_dblist *lst);
 
 //		CIRC_LIST
-
 //		init
 t_clst		*clst_new(void *content);
 void		clst_add_back(t_clst **lst, t_clst *new);

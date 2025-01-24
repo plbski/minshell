@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/22 16:47:38 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/23 05:24:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	update_env_list(t_data *d, char **env);
 void	execute_prompt(t_data *d, char *prompt);
 int		get_terminal_prompt(t_data *d);
 void	export(t_data *d, char *prompt);
+void	echo(t_data *d, char *prompt);
 
 //		functions.c
 void	pwd(t_data *d);
@@ -89,7 +90,6 @@ char	*ft_remove_prefix(char *str, char *prefix);
 char	*truncate_at_end(char *str, const char cut_letter);
 int		update_cwd(t_data *data);
 char	*get_next_line(int fd);
-int		create_file(t_data *d, char *content, char *file_name);
 char	*get_array_element_with_prefix(char **array, char *prefix);
 char	*ft_str_mega_join(char *a, char *b, char *c, char *d);
 int		get_char_occurence(char *str, char c);
@@ -101,6 +101,12 @@ void	set_string_color(char **str, char *color);
 int		update_env_variables(t_data *d);
 void	print_env(t_data *d);
 void	update_environ(t_data *d);
+void	unset(t_data *d, char *prompt);
+
+//		STRSTR
+char	**ft_split_str(char *str, char *sep);
+char	*ft_strstr(char *str, char *to_find);
+char	*remove_char(char **txt, char c);
 
 //		free
 void	safe_free(void *line);

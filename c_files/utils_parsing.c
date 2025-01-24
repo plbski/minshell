@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 21:06:42 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/23 03:29:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ char	*truncate_at_end(char *str, char cut_letter)
 
 	if (!str)
 		return (NULL);
-	i = ft_strlen(str) - 1;
-	while (i >= 0)
-	{
+	i = ft_strlen(str);
+	while (--i >= 0)
 		if (str[i] == cut_letter)
 			break ;
-		i--;
-	}
 	if (i < 0)
 		return (ft_strdup(str));
 	trunc_index = i;
@@ -48,8 +45,7 @@ char	*truncate_at_end(char *str, char cut_letter)
 	i = -1;
 	while (++i < trunc_index)
 		trunc_str[i] = str[i];
-	trunc_str[i] = '\0';
-	return (trunc_str);
+	return (trunc_str[i] = '\0', trunc_str);
 }
 
 char	*get_array_element_with_prefix(char **array, \
