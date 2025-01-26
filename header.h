@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 12:33:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 18:18:45 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 
 # define PROMPT_LOGNAME_COL 	CYAN
 # define PROMPT_CWD_COL			YELLOW
+
+# define _UNUSED __attribute__((unused))
 
 typedef enum e_builtins
 {
@@ -80,10 +82,8 @@ typedef struct s_data
 	t_status	status;
 	char		**bltin_names;
 	int			(*builtin_funcs[])(struct s_data *data, \
-		char *arg, char *flag, int status);
+		char *arg, char **flag, int status);
 }	t_data;
-
-int		g_sa_quit;
 
 //		init.c
 void	init_data(t_data *data, char **env);
@@ -96,17 +96,17 @@ int		get_terminal_prompt(t_data *d);
 int		execute_prompt(t_data *d, char *prompt);
 
 //		builtins
-int		cd(t_data *d, char *arg, char *flags, int status);
-int		clear(t_data *d, char *arg, char *flags, int status);
-int		echo(t_data *d, char *arg, char *flags, int status);
-int		env(t_data *d, char *arg, char *flags, int no_prefix);
-int		exec(t_data *d, char *arg, char *flags, int status);
-int		custom_exit(t_data *data, char *arg, char *flags, int status);
-int		export(t_data *d, char *arg, char *flags, int tmp_mem);
-int		ls(t_data *d, char *arg, char *flags, int status);
-int		man(t_data *d, char *arg, char *flags, int status);
-int		pwd(t_data *d, char *arg, char *flags, int status);
-int		unset(t_data *d, char *arg, char *flags, int status);
+int		cd(t_data *d, char *arg, char **flags, int status);
+int		clear(t_data *d, char *arg, char **flags, int status);
+int		echo(t_data *d, char *arg, char **flags, int status);
+int		env(t_data *d, char *arg, char **flags, int has_prefix);
+int		exec(t_data *d, char *arg, char **flags, int status);
+int		custom_exit(t_data *data, char *arg, char **flags, int status);
+int		export(t_data *d, char *arg, char **flags, int tmp_mem);
+int		ls(t_data *d, char *arg, char **flags, int status);
+int		man(t_data *d, char *arg, char **flags, int status);
+int		pwd(t_data *d, char *arg, char **flags, int status);
+int		unset(t_data *d, char *arg, char **flags, int status);
 
 //		utils
 void	update_environ(t_data *d);
@@ -115,23 +115,28 @@ void	update_env_list(t_data *d, char **env);
 int		update_env_variables(t_data *d);
 void	reorder_dblst(t_dblist *list);
 int		set_key_value(t_data *d, t_dblist *list, char *key, char *value);
+int		update_cwd(t_data *data);
 
 //		signal
-void	setup_signal(void);
+void	setup_signal(int is_waiting);
 
 //		utils_parsing
 char	*ft_remove_prefix(char *str, char *prefix);
 char	*truncate_at_end(char *str, const char cut_letter);
-int		update_cwd(t_data *data);
 char	*get_next_line(int fd);
-char	*get_array_element_with_prefix(char **array, char *prefix);
 char	*ft_str_mega_join(const char *a, const char *b, \
 	const char *c, const char *d);
 int		get_char_occurence(char *str, char c);
+int		get_arr_len(void **arr);
+
+//		utils_parsing_2
+int		handle_splits(t_data *d, char *prompt);
+char	**get_flags(t_data *d, char *prmpt, char **cmd_name, char **arg);
 
 //		utils_design
 void	set_string_color(char **str, char *color);
 int		write_anim_txt(t_data *d, const char *txt, int intrv, int exit_w);
+int		is_same_string(char *a, char *b);
 
 //		env
 int		update_env_variables(t_data *d);
@@ -143,7 +148,7 @@ char	*ft_strstr(char *str, char *to_find);
 char	*remove_char(char **txt, char c);
 
 //		free
-void	safe_free(void *line);
+int		safe_free(void *item);
 int		free_void_array(void ***item);
 int		free_data(t_data *data);
 

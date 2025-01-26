@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 12:26:27 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 17:48:13 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	init_shlvl(t_data *data)
 
 void	init_data(t_data *data, char **env)
 {
-	g_sa_quit = 0;
 	data->status = running;
 	data->cwd = NULL;
 	data->prev_cwd = NULL;

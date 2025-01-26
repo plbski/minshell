@@ -6,16 +6,20 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 12:05:37 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 18:23:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-void	safe_free(void *line)
+int	safe_free(void *item)
 {
-	if (line)
-		free(line);
+	if (item)
+	{
+		free(item);
+		return (1);
+	}
+	return (0);
 }
 
 int	free_void_array(void ***item)
@@ -41,15 +45,18 @@ int	free_data(t_data *data)
 	int	free_count;
 
 	free_count = 0;
+	free_count += dblst_size(data->env_list);
 	dblst_clear(&data->env_list, free);
-	if (data->cwd)
-		free_count += (free(data->cwd), 1);
-	if (data->prev_cwd)
-		free_count += (free(data->prev_cwd), 1);
-	if (data->doc_wd)
-		free_count += (free(data->doc_wd), 1);
-	if (data->start_wd)
-		free_count += (free(data->start_wd), 1);
+	free_count += dblst_size(data->tmp_list);
+	dblst_clear(&data->tmp_list, free);
+	free_count += free_void_array((void ***)&data->bltin_names);
+	free_count += free_void_array((void ***)&data->environ);
+	free_count += safe_free(data->cwd);
+	free_count += safe_free(data->prev_cwd);
+	free_count += safe_free(data->start_wd);
+	free_count += safe_free(data->doc_wd);
+	free_count += safe_free(data->history_wd);
+	free_count += safe_free(data->logname);
 	printf("freed %d items.\n", free_count);
 	return (free_count);
 }

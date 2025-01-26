@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 12:40:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 18:07:57 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,16 @@ void	reorder_dblst(t_dblist *list)
 	}
 }
 
-int	export(t_data *d, char *arg, char **flags, int tmp_mem)
+int	export(t_data *d, char *arg, char **flags _UNUSED, int tmp_mem)
 {
 	char		*key;
 	char		*value;
 	t_dblist	*new_node;
 
-	(void)flags;
 	if (!arg)
 	{
 		reorder_dblst(dblst_first(d->env_list));
-		env(d, NULL, NULL, 0);
+		env(d, NULL, NULL, 1);
 		return (1);
 	}
 	key = truncate_at_end(arg, '=');

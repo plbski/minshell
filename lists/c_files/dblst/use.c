@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:10:13 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 12:06:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 14:49:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ void	print_prefixed_content(void *content)
 		printf("export %s\n", (char *)content);
 }
 
-void	dblst_print_list(t_dblist *lst, int no_prefix)
+void	dblst_print_list(t_dblist *lst, int has_prefix)
 {
 	if (lst)
 	{
-		if (no_prefix)
-			dblst_iter(lst, print_content);
-		else
+		if (has_prefix)
 			dblst_iter(lst, print_prefixed_content);
+		else
+			dblst_iter(lst, print_content);
 	}
 }

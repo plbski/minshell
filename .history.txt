@@ -1,607 +1,110 @@
-ola
-COOL
-cool
 ls
-pwd
-cd /Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3
-ls
-cd Philosophers/
-cd ..
-clear
-clear
-cool
-clear
-make re
-cool
-echo "cool"
-clear
-clear
-./minishel
-./minishell
-./ola
-clear
-make re
-./minishell
-exit
-env
-./minishell
-env
-./minishell 
-exit
-./minishell
-./minishell 
-./minishell 
-cd ..
-echo $SHLVL
-clear
-./minishell
-env
-./minishell 
-./minishell 
-./minishell 
-clear
-cd ..
-cd ..
-cd -
-cd minishell
-./minishell
-make re
-./minishell
-env
-cd ..
-ls
-cd Philosophers/
-ls
-./a.out
-clear
-clear
-ls
-cd ..
-cd ..
-ls
-cd ..
-clear
-ls
-cd 42_Projects_GIT/
-ls
-cd core_2
-clear
-ls
-cd So_Long/
-clear
-ls
-make re
-cd ..
-cd ..
-clear
-ls
-cd core_1
-clear
-ls
-cd FT_PRINTF/
-clear
-ls
-./a.out
-ls
-cd ..
-clear
-ls
-env
-./minishell 
-./minishell
-clear
-ls
-pwd
-cd ..
-ped
-pwd
-cd      minishell
-cd       .. minishell
-ls
-cat .history.txt
-ehco $$
-echo $$
-./minishell 
-cd ..-
-cd . .
-cd .
-cd . .
-cd . o
-cd . o
-cd . oal
-cd . -d
-man cd
-man git_init
-cleqr
-man git_init
-man cd
-man git_init
-make re
-man git_init
-man git_init
-man git_init
-man git_init
-make re
-man git_init
-make re
-man git_init
-man git_init
-man git_init
-make re
-man git_init
-man git_init
-man git_init
-man git_init
-man git_init
-man cd
-man ls
-ls
-pwd
-man ls
-ls
-cd ..
-./minishell/minishell
-clear
-env
-export ola=3
-env
-exec minishell
-export
-clear
-export ola=3
-clear
-export ola=3
-clear
-export ola=3
-clear
-export ola=
-export ola=1
-export ola=3
-env
-export ola=5
-env
-export olo=5
-env
-exit
-clear
-ls
-pwd
-clear
-./minishell
-clear
-ls
-pwd
-clear
-ls
-export ola=3
-env
-ola=3
-env
-export ola=3
-env
-ola=5
-env
-ola=6
-env
-clear
-ola=3
-export=3
-ola=3
-env
-clear
-ola=5
-ola=5
-clear
-export
-clear
-exit
-exit
-cd ..
-exit
-env
-exit
-export 3=3
-exit
-export 3=3
-exit
-ola=3
-ola=5
-$ola
-alo
-pao
-msoal
-olap
-ola=3
-ola=3
-ls ola 3
-ls ola 3 1
-clear ls
-ls . .
-echo ol ol
-echo ola
-echo ol al
-cd ol al
-ola ola
-ola ola ola
-cd . .
-echo . .
-pwd ola
-clear
-ls ls
-ls a
-ls -a -a
-clear
-ls la
-ls
-ls 
-make re
-ls
-ls
-ls
-ls
-clear
-ls
-ls
-ls
-ls
-ls
-pwd
-ls
-exit ola
-exit
-export ola alo
-env
-clear
-export ola ola
-env
-export ola= ola
-env
-alo=3
-export alo=3
-env
-unset alo
-env
-export
-alo=3
-ola=3
-$ola
-export ola=..
-cd $ola
-env
-ola=3
-env
-export ola=3
-env
-export cool=5
-env
-export
-export ola=3
-env
-make re
-export ola=3
-env
-export Ola=3
-env
-export ola=..
-cd $ola
-env
-cd $ola
-clear
-cd $arg
-cd -
-cd -
-clear
-cd . .
-cd ola
-cd ..
-ls
-pwd
-clear
-cd ..
-clear
-cd ..
-export cd_env=..
-cd $cd_env
-cd ..
-cd ....
-cd ..
-env
-export $ola=.
-cd $ola
-ls
-cd -
-cd ..
-cd -
-cd -
-cd -
-export arg=..
-cd $arg
-export ola=3
-cd $olva
-cd $ola
-cd ..
-export ola=3
-cd $ola
-env
-export ola=3
-env
-env
-export ola=3
-env
-make re
-export ola=3
-export ola=3
-export ola=3
-ls
-pwd
-clear
-ls
-clear
-env
-clear
-echo ola
-export ola=3
-export ola=3
-export ola=3
-env
-export cool=3
-env
-export ola=3
-export ola=3
-export ola=3
-env
-export
-export ola=5
-env
-export ola=3
-env
-export alo=3
-env
-export cd_dir=..
-cd $cd_dir
-cd $cd_dir
-export cd_cidr=/Users/giuliovalente/
-cd $cd_dir
-env
-cd $cd_cidr
-cd -
-cd -
-cd ..
-cd -
-cd -
-cd -
-cd -
-cd -
-cd ..
-cd -
-cd -
-cd -
-clear
-ls
-pwd
-echo cool
-echo cool >> ola.txt
-clear
-ls
-pwd
-cd ..
-cd ..
-cd .. -ola
-cd ..-ola
-clear
-cd ..-0a
-./minishell 
-./minishell 
-clear
-ls
-pwd
-clear
-cd. .
-cd. .
-cd. .
-cd. ..
-echo. ola
-cd. .
-echo .
-echo ola
-cd ..
-clear
-cd ..
-cd. .
-cdola .
-cd -
-cd -.
-mshell
-cdlôlapo .
-olapo .
-cdolapo .
-cdolapo .
-cd ..
-cd. .
-cd olapo
-clear
-cd ..
-cd ..
-cd ..
-cd ..
-cd ..
-clear
-cd ..
-cdola ..
-cdolapoquaka
-cd
-cd
-cdola
-cdolapqau
-cd ..
-cdola ..
-cd. ..
-clear
-clearo
-clearo
-clear
-cd ..
-cd ..
-cd -
-exit
-./minishell
-cd ..
-ls
-./minishell/minishell
-pwd
-export minidir=/Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell
-./minidir
-./minidir
-./
-./
-cd ..
-./
-./olaflamingo
-./minishell
-./ola
-./olash
-./mini
-./minishell
-env
-ls
-export dir=./minishell
-$minishell
-./minishell
-make re
-clear
-$ola
-echo $olo
-export ola=3
-echo $ola
-cd $ola
-export mini=./minishell
-$mini
-$mini
-$mini
-$mini
-export ola=2
-echo $ola
-env
-unset ola
-env
-export
-export
-./minishell
-clear
-ls
-cd ..
-ls
-clear
-ls
-cd ..
-clear
-ls
-cd core_2
-ls
-cd minitalk/
-clear
-ls
-cd ..
-clear
-ls
-cd pipex
-clear
-ls
-cd ..
-cd ..
-clear
-ls
-cd core_1
-clear
-ls
-cd get_next_line
-ls
-./a.out
-clear
-ls
-cd ..
-ls
-cd FT_PRINTF/
-clear
-ls
-./a.out 
-cd ..
-ls
-cd get_next_lineV3
-clear
-ls
-./a.out
-cd ..
-cd ..
-clear
-ls
-cd core_4
-ls
-clear
-cd .
-cd ..
-clear
-ls
-cd core_3
-ls
-cd ..
-clear
-ls
-cd core_2
-clear
-ls
-cd So_Long/
-clear
-ls
-./bonus
-./a.out
-./bonus Randomap.ber
-clear
-clear
-./test_program.c 
-./a.out 
-./a.out ola
-./test_program.c 
-./a.out
-./a.out ola
 clear
 ./a.out 
-./a.out cool
-  
-   
-    
-   -
-.
-.
-clear
-    .
-  qwmcqew vlw d
-céqmcéqlcm
- lq vqd 
-./qéwevm
-./olapo
 ./minishell
-./ollapo
+./minishell
+./a.out 
+./minishell
 clear
-ls
+./minishell
+clear
+./minishell
+clar
+clear
+./a.out 
+./a.out 
 ./a.out 
 ./a.out ola cool
-./a.out ola arg
-exit
 clear
-clearo
-clear
-execv ola
-./a.out 
-./a.out 
-clear
-clear
-exec a.out
-./minishell 
-./minishell
+exec ola cool 3
+edec ./a.out ola cool 3
+exec ./a.out ola cool 3
+exec ./a.out ola cool 3
+exec ./a.out 
+exec ./a.out 
+exec
+exec ola
+exec 
 clear
 ls
-./minishell 
+cd ..
+cd -
+env
+export
 clear
-exit
+ls
+pwd
+exporet
+export
+export
+clear
+export
+clear
+env
+clear
+export
+clear
+exporet
+export
+export e=40
+env
+unset e
+export
+env
+clear
+e=40
+env
+echo $e
+echo $OLA
+clear
+export e=40
+env
+echo $e
+echort e=40
+env
+e=50
+env
+env
+export e=10
+env
+export ola=3
+env
+ls alo
+ls
+ls doc
+ls
+ls doc
+clear
+ls
+ls doc
+clear
+ld ola cool
+ls ola cool
+clear
+colaco
 ./minishell
+clear
+clear
+./minishell
+./minishell
+exit
+clear
+cd ~~
+cd ~
+cd -
+./minishell
+clear
+clear
+env
+export
+export 3=5
+env
+e=5
+env
+export
+export ola=3
+env
+ola=5
+env
+olo=4
+env

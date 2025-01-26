@@ -6,36 +6,80 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 12:36:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 18:33:46 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-/**
- * @note 
- * @attention 
- * @todo 
- */
-int	handle_splits(t_data *d, char *prompt)
+int	handle_direct_exec(t_data *d, char *cmd_name, char *arg, char **flags)
 {
-	char	**splits;
+	char	**exec_flags;
+	int		i;
+	int		arr_len;
+
+	arr_len = get_arr_len((void **)flags) + 1;
+	if (arg)
+		arr_len++;
+	exec_flags = malloc(sizeof(char *) * arr_len);
+	if (!exec_flags)
+		custom_exit(d, "Malloc fail for exec_flags", NULL, EXIT_FAILURE);
+	exec_flags[0] = ft_strdup(cmd_name);
+	if (!exec_flags[0])
+		custom_exit(d, "Malloc fail for exec_flags", NULL, EXIT_FAILURE);
+	exec_flags[1] = NULL;
+	if (arg)
+	{
+		exec_flags[1] = ft_strdup(arg);
+		if (!exec_flags[1])
+			custom_exit(d, "Malloc fail for exec_flags", NULL, EXIT_FAILURE);
+		i = 1;
+	}
+	else
+		i = 0;
+	while (++i < arr_len)
+	{
+		exec_flags[i] = ft_strdup(flags[i - 1 - (arg != NULL)]);
+		if (!exec_flags[i])
+			custom_exit(d, "Malloc fail for exec_flag", NULL, EXIT_FAILURE);
+	}
+	exec_flags[i] = NULL;
+	exec(d, cmd_name, exec_flags, 0);
+	return (free_void_array((void ***)&exec_flags), 1);
+}
+
+//	echo "ola" -n (echo = cmd_name | "ola" = arg | -n = flags)
+int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
+{
 	int		i;
 
-	(void)d;
-	splits = ft_split_str(prompt, "&&");
-	if (!splits)
-		return (0);
+	if (!ft_strncmp(cmd_name, "./", 2))
+		return (handle_direct_exec(d, cmd_name, arg, flags), 1);
+	else if (!ft_strncmp(cmd_name, "exec ", 5))
+		return (handle_direct_exec(d, arg, NULL, flags), 1);
+	else if (get_char_occurence(cmd_name, '=') == 1)
+		return (export(d, cmd_name, flags, 1));
+	else if (is_same_string(cmd_name, "export") && get_char_occurence(arg, '=') == 1)
+		return (export(d, arg, flags, 1));
 	i = -1;
-	while (splits[++i])
-		execute_prompt(d, splits[i]);
-	return (1);
+	while (d->bltin_names[++i])
+	{
+		if (is_same_string(d->bltin_names[i], cmd_name))
+		{
+			d->builtin_funcs[i](d, arg, flags, EXIT_SUCCESS);
+			return (1);
+		}
+	}
+	printf("msh: %s: command not found\n", cmd_name);
+	return (0);
 }
 
 int	is_valid_prompt(char *prompt)
 {
 	int	i;
 
+	if (!prompt)
+		return (0);
 	i = -1;
 	while (prompt[++i])
 	{
@@ -45,45 +89,22 @@ int	is_valid_prompt(char *prompt)
 	return (0);
 }
 
-char	**init_tokens()
-{
-	
-}
-
 int	execute_prompt(t_data *d, char *prmpt)
 {
-	char	**tokens;
-	char	*arg;
-	char	*flag;
-	int		i;
+	char		*arg;
+	char		*cmd_name;
+	char		**flags;
 
 	if (!is_valid_prompt(prmpt))
 		return (0);
-	if (get_char_occurence(prmpt, '=') == 1 && ft_strncmp(prmpt, "export", 6))
-		return (export(d, prmpt, NULL, 1));
+	cmd_name = NULL;
 	arg = NULL;
-	flag = NULL;
-	tokens = ft_split(prmpt, ' ');
-	if (tokens)
-	{
-		i = -1;
-		while (tokens[++i])
-			(tokens[i][0] == '$' && (tokens[i] = get_env_value(d, tokens[i] + 1)));
-		arg = tokens[1];
-		if (arg)
-			flag = tokens[2];
-	}
-	if (!ft_strncmp(tokens[0], "./", 2))
-		return (exec(d, tokens[0], tokens[1], 0), \
-			free_void_array((void ***)&tokens)), 1;
-	i = -1;
-	while (d->bltin_names[++i])
-		if (!ft_strncmp(tokens[0], d->bltin_names[i], \
-		ft_strlen(d->bltin_names[i])) && ft_strlen(tokens[0]) == ft_strlen(d->bltin_names[i]))
-			return (d->builtin_funcs[i](d, arg, flag, EXIT_SUCCESS), \
-				free_void_array((void ***)&tokens), 1);
-	printf("mshell: %s: command not found\n", tokens[0]);
-	return (free_void_array((void ***)&tokens), 0);
+	flags = get_flags(d, prmpt, &cmd_name, &arg);
+	execute_command(d, cmd_name, arg, flags);
+	free_void_array((void ***)&flags);
+	safe_free(arg);
+	safe_free(cmd_name);
+	return (1);
 }
 
 char	*get_prompt_message(t_data *d)

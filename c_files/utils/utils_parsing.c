@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 12:23:15 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 15:45:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,8 @@ char	*truncate_at_end(char *str, char cut_letter)
 	return (trunc_str[i] = '\0', trunc_str);
 }
 
-char	*get_array_element_with_prefix(char **array, \
-	char *prefix)
-{
-	int		i;
-	int		j;
-
-	if (!array || !prefix)
-		return (NULL);
-	i = 0;
-	while (array[i] != NULL)
-	{
-		j = 0;
-		while (array[i][j] == prefix[j])
-			j++;
-		if (!prefix[j])
-			return (array[i]);
-		i++;
-	}
-	return (NULL);
-}
-
-char	*ft_str_mega_join(const char *a, const char *b, const char *c, const char *d)
+char	*ft_str_mega_join(const char *a, const char *b, \
+	const char *c, const char *d)
 {
 	char	*ab;
 	char	*abc;
@@ -110,4 +90,16 @@ int	get_char_occurence(char *str, char c)
 			occurence++;
 	}
 	return (occurence);
+}
+
+int	get_arr_len(void **arr)
+{
+	int	len;
+
+	if (!arr)
+		return (0);
+	len = 0;
+	while (arr[len])
+		len++;
+	return (len);
 }

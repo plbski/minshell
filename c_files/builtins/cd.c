@@ -6,19 +6,18 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 12:38:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 17:59:02 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	cd(t_data *d, char *arg, char **flags, int status)
+int	cd(t_data *d, char *arg, char **flags, int status _UNUSED)
 {
 	char	*path;
 
-	(void)status;
-	if (flags)
-		return (printf("cd: string not in pwd: %s\n", arg), 0);
+	if (flags && flags[1])
+		return (printf("cd: string not in pwd: %s\n", flags[1]), 0);
 	if (!arg || !ft_strncmp(arg, "~", 2))
 	{
 		if (d->home_wd == NULL)

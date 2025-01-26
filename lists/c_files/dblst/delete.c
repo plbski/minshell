@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:23:03 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/21 15:20:34 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 18:26:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	dblst_clear(t_dblist **lst, void (*del)(void *))
 
 	if (!lst || !*lst)
 		return ;
-	cur = *lst;
+	cur = dblst_first(*lst);
 	while (cur)
 	{
 		tmp = cur->next;
