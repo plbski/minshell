@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:40:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/13 21:41:28 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/26 12:06:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 # define HEXDIGITS_MAJ "0123456789ABCDEF"
 # define HEXDIGITS_MIN "0123456789abcdef"
-
 
 typedef struct s_list
 {

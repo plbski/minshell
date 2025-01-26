@@ -6,31 +6,36 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:50:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 15:07:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:34:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	write_animated_txt(char *txt_to_display, int interval, int exit_wait)
+int	write_anim_txt(t_data *d, const char *txt, int intrv, int exit_w)
 {
 	int		i;
-	char	*txt;
+	char	*string;
+	char	*lvl_str;
 
-	txt = ft_strdup(txt_to_display);
-	if (!txt)
-		return (0);
+	lvl_str = get_env_value(d, "SHLVL");
+	if (!lvl_str)
+		custom_exit(d, "Alloc fail for shlvl in anim", NULL, EXIT_FAILURE);
+	string = ft_str_mega_join(txt, MAGENTA, lvl_str, RESET);
+	free(lvl_str);
+	if (!string)
+		custom_exit(d, "Alloc fail for string in anim", NULL, EXIT_FAILURE);
 	printf(RED);
 	i = -1;
-	while (txt[++i])
+	while (string[++i])
 	{
-		usleep(interval);
-		printf("%c", txt[i]);
+		usleep(intrv);
+		printf("%c", string[i]);
 		fflush(stdout);
 	}
 	printf("\n");
 	printf(RESET);
-	return (usleep(exit_wait), free(txt), 1);
+	return (usleep(exit_w), free(string), 1);
 }
 
 void	set_string_color(char **str, char *color)

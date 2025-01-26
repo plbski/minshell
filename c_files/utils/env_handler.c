@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 17:44:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:25:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	update_environ(t_data *d)
 	d->environ = new_env;
 }
 
+//		Value is a copy and must be freed after use
 char	*get_env_value(t_data *d, char *key)
 {
 	t_dblist	*element;

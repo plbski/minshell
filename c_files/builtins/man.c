@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 18:15:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:39:29 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	open_doc_content(char *path)
 	process_man_menu();
 }
 
-int	man(t_data *d, char *arg, char *flags, int status)
+int	man(t_data *d, char *arg, char **flags, int status)
 {
 	char	*full_path;
 
@@ -67,7 +67,7 @@ int	man(t_data *d, char *arg, char *flags, int status)
 	if (!full_path)
 		custom_exit(d, "man path alloc failed", NULL, 1);
 	if (access(full_path, F_OK) == -1)
-		printf("file not in %s\n", full_path);
+		printf("No manual entry for %s\n", full_path);
 	else
 		open_doc_content(full_path);
 	free(full_path);

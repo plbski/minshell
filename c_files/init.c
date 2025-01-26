@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 20:01:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:26:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ void	init_shlvl(t_data *data)
 
 	data->shlvl = 1;
 	lvl = get_env_value(data, "SHLVL");
-	if (lvl)
-		data->shlvl = ft_atoi(lvl);
+	if (!lvl)
+		return ;
+	data->shlvl = ft_atoi(lvl);
+	free(lvl);
 }
 
 void	init_data(t_data *data, char **env)
@@ -85,12 +87,4 @@ void	init_data(t_data *data, char **env)
 	init_cwd(data);
 	init_shlvl(data);
 	init_builtins_data(data);
-	// printf("lvl : %s\n", get_env_value(data, "SHLVL"));
-	// printf("cwd : %s\n", data->cwd);
-	// printf("prv_cwd : %s\n", data->prev_cwd);
-	// printf("doc_wd : %s\n", data->doc_wd);
-	// printf("home_wd : %s\n", data->home_wd);
-	// printf("start_wd : %s\n", data->start_wd);
-	// printf("logname : %s\n", data->logname);
-	// printf("shlvl : %d\n", data->shlvl);
 }

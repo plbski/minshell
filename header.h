@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 17:58:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:33:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define START_ANIM_TEXT "			~~~ Minishell by gvlente & pbuet ~~~"
-# define END_ANIM_TEXT	 "					~~~ EXIT ~~~"
+# define START_ANIM_TEXT "			~~~ Minishell by gvlente & pbuet ~~~ "
+# define END_ANIM_TEXT	 "					~~~ EXIT ~~~ "
 # define MAX_DIR_LEN 500
 
 # define PROMPT_SQARE "U+2589"
@@ -99,10 +99,10 @@ int		execute_prompt(t_data *d, char *prompt);
 int		cd(t_data *d, char *arg, char *flags, int status);
 int		clear(t_data *d, char *arg, char *flags, int status);
 int		echo(t_data *d, char *arg, char *flags, int status);
-int		env(t_data *d, char *arg, char *flags, int status);
+int		env(t_data *d, char *arg, char *flags, int no_prefix);
 int		exec(t_data *d, char *arg, char *flags, int status);
 int		custom_exit(t_data *data, char *arg, char *flags, int status);
-int		export(t_data *d, char *arg, char *flags, int create_in_env);
+int		export(t_data *d, char *arg, char *flags, int tmp_mem);
 int		ls(t_data *d, char *arg, char *flags, int status);
 int		man(t_data *d, char *arg, char *flags, int status);
 int		pwd(t_data *d, char *arg, char *flags, int status);
@@ -125,12 +125,13 @@ char	*truncate_at_end(char *str, const char cut_letter);
 int		update_cwd(t_data *data);
 char	*get_next_line(int fd);
 char	*get_array_element_with_prefix(char **array, char *prefix);
-char	*ft_str_mega_join(char *a, char *b, char *c, char *d);
+char	*ft_str_mega_join(const char *a, const char *b, \
+	const char *c, const char *d);
 int		get_char_occurence(char *str, char c);
 
 //		utils_design
 void	set_string_color(char **str, char *color);
-int		write_animated_txt(char *txt_to_display, int interval, int exit_wait);
+int		write_anim_txt(t_data *d, const char *txt, int intrv, int exit_w);
 
 //		env
 int		update_env_variables(t_data *d);

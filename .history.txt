@@ -381,3 +381,227 @@ ls
 pwd
 echo cool
 echo cool >> ola.txt
+clear
+ls
+pwd
+cd ..
+cd ..
+cd .. -ola
+cd ..-ola
+clear
+cd ..-0a
+./minishell 
+./minishell 
+clear
+ls
+pwd
+clear
+cd. .
+cd. .
+cd. .
+cd. ..
+echo. ola
+cd. .
+echo .
+echo ola
+cd ..
+clear
+cd ..
+cd. .
+cdola .
+cd -
+cd -.
+mshell
+cdlôlapo .
+olapo .
+cdolapo .
+cdolapo .
+cd ..
+cd. .
+cd olapo
+clear
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+clear
+cd ..
+cdola ..
+cdolapoquaka
+cd
+cd
+cdola
+cdolapqau
+cd ..
+cdola ..
+cd. ..
+clear
+clearo
+clearo
+clear
+cd ..
+cd ..
+cd -
+exit
+./minishell
+cd ..
+ls
+./minishell/minishell
+pwd
+export minidir=/Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell
+./minidir
+./minidir
+./
+./
+cd ..
+./
+./olaflamingo
+./minishell
+./ola
+./olash
+./mini
+./minishell
+env
+ls
+export dir=./minishell
+$minishell
+./minishell
+make re
+clear
+$ola
+echo $olo
+export ola=3
+echo $ola
+cd $ola
+export mini=./minishell
+$mini
+$mini
+$mini
+$mini
+export ola=2
+echo $ola
+env
+unset ola
+env
+export
+export
+./minishell
+clear
+ls
+cd ..
+ls
+clear
+ls
+cd ..
+clear
+ls
+cd core_2
+ls
+cd minitalk/
+clear
+ls
+cd ..
+clear
+ls
+cd pipex
+clear
+ls
+cd ..
+cd ..
+clear
+ls
+cd core_1
+clear
+ls
+cd get_next_line
+ls
+./a.out
+clear
+ls
+cd ..
+ls
+cd FT_PRINTF/
+clear
+ls
+./a.out 
+cd ..
+ls
+cd get_next_lineV3
+clear
+ls
+./a.out
+cd ..
+cd ..
+clear
+ls
+cd core_4
+ls
+clear
+cd .
+cd ..
+clear
+ls
+cd core_3
+ls
+cd ..
+clear
+ls
+cd core_2
+clear
+ls
+cd So_Long/
+clear
+ls
+./bonus
+./a.out
+./bonus Randomap.ber
+clear
+clear
+./test_program.c 
+./a.out 
+./a.out ola
+./test_program.c 
+./a.out
+./a.out ola
+clear
+./a.out 
+./a.out cool
+  
+   
+    
+   -
+.
+.
+clear
+    .
+  qwmcqew vlw d
+céqmcéqlcm
+ lq vqd 
+./qéwevm
+./olapo
+./minishell
+./ollapo
+clear
+ls
+./a.out 
+./a.out ola cool
+./a.out ola arg
+exit
+clear
+clearo
+clear
+execv ola
+./a.out 
+./a.out 
+clear
+clear
+exec a.out
+./minishell 
+./minishell
+clear
+ls
+./minishell 
+clear
+exit
+./minishell

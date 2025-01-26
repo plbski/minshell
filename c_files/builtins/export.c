@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 19:55:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:40:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	reorder_dblst(t_dblist *list)
 	}
 }
 
-int	export(t_data *d, char *arg, char *flags, int create_in_env)
+int	export(t_data *d, char *arg, char **flags, int tmp_mem)
 {
 	char		*key;
 	char		*value;
@@ -51,7 +51,7 @@ int	export(t_data *d, char *arg, char *flags, int create_in_env)
 	if (!arg)
 	{
 		reorder_dblst(dblst_first(d->env_list));
-		env(d, NULL, NULL, 1);
+		env(d, NULL, NULL, 0);
 		return (1);
 	}
 	key = truncate_at_end(arg, '=');
@@ -61,7 +61,7 @@ int	export(t_data *d, char *arg, char *flags, int create_in_env)
 		new_node = dblst_new(ft_str_mega_join(key, "=", value, NULL));
 		if (!new_node->content)
 			custom_exit(d, "No prompt for node", NULL, 1);
-		if (create_in_env)
+		if (tmp_mem)
 			dblst_add_back(&d->env_list, new_node);
 		else if (!set_key_value(d, d->tmp_list, key, value))
 			dblst_add_back(&d->tmp_list, new_node);

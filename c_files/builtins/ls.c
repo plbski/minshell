@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 18:42:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 11:49:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,5 @@ int	ls(t_data *d, char *arg, char *flags, int status)
 			len = 0;
 		}
 	}
-	printf("\n");
-	closedir(directory);
-	return (1);
+	return (printf("\n"), closedir(directory), 1);
 }

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 13:09:13 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:23:15 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_array_element_with_prefix(char **array, \
 	return (NULL);
 }
 
-char	*ft_str_mega_join(char *a, char *b, char *c, char *d)
+char	*ft_str_mega_join(const char *a, const char *b, const char *c, const char *d)
 {
 	char	*ab;
 	char	*abc;

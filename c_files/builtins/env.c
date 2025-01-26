@@ -6,17 +6,16 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 00:14:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 13:48:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:38:44 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	env(t_data *d, char *arg, char *flags, int status)
+int	env(t_data *d, char *arg, char **flags, int no_prefix)
 {
 	(void)arg;
 	(void)flags;
-	(void)status;
-	dblst_print_list(d->env_list);
+	dblst_print_list(d->env_list, no_prefix);
 	return (1);
 }

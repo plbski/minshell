@@ -2,7 +2,7 @@
 
 | Task                | Status | Notes                     | Dependencies		|	Person in charge
 |---------------------|--------|---------------------------|--------------------|---------------------
-| Parse prompt        | [1]    | Implement parsing logic   |	Pipe			| Pilou & Giulio	|
+| Parse prompt        | [2]    | Implement parsing logic   |	Pipe			| Pilou & Giulio	|
 | Import env          | [2]    | Load environment vars     |					| Pilou				|
 | Pipe                | [0]    | Implement pipe handling   |					| Giulio			|
 | $?                  | [0]    | Handle exit status        |					| Pilou				|

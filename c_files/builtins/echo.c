@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 15:00:22 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:38:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,16 @@ int	write_at_rel_path(t_data *d, char *content, char *file_name)
 	return (1);
 }
 
-int	echo(t_data *d, char *arg, char *flags, int status)
+int	echo(t_data *d, char *arg, char **flags, int status)
 {
 	(void)d;
 	(void)flags;
 	(void)status;
+	if (!arg)
+	{
+		printf("\n");
+		return (0);
+	}
 	if (!ft_strncmp(arg, "$$", 3))
 		printf("%d\n", getpid());
 	else

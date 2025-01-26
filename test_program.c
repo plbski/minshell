@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   test_program.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 22:41:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 12:38:53 by giuliovalen      ###   ########.fr       */
+/*   Created: 2025/01/26 01:23:31 by giuliovalen       #+#    #+#             */
+/*   Updated: 2025/01/26 01:26:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "stdio.h"
 
-int	custom_exit(t_data *data, char *error_msg, char **flags, int status)
+int	main(int argc, char *argv[])
 {
-	(void)flags;
-	(void)status;
-	write_history(data->history_wd);
-	fflush(stdout);
-	fflush(stderr);
-	if (status == EXIT_FAILURE && error_msg)
-		printf("Error: %s\n", error_msg);
-	else
-		write_anim_txt(data, END_ANIM_TEXT, 0, 0);
-	free_data(data);
-	exit(status);
-	return (1);
+	printf("Program successfully launched. argc > %d\n", argc);
+	while (argc--)
+		printf("arg[%d] = %s\n", argc, argv[argc]);
+	return (0);
 }

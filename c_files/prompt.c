@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/24 19:49:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 12:36:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ int	handle_splits(t_data *d, char *prompt)
 	return (1);
 }
 
+int	is_valid_prompt(char *prompt)
+{
+	int	i;
+
+	i = -1;
+	while (prompt[++i])
+	{
+		if (prompt[i] != ' ')
+			return (1);
+	}
+	return (0);
+}
+
+char	**init_tokens()
+{
+	
+}
+
 int	execute_prompt(t_data *d, char *prmpt)
 {
 	char	**tokens;
@@ -39,6 +57,8 @@ int	execute_prompt(t_data *d, char *prmpt)
 	char	*flag;
 	int		i;
 
+	if (!is_valid_prompt(prmpt))
+		return (0);
 	if (get_char_occurence(prmpt, '=') == 1 && ft_strncmp(prmpt, "export", 6))
 		return (export(d, prmpt, NULL, 1));
 	arg = NULL;
@@ -46,23 +66,23 @@ int	execute_prompt(t_data *d, char *prmpt)
 	tokens = ft_split(prmpt, ' ');
 	if (tokens)
 	{
+		i = -1;
+		while (tokens[++i])
+			(tokens[i][0] == '$' && (tokens[i] = get_env_value(d, tokens[i] + 1)));
 		arg = tokens[1];
 		if (arg)
-		{
-			(arg[0] == '$' && (arg = get_env_value(d, arg + 1)));
 			flag = tokens[2];
-		}
 	}
-	if (!ft_strncmp(prmpt, "./", 2))
+	if (!ft_strncmp(tokens[0], "./", 2))
 		return (exec(d, tokens[0], tokens[1], 0), \
 			free_void_array((void ***)&tokens)), 1;
 	i = -1;
 	while (d->bltin_names[++i])
-		if (!ft_strncmp(prmpt, d->bltin_names[i], \
-		ft_strlen(d->bltin_names[i])))
-			return (d->builtin_funcs[i](d, arg, flag, 1), \
+		if (!ft_strncmp(tokens[0], d->bltin_names[i], \
+		ft_strlen(d->bltin_names[i])) && ft_strlen(tokens[0]) == ft_strlen(d->bltin_names[i]))
+			return (d->builtin_funcs[i](d, arg, flag, EXIT_SUCCESS), \
 				free_void_array((void ***)&tokens), 1);
-	printf("mshell: %s: command not found\n", prmpt);
+	printf("mshell: %s: command not found\n", tokens[0]);
 	return (free_void_array((void ***)&tokens), 0);
 }
 
@@ -90,18 +110,17 @@ int	get_terminal_prompt(t_data *d)
 	char	*prompt_msg;
 	char	*terminal_line;
 
-	if (d->cwd)
-	{
-		prompt_msg = get_prompt_message(d);
-		terminal_line = readline(prompt_msg);
-		if (!terminal_line)
-			custom_exit(d, NULL, NULL, 1);
-		add_history(terminal_line);
-		handle_splits(d, terminal_line);
-		free(terminal_line);
-		free(prompt_msg);
-	}
-	else
-		custom_exit(d, "No cwd", NULL, 1);
+	if (!d->cwd)
+		custom_exit(d, "No cwd", NULL, EXIT_FAILURE);
+	prompt_msg = get_prompt_message(d);
+	if (!prompt_msg)
+		custom_exit(d, "Prompt alloc failed", NULL, EXIT_FAILURE);
+	terminal_line = readline(prompt_msg);
+	if (!terminal_line)
+		custom_exit(d, NULL, NULL, EXIT_SUCCESS);
+	add_history(terminal_line);
+	handle_splits(d, terminal_line);
+	free(terminal_line);
+	free(prompt_msg);
 	return (1);
 }

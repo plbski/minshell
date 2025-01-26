@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 17:35:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 11:41:44 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_builtins_names(t_data *data)
 
 	data->bltin_names = malloc(12 * sizeof(char *));
 	if (!data->bltin_names)
-		custom_exit(data, "Bltin_names alloc failed", NULL, 1);
+		custom_exit(data, "Bltin_names alloc failed", NULL, EXIT_FAILURE);
 	data->bltin_names[e_cd] = ft_strdup("cd");
 	data->bltin_names[e_clear] = ft_strdup("clear");
 	data->bltin_names[e_echo] = ft_strdup("echo");
@@ -50,7 +50,7 @@ void	init_builtins_names(t_data *data)
 	while (data->bltin_names[++i])
 		continue ;
 	if (i != 11)
-		custom_exit(data, "Bltin_names alloc failed", NULL, 1);
+		custom_exit(data, "Bltin_names alloc failed", NULL, EXIT_FAILURE);
 }
 
 void	init_builtins_data(t_data *d)

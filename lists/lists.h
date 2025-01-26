@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:07:59 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 14:02:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/26 01:18:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_dblist	*dblst_map(t_dblist *lst, void *(*f)(void *), \
 	void (*del)(void *));
 void		dblst_iter(t_dblist *lst, void (*f)(void *));
 t_dblist	*get_dblst_at_key(t_dblist *lst, char *prefix);
-void		dblst_print_list(t_dblist *lst);
+void		dblst_print_list(t_dblist *lst, int no_prefix);
 
 //		CIRC_LIST
 //		init
