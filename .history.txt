@@ -642,3 +642,6 @@ echo $0
 echo gfgf
 echo gfgf > gg.txt
 echo $0 > file.txt
+pwd 
+pwd >> pwd.txt
+echo dd >ff.txt
