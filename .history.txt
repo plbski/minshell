@@ -1,0 +1,7 @@
+clear
+echo '   $LOGNAME'
+echo '   $LOGNAME'
+echo dd > dd.txt
+echo dd>dd.txt
+echo df>dd.txt
+echo df>>dd.txt
