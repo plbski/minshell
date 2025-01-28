@@ -6,7 +6,7 @@
 /*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 18:04:11 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/01/28 19:12:22 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,4 +180,5 @@ int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
 
 //redirection
 char	*redir(t_data *d, char *prompt);
+void	heredoc(char *end, t_data *d, char *print);
 #endif

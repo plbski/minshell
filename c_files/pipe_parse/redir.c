@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 18:38:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 19:30:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	create_file(t_data *d, char *file_name, int redir)
 	int		fd;
 
 	fd = 0;
-	while(*file_name == ' ')
+	while (*file_name == ' ')
 		file_name++;
 	file_name = ft_strjoin("/", file_name);
 	full_path = ft_strjoin(d->cwd, file_name);
@@ -31,49 +31,41 @@ void	create_file(t_data *d, char *file_name, int redir)
 	if (fd == -1)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
 	if (redir == 1 | redir == 2)
-	{
-		if (dup2(fd, STDOUT_FILENO) == -1)
-			custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	}
+		dup2(fd, STDOUT_FILENO) == -1 && (custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE));
 	else
-	{
-		if (dup2(fd, STDIN_FILENO) == -1)
-			custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	}
+		dup2(fd, STDIN_FILENO) == -1 && (custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE));
 	if (fd > 0)
 		d->fd = fd;
 }
 
-void	heredoc(char *prompt, t_data *d)
-{
-	char	*line;
-	int		pipefd[2];
-	int		len;
+// void	heredoc(char *end, t_data *d, char *print)
+// {
+// 	char	*line;
+// 	int		pipefd[2];
+// 	int		len;
+// 	int		len_print;
 
-	while(*prompt == ' ')
-		prompt++;
-	if (pipe(pipefd) == -1)
-		custom_exit(d, "erreur pipe", NULL, EXIT_FAILURE);
-	len = 0;
-	line = NULL;
-	printf("prompt : %s\n", prompt);
-	while(1)
-	{
-		write(1,"heredoc>", 8);
-		line = get_next_line(0);
-		if (line == NULL)
-			custom_exit(d, "erreur gnl", NULL, EXIT_FAILURE);
-		line = truncate_at_end(line, '\n');
-		len = ft_strlen(line);
-		if (ft_strncmp(line, prompt, len) == 0)
-			break;
-		write(pipefd[1], line, len);
-		write(pipefd[1], "\n", 1);
-		free(line);
-	}
-	close(pipefd[1]);
-	close(pipefd[0]);
-}
+// 	len_print = ft_strlen(print);
+// 	len = 0;
+// 	end =remove_chars(end, " ");
+// 	if (pipe(pipefd) == -1)
+// 		custom_exit(d, "erreur pipe", NULL, EXIT_FAILURE);
+// 	while(1)
+// 	{
+// 		write(1, print, len_print);
+// 		line = get_next_line(0);
+// 		line == NULL && (custom_exit(d, "erreur gnl", NULL, EXIT_FAILURE));
+// 		line = truncate_at_end(line, '\n');
+// 		len = ft_strlen(line);
+// 		if (ft_strncmp(line, end, len) == 0)
+// 			break;
+// 		write(pipefd[1], line, len);
+// 		write(pipefd[1], "\n", 1);
+// 		free(line);
+// 	}
+// 	close(pipefd[1]);
+// 	close(pipefd[0]);
+// }
 
 static	void check(t_data *d, char *prompt)
 {
@@ -85,7 +77,7 @@ static	void check(t_data *d, char *prompt)
 	if ((prompt[i] == '>') && (prompt[i + 1] == '>'))
 		create_file(d, prompt + (i + 2), 1);
 	else if ((prompt[i] == '<') && (prompt[i + 1] == '<'))
-		heredoc(prompt + (i + 2), d);
+		heredoc(prompt + (i + 2), d, "heredoc>");
 	else if (prompt[i] == '>')
 		create_file(d, prompt + (i + 1), 2);
 	else if (prompt[i] == '<')
@@ -100,12 +92,15 @@ char	*redir(t_data *d, char *prompt)
 	i = 0;
 	while ((prompt[i] != '>' && prompt[i] != '<') && prompt[i])
 		i ++;
-	if (prompt[i - 1] == 32)
+	if (i > 1)
 	{
-		i -= 1;
-		while (prompt[i] == 32 && i > 0)
-			i --;
-		i +=1;
+		if (prompt[i -1] == 32)
+		{
+			i -= 1;
+			while (prompt[i] == 32 && i > 0)
+				i --;
+			i +=1;
+		}
 	}
 	prompt[i] = '\0';
 	return (prompt);
