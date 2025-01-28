@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:40:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 12:06:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 00:58:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ char	**ft_split(char const *s, char c);
 void	*ft_memset(void *b, int c, size_t len);
 
 t_list	*ft_lstnew(void *content);
-void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *node);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_back(t_list **lst, t_list *node);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
@@ -82,6 +82,5 @@ int		ft_putchar(char c);
 int		ft_putstr(char *str);
 int		ft_putptr(void *ptr);
 char	*ft_utoa(unsigned int n);
-
 
 #endif

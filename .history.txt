@@ -1,110 +1,510 @@
-ls
-clear
-./a.out 
-./minishell
-./minishell
-./a.out 
-./minishell
-clear
-./minishell
-clear
-./minishell
-clar
-clear
-./a.out 
-./a.out 
-./a.out 
-./a.out ola cool
-clear
-exec ola cool 3
-edec ./a.out ola cool 3
-exec ./a.out ola cool 3
-exec ./a.out ola cool 3
-exec ./a.out 
-exec ./a.out 
-exec
-exec ola
-exec 
-clear
-ls
-cd ..
-cd -
-env
-export
 clear
 ls
 pwd
-exporet
-export
-export
-clear
-export
-clear
-env
-clear
-export
-clear
-exporet
-export
-export e=40
-env
-unset e
-export
-env
-clear
-e=40
-env
-echo $e
-echo $OLA
-clear
-export e=40
-env
-echo $e
-echort e=40
-env
-e=50
-env
-env
-export e=10
-env
-export ola=3
-env
-ls alo
 ls
-ls doc
-ls
-ls doc
+ls -la
 clear
-ls
-ls doc
-clear
-ld ola cool
-ls ola cool
-clear
-colaco
-./minishell
-clear
-clear
-./minishell
-./minishell
+echo "ola" "che tal"
+echo ola
+echo ola che tal
+echo "ola"
+echo "ola" "che" "tal"
+echo "ola" "chetal"
+echo "ola" "chet al"
+echo "ola" "che tal"
+echo "ola" "che tal"
+echo "ola" "che tal"
 exit
+exit ola
+exit 0
+exit 1
+exit 3
+exit 3
+exit
+exit cool top
+exit cool top
+./export coo
+exit cool top
+expoort cool top
+expoot cool top
+export cool top
+export
 clear
-cd ~~
-cd ~
+export ola=3
+clear
+export ola=3
+make re
+export ola=3
+export ololo
+env
+export ololo
+export ololo
+env
+export ololo
+export ololo
+env
+echo $olala
+export cool=3
+env
+export cool=3
+env
+echo $cool
+export cool=3
+env
+clear
+export cool=3
+env
+export cool
+env
+ole=5
+echo $ole
+export ole=5
+env
+echo $ole
+export LOGNAME=giulio
+env
+echo $LOGNAME
+LOGNAME=giulio
+export ola=4
+env
+olo=5
+echo $olo
+env
+export ole=6 ola=5 olop=4
+env
+ola=7 olo=2
+unset ole
+unset ola
+unset olop
+env
+ola=2 olo=3 olop=4
+echo $ola
+echo $olo
+echo $olop
+echo $olo
+export olop=5
+env
+export olopola=10
+env
+echo olopola
+echo $olopola
+echo $olop
+export olo=5
+export olop=6
+export olopa=7
+echo $olo
+echo $olop
+echo $olopa
+export olo=3 ola=4 olop=5
+unset olo ola olop
+env
+unset LOGNAME
+unset cwd
+unset prev_cwd
+echo ola
+unset PATH
+env
+unset OLDPWD
+env
 cd -
+unset USER
+env
+unset SHLVL
 ./minishell
 clear
+unset SHLVL
+./minishell
 clear
+echo $SHLVL
+./minishell
+./minishell 
+./minishell
+env
+echo $SHLVL
+clear
+clear
+exit
+./minishell
+./minishell
+./minishell
+./minishell
+env
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+export ola=2 olo=2 olo=3
+env
+export ola
+env
+export ola=5
+env
+export ola oli olo
+env
+export ola olo oli
+env
+clear
+export ola=3
+echo $ola
+ola=5
+echo $ola
+olop=7 olopa=3
+echo $olop $olopa
+export olopa=5
+export olop=3
+echo $olopa $olop
+echo $olopa
+export olopa=3
+echo $olopa
+export olop=3
+echo $olopa
+echo $olop
+export olopa=3 olopo=2
+echo $olopa $olopo
+export olopa=3
+export olpoao=4
+echo $olopa $olpoao
+export name=this
+export surname=valente
+name=giulio
+echo $name $surname
+clear
+name=giulio
+surname=valente
+echo $name $surname
+echo $name echo $surname
+name=giulio
+export name=giulio
+ola=3 olo=5
+env
+echo $ola
+echo $ola
 env
 export
-export 3=5
+export olapo=3
 env
-e=5
-env
-export
 export ola=3
 env
+export ola=3 olo=5
+env
+echo $
+$
+$
+echo $
+exit 3
+echo $?
+echo $?
+echo $?
+echo $?
+./minishell
+echo $?
+echo $?
+exit 10
+echo $?ola
+exit
+exit 5
+echo $ola
+export ola=5
+echo $ola
+echo $ola
+export ola=5
+echo $ola
+echo $?
 ola=5
+echo $?
+echo ola?
+echo ola
+echo $ola
+clear
+ls
+pwd
+echo ola
+echo $?
+clear
+clear
+ls ola
+ls ola cool top
+echo $? $? ola cool $arg
+echo $ola $cool
+echo ?
+echo $? cool ola
+echo $cool
+export cool=4
 env
-olo=4
+echo $cool
+$?
+cd . ..
+cd . .. .
+cd . ..
+cd . ..
+cd . ..
+ls
+cd . ..
+ls
+clear
+cd . ..
+cd . ..
+cd . ..
+export envola=3
 env
+envolo=45
+echo $envolo
+./test
+$?
+$?
+echo $?
+./test
+$?
+./test
+./test
+env
+echo $SHLVL
+export ola=43
+echo $ola
+export $ola
+olo?olo=12
+echo $olo?olo
+echo $olo?olo
+echo $olo $olap?$?ola $null?
+clear
+ls
+pwd
+clear
+cat ..
+cd ..
+clear
+echo $1
+echo $1
+cat ..
+echo à1
+echo $1
+echo $LOGNAME?
+clear
+echo $LOGNAME?ola
+env
+echo $LOGNAME
+cd ..
+cd -
+echo $cool $top
+clear
+echo $val=3?$top_super?super
+echo $val=3?$top_super?super
+echo $val=3?$top_super?super
+echo $val=3?$top_super?super$?
+clear
+echo $?
+./minishell
+echo $?
+echo $LOGNAME
+echo $LOGNAME$?
+echo $LOGNAME$?
+echo $LOGNAME$..?
+echo $LOGNAME$..?
+echo $LOGNAME$?
+echo cool$LOGNAME$?
+echo cool$LOGNAME$?
+echo cool$LOGNAME$LOGNAME$LOGNAME
+echo cool$LOGNAME$LOGNAME$LOGNAME
+echo cool$LOGNAME$LOGNAME$?
+echo cool$LOGNAME$LOGNAME$?olapo
+echo $?$?$?
+make re
+make re
+echo $?$?$?
+./minishell
+echo $?$?$?
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+clear
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$?cool
+echo ola$?super$?camarche$LOGNAME?cool
+clear
+echo ola$?super$?camarche$LOGNAME?cool
+echo $LOGNAME
+echo $?
+echo $LOGNAME $?
+echo $LOGNAME $? olappo
+clear
+make re
+ls
+ls -al
+ls
+clear
+export myname=giulio
+echo $myname
+myname=luigi
+echo $myname
+surname=olala
+echo $surname
+surname=valente
+echo $surname
+name = giulio
+name=giulio
+echo $name $surname
+clear
+ls
+clear
+ls
+ls
+pwd
+clear
+newdir=..
+echo $newdir
+cd $newdir
+newdir=..
+cd $newdir
+ls
+pwd
+newdir=..
+cd $newdir
+norm
+ls -la
+git log
+clear
+vim hello.txt
+pwd
+ls
+ls -la
+ls -la
+ls
+ls
+ls
+ls
+pwd
+echo ola
+echo $LOGNAME
+echo cool
+ls
+clear
+export ola=3
+env
+man ls
+man git_init
+clear
+unset ola
+unset ola
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+sl
+clear
+sl
+clear
+ls
+clear
+ls
+pwd
+pwd -
+pwd .
+pwd ..
+export dir=..
+cd $dir
+export dir=..
+cd $dir
+echo $dir
+pwd $dir
+clear
+ls
+pwd
+/bin/ls
+/bin/pwd
+echo $$ $$
+clear
+make re
+echo $$ $$
+cd $$
+ls
+echo ola$?super$?camarche$LOGNAME?cool
+clear
+./test
+$?
+$?
+clear
+echo $?
+./test
+echo $?
+./test
+echo $?
+./test
+echo $?
+echo $? && echo $?
+echo $? && cd ..
+exit 3
+echo -n ola
+echo -n ola
+echo -n ola
+echo cool
+echo cool otp
+echo -n cool ola
+echo -n cool ola
+echo -n "cool ola"
+echo $ola
+echo $ola
+echo $ola
+echo $ola
+echo "$ola"
+echo $$
+echo "$$"
+ls
+clear
+pwd
+echo $ola
+ole=3
+echo $ola
+ola=3
+echo $ola
+$?
+echo $?
+echo $$
+echo ola
+echo "ola"
+echo ola
+/bin/echo ola
+echo ola
+/bin/echo
+ola
+echo ola
+/bin/echo ola
+/bin/echo ola
+/bin/echo ola
+echo ola
+echo ola
+echo ola
+echo ola
+echo ola
+echo $SHLVL
+echo $SHLVL
+echo $ola
+echo ola
+echo $ola
+echo ola
+echo $$
+echo $?
+echo cool$super?$top
+cd ..
+clear
+ls
+pwd
+ls
+clear
+clear
+ls
+pwd
+echo ola
+echo ola cool
+echo ola cool top

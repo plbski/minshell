@@ -23,17 +23,17 @@ NAME = lists.a
 
 $(NAME): $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
-	@echo "$(GREEN)Lists successfully compiled.$(RESET)"
+	@echo "$(GREEN)Lists	successfully compiled.$(RESET)"
 
 all: $(NAME)
 
 clean:
 	rm -f $(OBJECTS)
-	@echo "$(GREEN)Lists .o cleaned.$(RESET)"
+	@echo "Lists .o removed."
 
 fclean: clean
 	rm -f $(NAME)
-	@echo "$(GREEN)Lists .a cleaned.$(RESET)"
+	@echo "Lists .a removed."
 
 re: fclean all
 

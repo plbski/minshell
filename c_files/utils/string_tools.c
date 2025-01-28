@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 15:45:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/27 15:49:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-char	*ft_remove_prefix(char *str, char *prefix)
+char	*ft_remove_prefix(const char *str, char *prefix)
 {
 	size_t	prefix_len;
 
@@ -24,20 +24,20 @@ char	*ft_remove_prefix(char *str, char *prefix)
 	return (ft_strdup(str));
 }
 
-char	*truncate_at_end(char *str, char cut_letter)
+char	*truncate_at_end(const char *str, char cut_letter)
 {
 	char	*trunc_str;
 	int		i;
 	int		trunc_index;
 
-	if (!str)
+	if (!str || !get_char_occurence(str, cut_letter))
 		return (NULL);
 	i = ft_strlen(str);
 	while (--i >= 0)
 		if (str[i] == cut_letter)
 			break ;
-	if (i < 0)
-		return (ft_strdup(str));
+	if (i <= 0)
+		return (NULL);
 	trunc_index = i;
 	trunc_str = malloc(trunc_index + 1);
 	if (!trunc_str)
@@ -75,7 +75,7 @@ char	*ft_str_mega_join(const char *a, const char *b, \
 	return (abcd);
 }
 
-int	get_char_occurence(char *str, char c)
+int	get_char_occurence(const char *str, char c)
 {
 	int	i;
 	int	occurence;

@@ -6,18 +6,17 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 17:59:02 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 01:30:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	cd(t_data *d, char *arg, char **flags, int status _UNUSED)
+char	*get_cd_path(t_data *d, char *arg)
 {
 	char	*path;
 
-	if (flags && flags[1])
-		return (printf("cd: string not in pwd: %s\n", flags[1]), 0);
+	path = NULL;
 	if (!arg || !ft_strncmp(arg, "~", 2))
 	{
 		if (d->home_wd == NULL)
@@ -28,18 +27,36 @@ int	cd(t_data *d, char *arg, char **flags, int status _UNUSED)
 	else if (!ft_strncmp(arg, "-", 2))
 	{
 		if (!d->prev_cwd)
-			return (printf("msh cd: OLDPWD not set\n"), 0);
+			return (printf("msh cd: OLDPWD not set\n"), NULL);
 		path = ft_strdup(d->prev_cwd);
+		if (!path)
+			custom_exit(d, "cd path alloc fail", NULL, EXIT_FAILURE);
 		printf("%s\n", path);
 	}
 	else
 		path = ft_strdup(arg);
+	if (!path)
+		custom_exit(d, "cd path alloc fail", NULL, EXIT_FAILURE);
+	return (path);
+}
+
+int	cd(t_data *d, char *arg, char **flags, int status)
+{
+	char	*path;
+
+	(void)status;
+	if (flags && flags[0])
+		return (printf("cd: string not in pwd: %s\n", arg), 0);
+	path = get_cd_path(d, arg);
+	if (!path)
+		return (FCT_FAIL);
 	if (chdir(path) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", path);
-		return (free(path), 0);
+		free(path);
+		return (FCT_FAIL);
 	}
-	else
-		update_cwd(d);
-	return (free(path), 1);
+	update_cwd(d);
+	free(path);
+	return (FCT_SUCCESS);
 }

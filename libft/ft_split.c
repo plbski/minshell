@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:16:33 by gvalente          #+#    #+#             */
-/*   Updated: 2024/10/23 14:05:13 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/01/28 00:57:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*free_split(char **strs, int count)
 		i++;
 	}
 	free(strs);
-	return NULL;
+	return (NULL);
 }
 
 static char	**get_splits(char const *s, char c, char **strs, int count)

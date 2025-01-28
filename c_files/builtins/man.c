@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 12:39:29 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 01:28:23 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,40 @@ void	open_doc_content(char *path)
 	process_man_menu();
 }
 
+int	execute_man(t_data *d, char *path)
+{
+	if (!path)
+		custom_exit(d, "man path alloc failed", NULL, EXIT_FAILURE);
+	if (access(path, F_OK) == -1)
+	{
+		printf("No manual entry for %s\n", path);
+		return (FCT_FAIL);
+	}
+	open_doc_content(path);
+	return (FCT_SUCCESS);
+}
+
 int	man(t_data *d, char *arg, char **flags, int status)
 {
-	char	*full_path;
+	char	*path;
+	int		i;
+	int		fct_ret;
 
-	(void)d;
 	(void)status;
-	if (flags)
-		return (printf("man: too many arguments\n"), 0);
-	full_path = ft_str_mega_join(d->doc_wd, arg, ".txt", NULL);
-	if (!full_path)
-		custom_exit(d, "man path alloc failed", NULL, 1);
-	if (access(full_path, F_OK) == -1)
-		printf("No manual entry for %s\n", full_path);
-	else
-		open_doc_content(full_path);
-	free(full_path);
-	return (1);
+	path = ft_str_mega_join(d->doc_wd, arg, ".txt", NULL);
+	if (!path)
+		custom_exit(d, "man path alloc failed", NULL, EXIT_FAILURE);
+	fct_ret = execute_man(d, path);
+	free(path);
+	i = -1;
+	while (flags[++i])
+	{
+		path = ft_str_mega_join(d->doc_wd, flags[i], ".txt", NULL);
+		if (!path)
+			custom_exit(d, "man path alloc failed", NULL, EXIT_FAILURE);
+		if (execute_man(d, path) == FCT_SUCCESS)
+			fct_ret = FCT_SUCCESS;
+		free(path);
+	}
+	return (fct_ret);
 }

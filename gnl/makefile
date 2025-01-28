@@ -1,4 +1,4 @@
-SOURCES = get_next_line.c
+SOURCES = get_next_line.c get_next_line_utils.c
 
 OBJ = $(SOURCES:.c=.o)
 
@@ -11,14 +11,14 @@ CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=$(BUFFER_SIZE)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-GREEN = \033[0;32m
-RESET = \033[0m
+GREEN = 	\033[0;32m
+RESET = 	\033[0m
 
 BUFFER_SIZE ?= 30
 
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
-	@echo "$(GREEN)GNL lib successfully compiled.$(RESET)"
+	@echo "$(GREEN)GNL	successfully compiled.$(RESET)"
 
 test:
 	cc -fsanitize=address -g *.c -D BUFFER_SIZE=$(BUFFER_SIZE)

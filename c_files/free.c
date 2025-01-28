@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 18:23:27 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 00:57:34 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	free_void_array(void ***item)
 int	free_data(t_data *data)
 {
 	int	free_count;
+	int	debug_output;
 
+	debug_output = data->debug_mode;
 	free_count = 0;
 	free_count += dblst_size(data->env_list);
 	dblst_clear(&data->env_list, free);
@@ -57,6 +59,7 @@ int	free_data(t_data *data)
 	free_count += safe_free(data->doc_wd);
 	free_count += safe_free(data->history_wd);
 	free_count += safe_free(data->logname);
-	printf("freed %d items.\n", free_count);
+	if (debug_output)
+		printf("freed %d items.\n", free_count);
 	return (free_count);
 }

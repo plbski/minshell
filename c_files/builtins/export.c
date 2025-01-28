@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 18:07:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 01:27:32 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,14 @@ void	reorder_dblst(t_dblist *list)
 	}
 }
 
-int	export(t_data *d, char *arg, char **flags _UNUSED, int tmp_mem)
+void	exec_export(t_data *d, char *arg, int tmp_mem)
 {
 	char		*key;
 	char		*value;
 	t_dblist	*new_node;
 
-	if (!arg)
-	{
-		reorder_dblst(dblst_first(d->env_list));
-		env(d, NULL, NULL, 1);
-		return (1);
-	}
+	if (!get_char_occurence(arg, '='))
+		return ;
 	key = truncate_at_end(arg, '=');
 	value = ft_strchr(arg, '=') + 1;
 	if (!set_key_value(d, d->env_list, key, value))
@@ -60,11 +56,28 @@ int	export(t_data *d, char *arg, char **flags _UNUSED, int tmp_mem)
 		new_node = dblst_new(ft_str_mega_join(key, "=", value, NULL));
 		if (!new_node->content)
 			custom_exit(d, "No prompt for node", NULL, 1);
-		if (tmp_mem)
+		if (!tmp_mem)
 			dblst_add_back(&d->env_list, new_node);
 		else if (!set_key_value(d, d->tmp_list, key, value))
 			dblst_add_back(&d->tmp_list, new_node);
 	}
 	update_environ(d);
-	return (1);
+}
+
+int	export(t_data *d, char *arg, char **flags, int tmp_mem)
+{
+	int	i;
+
+	(void)flags;
+	if (!arg)
+	{
+		reorder_dblst(dblst_first(d->env_list));
+		env(d, NULL, NULL, 1);
+		return (FCT_SUCCESS);
+	}
+	exec_export(d, arg, tmp_mem);
+	i = -1;
+	while (flags && flags[++i])
+		exec_export(d, flags[i], tmp_mem);
+	return (FCT_SUCCESS);
 }

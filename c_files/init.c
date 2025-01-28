@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 17:48:13 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/27 15:02:49 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,18 @@ void	init_shlvl(t_data *data)
 {
 	char	*lvl;
 
-	data->shlvl = 1;
-	lvl = get_env_value(data, "SHLVL");
-	if (!lvl)
-		return ;
-	data->shlvl = ft_atoi(lvl);
-	free(lvl);
+	lvl = get_env_value(data, data->env_list, "SHLVL");
+	if (lvl)
+	{
+		data->shlvl = ft_atoi(lvl) + 1;
+		free(lvl);
+	}
+	else
+	{
+		add_to_list(data, data->env_list, "SHLVL=1");
+		data->shlvl = 1;
+		update_environ(data);
+	}
 }
 
 void	init_data(t_data *data, char **env)
@@ -80,7 +86,8 @@ void	init_data(t_data *data, char **env)
 	data->environ = NULL;
 	data->env_list = NULL;
 	data->tmp_list = NULL;
-	update_env_list(data, env);
+	data->last_exit_status = 0;
+	init_env_list(data, env);
 	data->environ = list_to_arr(data->env_list);
 	update_env_variables(data);
 	init_cwd(data);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:14:16 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 12:09:32 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 01:35:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ typedef struct s_t_data
 	char	buffer[MAXSIZE];
 	char	leftover[MAXSIZE];
 }	t_data;
+
 char	*get_next_line(int fd);
+int		contains(const char *s, char c);
+char	*ft_strdup(const char *s);
+int		update_fd(t_data *d, int fd, int index, int i);
+char	*handle_leftover(t_data *d);
 
 #endif

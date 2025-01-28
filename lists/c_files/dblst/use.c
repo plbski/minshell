@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:10:13 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 14:49:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 00:58:49 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +65,5 @@ void	dblst_iter(t_dblist *lst, void (*f)(void *))
 		lst = lst->next;
 		if (lst == start)
 			break ;
-	}
-}
-
-void	print_content(void *content)
-{
-	if (content)
-		printf("%s\n", (char *)content);
-}
-
-void	print_prefixed_content(void *content)
-{
-	if (content)
-		printf("export %s\n", (char *)content);
-}
-
-void	dblst_print_list(t_dblist *lst, int has_prefix)
-{
-	if (lst)
-	{
-		if (has_prefix)
-			dblst_iter(lst, print_prefixed_content);
-		else
-			dblst_iter(lst, print_content);
 	}
 }

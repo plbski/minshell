@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:07:59 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 14:49:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/27 09:34:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void		dblst_delone(t_dblist *lst, void (*del)(void *));
 //			initlear
 t_dblist	*dblst_new(void *content);
 t_dblist	*arr_to_dblst(void **values);
-void		dblst_add_back(t_dblist **lst, t_dblist *new);
-void		dblst_add_front(t_dblist **lst, t_dblist *new);
+void		dblst_add_back(t_dblist **lst, t_dblist *node);
+void		dblst_add_front(t_dblist **lst, t_dblist *node);
 //			use
 t_dblist	*dblst_map(t_dblist *lst, void *(*f)(void *), \
 	void (*del)(void *));
@@ -61,8 +61,8 @@ void		dblst_print_list(t_dblist *lst, int has_prefix);
 //		CIRC_LIST
 //		init
 t_clst		*clst_new(void *content);
-void		clst_add_back(t_clst **lst, t_clst *new);
-void		clst_add_front(t_clst **lst, t_clst *new);
+void		clst_add_back(t_clst **lst, t_clst *node);
+void		clst_add_front(t_clst **lst, t_clst *node);
 //		check
 int			clst_size(t_clst *lst);
 t_clst		*clst_last(t_clst *lst);

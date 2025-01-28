@@ -6,43 +6,86 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/26 18:13:45 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 01:27:52 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	ls(t_data *d _UNUSED, char *arg _UNUSED, char **flags, int status _UNUSED)
+DIR	*get_directory(t_data *d, char *arg)
 {
-	char			*dir;
+	DIR		*directory;
+	char	*dir_path;
+
+	if (arg)
+		dir_path = ft_str_mega_join(d->cwd, "/", arg, NULL);
+	else
+		dir_path = ft_strdup(d->cwd);
+	if (!dir_path)
+		custom_exit(d, "Dir alloc in ls", NULL, EXIT_FAILURE);
+	directory = opendir(dir_path);
+	if (directory || !arg)
+		return (directory);
+	free(dir_path);
+	dir_path = ft_strdup(arg);
+	if (!dir_path)
+		custom_exit(d, "Dir alloc in ls", NULL, EXIT_FAILURE);
+	directory = opendir(dir_path);
+	free(dir_path);
+	return (directory);
+}
+
+void	display_entry(struct dirent *entry, int *len)
+{
+	if (entry->d_name[0] == '.')
+		return ;
+	printf("%-30s", entry->d_name);
+	if ((*len)++ > 2)
+	{
+		printf("\n");
+		*len = 0;
+	}
+}
+
+int	execute_ls(t_data *d, char *arg, int print_arg)
+{
 	struct dirent	*entry;
 	DIR				*directory;
 	int				len;
 
-	if (flags && flags[0])
-		return (printf("ls: too many arguments\n"), 0);
-	if (arg)
-		dir = ft_str_mega_join(d->cwd, "/", arg, NULL);
-	else
-		dir = ft_strdup(d->cwd);
-	if (!dir)
-		custom_exit(d, "Dir alloc in ls", NULL, EXIT_FAILURE);
-	printf("%s\n", dir);
-	directory = opendir(dir);
-	free(dir);
-	if (directory == NULL)
-		return (0);
+	directory = get_directory(d, arg);
+	if (!directory)
+		return (printf("ls: %s: No such file or directory\n", arg), FCT_FAIL);
 	entry = readdir(directory);
+	if (!entry)
+		return (FCT_FAIL);
+	if (print_arg)
+		printf("%s:\n", arg);
 	len = 0;
 	while (entry != NULL)
 	{
-		printf("%-30s", entry->d_name);
+		display_entry(entry, &len);
 		entry = readdir(directory);
-		if (len++ > 2)
-		{
-			printf("\n");
-			len = 0;
-		}
 	}
-	return (printf("\n"), closedir(directory), 1);
+	if (len != 0)
+		printf("\n");
+	return (closedir(directory), FCT_SUCCESS);
+}
+
+int	ls(t_data *d, char *arg, char **flags, int status)
+{
+	int	i;
+	int	fct_ret;
+
+	(void)status;
+	fct_ret = execute_ls(d, arg, flags && flags[0]);
+	if (!flags)
+		return (fct_ret);
+	i = -1;
+	while (flags[++i])
+	{
+		if (execute_ls(d, flags[i], 1) == FCT_SUCCESS)
+			fct_ret = FCT_SUCCESS;
+	}
+	return (fct_ret);
 }

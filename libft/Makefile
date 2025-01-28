@@ -27,7 +27,7 @@ RESET = \033[0m
 
 $(NAME): $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
-	@echo "$(GREEN)Libft build successfully.$(RESET)"
+	@echo "$(GREEN)Libft	successfully compiled.$(RESET)"
 
 all: $(NAME)
 
@@ -36,11 +36,11 @@ bonus: $(ALL_OBJ)
 
 clean:
 	rm -f $(ALL_OBJ)
-	@echo "$(GREEN)Libft .o cleaned.$(RESET)"
+	@echo "Libft .o removed."
 
 fclean: clean
 	rm -f $(NAME)
-	@echo "$(GREEN)Libft .a cleaned.$(RESET)"
+	@echo "Libft .a removed."
 
 re: fclean all
 
