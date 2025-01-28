@@ -508,3 +508,117 @@ pwd
 echo ola
 echo ola cool
 echo ola cool top
+exit
+exit
+ola
+echo $cool
+exit
+exit
+make debug
+./test
+./minishell
+ls
+clear
+clear
+exit
+$$
+echo $?
+clear
+make debug
+echo $$
+clear
+echo $$
+echo $?
+echo $?ola
+echo $?ola
+echo $LOGNAME
+echo $LOGNAMEolapo
+echo $LOGNAME?olapo
+echo $?olapo
+echo $?olapo
+echo $?olapo
+echo $?olapo
+echo $?olapo
+echo $?olapo
+echo $?olapo
+echo $?olapo
+echo $?ola
+echo $?olapo
+echo $?
+echo $?$?
+echo $?$$
+echo $?olapo
+echo $?olapo$
+echo $?olapo$
+echo $?olapo$
+echo $?olapo$
+echo $?olapo?
+echo $?olapo$
+echo $?olapo$
+echo $?olapo$
+echo $?olapo$?olapo
+echo $?olapo$?olapo
+echo $?olapo$?olapo$
+echo $?ola?
+$$olapo$?ola$LOGNAME?
+echo $$olapo$?ola$LOGNAME?
+clear
+ls
+pwd
+clear
+echo $?
+echo $?olapo?
+echo $?olapo?£$qwefémqàfmwf312pgno4èbr3wew
+efionrqèw3 b32èàb 
+cd -
+echo NAME
+export true=1
+export false=0
+env
+export
+echo $true$false
+echo -n cool
+pwd
+exit 3
+echo \ola
+clear
+ola
+che\
+echo $LOGNAME_
+echo $LOGNAME
+echo $LOGNAME?_
+echo $LOGNAME?_
+echo "$LOGNAME?_"
+echo "$LOGNAME"
+echo "$LOGNAME
+echo "$LOGNAME"
+echo "'LOGNAME'
+echo 'LOGNAME'
+echo '$LOGNAME'
+echo $LOGNAME
+echo "$LOGNAME"
+sh
+echo "$LOGNAME"
+echo '$LOGNAME'
+sh
+echo $LOGNAME$opa
+clear
+ls
+pwd
+clear
+echo $LOGNAME$?
+clear
+ls
+pwd
+echo $ola
+echo $1
+echo $0
+echo $$
+echo $?
+echo $?
+echo $$
+echo $0
+echo $0
+echo $1
+echo $$
+echo $?

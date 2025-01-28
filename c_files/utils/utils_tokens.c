@@ -6,27 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 12:51:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 15:35:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
-
-int	handle_splits(t_data *d, char *prompt)
-{
-	char	**splits;
-	int		i;
-
-	(void)d;
-	splits = ft_split_str(prompt, "&&");
-	if (!splits)
-		return (0);
-	i = -1;
-	while (splits[++i])
-		execute_prompt(d, splits[i]);
-	free(splits);
-	return (1);
-}
 
 char	**init_flags(t_data *d, int splits_amount, char **splits)
 {
@@ -54,41 +38,17 @@ char	**init_flags(t_data *d, int splits_amount, char **splits)
 	return (flags);
 }
 
-char	*contract_str(t_data *d, char **strs)
-{
-	int		i;
-	int		j;
-	int		total_len;
-	int		str_index;
-	char	*str;
-
-	total_len = 0;
-	i = -1;
-	while (strs[++i])
-		total_len += ft_strlen(strs[i]);
-	str = malloc(total_len + 1);
-	if (!str)
-		custom_exit(d, "alloc for contracted str", NULL, EXIT_FAILURE);
-	str_index = 0;
-	i = -1;
-	while (strs[++i])
-	{
-		j = -1;
-		while (strs[i][++j])
-			str[str_index++] = strs[i][j];
-	}
-	str[str_index] = '\0';
-	return (str);
-}
-
 char	**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg)
 {
 	char	**splits;
+	char	*purged_prmpt;
 
-	splits = ft_split(prmpt, ' ');
-	if (!splits)
-		custom_exit(d, "Alloc failed for tokens", NULL, EXIT_FAILURE);
-	expand_splits_values(d, splits);
+	purged_prmpt = remove_chars(prmpt, "\\;");
+	!purged_prmpt && (custom_exit(d, "alloc for prgsplt", NULL, EXIT_FAILURE));
+	splits = ft_split(purged_prmpt, ' ');
+	free(purged_prmpt);
+	!splits && (custom_exit(d, "Alloc failed for tokens", NULL, EXIT_FAILURE));
+	expand_splits(d, splits);
 	*cmd_name = ft_strdup(splits[0]);
 	if (!*cmd_name)
 	{

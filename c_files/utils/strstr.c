@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 04:35:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 13:09:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 15:30:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,30 +109,15 @@ char	**ft_split_str(char *str, char *sep)
 	return (splits[i] = NULL, splits);
 }
 
-char	*remove_char(char **txt, char c)
+int	ft_char_in_str(char c, const char *txt)
 {
-	char	*new_str;
-	int		new_len;
-	int		i;
-	int		j;
+	int	i;
 
-	new_len = ft_strlen(*txt);
 	i = -1;
-	while (*txt[++i])
+	while (txt[++i])
 	{
-		if (*txt[i] == c)
-			new_len--;
+		if (txt[i] == c)
+			return (1);
 	}
-	if (new_len == ft_strlen(*txt))
-		return (*txt);
-	new_str = malloc(new_len + 1);
-	j = 0;
-	i = -1;
-	while (*txt[++i])
-	{
-		if (*txt[i] != c)
-			new_str[j++] = *txt[i];
-	}
-	new_str[j] = '\0';
-	return (free(*txt), *txt = new_str, *txt);
+	return (0);
 }

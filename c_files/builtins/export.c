@@ -6,40 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 01:27:32 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 15:38:12 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
-
-void	reorder_dblst(t_dblist *list)
-{
-	t_dblist	*db_b;
-	char		*tmp;
-	int			min_len;
-
-	while (list->next)
-	{
-		db_b = list->next;
-		while (db_b->next)
-		{
-			if (!list->content || !db_b->content)
-				continue ;
-			min_len = ft_strlen((char *)list->content);
-			if (min_len > ft_strlen((char *)db_b->content))
-				min_len = ft_strlen((char *)db_b->content);
-			if (ft_strncmp((char *)list->content, (char *)db_b->content, \
-				min_len) > 0)
-			{
-				tmp = list->content;
-				list->content = db_b->content;
-				db_b->content = tmp;
-			}
-			db_b = db_b->next;
-		}
-		list = list->next;
-	}
-}
 
 void	exec_export(t_data *d, char *arg, int tmp_mem)
 {

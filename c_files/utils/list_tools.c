@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_handler.c                                     :+:      :+:    :+:   */
+/*   list_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/27 15:27:55 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 15:48:46 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,33 @@ void	init_env_list(t_data *d, char **env)
 	d->env_list = arr_to_dblst((void **)env);
 	if (!d->env_list)
 		custom_exit(d, "List alloc failed", NULL, 1);
+}
+
+void	reorder_dblst(t_dblist *list)
+{
+	t_dblist	*db_b;
+	char		*tmp;
+	int			min_len;
+
+	while (list->next)
+	{
+		db_b = list->next;
+		while (db_b->next)
+		{
+			if (!list->content || !db_b->content)
+				continue ;
+			min_len = ft_strlen((char *)list->content);
+			if (min_len > ft_strlen((char *)db_b->content))
+				min_len = ft_strlen((char *)db_b->content);
+			if (ft_strncmp((char *)list->content, (char *)db_b->content, \
+				min_len) > 0)
+			{
+				tmp = list->content;
+				list->content = db_b->content;
+				db_b->content = tmp;
+			}
+			db_b = db_b->next;
+		}
+		list = list->next;
+	}
 }

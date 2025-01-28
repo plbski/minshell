@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 10:49:46 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 15:49:23 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,18 @@ int	increment_shlvl(t_data *d)
 	return (1);
 }
 
-void	set_argv(t_data *d, char *prog_name, char ***argv)
+char	**set_argv(t_data *d, char *prog_name)
 {
-	if (*argv)
-		free_void_array((void ***)argv);
-	*argv = malloc(sizeof(char *) * 2);
-	if (!*argv)
+	char	**new_argv;
+
+	new_argv = malloc(sizeof(char *) * 2);
+	if (!new_argv)
 		custom_exit(d, "Exec argv error", NULL, EXIT_FAILURE);
-	(*argv)[0] = ft_strdup(prog_name);
-	if (!(*argv)[0])
+	new_argv[0] = ft_strdup(prog_name);
+	if (!new_argv[0])
 		custom_exit(d, "Exec argv error", NULL, EXIT_FAILURE);
-	(*argv)[1] = NULL;
+	new_argv[1] = NULL;
+	return (new_argv);
 }
 
 int	handle_child_process(t_data *d, char *program, char **argv)
@@ -79,10 +80,11 @@ int	exec(t_data *d, char *program, char **argv, int u __attribute__((unused)))
 {
 	pid_t		child_pid;
 
-	if (!program)
-		return (FCT_FAIL);
 	if (!argv || !argv[0])
-		set_argv(d, program, &argv);
+	{
+		free_void_array((void ***)&argv);
+		argv = set_argv(d, program);
+	}
 	if (access(program, F_OK) == -1)
 	{
 		printf("msh: %s: No such file or directory\n", program);

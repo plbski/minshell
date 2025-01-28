@@ -6,11 +6,26 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/27 12:06:13 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 15:28:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
+
+int	handle_splits(t_data *d, char *prompt)
+{
+	char	**splits;
+	int		i;
+
+	splits = ft_split_str(prompt, "&&");
+	if (!splits)
+		return (0);
+	i = -1;
+	while (splits[++i])
+		execute_prompt(d, splits[i]);
+	free(splits);
+	return (1);
+}
 
 char	*get_prompt_message(t_data *d)
 {

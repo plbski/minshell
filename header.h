@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 12:46:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 15:53:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,27 +109,38 @@ int			man(t_data *d, char *arg, char **flags, int status);
 int			pwd(t_data *d, char *arg, char **flags, int status);
 int			unset(t_data *d, char *arg, char **flags, int status);
 
-//		utils
+//		env_tools
+void		update_environ(t_data *d);
 char		*get_env_value(t_data *d, t_dblist *lst, char *key);
 int			update_env_variables(t_data *d);
-void		reorder_dblst(t_dblist *list);
 int			set_key_value(t_data *d, t_dblist *list, char *key, char *value);
-int			update_cwd(t_data *data);
+
+//		list_tools
+t_dblist	*get_dblst_node(t_dblist *lst, const char *content);
 void		add_to_list(t_data *d, t_dblist *lst, char *content);
+void		reorder_dblst(t_dblist *list);
+
+//		utils
+int			update_cwd(t_data *data);
 char		**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg);
-char		*contract_str(t_data *d, char **strs);
 
-//		signal
-void		setup_signal(int is_waiting);
-
-//		utils_parsing
+//		string_tools
 char		*ft_remove_prefix(const char *str, char *prefix);
-char		*truncate_at_end(const char *str, const char cut_letter);
-char		*get_next_line(int fd);
+char		*truncate_at_end(const char *str, char cut_letter);
 char		*ft_str_mega_join(const char *a, const char *b, \
 	const char *c, const char *d);
 int			get_char_occurence(const char *str, char c);
 int			get_arr_len(void **arr);
+
+//		string_tools_2
+int			is_in_quote(char *str, int index);
+char		*copy_until_char(t_data *d, char *str, int *start, const char *set);
+char		*remove_chars(char *txt, const char *to_remove);
+char		*contract_str(t_data *d, char **strs);
+int			is_same_string(const char *a, const char *b);
+
+//		signal
+void		setup_signal(int is_waiting);
 
 //		utils_parsing_2
 int			handle_splits(t_data *d, char *prompt);
@@ -139,19 +150,16 @@ int			is_valid_prompt(char *prompt);
 //		utils_design
 void		set_string_color(char **str, char *color);
 int			write_anim_txt(t_data *d, const char *txt, int intrv, int exit_w);
-int			is_same_string(const char *a, const char *b);
 
-void		expand_splits_values(t_data *d, char **splits);
+//		token_expand_tools
+void		expand_splits(t_data *d, char **splits);
 
-//		env
-int			update_env_variables(t_data *d);
-void		update_environ(t_data *d);
-t_dblist	*get_dblst_node(t_dblist *lst, const char *content);
+int			handle_direct_exec(t_data *d, char *cmd_name, char *arg, char **flags);
 
 //		STRSTR
 char		**ft_split_str(char *str, char *sep);
 char		*ft_strstr(char *str, char *to_find);
-char		*remove_char(char **txt, char c);
+int			ft_char_in_str(char c, const char *txt);
 
 //		free
 int			safe_free(void *item);
@@ -161,5 +169,12 @@ int			free_data(t_data *data);
 //		write
 int			write_at_rel_path(t_data *d, char *content, char *file_name);
 int			write_at_abs_path(char *content, char *path, int flags);
+
+//		gnl
+char		*get_next_line(int fd);
+
+//		debug
+char		*get_dir_in_path(t_data *d, char *cmd_name);
+int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
 
 #endif
