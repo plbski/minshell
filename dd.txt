@@ -1,0 +1,5 @@
+fin redir 
+wd > dd.txt
+fin redir 
+wd >> dd.txt
+qq

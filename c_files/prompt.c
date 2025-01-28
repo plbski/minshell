@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 15:28:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 18:04:44 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	handle_splits(t_data *d, char *prompt)
 	char	**splits;
 	int		i;
 
+	prompt = redir(d, prompt);
 	splits = ft_split_str(prompt, "&&");
 	if (!splits)
 		return (0);

@@ -622,3 +622,23 @@ echo $0
 echo $1
 echo $$
 echo $?
+echo > dd.txt
+echo dd
+echo dd > dd.txt
+echo dd >> dd.txt
+echo ss >> dd.txt
+echo ss >> dd.txt
+echo dd > dd.txt
+echo wd > dd.txt
+echo wd > dd.txt
+echo sd > dd.txt
+echo wd > dd.txt
+echo wd >> dd.txt
+echo "bbbbb>" > gg.txt
+make re
+echo "sss>" > gg.txt
+echo fff > gq.txt
+echo $0
+echo gfgf
+echo gfgf > gg.txt
+echo $0 > file.txt

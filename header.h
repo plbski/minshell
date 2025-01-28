@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 15:53:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 18:04:11 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef enum e_data_status
 
 typedef struct s_data
 {
+	int			fd;
 	int			debug_mode;
 	int			shlvl;
 	int			last_exit_status;
@@ -177,4 +178,6 @@ char		*get_next_line(int fd);
 char		*get_dir_in_path(t_data *d, char *cmd_name);
 int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
 
+//redirection
+char	*redir(t_data *d, char *prompt);
 #endif

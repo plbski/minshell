@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_prompt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 15:48:32 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 17:48:18 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,13 @@ int	execute_prompt(t_data *d, char *prmpt)
 	arg = NULL;
 	flags = get_flags(d, prmpt, &cmd_name, &arg);
 	fct_ret = execute_command(d, cmd_name, arg, flags);
+	if (dup2(1, STDOUT_FILENO) == -1)
+		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+	if (dup2(0, STDOUT_FILENO) == -1)
+		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+	if (d->fd)
+		close(d->fd);
+	d->fd = 0;
 	free_void_array((void ***)&flags);
 	safe_free(arg);
 	safe_free(cmd_name);
