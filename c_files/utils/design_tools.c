@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:50:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 15:40:36 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 22:42:33 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,23 @@ void	set_string_color(char **str, char *color)
 	new_str = ft_str_mega_join(color, *str, RESET, NULL);
 	free(*str);
 	*str = new_str;
+}
+
+char	*get_prompt_message(t_data *d)
+{
+	char	*logname_part;
+	char	*cwd_part;
+	char	*prompt_msg;
+	char	*icon_part;
+
+	logname_part = ft_str_mega_join(PROMPT_LOGNAME_COL, d->logname, " ", RESET);
+	if (!logname_part)
+		return (NULL);
+	icon_part = ft_str_mega_join(MAGENTA, "$ ", RESET, NULL);
+	cwd_part = ft_str_mega_join(PROMPT_CWD_COL, d->cwd, icon_part, RESET);
+	prompt_msg = ft_strjoin(logname_part, cwd_part);
+	free(icon_part);
+	free(cwd_part);
+	free(logname_part);
+	return (prompt_msg);
 }

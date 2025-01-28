@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 19:12:22 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/01/29 00:31:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@
 # define FCT_SUCCESS		0
 # define FCT_FAIL		1
 
+typedef enum e_token_type
+{
+	command,
+	argument,
+	redirection,
+	pipe,
+	logical_operator,
+	expanded_argument,
+	quoting,
+	wildcard,
+	exit_status,
+	heredox,
+}	t_token_typ;
+
+typedef struct s_token
+{
+	t_token_typ	type;
+	char		*str;
+}	t_token;
+
 typedef enum e_builtins
 {
 	e_cd,
@@ -59,12 +79,13 @@ typedef enum e_builtins
 	e_unset
 }	t_builtins_types;
 
-typedef enum e_data_status
+typedef enum e_redir_type
 {
-	running,
-	quitting,
-	waiting,
-}	t_status;
+	APPEND,
+	OUT,
+	IN,
+	REDIR_HEREDOC,
+}	t_redir_type;
 
 typedef struct s_data
 {
@@ -82,7 +103,6 @@ typedef struct s_data
 	char		**environ;
 	t_dblist	*env_list;
 	t_dblist	*tmp_list;
-	t_status	status;
 	char		**bltin_names;
 	int			(*builtin_funcs[11])(struct s_data *data, \
 		char *arg, char **flag, int status);
@@ -151,11 +171,13 @@ int			is_valid_prompt(char *prompt);
 //		utils_design
 void		set_string_color(char **str, char *color);
 int			write_anim_txt(t_data *d, const char *txt, int intrv, int exit_w);
+char		*get_prompt_message(t_data *d);
 
 //		token_expand_tools
 void		expand_splits(t_data *d, char **splits);
 
-int			handle_direct_exec(t_data *d, char *cmd_name, char *arg, char **flags);
+int			handle_direct_exec(t_data *d, char *cmd_name, char *arg, \
+	char **flags);
 
 //		STRSTR
 char		**ft_split_str(char *str, char *sep);
@@ -178,7 +200,8 @@ char		*get_next_line(int fd);
 char		*get_dir_in_path(t_data *d, char *cmd_name);
 int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
 
-//redirection
-char	*redir(t_data *d, char *prompt);
-void	heredoc(char *end, t_data *d, char *print);
+//		redirection
+void		heredoc(char *end, t_data *d, char *print);
+int			execute_redir(t_data *d, char *prompt);
+
 #endif

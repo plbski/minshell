@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 19:26:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/29 00:21:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char	**get_flags(t_data *d, char *prmpt, char **cmd_name, char **arg)
 	int		splits_len;
 
 	splits = get_splits(d, prmpt, cmd_name, arg);
+	
 	splits_len = get_arr_len((void **)splits);
 	if (splits_len - 1 <= 0)
 		return (NULL);

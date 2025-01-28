@@ -1,7 +1,17 @@
+unset mini
+export msh=./minishell
+$msh
 clear
-echo '   $LOGNAME'
-echo '   $LOGNAME'
-echo dd > dd.txt
-echo dd>dd.txt
-echo df>dd.txt
-echo df>>dd.txt
+$ms
+echo olapo >> test.txt
+<< cool
+<< cool
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+cd .. && echo "top" >> fichier.txt

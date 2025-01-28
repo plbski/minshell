@@ -6,21 +6,32 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/27 15:02:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 23:02:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-int	update_cwd(t_data *data)
+char	*custom_get_cwd(t_data *d)
 {
 	char	*working_dir_buff;
 
 	working_dir_buff = malloc(MAX_DIR_LEN);
 	if (!working_dir_buff)
-		return (data->status = quitting, 0);
+		custom_exit(d, "alloc for cwd", NULL, EXIT_FAILURE);
 	if (!getcwd(working_dir_buff, MAX_DIR_LEN))
-		return (free(working_dir_buff), data->status = quitting, 0);
+	{
+		free(working_dir_buff);
+		custom_exit(d, "alloc for cwd", NULL, EXIT_FAILURE);
+	}
+	return (working_dir_buff);
+}
+
+int	update_cwd(t_data *data)
+{
+	char	*working_dir_buff;
+
+	working_dir_buff = custom_get_cwd(data);
 	if (data->cwd)
 	{
 		if (data->prev_cwd)
@@ -37,22 +48,11 @@ int	init_data_directories(t_data *data)
 {
 	char	*working_dir_buff;
 
-	working_dir_buff = malloc(MAX_DIR_LEN);
-	if (!working_dir_buff)
-		return (data->status = quitting, 0);
-	if (!getcwd(working_dir_buff, MAX_DIR_LEN))
-		return (free(working_dir_buff), data->status = quitting, 0);
+	working_dir_buff = custom_get_cwd(data);
 	data->start_wd = working_dir_buff;
 	data->doc_wd = ft_strjoin(working_dir_buff, "/doc/");
 	data->history_wd = ft_strjoin(working_dir_buff, "/.history.txt");
 	read_history(data->history_wd);
-	return (1);
-}
-
-int	init_cwd(t_data *data)
-{
-	init_data_directories(data);
-	update_cwd(data);
 	return (1);
 }
 
@@ -76,7 +76,6 @@ void	init_shlvl(t_data *data)
 
 void	init_data(t_data *data, char **env)
 {
-	data->status = running;
 	data->cwd = NULL;
 	data->prev_cwd = NULL;
 	data->start_wd = NULL;
@@ -90,7 +89,8 @@ void	init_data(t_data *data, char **env)
 	init_env_list(data, env);
 	data->environ = list_to_arr(data->env_list);
 	update_env_variables(data);
-	init_cwd(data);
+	init_data_directories(data);
+	update_cwd(data);
 	init_shlvl(data);
 	init_builtins_data(data);
 }
