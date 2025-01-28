@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 18:12:50 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/01/28 18:38:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	create_file(t_data *d, char *file_name, int redir)
 		file_name++;
 	file_name = ft_strjoin("/", file_name);
 	full_path = ft_strjoin(d->cwd, file_name);
-	// printf("%s\n", full_path);
 	if (redir == 1)
 		fd = open(full_path, O_WRONLY| O_APPEND |O_CREAT, 0644);
 	else if (redir == 2)
@@ -92,6 +91,7 @@ static	void check(t_data *d, char *prompt)
 	else if (prompt[i] == '<')
 		create_file(d, prompt + (i + 1), 3);
 }
+
 char	*redir(t_data *d, char *prompt)
 {
 	int	i;
@@ -110,4 +110,3 @@ char	*redir(t_data *d, char *prompt)
 	prompt[i] = '\0';
 	return (prompt);
 }
-

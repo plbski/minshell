@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 15:35:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/28 19:26:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,41 @@ char	**init_flags(t_data *d, int splits_amount, char **splits)
 	return (flags);
 }
 
+char	**get_tokens(char *str, int str_len)
+{
+	char	**tokens;
+	int		token_index;
+	int		tlen;
+	int		i;
+
+	token_index = 0;
+	str_len = ft_strlen(str);
+	tokens = malloc(sizeof(char *) * str_len);
+	i = -1;
+	while (i < str_len && str[++i])
+	{
+		while (str[i] == ' ')
+			i++;
+		if (!str[i])
+			break ;
+		tlen = i;
+		while (str[tlen] && (is_in_quote(str, tlen) || str[tlen] != ' '))
+			tlen++;
+		tokens[token_index] = malloc((tlen - i) + 1);
+		tlen = 0;
+		while (str[i] && (is_in_quote(str, i) || str[i] != ' '))
+			tokens[token_index][tlen++] = str[i++];
+		tokens[token_index++][tlen] = '\0';
+	}
+	tokens[token_index] = NULL;
+	return (tokens);
+}
+
 char	**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg)
 {
 	char	**splits;
-	char	*purged_prmpt;
 
-	purged_prmpt = remove_chars(prmpt, "\\;");
-	!purged_prmpt && (custom_exit(d, "alloc for prgsplt", NULL, EXIT_FAILURE));
-	splits = ft_split(purged_prmpt, ' ');
-	free(purged_prmpt);
+	splits = get_tokens(prmpt, ft_strlen(prmpt));
 	!splits && (custom_exit(d, "Alloc failed for tokens", NULL, EXIT_FAILURE));
 	expand_splits(d, splits);
 	*cmd_name = ft_strdup(splits[0]);

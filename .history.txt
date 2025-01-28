@@ -642,3 +642,16 @@ echo $0
 echo gfgf
 echo gfgf > gg.txt
 echo $0 > file.txt
+clear
+ls
+echo $ola $cool
+echo $?
+echo $ola
+env
+echo $ola
+echo
+echo " $ola $cool "
+echo ' $ola $cool '
+echo ' $ola $cool '
+echo ' $ola $cool '
+echo ' $ola $co'ol
