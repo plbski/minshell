@@ -10,7 +10,7 @@ c_files/utils/design_tools.c c_files/utils/list_tools.c c_files/utils/debug.c c_
 c_files/utils/string_tools2.c c_files/prompt.c c_files/builtins/man.c c_files/builtins/ls.c c_files/builtins/exec.c \
 c_files/builtins/exit.c c_files/builtins/unset.c c_files/builtins/env.c c_files/builtins/pwd.c c_files/builtins/clear.c \
 c_files/builtins/export.c c_files/builtins/cd.c c_files/builtins/echo.c c_files/free.c c_files/parse_prompt.c \
-c_files/init_bltn.c c_files/signal.c c_files/pipe_parse/redir.c c_files/utils/prompt_checker.c
+c_files/init_bltn.c c_files/signal.c c_files/pipe_parse/redir.c c_files/utils/prompt_checker.c c_files/utils/tokens.c \
 
 TEST_PRG_SRC = test_program.c
 

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 15:38:12 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 12:35:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_export(t_data *d, char *arg, int tmp_mem)
 	char		*value;
 	t_dblist	*new_node;
 
-	if (!get_char_occurence(arg, '='))
+	if (!ch_amount(arg, '='))
 		return ;
 	key = truncate_at_end(arg, '=');
 	value = ft_strchr(arg, '=') + 1;

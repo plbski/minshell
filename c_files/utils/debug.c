@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 15:52:12 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 11:42:33 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,15 @@ int	search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags)
 		return (1);
 	}
 	return (0);
+}
+
+int	get_char_index(char *str, char c)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] == c)
+			return (i);
+	return (-1);
 }

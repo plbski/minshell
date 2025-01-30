@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_builtins.c                                    :+:      :+:    :+:   */
+/*   init_bltn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 11:41:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 11:01:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	init_builtins_names(t_data *data)
 	data->bltin_names[e_export] = ft_strdup("export");
 	data->bltin_names[e_ls] = ft_strdup("ls");
 	data->bltin_names[e_man] = ft_strdup("man");
+	!data->bltin_names[e_man] && (custom_exit(data, NULL, NULL, EXIT_FAILURE));
 	data->bltin_names[e_pwd] = ft_strdup("pwd");
 	data->bltin_names[e_unset] = ft_strdup("unset");
 	data->bltin_names[11] = NULL;

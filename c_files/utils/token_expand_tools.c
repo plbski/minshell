@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 15:57:15 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 12:35:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	expand_splits(t_data *d, char **splits)
 	while (splits[++i])
 	{
 		len = ft_strlen(splits[i]);
-		splits_amount = get_char_occurence(splits[i], '$');
+		splits_amount = ch_amount(splits[i], '$');
 		if (!splits_amount || (splits_amount == len && splits_amount > 2))
 			continue ;
 		new_split = expand_split(d, splits[i], ft_strlen(splits[i]), 0);

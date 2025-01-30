@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 23:03:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 12:59:35 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char *argv[], char **env)
 
 	(void)argv;
 	data.debug_mode = argc > 1;
-	setup_signal(0);
+	setup_signal(0, 0);
 	init_data(&data, env);
 	write_anim_txt(&data, START_ANIM_TEXT, 3000, 10000);
 	while (42)

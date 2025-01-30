@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/29 00:31:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 13:22:55 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,26 @@
 
 typedef enum e_token_type
 {
-	command,
-	argument,
-	redirection,
-	pipe,
-	logical_operator,
-	expanded_argument,
-	quoting,
-	wildcard,
-	exit_status,
-	heredox,
+	tk_command,
+	tk_argument,
+	tk_expand_arg,
+	tk_redir_in,
+	tk_redir_out,
+	tk_redir_append,
+	tk_heredox,
+	tk_pipe,
+	tk_logical,
+	tk_quote,
+	tk_dbquote,
+	tk_wildcard,
 }	t_token_typ;
 
 typedef struct s_token
 {
-	t_token_typ	type;
-	char		*str;
+	char			*content;
+	t_token_typ		type;
+	struct s_token	*prv;
+	struct s_token	*next;
 }	t_token;
 
 typedef enum e_builtins
@@ -144,13 +148,14 @@ void		reorder_dblst(t_dblist *list);
 //		utils
 int			update_cwd(t_data *data);
 char		**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg);
+char		**split_prompt(char *str, int str_len);
 
 //		string_tools
 char		*ft_remove_prefix(const char *str, char *prefix);
 char		*truncate_at_end(const char *str, char cut_letter);
 char		*ft_str_mega_join(const char *a, const char *b, \
 	const char *c, const char *d);
-int			get_char_occurence(const char *str, char c);
+int			ch_amount(const char *str, char c);
 int			get_arr_len(void **arr);
 
 //		string_tools_2
@@ -161,12 +166,15 @@ char		*contract_str(t_data *d, char **strs);
 int			is_same_string(const char *a, const char *b);
 
 //		signal
-void		setup_signal(int is_waiting);
+void		setup_signal(int is_waiting, int in_heredoc);
+
+int			get_quote_termination(t_data *d, char **prompt);
 
 //		utils_parsing_2
 int			handle_splits(t_data *d, char *prompt);
 char		**get_flags(t_data *d, char *prmpt, char **cmd_name, char **arg);
 int			is_valid_prompt(char *prompt);
+int			get_char_index(char *str, char c);
 
 //		utils_design
 void		set_string_color(char **str, char *color);
@@ -175,6 +183,7 @@ char		*get_prompt_message(t_data *d);
 
 //		token_expand_tools
 void		expand_splits(t_data *d, char **splits);
+t_token 	*get_tokens_from_splits(t_data *d, char *prompt);
 
 int			handle_direct_exec(t_data *d, char *cmd_name, char *arg, \
 	char **flags);
@@ -201,7 +210,7 @@ char		*get_dir_in_path(t_data *d, char *cmd_name);
 int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
 
 //		redirection
-void		heredoc(char *end, t_data *d, char *print);
+char		*heredoc(char *end, t_data *d, char *print, int is_quote);
 int			execute_redir(t_data *d, char *prompt);
 
 #endif

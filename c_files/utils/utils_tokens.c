@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/29 00:21:47 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 11:17:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**init_flags(t_data *d, int splits_amount, char **splits)
 	return (flags);
 }
 
-char	**get_tokens(char *str, int str_len)
+char	**split_prompt(char *str, int str_len)
 {
 	char	**tokens;
 	int		token_index;
@@ -64,15 +64,14 @@ char	**get_tokens(char *str, int str_len)
 			tokens[token_index][tlen++] = str[i++];
 		tokens[token_index++][tlen] = '\0';
 	}
-	tokens[token_index] = NULL;
-	return (tokens);
+	return (tokens[token_index] = NULL, tokens);
 }
 
 char	**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg)
 {
 	char	**splits;
 
-	splits = get_tokens(prmpt, ft_strlen(prmpt));
+	splits = split_prompt(prmpt, ft_strlen(prmpt));
 	!splits && (custom_exit(d, "Alloc failed for tokens", NULL, EXIT_FAILURE));
 	expand_splits(d, splits);
 	*cmd_name = ft_strdup(splits[0]);

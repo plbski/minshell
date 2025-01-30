@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/29 00:17:52 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 12:35:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 		return (handle_direct_exec(d, cmd_name, arg, flags));
 	else if (!ft_strncmp(cmd_name, "exec ", 5))
 		return (handle_direct_exec(d, arg, NULL, flags));
-	else if (get_char_occurence(cmd_name, '=') == 1)
+	else if (ch_amount(cmd_name, '=') == 1)
 		return (export(d, cmd_name, flags, 1));
 	i = -1;
 	while (d->bltin_names[++i])

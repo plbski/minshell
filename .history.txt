@@ -15,3 +15,76 @@ echo olapo >> test.txt
 << ola
 << ola
 cd .. && echo "top" >> fichier.txt
+clear
+ls
+pwd
+cat
+cd$LOGNAME
+ola=3
+echo $ola >> test.txt
+echo "$ola" >> test.txt
+echo '$ola' >> test.txt
+echo $ola >> test.txt
+echo $ola -n >> test.txt
+echo -n $ola >> test.txt
+echo $ola >> test.txt
+echo -n $ola >> test.txt
+echo -n ola >> test.txt
+echo -n ola
+ls *
+'ool
+"cool"
+'cool
+'cool
+'cool'
+'cool
+'cool
+'cool
+'cool
+'cool top
+'cool top
+'cool top
+clear
+clear''
+clear''
+clear''
+clear'coolsupertop'
+clear'coolsupertop"'
+clear"co'l"
+coo'lios'
+coo'lios'
+coo'lios'
+coo'liosau'zaurus'
+coo'liosau'zau'rus'
+<< ola
+cool''
+clear
+echo '$$''
+echo $$
+echo $$
+ola''
+make re
+ola''
+ola''
+quote''
+quote''
+quote''
+ola''
+ola''
+'ola'
+'ola'
+ola''
+ola''
+ola''
+ola''
+ola''
+ola''
+ola''
+ola''
+here''
+here'
+here'
+here''
+here''
+here'
+here''

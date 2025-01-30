@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/29 00:03:32 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 12:56:54 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	execute_redir(t_data *d, char *prompt)
 	if (prompt[i] == '>' && prompt[i + 1] == '>')
 		create_file(d, prompt + (i + 2), APPEND);
 	else if (prompt[i] == '<' && prompt[i + 1] == '<')
-		heredoc(prompt + (i + 2), d, "heredoc> ");
+		heredoc(prompt + (i + 2), d, "heredoc> ", 0);
 	else if (prompt[i] == '>')
 		create_file(d, prompt + (i + 1), OUT);
 	else if (prompt[i] == IN)

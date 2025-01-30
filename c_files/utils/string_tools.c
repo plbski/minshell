@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 15:32:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 12:35:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*truncate_at_end(const char *str, char cut_letter)
 	int		i;
 	int		trunc_index;
 
-	if (!str || !get_char_occurence(str, cut_letter))
+	if (!str || !ch_amount(str, cut_letter))
 		return (NULL);
 	i = ft_strlen(str);
 	while (--i >= 0)
@@ -75,7 +75,7 @@ char	*ft_str_mega_join(const char *a, const char *b, \
 	return (abcd);
 }
 
-int	get_char_occurence(const char *str, char c)
+int	ch_amount(const char *str, char c)
 {
 	int	i;
 	int	occurence;

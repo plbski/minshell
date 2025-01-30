@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:33:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 22:36:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 13:22:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,52 @@ int	check_redir_validity(char *prompt)
 		printf("msh: syntax error near unexpected token %c\n", invalid_token);
 		return (0);
 	}
+	return (1);
+}
+
+char	*get_quote_end(t_data *d, char *end, char *msg)
+{
+	char	*quote_append;
+	char	*quote_end;
+
+	quote_append = heredoc(end, d, msg, 1);
+	if (!quote_append)
+		return (NULL);
+	quote_end = ft_strjoin(quote_append, end);
+	if (!quote_end)
+		custom_exit(d, "error in quote termination", NULL, EXIT_FAILURE);
+	free(quote_append);
+	return (quote_end);
+}
+
+int	get_quote_termination(t_data *d, char **prompt)
+{
+	char	*quote_end;
+	int		qt_index;
+	int		dbqt_index;
+	char	*new_prompt;
+
+	qt_index = -1;
+	dbqt_index = -1;
+	quote_end = NULL;
+	if (ch_amount(*prompt, '\'') % 2 == 1)
+		qt_index = get_char_index(*prompt, '\'');
+	if (ch_amount(*prompt, '\"') % 2 == 1)
+		dbqt_index = get_char_index(*prompt, '\"');
+	if (qt_index == -1 && dbqt_index == -1)
+		return (1);
+	if ((qt_index > 0 && qt_index < dbqt_index) || dbqt_index == -1)
+		quote_end = get_quote_end(d, "\'", "quote> ");
+	else
+		quote_end = get_quote_end(d, "\"", "dquote> ");
+	if (!quote_end)
+		return (0);
+	new_prompt = ft_strjoin(*prompt, quote_end);
+	if (!new_prompt)
+		custom_exit(d, "alloc for quoted prompt failed", NULL, EXIT_FAILURE);
+	free(quote_end);
+	free(*prompt);
+	*prompt = new_prompt;
 	return (1);
 }
 

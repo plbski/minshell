@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 15:49:23 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 12:59:56 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ int	handle_parent_process(pid_t child_pid)
 {
 	int	wait_status;
 
-	setup_signal(1);
+	setup_signal(1, 0);
 	if (waitpid(child_pid, &wait_status, 0) == -1)
 	{
 		perror("waitpid");
 		return (FCT_FAIL);
 	}
-	setup_signal(0);
+	setup_signal(0, 0);
 	if (WIFEXITED(wait_status))
 		return (WEXITSTATUS(wait_status));
 	else if (WIFSIGNALED(wait_status))

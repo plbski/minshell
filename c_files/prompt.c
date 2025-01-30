@@ -6,37 +6,53 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/29 00:24:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 13:58:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-void	heredoc(char *end, t_data *d, char *print)
+#include <errno.h>
+
+int	is_stdin_closed(void)
 {
+	char		buffer[1];
+	ssize_t		result;
+
+	result = read(STDIN_FILENO, buffer, 1);
+	return (result == -1 && errno == EBADF);
+}
+
+char	*heredoc(char *end, t_data *d, char *print, int is_quote)
+{
+	char	*input;
 	char	*line;
 	int		pipefd[2];
-	int		len_print;
 
-	len_print = ft_strlen(print);
+	input = ft_strdup("");
 	end = remove_chars(end, " ");
 	if (pipe(pipefd) == -1)
 		custom_exit(d, "erreur pipe", NULL, EXIT_FAILURE);
+	setup_signal(1, 1);
 	while (1)
 	{
-		write(1, print, len_print);
-		line = get_next_line(0);
-		line == NULL && (custom_exit(d, NULL, NULL, EXIT_SUCCESS));
+		line = readline(print);
+		if (is_stdin_closed())
+		{
+			break ;
+		}
 		line = truncate_at_end(line, '\n');
 		if (is_same_string(line, end))
 			break ;
 		write(pipefd[1], line, ft_strlen(line));
 		write(pipefd[1], "\n", 1);
+		input = ft_strjoin(input, line);
 		free(line);
+		if (is_quote && ch_amount(input, end[0]) % 2 == 1)
+			break ;
 	}
-	free(end);
-	close(pipefd[1]);
-	close(pipefd[0]);
+	setup_signal(0, 0);
+	return (close(pipefd[1]), close(pipefd[0]), free(end), input);
 }
 
 int	handle_splits(t_data *d, char *prompt)
@@ -44,7 +60,7 @@ int	handle_splits(t_data *d, char *prompt)
 	char	**splits;
 	int		i;
 
-	if (get_char_occurence(prompt, '<') || get_char_occurence(prompt, '>'))
+	if (ch_amount(prompt, '<') || ch_amount(prompt, '>'))
 	{
 		execute_redir(d, prompt);
 		if (!prompt[0])
@@ -73,6 +89,7 @@ int	get_terminal_prompt(t_data *d)
 	terminal_line = readline(prompt_msg);
 	if (!terminal_line)
 		return (0);
+	get_quote_termination(d, &terminal_line);
 	if (is_valid_prompt(terminal_line))
 	{
 		add_history(terminal_line);
