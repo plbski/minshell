@@ -6,7 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 00:22:18 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 16:37:32 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int	ft_pipe(void)
+{
+	return (0);
+}

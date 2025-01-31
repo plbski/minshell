@@ -1,336 +1,337 @@
-unset mini
-export msh=./minishell
-$msh
-clear
-$ms
-echo olapo >> test.txt
-<< cool
-<< cool
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-cd .. && echo "top" >> fichier.txt
+ola
+cool
 clear
 ls
 pwd
-cat
-cd$LOGNAME
+clear
+clear
+clear
+ls
+pwd
+clear
+ls
+pwd
+./minishell
+/bin/ls
+./test
+./test
+echo $?
+echo -n cool
+<< cool
+<< top
+<< top
+<< top
+<< top
+<< top
+<< top
+<< top
+<< top
+<< cool
+lkansdvlknad
+,smd bsldkgn
+1234rwersf
+awfoajwf12e
+wtf
+wtf
+pourquoi
+bon....
+<< cool
+make re
+olapo
+'olapo'
+''
+aola
+make re
+ola'alo'
+'
+ola'alo'
+'
+ola'alo'
+'
+ol<'
+'
+'
+ola'
+alo'¨
+'
+env
+unset OLDPWD
+cd -
+cd ..
+cd -
+unset OLDPWD
+cd -
+env
+unset LOGNAME
+$LOGNAME
+echo $LOGNAME
+LOGNAME=oola
+export LOGNAME=ola
+env
+OLDPWD=3
+env
+OLDPWD=3
+env
+OLDPWD=10
+env
 ola=3
-echo $ola >> test.txt
-echo "$ola" >> test.txt
-echo '$ola' >> test.txt
-echo $ola >> test.txt
-echo $ola -n >> test.txt
-echo -n $ola >> test.txt
-echo $ola >> test.txt
-echo -n $ola >> test.txt
-echo -n ola >> test.txt
-echo -n ola
-ls *
-'ool
-"cool"
-'cool
-'cool
-'cool'
-'cool
-'cool
-'cool
-'cool
-'cool top
-'cool top
-'cool top
+echo $ola
+ola=10
+echo $ola
+ola=5 alo=2 wello=10 echo $ola $alo $wello
+echo $alo
+echo $ola $alo $wello
+ola=5 alo=2 wello=10 echo $ola $alo $wello
+ola=5 alo=2 wello=10 echo $ola $alo $wello
+env
+export
 clear
-clear''
-clear''
-clear''
-clear'coolsupertop'
-clear'coolsupertop"'
-clear"co'l"
-coo'lios'
-coo'lios'
-coo'lios'
-coo'liosau'zaurus'
-coo'liosau'zau'rus'
-<< ola
-cool''
-clear
-echo '$$''
-echo $$
-echo $$
-ola''
-make re
-ola''
-ola''
-quote''
-quote''
-quote''
-ola''
-ola''
-'ola'
-'ola'
-ola''
-ola''
-ola''
-ola''
-ola''
-ola''
-ola''
-ola''
-here''
-here'
-here'
-here''
-here''
-here'
-here''
-here'
-here'
-clear
-clear
-quote''
-quote''
-quote'ola'
-quote'ola'
-quote'ola'
-clear
-make re
-make re
-1;2c
-1;2c
-cool
-<< ola
-<< ola
-echo << ola
-cd << stop
-cd << stop
-cd -
-cd -
-cd -
+pop=1 popi=2 echo $pop $popi
+echo $pop
+ola
 cd ..
 cd -
-cd -
-cd ..
-cd -
-cd .
-cd -
-cd ..
-cd ..
-cd -
-cd ..
-cd -
-cd .
-cd -
-cd ..
-cd -
-cd -
-cd .
-cd -
-cd -
-cd -
-cool'topsuper''
-cd '..'
-'cd' .
-"cd" ..
-cd '..'
-'echo' 'ola'
-make re
-'echo ola'
-'echo' 'ola'
-'ola
-'ola''
-cool
-'cool'
-'coo'
-coo''ll'
-coo'ololo''
+<< ola
+ola=1 oli=2 olo=3 echo $ola $oli $olo
+echo ola
+echo $ola
+$echo
+echo $ola
 clear
-<< loa
-<< loa
-make re
-<< cool
-'olacool
-'
-ola'cool
-super
-'
-ola'cool
-top
-'
-ola'super
-genial
-bon
-'
-col \n
-\ncol \n
-\nco\n\n
-co'ool
-'
-ola'top'
-'
-'
-ola'coo
-top
-'
-aolo'cool'
-'
-make re
-ola'cool'
-'
+ls
+ls -a
+ls cool
+cd ..
+ls
+ls
+ls
 clear
+ola=3 oli=1 echo $ola $oli
+cmd=echo $cmd $ola
+ls
+ls
 clear
-cool
-co'ol'
-'
-co'o'ool
-'
-co'ool''
-ola'top''
-cole0'topsuper'
-cole0'topsuper'
-cole0'topsuperola supercool'
-cole0'topsuperola supercool'
-cole0'topsuperola supercoolcool'
-make re
-cole0'topsuperola supercoolcool'
-<< cool
+ls
+pwd
+clear
+ls
+pwd
+clear
+cmd=ls
+$cmd
+clear
+pwd
+$here
 << ola
-make re
+here
+$here
+echo $here
+here=ola
+echo $here
+env
+ola='>>'
+echo $ola
+en
+env
+export ola='>>'
+export
 << ola
-<< ola
-<< ola
-<< ola
+clear
 << ola
 ola
-o'abo'
-o'aoO'
-<< ola
-<< cool
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
-<< ola
+echo $ls
+ola
+clear
+alo
+ola
 |
-cool | top
-ola soer
-$cd cool
-export dir=cd
-$cd 3 ola
-$cd 3 ola
-export dir=cd
-dir ..
-$dir ..
-| dir = 3
-| ola
-| ola
-    |
-ola |
- |
-   ||||
-ola | cool
-cool | top
-cool || top
-cool | top && prompt || thing
-d=d
-cool | top && prompt || thing
-cool | top && prompt || thing
-cool | top && prompt || thing cd | ola
-$LOGNAME || cd
-cool
-cd ..
-./minishell
-..minishell
-cd ..minishell
-cd ..
-cd ..
-echo | olapo
-cd ..
-cd ..
-cd ..
-cd ..
-cd ..
-exec minishell
-exec minishell
-exec minishell
-./minishell
-/bin/ls
-/bin/ls
-/bin/ls
-/bin/ls
-/bin/ls
-/bin/ls
-/bin/ls
-/bin/ls ola
-export prg=./minishell
-$prg
+alo |
+|
+clear
+v     |
+clear
+cd .. |        
+ola
+ola
+alo
+cd .. | echo ola
 clear
 ls
 pwd
-cd .. cool oopa
-cd .. cool oopa ls
-cd .. cool oopa ls cool super wow | top hyper cool
-echo cool cd ..
+pwd
+ls
+pwd
+clear
+clear ola
+clear
+clear cd
+ls
+pwd
 clear
 cd ..
 cd -
-cd .. echo ola
-cd .. cool oopa ls cool super wow | top hyper cool
-cd .. cool oopa ls cool super wow | top hyper cool echo cool >> test.txt
-echo cool
-col top echo otp
-echo top
-col top echo otp
-cd .. cool oopa ls cool super wow | top hyper cool echo cool >> test.txt
+export ola=3
+ola'
+'
+'
+clear
+pipe |
+./minishell 1
 clear
 ls
 pwd
 clear
+ls
+    ,
+    .-.
+clesr
 clear
 ls
-echo ola >> test.txt
-<< cool
+pwd
+ls && cd ..
+ola
+clear
+ls
+pwd
+clear
+ls
+clear
+pwd
+pwd
+olapa'
+''
+ola'
+''
+clear
+ls
+pwd
+cd 
+cd -
+cd ~~
+cd ~
+dir=/Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell
+exec $dir/minishell
+exec $dir/minishell.c
+exec $dir/minishell
+exec $dirminishell
+clear
+exec $dir/minishell
+exec $dir
+exec cool
+mshell
+cd -
+minishell
+mini=/Users/giuliovalente/Dexec /Users/giuliovalente/Dexec /Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell/minishell
+mini=/Users/giuliovalente/Dexec /Users/giuliovalente/Dexec /Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell/minishell
+ls
+cd .. | echo ola >> test.txt
+ola'
+''
 cd ..
 cd -
+cd olapo
+cd ..
+cd ..
+cd ..
+cd olapo
+ls alopq
+ls .
+cd olapo echo cool
+cd olapo echo cool
+cd olapo && echo cool
+echo ola ||
+    %
+    (
+))
+cd cool echo &&
 clear
+./minishell
+./minishell
+./minishell
+ls
+pwd
+cd olapo || echo cool
+echo cool || cd ..
+cd .. || echo cool
+cd olapo && echo cool
+cd - && echo cool
+echo ola && cd ..
+cd -
+cd olapo && echo ola
+cd olapo echo ola
+cd *
+ls *
 cd ..
-cd .. ..
-echo >> ola.txt
-echo >> cool.txt
-echo >> cool.txt
-echo >> cool.txt
-pwd >> cool.txt
-echo ola >> cool.txt
-echo ola >> test.txt
-echo ola >> test.txt
-echo ola >> test.txt
-echo COOOL >> test.txt
-<< ola
-<< ola
-olapo
-olapo
-olapo lapa olapa
-cd ..
+cd -
+cd *
+ls *
+clear
+cd *
+ls ola cool
+ls ola cool
+ls ola cool *
+ls ola cool *
+ls *
 make re
+ls *
+ls *
+ls * >> ls.txt
+cd *
+cd *
+cd *
+ls $alo
+alo ls
+ls alo
+ls alo
+ls *
+ls *
+ls alo
+ls *
+ls . ..
+ls *
+ls *
+ls *
+clear
+ls *
+ls *
+ls *
+ls *
+make re
+ls *
+make re
+ls *
+clear
 cd ..
-cd ..
-cd ..
-cd -
-echo ola >> test.txt
-echo ola >> test.txt
-s
-<< here
-<< here
-here
-<< here
-<< here
-echo pwd > create.txt
+ls
+ls *
+ls * >> desc.txt
+ls
+cat desc.txt
+desc.txt < echo
+open .
+ls *ç
+ls *
+
+ls *
+clear
+ls
+ls
+pwd
+ls
+clear
+ls ..
+ls *
+clear
+ls **
+ls * && echo cool
+ls * && echo -n cool
+clear
+ls * || echo cool
+ls alop && echo cool
+clear
+ls * && echo cool
+ls * echo cool
+clear
+<< cool
+clear
+cd *

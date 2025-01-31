@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 21:11:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 18:12:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "../../header.h"
 
 int	safe_free(void *item)
 {

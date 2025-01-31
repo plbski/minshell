@@ -6,13 +6,12 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 04:35:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 22:15:13 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 20:27:23 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-// Your ft_strstr function (unchanged)
 char	*ft_strstr(char *str, char *to_find)
 {
 	char	*cur_str;
@@ -56,7 +55,7 @@ static int	count_substrings(char *str, char *sep)
 }
 
 // Get the next segment between separators
-static char	*get_next_segment(char **str, char *sep)
+static char	*get_next_segment(t_data *d, char **str, char *sep)
 {
 	char	*next;
 	char	*segment;
@@ -67,7 +66,7 @@ static char	*get_next_segment(char **str, char *sep)
 	next = ft_strstr(*str, sep);
 	if (!next)
 	{
-		segment = ft_strdup(*str);
+		segment = ms_strdup(d, *str);
 		*str = NULL;
 		return (segment);
 	}
@@ -81,7 +80,7 @@ static char	*get_next_segment(char **str, char *sep)
 	return (segment);
 }
 
-char	**ft_split_str(char *str, char *sep)
+char	**ft_split_str(t_data *d, char *str, char *sep)
 {
 	char	**splits;
 	int		amount;
@@ -96,7 +95,7 @@ char	**ft_split_str(char *str, char *sep)
 	i = -1;
 	while (++i < amount)
 	{
-		splits[i] = get_next_segment(&str, sep);
+		splits[i] = get_next_segment(d, &str, sep);
 		if (splits[i] && *splits[i] != '\0')
 		{
 			splits[i] = ft_strtrim(splits[i], " ");

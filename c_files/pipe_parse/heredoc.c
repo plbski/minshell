@@ -6,24 +6,25 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 09:01:02 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 17:51:38 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	handle_heredoc_interrupt(void)
+static int	handle_heredoc_interrupt(char **full)
 {
 	if (g_quit_in_heredoc)
 	{
 		write(1, "\n", 1);
 		g_quit_in_heredoc = 0;
+		*full = NULL;
 		return (1);
 	}
 	return (0);
 }
 
-int	should_skip_line(char *line, int *print_line)
+static int	should_skip_line(char *line, int *print_line)
 {
 	if (!line)
 	{
@@ -35,76 +36,44 @@ int	should_skip_line(char *line, int *print_line)
 		free(line);
 		return (1);
 	}
+	*print_line = 1;
 	return (0);
 }
 
-char	*get_pipe(int fd)
+static char	*exec_heredoc(t_data *d, char *nd, char *print, int is_q)
 {
-	char	buffer[1024];
-	char	*result = NULL;
-	char	*temp;
-	ssize_t	bytes_read;
-	size_t	total_size = 0;
-
-	while ((bytes_read = read(fd, buffer, sizeof(buffer) - 1)) > 0)
-	{
-		buffer[bytes_read] = '\0';
-		temp = malloc(total_size + bytes_read + 1);
-		if (!temp)
-		{
-			free(result);
-			return (NULL);
-		}
-		if (result)
-		{
-			ft_memcpy(temp, result, total_size);
-			free(result);
-		}
-		ft_memcpy(temp + total_size, buffer, bytes_read + 1);
-		result = temp;
-		total_size += bytes_read;
-	}
-	return (result);
-}
-
-void	exec_heredoc(char *end, char *print, int is_quote, int pipefd[2])
-{
-	char	*line;
+	char	*lin;
 	int		print_prompt;
+	char	*full;
 
 	print_prompt = 1;
-	line = NULL;
-	setup_signal(1, 1);
+	full = ms_strdup(d, "\n");
 	while (1)
 	{
-		line = readline(print);
-		print_prompt = 1;
-		if (handle_heredoc_interrupt())
+		lin = readline(print);
+		if (!lin)
 			break ;
-		if (should_skip_line(line, &print_prompt))
+		if (handle_heredoc_interrupt(&full))
+			break ;
+		if (should_skip_line(lin, &print_prompt))
 			continue ;
-		if (is_same_string(line, end))
+		if (!nd || cmp_str(lin, nd) || (is_q && chr_amnt(lin, *nd) % 2 == 1))
 			break ;
-		write(pipefd[1], line, ft_strlen(line));
-		if (is_quote && ch_amount(line, end[0]) % 2 == 1)
-			break ;
-		free(line);
+		full = ms_strjoin(d, full, lin);
+		safe_free(lin);
 	}
-	if (line)
-		free(line);
-	setup_signal(0, 0);
+	if (is_q && full)
+		full = ms_strjoin(d, full, lin);
+	return (safe_free(lin), full);
 }
 
 char	*heredoc(char *end, t_data *d, char *print, int is_quote)
 {
-	int		pipefd[2];
-	char	*pipe_content;
+	char	*heredoc_return;
 
-	if (pipe(pipefd) == -1)
-		custom_exit(d, "error: pipe failed", NULL, EXIT_FAILURE);
-	exec_heredoc(end, print, is_quote, pipefd);
-	close(pipefd[1]);
-	pipe_content = get_pipe(pipefd[0]);
-	close(pipefd[0]);
-	return (pipe_content);
+	setup_signal(1, 1);
+	heredoc_return = exec_heredoc(d, end, print, is_quote);
+	g_quit_in_heredoc = 0;
+	setup_signal(0, 0);
+	return (heredoc_return);
 }

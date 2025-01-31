@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/30 20:41:27 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 16:39:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <termios.h>
 
-void	process_man_menu(void)
+static void	process_man_menu(void)
 {
 	struct termios	oldt;
 	struct termios	newt;
@@ -35,7 +35,7 @@ void	process_man_menu(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 }
 
-void	open_doc_content(char *path)
+static void	open_doc_content(char *path)
 {
 	int		fd;
 	char	*line;
@@ -55,7 +55,7 @@ void	open_doc_content(char *path)
 	process_man_menu();
 }
 
-int	execute_man(t_data *d, char *path)
+static int	execute_man(t_data *d, char *path)
 {
 	if (!path)
 		custom_exit(d, "man path alloc failed", NULL, EXIT_FAILURE);

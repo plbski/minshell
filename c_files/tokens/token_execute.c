@@ -6,14 +6,14 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 01:06:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 19:41:49 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
 //	iterate until !ok_type, fill list with args, returns pointer to last arg + 1
-t_token	*set_token_args(t_token *start_node, t_toktype ok_type, char ***args)
+t_token	*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args)
 {
 	char		**new_args;
 	int			arg_index;
@@ -21,17 +21,18 @@ t_token	*set_token_args(t_token *start_node, t_toktype ok_type, char ***args)
 	int			flags_amount;
 
 	flags_amount = 0;
-	next_node = start_node->next;
-	while (next_node && next_node->type == ok_type)
+	next_node = strt->next;
+	while (next_node && next_node->type == k_typ)
 	{
 		flags_amount++;
 		next_node = next_node->next;
 	}
 	new_args = malloc(sizeof(char *) * (flags_amount + 1));
-	next_node = start_node->next;
+	next_node = strt->next;
 	arg_index = 0;
-	while (next_node && next_node->type == ok_type)
+	while (next_node && next_node->type == k_typ)
 	{
+		update_node_expansion(d, next_node, 0);
 		new_args[arg_index++] = next_node->name;
 		next_node = next_node->next;
 	}
@@ -39,7 +40,6 @@ t_token	*set_token_args(t_token *start_node, t_toktype ok_type, char ***args)
 	*args = new_args;
 	return (next_node);
 }
-
 
 void	close_redir_stream(t_data *d)
 {
@@ -52,42 +52,49 @@ void	close_redir_stream(t_data *d)
 	d->fd = 0;
 }
 
-t_token	*execute_cmd_token(t_data *d, t_token *node, int *fct_ret)
+t_token	*execute_cmd_token(t_data *d, t_token *node)
 {
 	t_token		*nxt;
-	char		*arg_0;
 	char		**flags;
-	int			has_redir;
+	int			redir;
+	char		*arg;
 
 	flags = NULL;
-	arg_0 = NULL;
+	arg = NULL;
 	nxt = node->next;
 	if (nxt && nxt->type == tk_argument)
 	{
-		arg_0 = nxt->name;
-		nxt = set_token_args(nxt, tk_argument, &flags);
+		update_node_expansion(d, nxt, 0);
+		arg = nxt->name;
+		nxt = set_args(d, nxt, tk_argument, &flags);
 	}
-	has_redir = (nxt && (nxt->type == tk_redir_app || nxt->type == tk_redir_in || \
-		nxt->type == tk_redir_out || nxt->type == tk_heredox));
-	if (has_redir)
+	redir = (nxt && (nxt->type == tk_red_app || nxt->type == tk_red_in \
+		|| nxt->type == tk_red_out || nxt->type == tk_hered));
+	if (redir)
 		nxt = handle_redir(d, nxt, nxt->type);
-	*fct_ret = execute_command(d, node->name, arg_0, flags);
-	if (has_redir)
+	d->last_cmd_status = execute_command(d, node->name, arg, flags);
+	if (redir)
 		close_redir_stream(d);
-	if (!fct_ret)
-		return (NULL);
+	if (d->debug_mode)
+		show_exec_info(node, arg, flags, d->last_cmd_status);
 	return (nxt);
 }
 
-t_token	*execute_token(t_data *d, t_token *node, int *fct_return)
+t_token	*execute_token(t_data *d, t_token *node)
 {
 	t_toktype	type;
 
 	type = node->type;
 	if (type == tk_command || type == tk_exec)
-		return (execute_cmd_token(d, node, fct_return));
-	if (type == tk_heredox)
+		return (execute_cmd_token(d, node));
+	if (type == tk_hered)
 		return (handle_redir(d, node, node->type));
+	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
+		export(d, node->name, NULL, 1);
+	if (cmp_str(node->name, "||") && d->last_cmd_status == FCT_SUCCESS)
+		node = node->next;
+	if (cmp_str(node->name, "&&") && d->last_cmd_status == FCT_FAIL)
+		node = node->next;
 	return (node->next);
 }
 
@@ -95,15 +102,21 @@ int	exec_prompt(t_data *d, char *terminal_line)
 {
 	t_token	*tokens;
 	t_token	*node;
-	int		fct_ret;
 
-	fct_ret = 1;
+	d->last_cmd_status = -1;
 	tokens = tokenize_string(d, terminal_line);
 	if (!tokens)
 		return (FCT_FAIL);
 	node = token_first(tokens);
 	while (node)
-		node = execute_token(d, node, &fct_ret);
+	{
+		update_node_expansion(d, node, 1);
+		if (!validate_token(node))
+			break ;
+		if (d->debug_mode)
+			show_token_info(node, "evaluating", "\n");
+		node = execute_token(d, node);
+	}
 	clear_tokens(tokens);
-	return (fct_ret);
+	return (d->last_cmd_status);
 }

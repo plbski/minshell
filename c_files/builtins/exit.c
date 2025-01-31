@@ -6,24 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 22:41:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 20:40:27 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 17:23:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
-
-int	is_all_digit(char *str)
-{
-	int	i;
-
-	if (!str)
-		return (0);
-	i = -1;
-	while (str[++i])
-		if (!ft_isdigit(str[i]))
-			return (0);
-	return (1);
-}
 
 int	custom_exit(t_data *data, char *error_msg, char **flags, int status)
 {

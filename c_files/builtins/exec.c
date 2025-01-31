@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 22:03:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 16:38:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	increment_shlvl(t_data *d)
+static int	increment_shlvl(t_data *d)
 {
 	t_dblist	*element;
 	char		*new_lvl;
@@ -33,21 +33,19 @@ int	increment_shlvl(t_data *d)
 	return (1);
 }
 
-char	**set_argv(t_data *d, char *prog_name)
+static char	**set_argv(t_data *d, char *prog_name)
 {
 	char	**new_argv;
 
 	new_argv = malloc(sizeof(char *) * 2);
 	if (!new_argv)
 		custom_exit(d, "Exec argv error", NULL, EXIT_FAILURE);
-	new_argv[0] = ft_strdup(prog_name);
-	if (!new_argv[0])
-		custom_exit(d, "Exec argv error", NULL, EXIT_FAILURE);
+	new_argv[0] = ms_strdup(d, prog_name);
 	new_argv[1] = NULL;
 	return (new_argv);
 }
 
-int	handle_child_process(t_data *d, char *program, char **argv)
+static int	handle_child_process(t_data *d, char *program, char **argv)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -58,7 +56,7 @@ int	handle_child_process(t_data *d, char *program, char **argv)
 	return (FCT_FAIL);
 }
 
-int	handle_parent_process(pid_t child_pid)
+static int	handle_parent_process(pid_t child_pid)
 {
 	int	wait_status;
 

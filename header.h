@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/31 00:44:06 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 20:37:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <dirent.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define START_ANIM_TEXT "			~~~ Minishell by gvlente & pbuet ~~~ "
+# define START_ANIM_TEXT "			\033[31m~~~ \033[35mMinishell \033[31mby \
+\033[34mgvlente \033[31m& \033[34mpbuet\033[31m ~~~ \033[0m"
 # define END_ANIM_TEXT	 "					~~~ EXIT ~~~ "
 # define MAX_DIR_LEN 500
 
@@ -51,10 +53,10 @@ typedef enum e_token_type
 	tk_command,
 	tk_argument,
 	tk_expand_arg,
-	tk_redir_in,
-	tk_redir_out,
-	tk_redir_app,
-	tk_heredox,
+	tk_red_in,
+	tk_red_out,
+	tk_red_app,
+	tk_hered,
 	tk_pipe,
 	tk_logical,
 	tk_quote,
@@ -93,6 +95,7 @@ typedef struct s_data
 	int			debug_mode;
 	int			shlvl;
 	int			last_exit_status;
+	int			last_cmd_status;
 	char		*cwd;
 	char		*prev_cwd;
 	char		*doc_wd;
@@ -116,115 +119,165 @@ typedef struct s_token
 	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
 }	t_token;
 
+//		pipe_parse/pipe.c
+int			ft_pipe(void);
+
+//		pipe_parse/redir.c
+void		create_file(t_data *d, char *file_name, t_toktype r_type);
+t_token		*handle_redir(t_data *d, t_token *redir_node, t_toktype type);
+
+//		pipe_parse/heredoc.c
+char		*heredoc(char *end, t_data *d, char *print, int is_quote);
+
 //		init.c
-void		init_data(t_data *data, char **env);
-void		init_builtins_data(t_data *d);
-void		init_env_list(t_data *d, char **env);
-
-//		prompt.c
-int			get_terminal_prompt(t_data *d);
-int			execute_prompt(t_data *d, char *prompt);
-
-//		builtins
-int			cd(t_data *d, char *arg, char **flags, int status);
-int			clear(t_data *d, char *arg, char **flags, int status);
-int			echo(t_data *d, char *arg, char **flags, int status);
-int			env(t_data *d, char *arg, char **flags, int has_prefix);
-int			exec(t_data *d, char *arg, char **flags, int status);
-int			custom_exit(t_data *data, char *arg, char **flags, int status);
-int			export(t_data *d, char *arg, char **flags, int tmp_mem);
-int			ls(t_data *d, char *arg, char **flags, int status);
-int			man(t_data *d, char *arg, char **flags, int status);
-int			pwd(t_data *d, char *arg, char **flags, int status);
-int			unset(t_data *d, char *arg, char **flags, int status);
-
-//		env_tools
-void		update_environ(t_data *d);
-char		*get_env_value(t_data *d, t_dblist *lst, char *key);
-int			update_env_variables(t_data *d);
-int			set_key_value(t_data *d, t_dblist *list, char *key, char *value);
-
-//		list_tools
-t_dblist	*get_dblst_node(t_dblist *lst, const char *content);
-void		add_to_list(t_data *d, t_dblist *lst, char *content);
-void		reorder_dblst(t_dblist *list);
-
-//		utils
+char		*custom_get_cwd(t_data *d);
 int			update_cwd(t_data *data);
-char		**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg);
-char		**split_prompt(char *str, int str_len);
+void		init_data(t_data *data, char **env);
 
-//		string_tools
-char		*ft_remove_prefix(const char *str, char *prefix);
+//		utils/string_tools3.c
+char		*ms_strjoin(t_data *d, char const *s1, char const *s2);
+char		*ms_strdup(t_data *d, const char *s1);
+int			write_at_rel_path(t_data *d, char *content, char *file_name);
+int			write_at_abs_path(char *content, char *path, int flags);
+int			is_all_digit(char *str);
+
+//		utils/string_tools.c
+char		*ft_remove_prefix(t_data *d, const char *str, char *prefix);
 char		*truncate_at_end(const char *str, char cut_letter);
 char		*ft_str_mega_join(const char *a, const char *b, \
 	const char *c, const char *d);
-int			ch_amount(const char *str, char c);
+int			chr_amnt(const char *str, char c);
 int			get_arr_len(void **arr);
 
-//		string_tools_2
+//		utils/strstr.c
+char		*ft_strstr(char *str, char *to_find);
+char		**ft_split_str(t_data *d, char *str, char *sep);
+int			ft_char_in_str(char c, const char *txt);
+
+//		utils/env_tools.c
+void		update_environ(t_data *d);
+char		*get_env_value(t_data *d, t_dblist *list, char *key);
+int			update_env_variables(t_data *d);
+int			set_key_value(t_data *d, t_dblist *list, char *key, char *value);
+
+//		utils/prompt_checker.c
+char		*get_quote_end(t_data *d, char *end, char *msg);
+int			set_quotes(t_data *d, char **prompt);
+int			set_pipe(t_data *d, char **prmpt);
+int			set_par(t_data *d, char **prmpt, int i);
+int			validate_prmpt(t_data *d, char **prmpt);
+
+//		utils/design_tools.c
+int			write_anim_txt(t_data *d, const char *txt);
+void		set_string_color(char **str, char *color);
+
+//		utils/list_tools.c
+t_dblist	*get_dblst_node(t_dblist *lst, const char *content);
+void		add_to_list(t_data *d, t_dblist *lst, char *content);
+void		init_env_list(t_data *d, char **env);
+void		reorder_dblst(t_dblist *list);
+
+//		utils/debug.c
+char		*get_dir_in_path(t_data *d, char *cmd_name);
+int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
+int			get_char_index(char *str, char c);
+void		show_exec_info(t_token *node, char *arg, char **flags, int fct_ret);
+void		show_token_info(t_token *node, char *prfx, char *suffix);
+void		show_tokens_info(t_token *node, char *prfx);
+
+//		utils/prompt_checker2.c
+int			is_valid_redir(char *p, int i, int j, char c);
+int			check_redir_validity(char *prompt);
+int			check_pipe_validity(t_data *d, char **prmpt, int last_pipe_index);
+int			validate_prmpt_b(char **prmpt, int has_redir, int is_only_spc);
+
+//		utils/string_tools2.c
 int			is_in_quote(char *str, int index);
 char		*copy_until_char(t_data *d, char *str, int *start, const char *set);
 void		remove_chars(t_data *d, char **txt, const char *to_remove);
 char		*contract_str(t_data *d, char **strs);
-int			is_same_string(const char *a, const char *b);
+int			cmp_str(const char *a, const char *b);
 
-//		signal
-void		setup_signal(int is_waiting, int in_heredoc);
+//		prompt.c
+int			get_terminal_prompt(t_data *d);
 
-int			handle_quotes(t_data *d, char **prompt);
+//		builtins
+int			man(t_data *d, char *arg, char **flags, int status);
+//		ls.c
+DIR			*get_directory(t_data *d, char *arg);
+void		display_entry(struct dirent *entry, int *len);
+int			execute_ls(t_data *d, char *arg, int print_arg);
+int			ls(t_data *d, char *arg, char **flags, int status);
+//		exec.c
+int			exec(t_data *d, char *program, char **argv, int u);
+//		exit.c
+int			is_all_digit(char *str);
+int			custom_exit(t_data *data, char *error_msg, \
+	char **flags, int status);
+int			unset(t_data *d, char *arg, char **flags, int status);
+int			env(t_data *d, char *arg, char **flags, int has_prefix);
+int			pwd(t_data *d, char *arg, char **flags, int status);
+int			clear(t_data *d, char *a, char **f, int st);
+int			export(t_data *d, char *arg, char **flags, int tmp_mem);
+int			cd(t_data *d, char *arg, char **flags, int status);
+int			echo(t_data *d, char *arg, char **flags, int status);
 
-//		utils_parsing_2
-int			handle_splits(t_data *d, char *prompt);
-char		**get_flags(t_data *d, char *prmpt, char **cmd_name, char **arg);
-int			is_valid_prompt(t_data *d, char **prompt);
-int			get_char_index(char *str, char c);
-int			exec_prompt(t_data *d, char *terminal_line);
-
-//		utils_design
-void		set_string_color(char **str, char *color);
-int			write_anim_txt(t_data *d, const char *txt, int intrv, int exit_w);
-char		*get_prompt_message(t_data *d);
-
-//		token_expand_tools
-void		expand_splits(t_data *d, char **splits);
-t_token 	*tokenize_string(t_data *d, char *prompt);
-
-int			handle_direct_exec(t_data *d, char *cmd_name, char *arg, \
-	char **flags);
-
-//		STRSTR
-char		**ft_split_str(char *str, char *sep);
-char		*ft_strstr(char *str, char *to_find);
-int			ft_char_in_str(char c, const char *txt);
-
-//		free
+//		free.c
 int			safe_free(void *item);
 int			free_void_array(void ***item);
 int			free_data(t_data *data);
 
-//		write
-int			write_at_rel_path(t_data *d, char *content, char *file_name);
-int			write_at_abs_path(char *content, char *path, int flags);
-
-//		gnl
-char		*get_next_line(int fd);
-
-//		debug
-char		*get_dir_in_path(t_data *d, char *cmd_name);
-int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
-
-//		redirection
-char		*heredoc(char *end, t_data *d, char *print, int is_quote);
-t_token		*handle_redir(t_data *d, t_token *redir_node, t_toktype type);
+//		parse_prompt.c
 int			execute_command(t_data *d, char *cmd_name, char *arg, char **flags);
+
+//		init_bltn.c
+void		init_builtins_data(t_data *d);
+
+//		signal.c
+void		setup_signal(int is_waiting, int is_heredoc);
+
+//		tokens/token_execute.c
+t_token		*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args);
 void		close_redir_stream(t_data *d);
+t_token		*execute_cmd_token(t_data *d, t_token *node);
+t_token		*execute_token(t_data *d, t_token *node);
+int			exec_prompt(t_data *d, char *terminal_line);
 
+//		tokens/utils_tokens.c
+char		**init_flags(t_data *d, int splits_amount, char **splits);
+char		**split_prompt(char *str, int str_len);
+void		unquote_splits(t_data *d, char **splits);
+char		**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg);
+char		**get_flags(t_data *d, char *prmpt, char **cmd_name, char **arg);
 
-//		TOKENS_UTILS
+//		tokens/token_expand_tools.c
+char		*expand_special_segment(t_data *d, char *split, int *i);
+char		*expand_segment(t_data *d, char *split, int *i);
+char		*expand_split(t_data *d, char *split, int len, int i);
+void		expand_splits(t_data *d, char **splits);
+void		update_node_expansion(t_data *d, t_token *node, int set_new_type);
+
+//		tokens/token_parser.c
+t_toktype	get_token_type_2(t_data *d, char *str, t_token *prev);
+t_toktype	get_token_type(t_data *d, char *str, t_token *prev);
+int			requires_arg(t_token *node);
+int			validate_token(t_token *node);
+t_token		*tokenize_string(t_data *d, char *prompt);
+
+//		tokens/tokens.c
 t_token		*new_token(char *name, t_token *prv, t_toktype type);
-t_token		*get_token(t_token *lst, char *name);
 t_token		*token_first(t_token *lst);
+t_token		*get_token(t_token *lst, char *name);
 void		clear_tokens(t_token *token);
+void		remove_token(t_token *token);
+
+//		minishell.c
+int			main(int argc, char *argv[], char **env);
+
+void		replace_rline(void);
+char		*get_next_line(int fd);
+int			handle_direct_exec(t_data *d, char *cmd_name, \
+	char *arg, char **flags);
+int			is_directory(const char *path);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_handler.c                                      :+:      :+:    :+:   */
+/*   env_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/27 15:28:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 10:15:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ char	*get_env_value(t_data *d, t_dblist *list, char *key)
 	element = get_dblst_at_key(list, key);
 	if (!element || !element->content)
 		return (NULL);
-	content_copy = ft_strdup(element->content);
-	if (!content_copy)
-		custom_exit(d, "env content alloc", NULL, EXIT_FAILURE);
-	no_key = ft_remove_prefix(content_copy, key);
+	content_copy = ms_strdup(d, element->content);
+	no_key = ft_remove_prefix(d, content_copy, key);
 	if (!no_key)
 		custom_exit(d, "env key alloc", NULL, EXIT_FAILURE);
-	value = ft_remove_prefix(no_key, "=");
+	value = ft_remove_prefix(d, no_key, "=");
 	if (!value)
 		custom_exit(d, "env value alloc", NULL, EXIT_FAILURE);
 	return (free(content_copy), free(no_key), value);

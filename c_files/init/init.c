@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/30 15:15:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 18:42:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "../../header.h"
 
 char	*custom_get_cwd(t_data *d)
 {
@@ -36,7 +36,7 @@ int	update_cwd(t_data *data)
 	{
 		if (data->prev_cwd)
 			free(data->prev_cwd);
-		data->prev_cwd = ft_strdup(data->cwd);
+		data->prev_cwd = ms_strdup(data, data->cwd);
 		free(data->cwd);
 	}
 	set_key_value(data, data->env_list, "OLDPWD", data->prev_cwd);
@@ -44,7 +44,7 @@ int	update_cwd(t_data *data)
 	return (1);
 }
 
-int	init_data_directories(t_data *data)
+static int	init_data_directories(t_data *data)
 {
 	char	*working_dir_buff;
 
@@ -56,7 +56,7 @@ int	init_data_directories(t_data *data)
 	return (1);
 }
 
-void	init_shlvl(t_data *data)
+static void	init_shlvl(t_data *data)
 {
 	char	*lvl;
 
@@ -86,6 +86,7 @@ void	init_data(t_data *data, char **env)
 	data->env_list = NULL;
 	data->tmp_list = NULL;
 	g_quit_in_heredoc = 0;
+	data->last_cmd_status = -1;
 	data->last_exit_status = 0;
 	init_env_list(data, env);
 	data->environ = list_to_arr(data->env_list);

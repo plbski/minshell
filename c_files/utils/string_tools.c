@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 12:35:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 14:17:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-char	*ft_remove_prefix(const char *str, char *prefix)
+char	*ft_remove_prefix(t_data *d, const char *str, char *prefix)
 {
 	size_t	prefix_len;
 
@@ -20,8 +20,8 @@ char	*ft_remove_prefix(const char *str, char *prefix)
 		return (NULL);
 	prefix_len = ft_strlen(prefix);
 	if (ft_strncmp(str, prefix, prefix_len) == 0)
-		return (ft_strdup(str + prefix_len));
-	return (ft_strdup(str));
+		return (ms_strdup(d, str + prefix_len));
+	return (ms_strdup(d, str));
 }
 
 char	*truncate_at_end(const char *str, char cut_letter)
@@ -30,7 +30,7 @@ char	*truncate_at_end(const char *str, char cut_letter)
 	int		i;
 	int		trunc_index;
 
-	if (!str || !ch_amount(str, cut_letter))
+	if (!str || !chr_amnt(str, cut_letter))
 		return (NULL);
 	i = ft_strlen(str);
 	while (--i >= 0)
@@ -75,7 +75,7 @@ char	*ft_str_mega_join(const char *a, const char *b, \
 	return (abcd);
 }
 
-int	ch_amount(const char *str, char c)
+int	chr_amnt(const char *str, char c)
 {
 	int	i;
 	int	occurence;

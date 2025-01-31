@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 20:41:37 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 16:39:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	exec_unset(t_data *d, char *arg)
+static int	exec_unset(t_data *d, char *arg)
 {
 	t_dblist	*element;
 

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 15:39:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 19:58:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 
 	str = NULL;
 	if (!split[*i + 1])
-		str = ft_strdup("$");
+		str = ms_strdup(d, "$");
 	else if (split[*i + 1] == '$')
 		str = ft_itoa(getpid());
 	else if (split[*i + 1] == '?')
 		str = ft_itoa(d->last_exit_status);
 	else if (split[*i + 1] == '0')
-		str = ft_strdup(START_ANIM_TEXT);
+		str = ms_strdup(d, START_ANIM_TEXT);
 	else
 		return (NULL);
 	if (!str)
@@ -54,9 +54,7 @@ char	*expand_segment(t_data *d, char *split, int *i)
 	(*i)--;
 	if (!value)
 		return (NULL);
-	str = ft_strdup(value);
-	if (!str)
-		custom_exit(d, "malloc in token expansion", NULL, EXIT_FAILURE);
+	str = ms_strdup(d, value);
 	return (str);
 }
 
@@ -99,7 +97,7 @@ void	expand_splits(t_data *d, char **splits)
 	while (splits[++i])
 	{
 		len = ft_strlen(splits[i]);
-		splits_amount = ch_amount(splits[i], '$');
+		splits_amount = chr_amnt(splits[i], '$');
 		if (!splits_amount || (splits_amount == len && splits_amount > 2))
 			continue ;
 		new_split = expand_split(d, splits[i], ft_strlen(splits[i]), 0);
@@ -108,5 +106,21 @@ void	expand_splits(t_data *d, char **splits)
 			free(splits[i]);
 			splits[i] = new_split;
 		}
+	}
+}
+
+void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
+{
+	char	*new_name;
+
+	if (chr_amnt(node->name, '$'))
+	{
+		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);
+		if (d->debug_mode)
+			printf("expanded: %s to %s\n", node->name, new_name);
+		free(node->name);
+		node->name = new_name;
+		if (set_new_type)
+			node->type = get_token_type(d, node->name, node->prv);
 	}
 }

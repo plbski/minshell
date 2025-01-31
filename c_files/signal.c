@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:14:36 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/30 15:11:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 18:02:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-void	sigint_handler(int sig __attribute__((unused)))
+static void	sigint_handler(int sig __attribute__((unused)))
 {
 	rl_replace_line("", 0);
 	printf("\n");
@@ -25,7 +25,7 @@ void	sigint_handler(int sig __attribute__((unused)))
  * no error possible
  * @attention 
  */
-void	sigquit_handler(int sig __attribute__((unused)))
+static void	sigquit_handler(int sig __attribute__((unused)))
 {
 	rl_on_new_line();
 	rl_redisplay();
@@ -36,14 +36,15 @@ void	sigquit_handler(int sig __attribute__((unused)))
  * @attention Carefull not to create zombie processes on quit!
  * @todo Call function exit() and redirect to that function
  */
-void	sigterm_handler(int sig __attribute__((unused)))
+static void	sigterm_handler(int sig __attribute__((unused)))
 {
 	return ;
 }
 
-void	sigint_handler_heredoc(int sig __attribute__((unused)))
+static void	sigint_handler_heredoc(int sig __attribute__((unused)))
 {
 	g_quit_in_heredoc = 1;
+	replace_rline();
 }
 
 void	setup_signal(int is_waiting, int is_heredoc)

@@ -6,19 +6,19 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/30 21:28:48 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 16:39:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-void	exec_export(t_data *d, char *arg, int tmp_mem)
+static void	exec_export(t_data *d, char *arg, int tmp_mem)
 {
 	char		*key;
 	char		*value;
 	t_dblist	*new_node;
 
-	if (!ch_amount(arg, '='))
+	if (!chr_amnt(arg, '='))
 		return ;
 	key = truncate_at_end(arg, '=');
 	value = ft_strchr(arg, '=') + 1;

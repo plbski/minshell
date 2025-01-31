@@ -6,45 +6,18 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 01:09:22 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 17:23:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	write_at_abs_path(char *content, char *path, int flags)
+static int	exec_echo(char *str, char *next_str)
 {
-	int		fd;
-
-	fd = open(path, flags, 0644);
-	if (fd == -1)
-		return (close(fd), 0);
-	write(fd, content, ft_strlen(content));
-	close(fd);
-	return (1);
-}
-
-int	write_at_rel_path(t_data *d, char *content, char *file_name)
-{
-	char	*full_path;
-	int		fd;
-
-	printf("CREATING FILE\n");
-	full_path = ft_strjoin(d->cwd, file_name);
-	printf("%s\n", full_path);
-	fd = open(full_path, O_CREAT | O_APPEND | 0644);
-	if (fd == -1)
-		return (0);
-	write(fd, content, ft_strlen(content));
-	return (1);
-}
-
-int	exec_echo(char *str, char *next_str)
-{
-	if (is_same_string(str, "-n"))
+	if (cmp_str(str, "-n"))
 		return (1);
 	write(1, str, ft_strlen(str));
-	if (next_str && !is_same_string(next_str, "-n"))
+	if (next_str && !cmp_str(next_str, "-n"))
 		write(1, " ", 1);
 	return (0);
 }

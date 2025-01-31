@@ -6,11 +6,15 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 11:42:33 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 20:00:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
+
+const char *types_names[] = {"command", "argument", "expand arg", "in", \
+"out", "append", "heredoc", "pipe", "logical", "quote", "dbqupte", \
+"wildcard", "flags", "exec"};
 
 char	*get_dir_in_path(t_data *d, char *cmd_name)
 {
@@ -64,4 +68,38 @@ int	get_char_index(char *str, char c)
 		if (str[i] == c)
 			return (i);
 	return (-1);
+}
+
+void	show_exec_info(t_token *node, char *arg, char **flags, int fct_ret)
+{
+	int	i;
+
+	show_token_info(node, "executed", " | ");
+	printf("arg: \"%s\", ", arg);
+	i = -1;
+	while (flags && flags[++i])
+		printf("flag[%d] \"%s\", ", i, flags[i]);
+	if (fct_ret == FCT_FAIL)
+		printf("cmd return: FAIL");
+	else
+		printf("cmd return: SUCCESS");
+	printf("[%d]\n\n", fct_ret);
+}
+
+void	show_token_info(t_token *node, char *prfx, char *suffix)
+{
+	printf("%s: \"%s\" type \"%s\"%s", prfx, node->name, \
+		types_names[node->type], suffix);
+}
+
+void	show_tokens_info(t_token *node, char *prfx)
+{
+	printf("tokens infos\n");
+	node = token_first(node);
+	while (node)
+	{
+		show_token_info(node, prfx, "\n");
+		node = node->next;
+	}
+	printf("\n");
 }

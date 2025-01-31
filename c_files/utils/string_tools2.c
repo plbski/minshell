@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:25:15 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 15:37:32 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 15:21:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char	*contract_str(t_data *d, char **strs)
 	return (str);
 }
 
-int	is_same_string(const char *a, const char *b)
+int	cmp_str(const char *a, const char *b)
 {
 	int	len_a;
 	int	len_b;
