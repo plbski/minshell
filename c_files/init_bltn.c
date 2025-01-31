@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 11:01:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 21:32:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	init_builtins_pointers(t_data *data)
 {
-	data->builtin_funcs[e_cd] = cd;
-	data->builtin_funcs[e_clear] = clear;
-	data->builtin_funcs[e_echo] = echo;
-	data->builtin_funcs[e_env] = env;
-	data->builtin_funcs[e_exec] = exec;
-	data->builtin_funcs[e_exit] = custom_exit;
-	data->builtin_funcs[e_export] = export;
-	data->builtin_funcs[e_ls] = ls;
-	data->builtin_funcs[e_man] = man;
-	data->builtin_funcs[e_pwd] = pwd;
-	data->builtin_funcs[e_unset] = unset;
+	data->blt_fct[e_cd] = cd;
+	data->blt_fct[e_clear] = clear;
+	data->blt_fct[e_echo] = echo;
+	data->blt_fct[e_env] = env;
+	data->blt_fct[e_exec] = exec;
+	data->blt_fct[e_exit] = custom_exit;
+	data->blt_fct[e_export] = export;
+	data->blt_fct[e_ls] = ls;
+	data->blt_fct[e_man] = man;
+	data->blt_fct[e_pwd] = pwd;
+	data->blt_fct[e_unset] = unset;
 }
 
 void	init_builtins_names(t_data *data)

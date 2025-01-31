@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/30 13:22:55 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 00:44:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define FCT_SUCCESS		0
 # define FCT_FAIL		1
 
+int	g_quit_in_heredoc;
+
 typedef enum e_token_type
 {
 	tk_command,
@@ -51,22 +53,16 @@ typedef enum e_token_type
 	tk_expand_arg,
 	tk_redir_in,
 	tk_redir_out,
-	tk_redir_append,
+	tk_redir_app,
 	tk_heredox,
 	tk_pipe,
 	tk_logical,
 	tk_quote,
 	tk_dbquote,
 	tk_wildcard,
-}	t_token_typ;
-
-typedef struct s_token
-{
-	char			*content;
-	t_token_typ		type;
-	struct s_token	*prv;
-	struct s_token	*next;
-}	t_token;
+	tk_flag,
+	tk_exec,
+}	t_toktype;
 
 typedef enum e_builtins
 {
@@ -80,7 +76,7 @@ typedef enum e_builtins
 	e_ls,
 	e_man,
 	e_pwd,
-	e_unset
+	e_unset,
 }	t_builtins_types;
 
 typedef enum e_redir_type
@@ -108,9 +104,17 @@ typedef struct s_data
 	t_dblist	*env_list;
 	t_dblist	*tmp_list;
 	char		**bltin_names;
-	int			(*builtin_funcs[11])(struct s_data *data, \
-		char *arg, char **flag, int status);
+	int			(*blt_fct[11])(struct s_data *d, char *arg, char **flg, int s);
 }	t_data;
+
+typedef struct s_token
+{
+	char			*name;
+	t_toktype		type;
+	struct s_token	*prv;
+	struct s_token	*next;
+	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
+}	t_token;
 
 //		init.c
 void		init_data(t_data *data, char **env);
@@ -161,20 +165,21 @@ int			get_arr_len(void **arr);
 //		string_tools_2
 int			is_in_quote(char *str, int index);
 char		*copy_until_char(t_data *d, char *str, int *start, const char *set);
-char		*remove_chars(char *txt, const char *to_remove);
+void		remove_chars(t_data *d, char **txt, const char *to_remove);
 char		*contract_str(t_data *d, char **strs);
 int			is_same_string(const char *a, const char *b);
 
 //		signal
 void		setup_signal(int is_waiting, int in_heredoc);
 
-int			get_quote_termination(t_data *d, char **prompt);
+int			handle_quotes(t_data *d, char **prompt);
 
 //		utils_parsing_2
 int			handle_splits(t_data *d, char *prompt);
 char		**get_flags(t_data *d, char *prmpt, char **cmd_name, char **arg);
-int			is_valid_prompt(char *prompt);
+int			is_valid_prompt(t_data *d, char **prompt);
 int			get_char_index(char *str, char c);
+int			exec_prompt(t_data *d, char *terminal_line);
 
 //		utils_design
 void		set_string_color(char **str, char *color);
@@ -183,7 +188,7 @@ char		*get_prompt_message(t_data *d);
 
 //		token_expand_tools
 void		expand_splits(t_data *d, char **splits);
-t_token 	*get_tokens_from_splits(t_data *d, char *prompt);
+t_token 	*tokenize_string(t_data *d, char *prompt);
 
 int			handle_direct_exec(t_data *d, char *cmd_name, char *arg, \
 	char **flags);
@@ -211,6 +216,15 @@ int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
 
 //		redirection
 char		*heredoc(char *end, t_data *d, char *print, int is_quote);
-int			execute_redir(t_data *d, char *prompt);
+t_token		*handle_redir(t_data *d, t_token *redir_node, t_toktype type);
+int			execute_command(t_data *d, char *cmd_name, char *arg, char **flags);
+void		close_redir_stream(t_data *d);
+
+
+//		TOKENS_UTILS
+t_token		*new_token(char *name, t_token *prv, t_toktype type);
+t_token		*get_token(t_token *lst, char *name);
+t_token		*token_first(t_token *lst);
+void		clear_tokens(t_token *token);
 
 #endif

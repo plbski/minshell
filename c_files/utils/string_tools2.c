@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:25:15 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 15:40:40 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 15:37:32 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,31 @@ char	*copy_until_char(t_data *d, char *str, int *start, const char *set)
 	return (copy);
 }
 
-char	*remove_chars(char *txt, const char *to_remove)
+void	remove_chars(t_data *d, char **txt, const char *to_remove)
 {
 	char	*new_str;
 	int		new_len;
 	int		i;
 	int		j;
 
-	new_len = ft_strlen(txt);
+	new_len = 0;
 	i = -1;
-	while (txt[++i])
-		(ft_char_in_str(txt[i], to_remove) && new_len--);
-	if (new_len == ft_strlen(txt))
-		return (ft_strdup(txt));
+	while ((*txt)[++i])
+		if (!ft_char_in_str((*txt)[i], to_remove))
+			new_len++;
+	if (new_len == ft_strlen(*txt))
+		return ;
 	new_str = malloc(new_len + 1);
 	if (!new_str)
-		return (NULL);
-	j = 0;
+		custom_exit(d, "alloc in remove chars", NULL, EXIT_FAILURE);
+	j = -1;
 	i = -1;
-	while (txt[++i])
-		(!ft_char_in_str(txt[i], to_remove) && (new_str[j++] = txt[i]));
-	new_str[j] = '\0';
-	return (new_str);
+	while ((*txt)[++i])
+		if (!ft_char_in_str((*txt)[i], to_remove))
+			new_str[++j] = (*txt)[i];
+	new_str[++j] = '\0';
+	free(*txt);
+	*txt = new_str;
 }
 
 char	*contract_str(t_data *d, char **strs)

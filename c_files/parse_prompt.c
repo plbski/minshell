@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 12:35:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 01:06:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 	{
 		if (is_same_string(d->bltin_names[i], cmd_name))
 		{
-			d->builtin_funcs[i](d, arg, flags, EXIT_SUCCESS);
+			d->blt_fct[i](d, arg, flags, EXIT_SUCCESS);
 			return (1);
 		}
 	}
@@ -77,11 +77,13 @@ int	execute_prompt(t_data *d, char *prmpt)
 	char		*arg;
 	char		*cmd_name;
 	char		**flags;
+	t_token		*tokens;
 	int			fct_ret;
 
 	cmd_name = NULL;
 	arg = NULL;
 	flags = get_flags(d, prmpt, &cmd_name, &arg);
+	(void)tokens;
 	fct_ret = execute_command(d, cmd_name, arg, flags);
 	if (dup2(1, STDOUT_FILENO) == -1)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);

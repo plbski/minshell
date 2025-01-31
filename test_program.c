@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 01:23:31 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 12:16:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 19:22:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	main(int argc, char *argv[])
 	if (argc <= 1)
 		return (0);
 	init_builtins_data(&d);
-	get_quote_termination(&d, argv[1]);
-	get_tokens_from_splits(&d, argv[1]);
+	printf("is valid: %d\n", is_valid_prompt(&d, &argv[1]));
+	tokenize_string(&d, argv[1]);
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 20:58:38 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/01/31 01:09:22 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	exec_echo(char *str, char *next_str)
 {
 	if (is_same_string(str, "-n"))
 		return (1);
-	printf("%s", str);
+	write(1, str, ft_strlen(str));
 	if (next_str && !is_same_string(next_str, "-n"))
-		printf(" ");
+		write(1, " ", 1);
 	return (0);
 }
 
@@ -58,7 +58,7 @@ int	echo(t_data *d, char *arg, char **flags, int status __attribute__((unused)))
 	n_flag = 0;
 	if (!arg)
 	{
-		printf("\n");
+		write(1, "\n", 1);
 		return (FCT_SUCCESS);
 	}
 	n_flag = exec_echo(arg, flags[0]);
@@ -69,6 +69,6 @@ int	echo(t_data *d, char *arg, char **flags, int status __attribute__((unused)))
 			n_flag = 1;
 	}
 	if (!n_flag)
-		printf("\n");
+		write(1, "\n", 1);
 	return (FCT_SUCCESS);
 }

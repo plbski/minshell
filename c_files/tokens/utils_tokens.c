@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 11:17:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 20:30:18 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,15 @@ char	**split_prompt(char *str, int str_len)
 	return (tokens[token_index] = NULL, tokens);
 }
 
+void	unquote_splits(t_data *d, char **splits)
+{
+	int	i;
+
+	i = -1;
+	while (splits[++i])
+		remove_chars(d, &splits[i], "\'\"");
+}
+
 char	**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg)
 {
 	char	**splits;
@@ -74,6 +83,7 @@ char	**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg)
 	splits = split_prompt(prmpt, ft_strlen(prmpt));
 	!splits && (custom_exit(d, "Alloc failed for tokens", NULL, EXIT_FAILURE));
 	expand_splits(d, splits);
+	unquote_splits(d, splits);
 	*cmd_name = ft_strdup(splits[0]);
 	if (!*cmd_name)
 	{
@@ -99,7 +109,6 @@ char	**get_flags(t_data *d, char *prmpt, char **cmd_name, char **arg)
 	int		splits_len;
 
 	splits = get_splits(d, prmpt, cmd_name, arg);
-	
 	splits_len = get_arr_len((void **)splits);
 	if (splits_len - 1 <= 0)
 		return (NULL);

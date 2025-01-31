@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 23:02:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 15:15:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	init_data(t_data *data, char **env)
 	data->environ = NULL;
 	data->env_list = NULL;
 	data->tmp_list = NULL;
+	g_quit_in_heredoc = 0;
 	data->last_exit_status = 0;
 	init_env_list(data, env);
 	data->environ = list_to_arr(data->env_list);

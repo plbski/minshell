@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:33:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/30 13:22:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/30 21:40:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*get_quote_end(t_data *d, char *end, char *msg)
 	return (quote_end);
 }
 
-int	get_quote_termination(t_data *d, char **prompt)
+int	handle_quotes(t_data *d, char **prompt)
 {
 	char	*quote_end;
 	int		qt_index;
@@ -94,32 +94,57 @@ int	get_quote_termination(t_data *d, char **prompt)
 	if (!new_prompt)
 		custom_exit(d, "alloc for quoted prompt failed", NULL, EXIT_FAILURE);
 	free(quote_end);
-	free(*prompt);
-	*prompt = new_prompt;
+	return (free(*prompt), *prompt = new_prompt, 1);
+}
+
+int	check_pipe_validity(char *prmpt, int last_pipe_index)
+{
+	int	i;
+
+	if (last_pipe_index == 0)
+		return (0);
+	i = last_pipe_index + 1;
+	if (prmpt[i] != ' ')
+		return (0);
+	while (prmpt[i] && prmpt[i] == ' ')
+		i++;
+	if (prmpt[i] == '\0')
+		return (0);
 	return (1);
 }
 
-int	is_valid_prompt(char *prompt)
+int	is_valid_prompt(t_data *d, char **prmpt)
 {
 	int		i;
 	int		is_only_space;
 	int		has_redir;
+	int		pipe_index;
+	char	*str;
 
-	if (!prompt || prompt[0] == '\0')
+	str = *prmpt;
+	pipe_index = -1;
+	if (!str || str[0] == '\0' || !handle_quotes(d, prmpt))
 		return (0);
 	has_redir = 0;
 	is_only_space = 1;
 	i = -1;
-	while (prompt[++i])
+	while (str[++i])
 	{
-		if (prompt[i] != ' ')
+		if (str[i] != ' ')
 			is_only_space = 0;
-		if ((prompt[i] == '<' || prompt[i] == '>') && !is_in_quote(prompt, i))
+		if (str[i] == '|' && !is_in_quote(str, i))
+			pipe_index = i;
+		if ((str[i] == '<' || str[i] == '>') && !is_in_quote(str, i))
 			has_redir = 1;
 	}
 	if (is_only_space)
 		return (0);
+	if (pipe_index != -1 && !check_pipe_validity(*prmpt, pipe_index))
+	{
+		printf("syntax error near unexpected token '|\n");
+		return (0);
+	}
 	if (!has_redir)
 		return (1);
-	return (check_redir_validity(prompt));
+	return (check_redir_validity(*prmpt));
 }

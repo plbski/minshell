@@ -88,3 +88,249 @@ here''
 here''
 here'
 here''
+here'
+here'
+clear
+clear
+quote''
+quote''
+quote'ola'
+quote'ola'
+quote'ola'
+clear
+make re
+make re
+1;2c
+1;2c
+cool
+<< ola
+<< ola
+echo << ola
+cd << stop
+cd << stop
+cd -
+cd -
+cd -
+cd ..
+cd -
+cd -
+cd ..
+cd -
+cd .
+cd -
+cd ..
+cd ..
+cd -
+cd ..
+cd -
+cd .
+cd -
+cd ..
+cd -
+cd -
+cd .
+cd -
+cd -
+cd -
+cool'topsuper''
+cd '..'
+'cd' .
+"cd" ..
+cd '..'
+'echo' 'ola'
+make re
+'echo ola'
+'echo' 'ola'
+'ola
+'ola''
+cool
+'cool'
+'coo'
+coo''ll'
+coo'ololo''
+clear
+<< loa
+<< loa
+make re
+<< cool
+'olacool
+'
+ola'cool
+super
+'
+ola'cool
+top
+'
+ola'super
+genial
+bon
+'
+col \n
+\ncol \n
+\nco\n\n
+co'ool
+'
+ola'top'
+'
+'
+ola'coo
+top
+'
+aolo'cool'
+'
+make re
+ola'cool'
+'
+clear
+clear
+cool
+co'ol'
+'
+co'o'ool
+'
+co'ool''
+ola'top''
+cole0'topsuper'
+cole0'topsuper'
+cole0'topsuperola supercool'
+cole0'topsuperola supercool'
+cole0'topsuperola supercoolcool'
+make re
+cole0'topsuperola supercoolcool'
+<< cool
+<< ola
+make re
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+ola
+o'abo'
+o'aoO'
+<< ola
+<< cool
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+<< ola
+|
+cool | top
+ola soer
+$cd cool
+export dir=cd
+$cd 3 ola
+$cd 3 ola
+export dir=cd
+dir ..
+$dir ..
+| dir = 3
+| ola
+| ola
+    |
+ola |
+ |
+   ||||
+ola | cool
+cool | top
+cool || top
+cool | top && prompt || thing
+d=d
+cool | top && prompt || thing
+cool | top && prompt || thing
+cool | top && prompt || thing cd | ola
+$LOGNAME || cd
+cool
+cd ..
+./minishell
+..minishell
+cd ..minishell
+cd ..
+cd ..
+echo | olapo
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+exec minishell
+exec minishell
+exec minishell
+./minishell
+/bin/ls
+/bin/ls
+/bin/ls
+/bin/ls
+/bin/ls
+/bin/ls
+/bin/ls
+/bin/ls ola
+export prg=./minishell
+$prg
+clear
+ls
+pwd
+cd .. cool oopa
+cd .. cool oopa ls
+cd .. cool oopa ls cool super wow | top hyper cool
+echo cool cd ..
+clear
+cd ..
+cd -
+cd .. echo ola
+cd .. cool oopa ls cool super wow | top hyper cool
+cd .. cool oopa ls cool super wow | top hyper cool echo cool >> test.txt
+echo cool
+col top echo otp
+echo top
+col top echo otp
+cd .. cool oopa ls cool super wow | top hyper cool echo cool >> test.txt
+clear
+ls
+pwd
+clear
+clear
+ls
+echo ola >> test.txt
+<< cool
+cd ..
+cd -
+clear
+cd ..
+cd .. ..
+echo >> ola.txt
+echo >> cool.txt
+echo >> cool.txt
+echo >> cool.txt
+pwd >> cool.txt
+echo ola >> cool.txt
+echo ola >> test.txt
+echo ola >> test.txt
+echo ola >> test.txt
+echo COOOL >> test.txt
+<< ola
+<< ola
+olapo
+olapo
+olapo lapa olapa
+cd ..
+make re
+cd ..
+cd ..
+cd ..
+cd -
+echo ola >> test.txt
+echo ola >> test.txt
+s
+<< here
+<< here
+here
+<< here
+<< here
+echo pwd > create.txt
