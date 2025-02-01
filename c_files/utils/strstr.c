@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 04:35:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 20:27:23 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 21:28:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	**ft_split_str(t_data *d, char *str, char *sep)
 	return (splits[i] = NULL, splits);
 }
 
-int	ft_char_in_str(char c, const char *txt)
+int	char_in_str(char c, const char *txt)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 16:38:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/01 01:20:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	create_file(t_data *d, char *file_name, t_toktype r_type)
 	int		fd;
 	int		dup_target;
 
-	printf("%s %d\n", file_name, r_type);
+	if (d->debug_mode)
+		printf("created %s for %d\n", file_name, r_type);
 	fd = 0;
 	if (!file_name)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
@@ -67,7 +68,7 @@ t_token	*handle_redir(t_data *d, t_token *redir_node, t_toktype type)
 		create_file(d, after_redir->name, type);
 	else if (type == tk_red_in)
 		create_file(d, before_redir->name, tk_red_in);
-	if (after_redir && after_redir->next)
+	if (after_redir)
 		return (after_redir->next);
 	return (after_redir);
 }

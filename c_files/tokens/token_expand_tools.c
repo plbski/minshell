@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 19:58:36 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 21:05:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 {
 	char	*new_name;
 
-	if (chr_amnt(node->name, '$'))
+	if (chr_amnt(node->name, '$') && !chr_amnt(node->name, '\''))
 	{
 		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);
 		if (d->debug_mode)
@@ -123,4 +123,5 @@ void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 		if (set_new_type)
 			node->type = get_token_type(d, node->name, node->prv);
 	}
+	remove_chars(d, &node->name, "\'\"");
 }

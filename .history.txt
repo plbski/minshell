@@ -311,7 +311,6 @@ desc.txt < echo
 open .
 ls *ç
 ls *
-
 ls *
 clear
 ls
@@ -335,3 +334,385 @@ clear
 << cool
 clear
 cd *
+echo *
+ls
+ls *
+ls
+ls
+ls *
+clear
+ls *
+make re
+ls *
+clear
+ls *
+clear
+lw *
+ls s
+ls *
+cd *
+clear
+echo *
+echo *
+ls *
+echo *
+clear
+ls *
+la *
+ls *
+ls
+ls *
+clear
+ls .
+ls ..
+ls test
+ls
+ls c_files
+clear
+ls
+ls *
+echo *
+clear
+ls
+pwd
+echo
+echo .
+echo ..
+ls "*"
+ls '*'
+ls "*"
+clear
+ls *
+ls "*"
+ls al
+ls "*"
+ls "*"
+clear
+ls "*"
+echo "*"
+cd "*"
+clear
+ls
+echo "*"
+echo '*'
+cd '*'
+"cd" ola
+"olaop" "cool"
+"cd" "cool"
+cd "cool"
+ola "cool"
+cd "cool"
+cd 'cool'
+ola=3
+echo ola
+ola="3"
+echo $ola
+echo "$ola"
+echo '$ola'
+clear
+ls
+pwd
+ls *
+clear
+./minishell
+exec minishell
+cd ..
+ls
+ls lists/*
+ls *
+clear
+ls
+(echo ola)
+ola0
+ola'
+''
+/bins/ls
+/bin/ls
+exit 5
+/bin/ls
+$?
+$?
+$$
+echo $?
+./test
+$?
+clear
+cd olapo
+$?
+cd olapo || echo cool
+cd olapo || echo cool
+cd olapo && echo cool
+$?
+cd olapo
+$?
+clear
+clear
+ls ola cool
+ls
+clear
+ls .
+clear
+clear
+ls
+clear
+ls *
+clear
+ls (ola ) cool ()
+clear
+echo '(cool)'
+clear
+ls ola
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+clear
+(ls olal (col (cd ) top ) supper)
+clear
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+clear
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+make re
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+make re
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+(ls olal (col (cd ) top ) supper)
+clear
+ls
+clear
+export ola=3
+ola+=3
+en
+enf
+echo $ola
+export ola=3
+ola+=3
+ola=2
+cd .. && echo .
+cd .. && (echo .)
+echo ola && (echo cool)
+echo ola && (echo cool)
+echo ola && (echo cool)
+cd ola && (echo cool)
+cd ola && (echo cool || echo cool) && cd ~
+cd ola && (echo cool || echo cool) && cd ~
+cd ola && (echo cool || echo cool) && cd ~
+make re
+cd ola && (echo cool || echo cool) && cd ~
+cd ola && ((echo cool || echo cool) && cd ~)
+make re
+cd ola && ((echo cool || echo cool) && cd ~)
+cd ola && ((echo cool || echo cool) && cd ~)
+cd .. && ((echo cool || echo cool) && cd ~)
+cd .. && ((echo cool || echo cool) && cd ~)
+cd .. && ((echo cool || echo cool) && cd ~)
+cd .. && ((cd cool || echo cool) && cd ~)
+cd .. && ((cd cool || echo cool) && cd ~)
+cd .. && ((cd cool || cd top) && cd ~)
+cd .. && ((cd cool || cd top) && cd ~)
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+ls
+clear
+ls
+ls *
+cd -
+clear
+ls *
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+cd .. && ((cd cool || cd top) && cd ~) || echo wow
+echo $?
+cd .. && ((cd cool || cd top) && cd ~) && echo wow
+cd .. && (((cd cool || cd top) && cd ~) && echo wow)
+cd .. && (((cd cool || cd top) && cd ~) && echo wow >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo wow >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo wow >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo wow >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo wow >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo wow >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo wow >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo wow >> output.txt)
+echo cool >> output.txt
+echo cool >> output.txt
+echo cool >> output.txt
+echo cool >> output.txt
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo wow >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+echo DEDIEU >> output.txt
+echo ola >> output.txt
+echo DEDIEU >> output.txt
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+echo $?
+$?
+$?
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+echo DEDIEU >> output.txt
+echo DEDIEU >> output.txt
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+cd -
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+cd -
+echo ola >> output.txt
+echo ola >> output.txt
+echo ola >> output.txt
+echo ola >> output.txt
+echo ola >> output.txt
+echo ola >> output.txt
+echo bonjour && echo ola >> output.txt
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+la
+la
+ls
+ls
+pwd
+ols
+ld
+ls
+lo
+ola
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+ola
+pao
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+ola
+la
+clear
+pwd
+ls
+ls *
+cd *
+clear
+pwd *
+pwd *
+pwd .
+clear
+env
+env *
+env
+env *
+exec *
+$?
+exec *
+exec *
+exec minishell
+exec .
+exec olapo
+exec olapo
+exec .
+exec .
+clear
+ls
+pwd
+env
+export ola=3
+env
+export ola+=3
+env
+export ola+aloq=3
+env
+export ola+aloq=+3
+env
+export ola+aloq====+3
+env
+env
+ola+=ola
+env
+ola+=ola
+cool=2
+echo $cool
+exoprt ola+=3
+export ola+=3
+ola+=2
+ola +=3
+ola+=3
+ola+=2
+ola+=2
+ola+=2
+env
+ola+=40
+env
+exoprt cool=1
+env
+export cool=1
+env
+cool+=20
+env
+clear
+clear
+ls
+env
+ola+=40
+env
+unset ola
+env
+export coolios=20
+env
+coolios+=alpha
+env
+unset coolios
+cod=10
+cod+=a
+echo $cod
+env
+clear
+echo $cod
+cod=10
+cod+=alpha
+echo $cod
+cod=10 cod+=alpha echo $cod
+cod=10 cod+=beta echo $cod
+clear
+pwd
+cd ..
+cd -$
+cd -
+pwd
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) && echo DEDIEU >> output.txt)
+cd .. && (((cd cool || (echo top && echo cool)) && cd ~) || echo DEDIEU >> output.txt)
+echo cool
+echo cool >> output.txt
+echo cool >> output.txt
+echo cool >> output.txt
+echo cool >> output.txt
+echo cool >> output.txt
+echo cool >> output.txt
+echo cool >> output.txt
+echo cool >> output.txt
+cd ~
+ls
+echo < file.txt
+output.txt < file.txt
+clear
+clear
+ls
+pwd
+ls *
+clear
+echo (cd ..) >> output.txt
+cd .. >> output.txt
+cd -

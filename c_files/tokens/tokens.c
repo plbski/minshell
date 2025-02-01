@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:33:06 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 19:48:35 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 21:41:17 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-t_token	*new_token(char *name, t_token *prv, t_toktype type)
+t_token	*new_token(char *name, t_token *prv, t_toktype type, int parenth_order)
 {
 	t_token	*token;
 
@@ -23,6 +23,7 @@ t_token	*new_token(char *name, t_token *prv, t_toktype type)
 	token->prv = prv;
 	if (prv)
 		prv->next = token;
+	token->par = parenth_order;
 	token->name = name;
 	token->type = type;
 	return (token);

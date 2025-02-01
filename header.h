@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/31 20:37:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/01 01:23:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define MAGENTA "\033[35m"
 # define CYAN "\033[36m"
 # define RESET "\033[0m"
+# define GREY "\033[38;5;240m"
+# define LIGHT_GREY "\033[38;5;250m"
 
 # define PROMPT_LOGNAME_COL 	CYAN
 # define PROMPT_CWD_COL			YELLOW
@@ -116,6 +118,7 @@ typedef struct s_token
 	t_toktype		type;
 	struct s_token	*prv;
 	struct s_token	*next;
+	int				par;
 	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
 }	t_token;
 
@@ -152,7 +155,7 @@ int			get_arr_len(void **arr);
 //		utils/strstr.c
 char		*ft_strstr(char *str, char *to_find);
 char		**ft_split_str(t_data *d, char *str, char *sep);
-int			ft_char_in_str(char c, const char *txt);
+int			char_in_str(char c, const char *txt);
 
 //		utils/env_tools.c
 void		update_environ(t_data *d);
@@ -166,10 +169,6 @@ int			set_quotes(t_data *d, char **prompt);
 int			set_pipe(t_data *d, char **prmpt);
 int			set_par(t_data *d, char **prmpt, int i);
 int			validate_prmpt(t_data *d, char **prmpt);
-
-//		utils/design_tools.c
-int			write_anim_txt(t_data *d, const char *txt);
-void		set_string_color(char **str, char *color);
 
 //		utils/list_tools.c
 t_dblist	*get_dblst_node(t_dblist *lst, const char *content);
@@ -206,7 +205,7 @@ int			man(t_data *d, char *arg, char **flags, int status);
 //		ls.c
 DIR			*get_directory(t_data *d, char *arg);
 void		display_entry(struct dirent *entry, int *len);
-int			execute_ls(t_data *d, char *arg, int print_arg);
+int			execute_ls(t_data *d, char *arg, int print_arg, int err_if_dir);
 int			ls(t_data *d, char *arg, char **flags, int status);
 //		exec.c
 int			exec(t_data *d, char *program, char **argv, int u);
@@ -244,11 +243,8 @@ t_token		*execute_token(t_data *d, t_token *node);
 int			exec_prompt(t_data *d, char *terminal_line);
 
 //		tokens/utils_tokens.c
-char		**init_flags(t_data *d, int splits_amount, char **splits);
-char		**split_prompt(char *str, int str_len);
+char		**split_prompt(t_data *d, char *str);
 void		unquote_splits(t_data *d, char **splits);
-char		**get_splits(t_data *d, char *prmpt, char **cmd_name, char **arg);
-char		**get_flags(t_data *d, char *prmpt, char **cmd_name, char **arg);
 
 //		tokens/token_expand_tools.c
 char		*expand_special_segment(t_data *d, char *split, int *i);
@@ -258,23 +254,23 @@ void		expand_splits(t_data *d, char **splits);
 void		update_node_expansion(t_data *d, t_token *node, int set_new_type);
 
 //		tokens/token_parser.c
-t_toktype	get_token_type_2(t_data *d, char *str, t_token *prev);
 t_toktype	get_token_type(t_data *d, char *str, t_token *prev);
 int			requires_arg(t_token *node);
 int			validate_token(t_token *node);
 t_token		*tokenize_string(t_data *d, char *prompt);
 
 //		tokens/tokens.c
-t_token		*new_token(char *name, t_token *prv, t_toktype type);
+t_token		*new_token(char *name, t_token *prv, t_toktype type, int par);
 t_token		*token_first(t_token *lst);
 t_token		*get_token(t_token *lst, char *name);
 void		clear_tokens(t_token *token);
 void		remove_token(t_token *token);
+void		merge_sort_tokens(t_token **head_ref);
 
 //		minishell.c
 int			main(int argc, char *argv[], char **env);
 
-void		replace_rline(void);
+void		reset_readline(void);
 char		*get_next_line(int fd);
 int			handle_direct_exec(t_data *d, char *cmd_name, \
 	char *arg, char **flags);

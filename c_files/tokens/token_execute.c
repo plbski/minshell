@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 19:41:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/01 02:08:45 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,18 @@ t_token	*execute_cmd_token(t_data *d, t_token *node)
 		|| nxt->type == tk_red_out || nxt->type == tk_hered));
 	if (redir)
 		nxt = handle_redir(d, nxt, nxt->type);
-	d->last_cmd_status = execute_command(d, node->name, arg, flags);
+	d->last_exit_status = execute_command(d, node->name, arg, flags);
 	if (redir)
 		close_redir_stream(d);
 	if (d->debug_mode)
-		show_exec_info(node, arg, flags, d->last_cmd_status);
+		show_exec_info(node, arg, flags, d->last_exit_status);
 	return (nxt);
 }
 
 t_token	*execute_token(t_data *d, t_token *node)
 {
 	t_toktype	type;
+	int			min_par;
 
 	type = node->type;
 	if (type == tk_command || type == tk_exec)
@@ -91,10 +92,22 @@ t_token	*execute_token(t_data *d, t_token *node)
 		return (handle_redir(d, node, node->type));
 	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
 		export(d, node->name, NULL, 1);
-	if (cmp_str(node->name, "||") && d->last_cmd_status == FCT_SUCCESS)
+	if (cmp_str(node->name, "||") && d->last_exit_status == FCT_SUCCESS)
+	{
+		if (d->debug_mode)
+			printf("%sskipped %s%s\n", GREY, node->name, RESET);
 		node = node->next;
-	if (cmp_str(node->name, "&&") && d->last_cmd_status == FCT_FAIL)
-		node = node->next;
+	}
+	if (cmp_str(node->name, "&&") && d->last_exit_status == FCT_FAIL)
+	{
+		min_par = node->par;
+		while (node->next && node->next->par >= min_par)
+		{
+			if (d->debug_mode)
+				printf("%sskipped %s%s\n", GREY, node->name, RESET);
+			node = node->next;
+		}
+	}
 	return (node->next);
 }
 
@@ -102,19 +115,27 @@ int	exec_prompt(t_data *d, char *terminal_line)
 {
 	t_token	*tokens;
 	t_token	*node;
+	int		cur_par;
 
-	d->last_cmd_status = -1;
 	tokens = tokenize_string(d, terminal_line);
 	if (!tokens)
 		return (FCT_FAIL);
 	node = token_first(tokens);
+	d->last_cmd_status = -1;
+	cur_par = 1;
+	(void)cur_par;
 	while (node)
 	{
 		update_node_expansion(d, node, 1);
 		if (!validate_token(node))
 			break ;
 		if (d->debug_mode)
+		{
+			printf("(st: %s) ", d->last_exit_status == FCT_FAIL ? "\033[31mFAIL" : "\033[32mSUCCESS");
+			printf("%s", RESET);
 			show_token_info(node, "evaluating", "\n");
+		}
+		close_redir_stream(d);
 		node = execute_token(d, node);
 	}
 	clear_tokens(tokens);

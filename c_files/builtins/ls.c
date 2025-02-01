@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/31 20:38:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 20:53:23 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	display_entry(struct dirent *entry, int *len)
 	}
 }
 
-int	execute_ls(t_data *d, char *arg, int print_arg)
+int	execute_ls(t_data *d, char *arg, int print_arg, int error_if_dir)
 {
 	struct dirent	*entry;
 	DIR				*directory;
@@ -64,12 +64,16 @@ int	execute_ls(t_data *d, char *arg, int print_arg)
 
 	directory = get_directory(d, arg);
 	if (!directory)
-		return (printf("ls: %s: No such file or directory\n", arg), FCT_FAIL);
+	{
+		if (error_if_dir)
+			printf("ls: %s: No such file or directory\n", arg);
+		return (FCT_FAIL);
+	}
 	entry = readdir(directory);
 	if (!entry)
 		return (FCT_FAIL);
 	if (print_arg)
-		printf("%s%s:\n%s", RED, arg, RESET);
+		printf("%s%s:\n%s", GREEN, arg, RESET);
 	len = 0;
 	while (entry != NULL)
 	{
@@ -87,16 +91,18 @@ int	ls(t_data *d, char *arg, char **flags, int status)
 	int	fct_ret;
 
 	(void)status;
-	fct_ret = execute_ls(d, arg, flags && flags[0]);
+	fct_ret = execute_ls(d, arg, flags && flags[0], 1);
 	if (!flags)
 		return (fct_ret);
 	i = -1;
 	while (flags[++i])
 	{
-		if (execute_ls(d, flags[i], 1) == FCT_SUCCESS)
+		if (execute_ls(d, flags[i], 1, 0) == FCT_SUCCESS)
+		{
 			fct_ret = FCT_SUCCESS;
-		if (flags[i + 1])
-			printf("\n");
+			if (flags[i + 1] && is_directory(flags[i + 1]))
+				printf("\n");
+		}
 	}
 	return (fct_ret);
 }

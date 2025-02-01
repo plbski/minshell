@@ -6,11 +6,27 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/31 16:39:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/01 02:06:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
+
+static void	handle_joined_arg(t_data *d, char *key, char *value)
+{
+	char		*new_value;
+	t_dblist	*node;
+
+	key[ft_strlen(key) - 1] = '\0';
+	node = get_dblst_at_key(d->env_list, key);
+	if (!node)
+		node = get_dblst_at_key(d->tmp_list, key);
+	if (!node)
+		return ;
+	new_value = ms_strjoin(d, node->content, value);
+	free(node->content);
+	node->content = new_value;
+}
 
 static void	exec_export(t_data *d, char *arg, int tmp_mem)
 {
@@ -22,7 +38,9 @@ static void	exec_export(t_data *d, char *arg, int tmp_mem)
 		return ;
 	key = truncate_at_end(arg, '=');
 	value = ft_strchr(arg, '=') + 1;
-	if (!set_key_value(d, d->env_list, key, value))
+	if (key[ft_strlen(key) - 1] == '+')
+		handle_joined_arg(d, key, value);
+	else if (!set_key_value(d, d->env_list, key, value))
 	{
 		new_node = dblst_new(ft_str_mega_join(key, "=", value, NULL));
 		if (!new_node->content)
@@ -39,7 +57,6 @@ int	export(t_data *d, char *arg, char **flags, int tmp_mem)
 {
 	int	i;
 
-	(void)flags;
 	if (!arg)
 	{
 		reorder_dblst(dblst_first(d->env_list));

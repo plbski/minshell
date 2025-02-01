@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 20:00:06 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/01 00:59:29 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,18 @@ void	show_exec_info(t_token *node, char *arg, char **flags, int fct_ret)
 	int	i;
 
 	show_token_info(node, "executed", " | ");
-	printf("arg: \"%s\", ", arg);
+	printf("arg: \"%s%s%s\", ", YELLOW, arg, RESET);
 	i = -1;
 	while (flags && flags[++i])
-		printf("flag[%d] \"%s\", ", i, flags[i]);
-	if (fct_ret == FCT_FAIL)
-		printf("cmd return: FAIL");
-	else
-		printf("cmd return: SUCCESS");
-	printf("[%d]\n\n", fct_ret);
+		printf("flag[%d] \"%s%s%s\", ", i, YELLOW, flags[i], RESET);
+	printf("cmd return: %s", fct_ret == FCT_FAIL ? ft_strjoin(RED, "FAIL") : ft_strjoin(GREEN, "SUCCESS"));
+	printf("[%d]\n\n%s", fct_ret, RESET);
 }
 
 void	show_token_info(t_token *node, char *prfx, char *suffix)
 {
-	printf("%s: \"%s\" type \"%s\"%s", prfx, node->name, \
-		types_names[node->type], suffix);
+	printf("%s%s%s: \"%s\" type \"%s\" par %d%s", CYAN, prfx, RESET, node->name, \
+		types_names[node->type], node->par, suffix);
 }
 
 void	show_tokens_info(t_token *node, char *prfx)

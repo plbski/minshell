@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 16:38:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/01 01:42:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static int	handle_child_process(t_data *d, char *program, char **argv)
 	increment_shlvl(d);
 	update_environ(d);
 	execve(program, argv, d->environ);
-	custom_exit(d, "Execve exit failure", NULL, EXIT_FAILURE);
+	printf("\"%s\" exec failed\n", program);
+	custom_exit(d, NULL, NULL, EXIT_FAILURE);
 	return (FCT_FAIL);
 }
 
@@ -85,7 +86,7 @@ int	exec(t_data *d, char *program, char **argv, int u __attribute__((unused)))
 	}
 	if (access(program, F_OK) == -1)
 	{
-		printf("msh: %s: No such file or directory\n", program);
+		printf("msh: exec: %s:not found\n", program);
 		return (FCT_FAIL);
 	}
 	if (access(program, X_OK) == -1)

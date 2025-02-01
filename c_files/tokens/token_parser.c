@@ -6,19 +6,15 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 20:08:37 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/01 02:08:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-t_toktype	get_token_type_2(t_data *d, char *str, t_token *prev)
+static t_toktype	get_token_type_2(t_data *d, char *str, t_token *prev)
 {
 	(void)d;
-	if (chr_amnt(str, '\''))
-		return (tk_quote);
-	if (chr_amnt(str, '\"'))
-		return (tk_dbquote);
 	if (cmp_str(str, "*"))
 		return (tk_wildcard);
 	if (cmp_str(str, "..") || cmp_str(str, "."))
@@ -62,41 +58,7 @@ t_toktype	get_token_type(t_data *d, char *str, t_token *prev)
 	return (get_token_type_2(d, str, prev));
 }
 
-int	requires_arg(t_token *node)
-{
-	return (node->type == tk_red_app || node->type == tk_red_in || \
-	node->type == tk_red_out || node->type == tk_pipe || \
-	node->type == tk_logical || node->type == tk_hered);
-}
-
-int	validate_token(t_token *node)
-{
-	t_toktype	typ;
-
-	typ = node->type;
-	if (typ != tk_command && typ != tk_exec && typ != tk_hered && !chr_amnt(node->name, '=') && !node->prv)
-	{
-		printf("msh: command not found: %s\n", node->name);
-		return (0);
-	}
-	if (requires_arg(node) && !node->next)
-	{
-		printf("msh: parse error near \'%s\'\n", node->name);
-		return (0);
-	}
-	return (1);
-}
-
-int	is_directory(const char *path)
-{
-	struct stat	entry_stat;
-
-	if (stat(path, &entry_stat) == 0)
-		return ((entry_stat.st_mode & S_IFMT) == S_IFDIR);
-	return (0);
-}
-
-t_token	*fill_wildcard(t_data *d, t_token *start)
+static t_token	*fill_wildcard(t_data *d, t_token *start, int parenth_order)
 {
 	DIR				*directory;
 	struct dirent	*entry;
@@ -109,31 +71,49 @@ t_token	*fill_wildcard(t_data *d, t_token *start)
 	while (entry)
 	{
 		arg_name = ms_strdup(d, entry->d_name);
-		if (is_directory(arg_name))
-			start = new_token(arg_name, start, tk_argument);
+		if (arg_name[0] != '.')
+			start = new_token(arg_name, start, tk_argument, parenth_order);
 		entry = readdir(directory);
 	}
 	return (start);
+}
+
+static t_token	*get_split_token(t_data *d, char **splits)
+{
+	int			i;
+	t_token		*token;
+	int			open_parenthesis;
+	t_toktype	type;
+
+	open_parenthesis = 0;
+	i = -1;
+	token = NULL;
+	while (splits[++i])
+	{
+		if (cmp_str(splits[i], "(") || cmp_str(splits[i], ")"))
+		{
+			open_parenthesis++;
+			if (splits[i][0] == ')')
+				open_parenthesis -= 2;
+			continue ;
+		}
+		type = get_token_type(d, splits[i], token);
+		if (type == tk_wildcard)
+			token = fill_wildcard(d, token, open_parenthesis);
+		else
+			token = new_token(splits[i], token, type, open_parenthesis);
+	}
+	return (token);
 }
 
 t_token	*tokenize_string(t_data *d, char *prompt)
 {
 	char		**splits;
 	t_token		*token;
-	t_toktype	type;
-	int			i;
 
-	splits = split_prompt(prompt, ' ');
-	token = NULL;
-	i = -1;
-	while (splits[++i])
-	{
-		type = get_token_type(d, splits[i], token);
-		if (type == tk_wildcard)
-			token = fill_wildcard(d, token);
-		else
-			token = new_token(splits[i], token, type);
-	}
+	splits = split_prompt(d, prompt);
+	token = get_split_token(d, splits);
+	token = token_first(token);
 	if (d->debug_mode)
 		show_tokens_info(token, "init");
 	return (token);

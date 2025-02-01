@@ -12,7 +12,7 @@ c_files/builtins/man.c c_files/builtins/ls.c c_files/builtins/exec.c c_files/bui
 c_files/builtins/env.c c_files/builtins/pwd.c c_files/builtins/clear.c c_files/builtins/export.c c_files/builtins/cd.c \
 c_files/builtins/echo.c c_files/prompt/prompt_execute.c c_files/prompt/prompt_checker.c c_files/prompt/prompt.c \
 c_files/prompt/prompt_checker2.c c_files/signal.c c_files/tokens/token_execute.c c_files/tokens/utils_tokens.c \
-c_files/tokens/token_expand_tools.c c_files/tokens/token_parser.c c_files/tokens/tokens.c \
+c_files/tokens/token_parser2.c c_files/tokens/token_expand_tools.c c_files/tokens/token_parser.c c_files/tokens/tokens.c \
 
 TEST_PRG_SRC = test_program.c
 

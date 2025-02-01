@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:33:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 18:52:51 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 21:43:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	set_pipe(t_data *d, char **prmpt)
 	str = *prmpt;
 	while (str[++i])
 	{
-		if (ft_char_in_str(str[i], "|&") && !is_in_quote(str, i))
+		if (char_in_str(str[i], "|&") && !is_in_quote(str, i))
 		{
 			if (!no_space_found)
 			{
@@ -91,12 +91,12 @@ int	set_par(t_data *d, char **prmpt, int i)
 	while (new_prmpt[++i])
 	{
 		if (new_prmpt[i] == '(')
-			has_open = 1;
+			has_open++;
 		if (new_prmpt[i] != ')')
 			continue ;
 		if (!has_open)
 			return (printf("syntax error near unexpected token \')\'\n"), 0);
-		has_open = 0;
+		has_open--;
 	}
 	if (!has_open)
 		return (1);

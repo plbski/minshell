@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:25:15 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 15:21:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/01/31 21:28:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*copy_until_char(t_data *d, char *str, int *start, const char *set)
 	if (*start >= ft_strlen(str) || str[*start] == '\0')
 		return (NULL);
 	i = *start;
-	while (str[i] && !ft_char_in_str(str[i], set))
+	while (str[i] && !char_in_str(str[i], set))
 		i++;
 	stop_index = i;
 	copy = malloc(stop_index - *start + 1);
@@ -71,7 +71,7 @@ void	remove_chars(t_data *d, char **txt, const char *to_remove)
 	new_len = 0;
 	i = -1;
 	while ((*txt)[++i])
-		if (!ft_char_in_str((*txt)[i], to_remove))
+		if (!char_in_str((*txt)[i], to_remove))
 			new_len++;
 	if (new_len == ft_strlen(*txt))
 		return ;
@@ -81,7 +81,7 @@ void	remove_chars(t_data *d, char **txt, const char *to_remove)
 	j = -1;
 	i = -1;
 	while ((*txt)[++i])
-		if (!ft_char_in_str((*txt)[i], to_remove))
+		if (!char_in_str((*txt)[i], to_remove))
 			new_str[++j] = (*txt)[i];
 	new_str[++j] = '\0';
 	free(*txt);
