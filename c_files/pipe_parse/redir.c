@@ -6,11 +6,22 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/01 01:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 12:19:56 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
+
+void	close_redir_stream(t_data *d)
+{
+	if (dup2(1, STDOUT_FILENO) == -1)
+		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+	if (dup2(0, STDOUT_FILENO) == -1)
+		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+	if (d->fd)
+		close(d->fd);
+	d->fd = 0;
+}
 
 static int	get_fd(t_data *d, char *file_path, t_toktype r_type)
 {
@@ -51,7 +62,7 @@ void	create_file(t_data *d, char *file_name, t_toktype r_type)
 		d->fd = fd;
 }
 
-t_token	*handle_redir(t_data *d, t_token *redir_node, t_toktype type)
+t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type)
 {
 	t_token		*after_redir;
 	t_token		*before_redir;

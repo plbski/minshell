@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/03 11:16:06 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:11:48 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef enum e_token_type
 
 typedef enum e_builtins
 {
+	e_cat,
 	e_cd,
 	e_clear,
 	e_echo,
@@ -107,10 +108,11 @@ typedef struct s_data
 	char		*home_wd;
 	char		*logname;
 	char		**environ;
+	const char	**types_names;
 	t_dblist	*env_list;
 	t_dblist	*tmp_list;
 	char		**bltin_names;
-	int			(*blt_fct[11])(struct s_data *d, char *arg, char **flg, int s);
+	int			(*blt_fct[12])(struct s_data *d, char *arg, char **flg, int s);
 }	t_data;
 
 typedef struct s_token
@@ -128,7 +130,8 @@ int			ft_pipe(void);
 
 //		pipe_parse/redir.c
 void		create_file(t_data *d, char *file_name, t_toktype r_type);
-t_token		*handle_redir(t_data *d, t_token *redir_node, t_toktype type);
+t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type);
+void		close_redir_stream(t_data *d);
 
 //		pipe_parse/heredoc.c
 char		*heredoc(char *end, t_data *d, char *print, int is_quote);
@@ -138,13 +141,6 @@ char		*custom_get_cwd(t_data *d);
 int			update_cwd(t_data *data);
 void		init_data(t_data *data, char **env);
 
-//		utils/string_tools3.c
-char		*ms_strjoin(t_data *d, char const *s1, char const *s2);
-char		*ms_strdup(t_data *d, const char *s1);
-int			write_at_rel_path(t_data *d, char *content, char *file_name);
-int			write_at_abs_path(char *content, char *path, int flags);
-int			is_all_digit(char *str);
-
 //		utils/string_tools.c
 char		*ft_remove_prefix(t_data *d, const char *str, char *prefix);
 char		*truncate_at_end(const char *str, char cut_letter);
@@ -153,15 +149,30 @@ char		*ft_str_mega_join(const char *a, const char *b, \
 int			chr_amnt(const char *str, char c);
 int			get_arr_len(void **arr);
 
-//		utils/strstr.c
+//		utils/string_tools2.c
+int			is_in_quote(char *str, int index);
+char		*copy_until_char(t_data *d, char *str, int *start, const char *set);
+void		remove_chars(t_data *d, char **txt, const char *to_remove);
+char		*contract_str(t_data *d, char **strs);
+int			cmp_str(const char *a, const char *b);
+
+//		utils/string_tools3.c
+char		*ms_strjoin(t_data *d, char const *s1, char const *s2);
+char		*ms_strdup(t_data *d, const char *s1);
+void		*ms_malloc(t_data *d, ssize_t size);
+int			is_all_digit(char *str);
+int			get_char_index(char *str, char c);
+
+//		utils/string_tools4.c
 char		*ft_strstr(char *str, char *to_find);
 char		**ft_split_str(t_data *d, char *str, char *sep);
 int			char_in_str(char c, const char *txt);
 
-//		write_tools
+//		utils/write_tools.c
 int			write_at_abs_path(char *content, char *path, int flags);
 int			write_at_rel_path(t_data *d, char *content, char *file_name);
 char		*replace_str(t_data *d, char *str, char *remove, char *replace);
+char		*read_file(t_data *d, char *file_name);
 
 //		utils/env_tools.c
 void		update_environ(t_data *d);
@@ -183,25 +194,16 @@ void		init_env_list(t_data *d, char **env);
 void		reorder_dblst(t_dblist *list);
 
 //		utils/debug.c
-char		*get_dir_in_path(t_data *d, char *cmd_name);
-int			search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags);
-int			get_char_index(char *str, char c);
-void		show_exec_info(t_token *node, char *arg, char **flags, int fct_ret);
-void		show_token_info(t_token *node, char *prfx, char *suffix);
-void		show_tokens_info(t_token *node, char *prfx);
+void		show_exec_info(t_data *d, t_token *node, char *arg, char **flg);
+void		show_token_info(t_data *d, t_token *node, char *prfx, char *suffix);
+void		show_tokens_info(t_data *d, t_token *node, char *prfx);
+void		show_cmd_status(t_data *d, t_token *node);
 
 //		utils/prompt_checker2.c
 int			is_valid_redir(char *p, int i, int j, char c);
 int			check_redir_validity(char *prompt);
 int			check_pipe_validity(t_data *d, char **prmpt, int last_pipe_index);
 int			validate_prmpt_b(char **prmpt, int has_redir, int is_only_spc);
-
-//		utils/string_tools2.c
-int			is_in_quote(char *str, int index);
-char		*copy_until_char(t_data *d, char *str, int *start, const char *set);
-void		remove_chars(t_data *d, char **txt, const char *to_remove);
-char		*contract_str(t_data *d, char **strs);
-int			cmp_str(const char *a, const char *b);
 
 //		prompt.c
 int			get_terminal_prompt(t_data *d);
@@ -213,19 +215,17 @@ DIR			*get_directory(t_data *d, char *arg);
 void		display_entry(struct dirent *entry, int *len);
 int			execute_ls(t_data *d, char *arg, int print_arg, int err_if_dir);
 int			ls(t_data *d, char *arg, char **flags, int status);
-//		exec.c
-int			exec(t_data *d, char *program, char **argv, int u);
-//		exit.c
-int			is_all_digit(char *str);
 int			custom_exit(t_data *data, char *error_msg, \
 	char **flags, int status);
-int			unset(t_data *d, char *arg, char **flags, int status);
-int			env(t_data *d, char *arg, char **flags, int has_prefix);
-int			pwd(t_data *d, char *arg, char **flags, int status);
-int			clear(t_data *d, char *a, char **f, int st);
-int			export(t_data *d, char *arg, char **flags, int tmp_mem);
 int			cd(t_data *d, char *arg, char **flags, int status);
+int			clear(t_data *d, char *a, char **f, int st);
+int			cat(t_data *d, char *arg, char **flags, int status);
 int			echo(t_data *d, char *arg, char **flags, int status);
+int			env(t_data *d, char *arg, char **flags, int has_prefix);
+int			exec(t_data *d, char *program, char **argv, int u);
+int			unset(t_data *d, char *arg, char **flags, int status);
+int			pwd(t_data *d, char *arg, char **flags, int status);
+int			export(t_data *d, char *arg, char **flags, int tmp_mem);
 
 //		free.c
 int			safe_free(void *item);
@@ -243,9 +243,8 @@ void		setup_signal(int is_waiting, int is_heredoc);
 
 //		tokens/token_execute.c
 t_token		*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args);
-void		close_redir_stream(t_data *d);
-t_token		*execute_cmd_token(t_data *d, t_token *node);
-t_token		*execute_token(t_data *d, t_token *node);
+t_token		*handle_command_token(t_data *d, t_token *node);
+t_token		*handle_token(t_data *d, t_token *node);
 int			exec_prompt(t_data *d, char *terminal_line);
 
 //		tokens/utils_tokens.c

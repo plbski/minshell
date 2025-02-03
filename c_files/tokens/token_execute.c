@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 11:16:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:14:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_token	*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args)
 		flags_amount++;
 		next_node = next_node->next;
 	}
-	new_args = malloc(sizeof(char *) * (flags_amount + 1));
+	new_args = ms_malloc(d, sizeof(char *) * (flags_amount + 1));
 	next_node = strt->next;
 	arg_index = 0;
 	while (next_node && next_node->type == k_typ)
@@ -41,18 +41,7 @@ t_token	*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args)
 	return (next_node);
 }
 
-void	close_redir_stream(t_data *d)
-{
-	if (dup2(1, STDOUT_FILENO) == -1)
-		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	if (dup2(0, STDOUT_FILENO) == -1)
-		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	if (d->fd)
-		close(d->fd);
-	d->fd = 0;
-}
-
-t_token	*execute_cmd_token(t_data *d, t_token *node)
+t_token	*handle_command_token(t_data *d, t_token *node)
 {
 	t_token		*nxt;
 	char		**flags;
@@ -71,27 +60,20 @@ t_token	*execute_cmd_token(t_data *d, t_token *node)
 	redir = (nxt && (nxt->type == tk_red_app || nxt->type == tk_red_in \
 		|| nxt->type == tk_red_out || nxt->type == tk_hered));
 	if (redir)
-		nxt = handle_redir(d, nxt, nxt->type);
+		nxt = handle_redir_token(d, nxt, nxt->type);
 	d->last_exit_status = execute_command(d, node->name, arg, flags);
 	if (redir)
 		close_redir_stream(d);
 	if (d->debug_mode)
-		show_exec_info(node, arg, flags, d->last_exit_status);
+		show_exec_info(d, node, arg, flags);
+	free_void_array((void ***)&flags);
 	return (nxt);
 }
 
-t_token	*execute_token(t_data *d, t_token *node)
+t_token	*handle_logical_token(t_data *d, t_token *node)
 {
-	t_toktype	type;
 	int			min_par;
 
-	type = node->type;
-	if (type == tk_command || type == tk_exec)
-		return (execute_cmd_token(d, node));
-	if (type == tk_hered)
-		return (handle_redir(d, node, node->type));
-	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
-		export(d, node->name, NULL, 1);
 	if (cmp_str(node->name, "||") && d->last_exit_status == FCT_SUCCESS)
 	{
 		if (d->debug_mode)
@@ -111,6 +93,22 @@ t_token	*execute_token(t_data *d, t_token *node)
 	return (node->next);
 }
 
+t_token	*handle_token(t_data *d, t_token *node)
+{
+	t_toktype	type;
+
+	type = node->type;
+	if (type == tk_command || type == tk_exec)
+		return (handle_command_token(d, node));
+	if (type == tk_hered)
+		return (handle_redir_token(d, node, node->type));
+	if (type == tk_logical)
+		return (handle_logical_token(d, node));
+	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
+		export(d, node->name, NULL, 1);
+	return (node->next);
+}
+
 int	exec_prompt(t_data *d, char *terminal_line)
 {
 	t_token	*tokens;
@@ -127,15 +125,9 @@ int	exec_prompt(t_data *d, char *terminal_line)
 		if (!validate_token(d, node))
 			break ;
 		if (d->debug_mode)
-		{
-			if (d->last_exit_status == FCT_FAIL)
-				printf("(st: %s) %s","\033[31mFAIL", RESET);
-			else
-				printf("(st: %s) %s", "\033[32mSUCCESS", RESET);
-			show_token_info(node, "evaluating", "\n");
-		}
+			show_cmd_status(d, node);
+		node = handle_token(d, node);
 		close_redir_stream(d);
-		node = execute_token(d, node);
 	}
 	clear_tokens(tokens);
 	return (d->last_cmd_status);

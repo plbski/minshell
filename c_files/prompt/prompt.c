@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/03 10:54:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 12:56:45 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	get_terminal_prompt(t_data *d)
 	if (!prompt_msg)
 		custom_exit(d, "Prompt alloc failed", NULL, EXIT_FAILURE);
 	terminal_line = readline(prompt_msg);
+	free(prompt_msg);
 	if (!terminal_line)
 		return (0);
 	if (validate_prmpt(d, &terminal_line))
@@ -53,7 +54,6 @@ int	get_terminal_prompt(t_data *d)
 		exec_prompt(d, terminal_line);
 	}
 	free(terminal_line);
-	free(prompt_msg);
 	rl_replace_line("", 0);
 	rl_on_new_line ();
 	return (1);

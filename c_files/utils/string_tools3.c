@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:03:05 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 10:33:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:10:54 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,16 @@ char	*ms_strdup(t_data *d, const char	*s1)
 	}
 	dst[i] = '\0';
 	return (dst);
+}
+
+void	*ms_malloc(t_data *d, ssize_t size)
+{
+	void	*content;
+
+	content = malloc(size);
+	if (!content)
+		custom_exit(d, "malloc failed", NULL, EXIT_FAILURE);
+	return (content);
 }
 
 int	is_all_digit(char *str)

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 23:17:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:01:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ char	*get_new_split(char *str, int *i)
 
 char	**split_prompt(t_data *d, char *str)
 {
-	char	**tokens;
+	char	**splits;
 	int		token_index;
 	int		i;
 	int		str_len;
 
 	token_index = 0;
 	str_len = ft_strlen(str);
-	tokens = malloc(sizeof(char *) * str_len);
-	if (!tokens)
+	splits = malloc(sizeof(char *) * str_len);
+	if (!splits)
 		custom_exit(d, "alloc in split", NULL, EXIT_FAILURE);
 	i = 0;
 	while (i < str_len && str[i])
@@ -57,9 +57,10 @@ char	**split_prompt(t_data *d, char *str)
 			i++;
 		if (!str[i])
 			break ;
-		tokens[token_index++] = get_new_split(str, &i);
+		splits[token_index++] = get_new_split(str, &i);
 	}
-	return (tokens[token_index] = NULL, tokens);
+	splits[token_index] = NULL;
+	return (splits);
 }
 
 void	unquote_splits(t_data *d, char **splits)

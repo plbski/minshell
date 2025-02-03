@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/03 11:08:48 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:16:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	exec_export(t_data *d, char *arg, int tmp_mem)
 		else if (!set_key_value(d, d->tmp_list, key, value))
 			dblst_add_back(&d->tmp_list, new_node);
 	}
+	safe_free(key);
 	update_environ(d);
 }
 
