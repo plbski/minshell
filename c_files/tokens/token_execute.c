@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 17:39:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 18:48:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_token	*handle_token(t_data *d, t_token *node)
 	if (type == tk_command || type == tk_exec)
 	{
 		if (should_call_pipe(node))
-			return (execute_pipe(d, node));
+			return (handle_pipe(d, node));
 		return (handle_command_token(d, node));
 	}
 	if (type == tk_hered)

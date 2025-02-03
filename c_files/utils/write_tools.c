@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 13:18:35 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 18:58:52 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,12 @@ char	*replace_str(t_data *d, char *str, char *remove, char *replace)
 	return (ms_strdup(d, str));
 }
 
-char	*read_file(t_data *d, char *file_name)
+char	*read_file(t_data *d, int fd)
 {
-	int		fd;
 	char	*line;
 	char	*buffer;
 	char	*content;
 
-	fd = open(file_name, O_RDONLY, 0647);
-	if (fd == -1)
-		custom_exit(d, "error in cat read", NULL, EXIT_FAILURE);
 	line = get_next_line(fd);
 	content = ms_strdup(d, "");
 	while (line != NULL)

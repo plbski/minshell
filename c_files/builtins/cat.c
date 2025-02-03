@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:27:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 11:46:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 19:02:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	exec_cat(t_data *d, char *file_name)
 {
 	char	*buffer;
+	int		fd;
 
 	if (!file_name)
 		return (FCT_FAIL);
@@ -28,7 +29,10 @@ int	exec_cat(t_data *d, char *file_name)
 		printf("cat: %s: Is a directory\n", file_name);
 		return (FCT_FAIL);
 	}
-	buffer = read_file(d, file_name);
+	fd = open(file_name, O_RDONLY);
+	if (fd == -1)
+		custom_exit(d, "error in cat", NULL, EXIT_FAILURE);
+	buffer = read_file(d, fd);
 	if (!buffer)
 		return (FCT_FAIL);
 	printf("%s\n", buffer);
@@ -43,7 +47,10 @@ int	cat(t_data *d, char *arg, char **flags, int status)
 
 	(void)status;
 	if (!arg)
-		return (FCT_FAIL);
+	{
+		printf("%s", read_file(d, STDIN_FILENO));
+		return (FCT_SUCCESS);
+	}
 	fct_ret = exec_cat(d, arg);
 	i = -1;
 	while (flags && flags[++i])

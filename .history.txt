@@ -1604,3 +1604,14 @@ mls.txt                        mmc_files                       mmTasks.md       
 mmanual                        mmtester                        mmdoc                           mmtest.txt                      m
 mtest_program.c                mmd                             mmoutput.txt                    mmtrier.c                       m
 men.subject_Minishell.pdf      mmy                             m
+ls | cat
+ls | cat
+ls | cat | cat | cat
+ls | cat
+ls | cat
+cat
+ls | cat
+cat
+ls | cat
+ls | cat
+ls | cat

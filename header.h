@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/03 17:05:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 18:58:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,13 @@ typedef struct s_token
 }	t_token;
 
 //		pipe_parse/pipe.c
-int			ft_pipe(void);
-
 //		pipe_parse/redir.c
 void		create_file(t_data *d, char *file_name, t_toktype r_type);
 t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type);
 void		close_redir_stream(t_data *d);
-t_token		*execute_pipe(t_data *d, t_token *cmd);
+t_token		*execute_pipe(t_data *d, t_token *cmd, int prevfd);
 int			should_call_pipe(t_token *node);
+t_token		*handle_pipe(t_data *d, t_token *cmd);
 
 //		pipe_parse/heredoc.c
 char		*heredoc(char *end, t_data *d, char *print, int is_quote);
@@ -175,7 +174,7 @@ int			char_in_str(char c, const char *txt);
 int			write_at_abs_path(char *content, char *path, int flags);
 int			write_at_rel_path(t_data *d, char *content, char *file_name);
 char		*replace_str(t_data *d, char *str, char *remove, char *replace);
-char		*read_file(t_data *d, char *file_name);
+char		*read_file(t_data *d, int fd);
 
 //		utils/env_tools.c
 void		update_environ(t_data *d);
