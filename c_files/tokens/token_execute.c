@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/01 02:08:45 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 11:16:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,24 +115,23 @@ int	exec_prompt(t_data *d, char *terminal_line)
 {
 	t_token	*tokens;
 	t_token	*node;
-	int		cur_par;
 
 	tokens = tokenize_string(d, terminal_line);
 	if (!tokens)
 		return (FCT_FAIL);
 	node = token_first(tokens);
 	d->last_cmd_status = -1;
-	cur_par = 1;
-	(void)cur_par;
 	while (node)
 	{
 		update_node_expansion(d, node, 1);
-		if (!validate_token(node))
+		if (!validate_token(d, node))
 			break ;
 		if (d->debug_mode)
 		{
-			printf("(st: %s) ", d->last_exit_status == FCT_FAIL ? "\033[31mFAIL" : "\033[32mSUCCESS");
-			printf("%s", RESET);
+			if (d->last_exit_status == FCT_FAIL)
+				printf("(st: %s) %s","\033[31mFAIL", RESET);
+			else
+				printf("(st: %s) %s", "\033[32mSUCCESS", RESET);
 			show_token_info(node, "evaluating", "\n");
 		}
 		close_redir_stream(d);

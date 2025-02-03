@@ -716,3 +716,170 @@ clear
 echo (cd ..) >> output.txt
 cd .. >> output.txt
 cd -
+ls
+pwd
+cd ..
+cd -
+clear
+echo ola && cd ..
+cd -
+echo (echo cool || pwd)
+echo (pwd || cool)
+"'(
+""
+'))
+"'(
+""
+'=))
+"'(
+""
+'))
+ls
+clear
+clear
+pwd
+clear
+clear
+ls
+pwd
+clear
+env
+clear
+echo ola && cd ..
+cd - && echo cool
+echo top || echo cool
+echo *
+ls *
+clear
+pwd
+<< here
+<< here
+<< here
+<< here
+echo << here
+clear
+$?
+echo snob
+cd snob
+echo $?
+./tets
+./test
+$?
+clear
+ls
+pwd
+clear
+env
+man tgetnum
+man tgetnum
+man isatty
+man execve
+man write
+man read
+man rl_redisplay
+man rl_on_new_line
+clear
+ls *
+cleare
+clear
+ls
+pwd
+clear
+open .
+echo hello || echo bnoh
+echo bonjour >> test.txt
+echo bonjour >> test.txt
+echo bonjour >> test.txt
+echo bonjour >> test.txt
+    -ysfjlégh wà305tz5
+$olmao
+Ambre=Copine
+$Ambre
+echo Ambre
+echo $Ambre
+sl
+clear
+exit
+exit 5
+exit 1
+exit 'g'
+exit 10
+pwd
+pwd
+cd ..
+clear
+ls
+pwd
+clear
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+ls
+cd -
+cd ~
+cd ..
+cd -
+cd start
+clear
+clear
+ls
+pwd
+clear
+cd ~
+cd ..
+cd -
+cd -
+ls
+clear
+echo $home
+echo $HOME
+env
+echo $HOME
+echo $COLORTERM
+echo $SHELL
+echo $HOME
+clear
+ls
+pwd
+echo $LOGNAME
+clear
+echo $HOME
+clear
+pwd
+HOME=wow
+env
+LOGNAME=laura
+echo $LOGNAME
+echo $PATH
+echo $HOME
+echo $home
+clear
+pwd
+ls
+ls *
+clear
+env *
+export *
+env
+export COOL
+env
+export SHELL
+env
+$SHELL
+cooo
+$?
+olapo
+echo $?

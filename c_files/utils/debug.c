@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/01 00:59:29 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 10:06:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,6 @@ int	search_true_cmd(t_data *d, char *cmd_name, char *arg, char **flags)
 	return (0);
 }
 
-int	get_char_index(char *str, char c)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		if (str[i] == c)
-			return (i);
-	return (-1);
-}
-
 void	show_exec_info(t_token *node, char *arg, char **flags, int fct_ret)
 {
 	int	i;
@@ -79,14 +68,17 @@ void	show_exec_info(t_token *node, char *arg, char **flags, int fct_ret)
 	i = -1;
 	while (flags && flags[++i])
 		printf("flag[%d] \"%s%s%s\", ", i, YELLOW, flags[i], RESET);
-	printf("cmd return: %s", fct_ret == FCT_FAIL ? ft_strjoin(RED, "FAIL") : ft_strjoin(GREEN, "SUCCESS"));
+	if (fct_ret == FCT_FAIL)
+		printf("cmd return: %s", ft_strjoin(RED, "FAIL"));
+	else
+		printf("cmd return: %s", ft_strjoin(GREEN, "SUCCESS"));
 	printf("[%d]\n\n%s", fct_ret, RESET);
 }
 
 void	show_token_info(t_token *node, char *prfx, char *suffix)
 {
-	printf("%s%s%s: \"%s\" type \"%s\" par %d%s", CYAN, prfx, RESET, node->name, \
-		types_names[node->type], node->par, suffix);
+	printf("%s%s%s: \"%s\" type \"%s\" par %d%s", \
+CYAN, prfx, RESET, node->name, types_names[node->type], node->par, suffix);
 }
 
 void	show_tokens_info(t_token *node, char *prfx)

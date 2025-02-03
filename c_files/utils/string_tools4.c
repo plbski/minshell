@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strstr.c                                           :+:      :+:    :+:   */
+/*   string_tools4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 04:35:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 21:28:41 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 10:10:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ char	*ft_strstr(char *str, char *to_find)
 // Count substrings split by 'sep'
 static int	count_substrings(char *str, char *sep)
 {
-	int		count;
-	char	*next;
+	int			count;
+	char		*next;
 
 	count = 0;
 	if (!str || !sep || !*sep)
@@ -76,7 +76,7 @@ static char	*get_next_segment(t_data *d, char **str, char *sep)
 		return (NULL);
 	ft_strlcpy(segment, *str, len);
 	segment[len] = '\0';
-	*str = next + strlen(sep);
+	*str = next + ft_strlen(sep);
 	return (segment);
 }
 

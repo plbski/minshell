@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 23:14:53 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 11:16:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	requires_arg(t_token *node)
 	node->type == tk_logical || node->type == tk_hered);
 }
 
-int	validate_token(t_token *node)
+int	validate_token(t_data *d, t_token *node)
 {
 	t_toktype	typ;
 
@@ -27,11 +27,13 @@ int	validate_token(t_token *node)
 	if (typ != tk_command && typ != tk_exec && typ != tk_hered && !chr_amnt(node->name, '=') && !node->prv)
 	{
 		printf("msh: command not found: %s\n", node->name);
+		d->last_exit_status = CMD_NOT_FOUND;
 		return (0);
 	}
 	if (requires_arg(node) && !node->next)
 	{
 		printf("msh: parse error near \'%s\'\n", node->name);
+		d->last_exit_status = FCT_FAIL;
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/01 01:23:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 11:16:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@
 # define PROMPT_LOGNAME_COL 	CYAN
 # define PROMPT_CWD_COL			YELLOW
 
-# define FCT_SUCCESS		0
+# define CMD_NOT_FOUND	127
+# define FCT_SUCCESS	0
 # define FCT_FAIL		1
 
 int	g_quit_in_heredoc;
@@ -157,6 +158,11 @@ char		*ft_strstr(char *str, char *to_find);
 char		**ft_split_str(t_data *d, char *str, char *sep);
 int			char_in_str(char c, const char *txt);
 
+//		write_tools
+int			write_at_abs_path(char *content, char *path, int flags);
+int			write_at_rel_path(t_data *d, char *content, char *file_name);
+char		*replace_str(t_data *d, char *str, char *remove, char *replace);
+
 //		utils/env_tools.c
 void		update_environ(t_data *d);
 char		*get_env_value(t_data *d, t_dblist *list, char *key);
@@ -256,7 +262,7 @@ void		update_node_expansion(t_data *d, t_token *node, int set_new_type);
 //		tokens/token_parser.c
 t_toktype	get_token_type(t_data *d, char *str, t_token *prev);
 int			requires_arg(t_token *node);
-int			validate_token(t_token *node);
+int			validate_token(t_data*d, t_token *node);
 t_token		*tokenize_string(t_data *d, char *prompt);
 
 //		tokens/tokens.c

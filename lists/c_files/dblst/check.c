@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:09:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/24 14:01:53 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 10:58:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ t_dblist	*dblst_last(t_dblist *lst)
 	return (lst);
 }
 
-t_dblist	*get_dblst_at_key(t_dblist *lst, char *prefix)
+t_dblist	*get_dblst_at_key(t_dblist *lst, char *key)
 {
 	t_dblist	*start;
 	char		*content;
 	int			j;
 
-	if (!lst || !prefix)
+	if (!lst || !key)
 		return (NULL);
 	lst = dblst_first(lst);
 	if (!lst)
@@ -59,9 +59,9 @@ t_dblist	*get_dblst_at_key(t_dblist *lst, char *prefix)
 	{
 		content = (char *)lst->content;
 		j = 0;
-		while (content[j] == prefix[j])
+		while (content[j] == key[j] && content[j] != '=')
 			j++;
-		if (!prefix[j])
+		if (!content[j] || content[j] == '=')
 			return (lst);
 		lst = lst->next;
 		if (lst == start)

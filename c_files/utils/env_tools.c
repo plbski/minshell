@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 10:15:36 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 10:56:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ char	*get_env_value(t_data *d, t_dblist *list, char *key)
 int	update_env_variables(t_data *d)
 {
 	safe_free(d->home_wd);
-	d->home_wd = get_env_value(d, d->env_list, "HOME=");
+	d->home_wd = get_env_value(d, d->env_list, "HOME");
 	safe_free(d->logname);
-	d->logname = get_env_value(d, d->env_list, "LOGNAME=");
+	d->logname = get_env_value(d, d->env_list, "LOGNAME");
 	return (1);
 }
 
