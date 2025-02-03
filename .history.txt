@@ -1515,3 +1515,92 @@ clear
 echo bonjour | pwd
 echo bonjour >> test.txt | pwd
 echo bonjour >> test.txt | pwd
+echo bonjour >> test.txt | pwd
+echo bonjour >> test.txt | pwd | pwd
+echo bonjour >> test.txt | pwd | pwd
+echo ola >> test.txt
+echo ola >> test.txt
+echo ola >> test.txt | yey
+echo ola >> test.txt | yey
+echo ola >> test.txt | yey
+ech ola | test.tt
+echo ola | ./test
+echo cool | pipe
+echo cool | pipe
+echo ola | pipe
+echo ola | pwd
+clear
+echo ola | pwd
+echo ola | pwd
+echo ola | pwd
+echo ola | pwd
+echo ola | pwd | echo cool | pwd
+echo ola | pwd
+ola
+exit
+ola
+mexecutedm: "echo" type "command" par 0 | arg: "molam", cmd return: mSUCCESS[0]
+mexit
+freed 132 items.
+freed 132 items.
+echo ola | pwd
+ola
+mexecutedm: "echo" type "command" par 0 | arg: "molam", cmd return: mSUCCESS[0]
+mexit
+freed 132 items.
+echo ola | pwd
+ola
+mexecutedm: "echo" type "command" par 0 | arg: "molam", cmd return: mSUCCESS[0]
+mexit
+msh: exit: child_exit: numeric argument required
+echo ola | pwd
+ola
+mexecutedm: "echo" type "command" par 0 | arg: "molam", cmd return: mSUCCESS[0]
+mnew token index: pwd
+echo ola | pwd
+ola
+mexecutedm: "echo" type "command" par 0 | arg: "molam", cmd return: mSUCCESS[0]
+echo ola | pwd
+ola
+mexecutedm: "echo" type "command" par 0 | arg: "molam", cmd return: mSUCCESS[0]
+echo cool | pipe
+cool
+mexecutedm: "echo" type "command" par 0 | arg: "mcoolm", cmd return: mSUCCESS[0]
+echo cool | echo top
+echo cool | echo cool
+echo ola | pwd
+echo ola | pwd
+echo super | pwd
+echo super | test.txt
+clear
+make re
+clear
+ls
+pwd
+echo "hello world" | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+my                             mmgnl                           mmtirer                         mmheader.h                      m
+mtest                          mmlists                         mma                             mmdebug.txt                     m
+mmakefile                      mmminishell.dSYM                mmlibft                         mma                             m
+mls.txt                        mmc_files                       mmTasks.md                      mmminishell                     m
+mmanual                        mmtester                        mmdoc                           mmtest.txt                      m
+mtest_program.c                mmd                             mmoutput.txt                    mmtrier.c                       m
+ls | cat
+my                             mmgnl                           mmtirer                         mmheader.h                      m
+mtest                          mmlists                         mma                             mmdebug.txt                     m
+mmakefile                      mmminishell.dSYM                mmlibft                         mma                             m
+mls.txt                        mmc_files                       mmTasks.md                      mmminishell                     m
+mmanual                        mmtester                        mmdoc                           mmtest.txt                      m
+mtest_program.c                mmd                             mmoutput.txt                    mmtrier.c                       m
+men.subject_Minishell.pdf      mmy                             m
+ls | cat
+my                             mmgnl                           mmtirer                         mmheader.h                      m
+mtest                          mmlists                         mma                             mmdebug.txt                     m
+mmakefile                      mmminishell.dSYM                mmlibft                         mma                             m
+mls.txt                        mmc_files                       mmTasks.md                      mmminishell                     m
+mmanual                        mmtester                        mmdoc                           mmtest.txt                      m
+mtest_program.c                mmd                             mmoutput.txt                    mmtrier.c                       m
+men.subject_Minishell.pdf      mmy                             m
