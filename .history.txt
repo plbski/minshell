@@ -1481,3 +1481,37 @@ cat output.txt
 echo . >> output.txt
 cat output.txt
 echo . > output.txt && cat output.txt
+ls *
+clear
+ls
+cd olapo && cd ..
+ls *
+clear
+ls *
+clear
+ls *
+clear
+(echo bonjour && echo top) >> output.txt
+clear
+clear
+./tirer
+./tirer 1 2 3 4
+arg="1 2 3 4"
+./tirer $arg
+./tirer $arg >> output.txt
+clear
+echo NAME:$LOGNAME LVL:$SHLVL export cool=3 cool+=
+env
+echo NAME:$LOGNAME LVL:$SHLVL export cool=3
+quote'
+'
+quoter'
+'
+<< here
+clear
+ls
+pwd
+clear
+echo bonjour | pwd
+echo bonjour >> test.txt | pwd
+echo bonjour >> test.txt | pwd

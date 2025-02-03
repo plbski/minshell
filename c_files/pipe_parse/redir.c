@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 13:58:48 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 17:17:51 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	create_file(t_data *d, char *file_name, t_toktype r_type)
 		d->fd = fd;
 }
 
-
 t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type)
 {
 	t_token		*after_redir;
@@ -76,11 +75,6 @@ t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type)
 	if (type == tk_hered)
 	{
 		return_content = heredoc(after_redir->name, d, "heredoc> ", 0);
-		safe_free(return_content);
-	}
-	else if (type == tk_pipe)
-	{
-		return_content = heredoc(after_redir->name, d, "> ", 0);
 		safe_free(return_content);
 	}
 	else if (!after_redir || ! before_redir)

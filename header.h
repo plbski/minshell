@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/03 14:57:35 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/03 17:05:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef enum e_redir_type
 typedef struct s_data
 {
 	int			fd;
+	int			pipefd;
 	int			debug_mode;
 	int			shlvl;
 	int			last_exit_status;
@@ -132,7 +133,8 @@ int			ft_pipe(void);
 void		create_file(t_data *d, char *file_name, t_toktype r_type);
 t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type);
 void		close_redir_stream(t_data *d);
-void	execute_pipe(t_data *d, char *prompt);
+t_token		*execute_pipe(t_data *d, t_token *cmd);
+int			should_call_pipe(t_token *node);
 
 //		pipe_parse/heredoc.c
 char		*heredoc(char *end, t_data *d, char *print, int is_quote);
