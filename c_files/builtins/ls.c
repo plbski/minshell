@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/31 20:53:23 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:55:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ DIR	*get_directory(t_data *d, char *arg)
 	if (!dir_path)
 		custom_exit(d, "Dir alloc in ls", NULL, EXIT_FAILURE);
 	directory = opendir(dir_path);
+	safe_free(dir_path);
 	if (directory || !arg)
 		return (directory);
-	free(dir_path);
 	dir_path = ms_strdup(d, arg);
 	directory = opendir(dir_path);
 	free(dir_path);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 17:51:38 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 14:17:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,37 @@ static int	should_skip_line(char *line, int *print_line)
 	return (0);
 }
 
+static void	add_line(t_data *d, char **buffer, char **full, char **line)
+{
+	*buffer = ms_strjoin(d, *full, *line);
+	free(*full);
+	*full = *buffer;
+	safe_free(*line);
+}
+
 static char	*exec_heredoc(t_data *d, char *nd, char *print, int is_q)
 {
-	char	*lin;
+	char	*line;
 	int		print_prompt;
 	char	*full;
+	char	*buffer;
 
 	print_prompt = 1;
 	full = ms_strdup(d, "\n");
 	while (1)
 	{
-		lin = readline(print);
-		if (!lin)
+		line = readline(print);
+		if (!line || handle_heredoc_interrupt(&full))
 			break ;
-		if (handle_heredoc_interrupt(&full))
-			break ;
-		if (should_skip_line(lin, &print_prompt))
+		if (should_skip_line(line, &print_prompt))
 			continue ;
-		if (!nd || cmp_str(lin, nd) || (is_q && chr_amnt(lin, *nd) % 2 == 1))
+		if (!nd || cmp_str(line, nd) || (is_q && chr_amnt(line, *nd) % 2 == 1))
 			break ;
-		full = ms_strjoin(d, full, lin);
-		safe_free(lin);
+		add_line(d, &buffer, &full, &line);
 	}
 	if (is_q && full)
-		full = ms_strjoin(d, full, lin);
-	return (safe_free(lin), full);
+		add_line(d, &buffer, &full, &line);
+	return (safe_free(line), full);
 }
 
 char	*heredoc(char *end, t_data *d, char *print, int is_quote)

@@ -1411,3 +1411,73 @@ export cool=3
 export cool=3
 export cool
 export cool=32 && cool+=32 && echo touch && unset PATH
+ l
+lea
+laoq
+lapo
+clear
+ls
+pwd
+clear
+env
+export
+clear
+ls
+cat header.h
+clear
+cat .
+<< he
+echo normal >> output.txt
+./minishell
+ls
+ls .
+ls ..
+ls ola cool
+ls
+ls lists libft
+ls lists libft
+ls *
+ls *
+ls *
+*
+*
+ls *
+clear
+ls *
+ls *
+ls *
+echo cool
+echo coolios && ls * && export && echo testos >> test.txt && cool && ÿC
+<< here
+<< cool
+<< cool
+<< top
+<< ola
+<< top
+<< top
+<< top
+<< ola
+<< ola
+<< ola
+clear
+ls
+<< ola
+<< alo
+<< alo
+<< alo
+<< alo
+ls
+ls -
+ls alo
+cd ..
+cd -
+cd ~
+cd -
+export ola=5
+ola+=5
+unset ola
+export ola=5 alo=3 alop=2 alop=5 echo $ola $alo $alop $alop
+cat output.txt
+echo . >> output.txt
+cat output.txt
+echo . > output.txt && cat output.txt

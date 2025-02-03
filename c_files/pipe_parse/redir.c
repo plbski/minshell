@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 12:19:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:58:48 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ void	create_file(t_data *d, char *file_name, t_toktype r_type)
 	if (!file_name)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
 	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
-	!path && (custom_exit(d, "error in redir", NULL, EXIT_FAILURE));
+	if (!path)
+		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
 	fd = get_fd(d, path, r_type);
+	free(path);
 	if ((r_type == tk_red_app || r_type == tk_red_out))
 		dup_target = STDOUT_FILENO;
 	else
@@ -62,17 +64,25 @@ void	create_file(t_data *d, char *file_name, t_toktype r_type)
 		d->fd = fd;
 }
 
+
 t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type)
 {
 	t_token		*after_redir;
 	t_token		*before_redir;
+	char		*return_content;
 
 	after_redir = redir_node->next;
 	before_redir = redir_node->prv;
 	if (type == tk_hered)
-		heredoc(after_redir->name, d, "heredoc> ", 0);
+	{
+		return_content = heredoc(after_redir->name, d, "heredoc> ", 0);
+		safe_free(return_content);
+	}
 	else if (type == tk_pipe)
-		heredoc(after_redir->name, d, "> ", 0);
+	{
+		return_content = heredoc(after_redir->name, d, "> ", 0);
+		safe_free(return_content);
+	}
 	else if (!after_redir || ! before_redir)
 		custom_exit(d, "Error in redir tokens", NULL, EXIT_FAILURE);
 	if (type == tk_red_out || type == tk_red_app)

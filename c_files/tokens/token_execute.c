@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 13:14:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:53:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args)
 	while (next_node && next_node->type == k_typ)
 	{
 		update_node_expansion(d, next_node, 0);
-		new_args[arg_index++] = next_node->name;
+		new_args[arg_index++] = ms_strdup(d, next_node->name);
 		next_node = next_node->next;
 	}
 	new_args[arg_index] = NULL;

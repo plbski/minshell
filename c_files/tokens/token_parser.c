@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 13:06:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 14:20:29 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_toktype	get_token_type(t_data *d, char *str, t_token *prev)
 	return (get_token_type_2(d, str, prev));
 }
 
-static t_token	*fill_wildcard(t_data *d, t_token *start, int parenth_order)
+static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
 {
 	DIR				*directory;
 	struct dirent	*entry;
@@ -72,9 +72,11 @@ static t_token	*fill_wildcard(t_data *d, t_token *start, int parenth_order)
 	{
 		arg_name = ms_strdup(d, entry->d_name);
 		if (arg_name[0] != '.')
-			start = new_token(arg_name, start, tk_argument, parenth_order);
+			start = new_token(ms_strdup(d, arg_name), start, tk_argument, brk);
+		free(arg_name);
 		entry = readdir(directory);
 	}
+	closedir(directory);
 	return (start);
 }
 
@@ -82,26 +84,26 @@ static t_token	*get_split_token(t_data *d, char **splits)
 {
 	int			i;
 	t_token		*token;
-	int			open_parenthesis;
+	int			bracket;
 	t_toktype	type;
 
-	open_parenthesis = 0;
+	bracket = 0;
 	i = -1;
 	token = NULL;
 	while (splits[++i])
 	{
 		if (cmp_str(splits[i], "(") || cmp_str(splits[i], ")"))
 		{
-			open_parenthesis++;
+			bracket++;
 			if (splits[i][0] == ')')
-				open_parenthesis -= 2;
+				bracket -= 2;
 			continue ;
 		}
 		type = get_token_type(d, splits[i], token);
 		if (type == tk_wildcard)
-			token = fill_wildcard(d, token, open_parenthesis);
+			token = fill_wildcard(d, token, bracket);
 		else
-			token = new_token(ms_strdup(d, splits[i]), token, type, open_parenthesis);
+			token = new_token(ms_strdup(d, splits[i]), token, type, bracket);
 	}
 	return (token);
 }

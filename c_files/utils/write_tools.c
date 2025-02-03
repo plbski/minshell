@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 12:53:18 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/03 13:18:35 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ char	*replace_str(t_data *d, char *str, char *remove, char *replace)
 			continue ;
 		i += j;
 		j = 0;
-		new_str = malloc(ft_strlen(str) - i + 1);
-		if (!new_str)
-			custom_exit(d, "alloc in str_prefix", NULL, EXIT_FAILURE);
+		new_str = ms_malloc(d, ft_strlen(str) - i + 1);
 		while (str[i])
 			new_str[j++] = str[i++];
 		new_str[j] = '\0';
