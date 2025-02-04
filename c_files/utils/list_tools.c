@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 10:51:15 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 16:05:43 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	init_env_list(t_data *d, char **env)
 	export(d, "rev=test_programs/rev", NULL, 1);
 	export(d, "sort=test_programs/sort", NULL, 1);
 	export(d, "choose=test_programs/choose", NULL, 1);
+	if (d->debug_mode)
+		export(d, "deb=1", NULL, 0);
+	else
+		export(d, "deb=0", NULL, 0);
 }
 
 void	reorder_dblst(t_dblist *list)

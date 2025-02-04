@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 08:44:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 10:52:53 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 14:01:15 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	set_numbers(int *count, char *buffer, int **numbers)
 		token = strtok(NULL, " ");
 	}
 }
-
 
 void	print_sort(int *numbers, int count)
 {

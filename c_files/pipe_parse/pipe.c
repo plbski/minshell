@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 13:49:53 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 15:37:38 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 	pipe_fds = ms_malloc(d, sizeof(int *) * pipes_amount);
 	pids = ms_malloc(d, sizeof(pid_t) * (pipes_amount + 1));
 	i = -1;
-	while (++i < 2)
+	while (++i < pipes_amount)
 	{
 		pipe_fds[i] = malloc(sizeof(int) * 2);
 		if (pipe(pipe_fds[i]) == -1)
@@ -65,19 +65,22 @@ static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 	}
 	base_stdin = dup(STDIN_FILENO);
 	i = -1;
-	while (++i < pipes_amount)
+	while (++i < pipes_amount + 1)
 	{
 		pids[i] = fork();
 		if (pids[i] == -1)
 			custom_exit(d, "fork", NULL, EXIT_FAILURE);
 		if (pids[i] == 0)
 		{
-			if (i > 0)
-				handle_child(d, start_cmd, pipe_fds[i - 1], pipe_fds[i]);
+			if (i == 0)
+				handle_child(d, start_cmd, NULL, pipe_fds[i]);
+			else if (i == pipes_amount)
+                handle_child(d, start_cmd, pipe_fds[i - 1], NULL);
 			else
-				handle_child(d, start_cmd->pipe_out, NULL, pipe_fds[i]);
+				handle_child(d, start_cmd, pipe_fds[i - 1], pipe_fds[i]);
 			break ;
 		}
+		printf("pipe %s executed\n", start_cmd->name);
 		start_cmd = start_cmd->pipe_out;
 	}
 	handle_parent(base_stdin, pipe_fds, pids, pipes_amount);

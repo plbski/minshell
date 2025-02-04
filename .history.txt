@@ -139,3 +139,201 @@ echo ola top | pwd | ./sort | super | top
 clear
 clear
 echo ola top | pwd | ./sort | super | top
+clear
+ls
+pwd
+clear
+echo ola top | pwd | ./sort | super | top
+clear
+ls
+echo ola top | pwd | ./sort | super | top
+echo ola top | pwd | ./sort | super | top
+echo ola top | pwd | ./sort | super | top
+echo ola top | pwd | ./sort | super | top
+echo ola top | pwd | ./sort | super | top
+echo ola top | pwd | ./sort | super | top
+echo ola top | pwd | ./sort | super | top
+$gen | $sort
+clear
+$gen | $sort
+$gen | $sort
+$gen
+$gen | $rev
+$gen
+echo ola | pwd
+clear
+echo ola top | pwd | ./gen
+echo ola top | pwd | $gen
+echo ola top | pwd | $gen
+echo ola top | pwd | $gen
+echo ola top | pwd | $gen
+clear
+echo ola top | pwd | $gen
+clear
+ls
+pwd
+clear
+$gen
+$gen | $rev
+$rev
+$rev "1 2 3 4"
+clear
+echo cool | pwd
+echo cool | cat
+pwd | cat
+ls | cat
+ls | cat | cool
+ls | cat | cat
+ls | cat
+ls | cat
+ls | cat
+$gen | $rev
+$gen | $rev | $sort
+$gen | $rev | $sort
+$gen | $rev | $sort
+$gen | $rev | $sort
+ls | pwd
+ls | pwd
+ls | pwd
+ls | pwd
+ls | pwd
+make er
+ls | pwd
+ls | cat
+ls | pwd
+clear
+ls | pwd
+ls | pwd
+ls | pwd | ls
+clear
+ls | pwd | ls
+ls | pwd | ls
+ls | pwd | ls
+ls | pwd | ls
+ls | pwd | ls
+ls | pwd | ls
+ls | pwd
+ls | pwd
+ls | pwd | pwd
+ls | pwd | pwd | pwd
+ls
+pwd
+clear
+ls
+clear
+ls
+pwd
+DEBUG=1
+ls
+env
+clear
+MSDEBUG=1
+ls
+env
+clear
+ls
+clear
+ls
+pwd
+clear
+DEB=1
+clear
+ls
+pwd
+clear
+ls
+DEB=0
+clear
+ls
+pwd
+clear
+DEB=1
+clear
+ls
+pwd
+ls
+ls
+DEB=1
+ls
+ls
+ls
+ls .
+ls .
+deb=1
+ls
+clear
+DEB=1
+ls
+clear
+LOGNAME=giu
+clear
+ls
+pwd
+unset logname
+clear
+ls
+pwd
+clear
+LOGNAME=lio
+clear
+LOGNAME=500
+clear
+deb=1
+ls *
+clear
+LOGNAME=giulio
+deb=1
+env
+env
+env
+ola=3
+env
+export ola=3
+env
+ls .
+deb=1
+ls .
+ls *
+clear
+deb=1
+ls *
+ls *
+deb=1
+ls *
+deb=1
+ls *
+deb=1
+ls *
+ls *
+deb=1
+ls *
+deb=1
+ls *
+deb=1
+ls *
+clear
+ls *
+clear
+clear
+clear
+ls
+deb=1
+ls
+ls .
+clear
+cl
+clopa
+ls | cat
+ls | cat
+clear
+deb=1
+ls | cat
+cat
+echo ola | cat >> output.txt
+env
+clear
+deb=1
+clear
+ls
+pwd
+clear

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:27:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 19:02:41 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 16:16:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	cat(t_data *d, char *arg, char **flags, int status)
 	(void)status;
 	if (!arg)
 	{
-		printf("%s", read_file(d, STDIN_FILENO));
+		printf("%s\n", read_file(d, STDIN_FILENO));
 		return (FCT_SUCCESS);
 	}
 	fct_ret = exec_cat(d, arg);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 13:13:07 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 16:14:51 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,24 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 	int	i;
 
 	i = -1;
-	printf("executed: %s [%s]", node->name, arg);
-	while (flg && flg[++i])
-		printf("[%s]", flg[i]);
 	if (d->last_exit_status == FCT_FAIL)
-		printf("	%s%s", RED, "FAIL");
+		printf("%s%s execution: %s", RED, node->name, "FAIL");
 	else
-		printf("	%s%s", GREEN, "SUCCESS");
-	printf("[%d]\n%s", d->last_exit_status, RESET);
+		printf("%s%s execution: %s", GREEN, node->name, "SUCCESS");
+	printf("[%d] %s", d->last_exit_status, RESET);
+	if (arg)
+		printf("[%s", arg);
+	while (flg && flg[++i])
+	{
+		if (i == 0)
+			printf(", ");
+		printf("%s", flg[i]);
+		if (flg[i + 1])
+			printf(", ");
+	}
+	if (arg)
+		printf("]");
+	printf("\n");
 }
 
 void	show_token_info(t_data *d, t_token *node, char *prefix, char *suffix)
@@ -70,9 +80,9 @@ void	show_cmd_status(t_data *d, t_token *node)
 	char	*suffix;
 
 	if (d->last_exit_status == FCT_FAIL)
-		suffix = ft_strdup("(ext st: \033[31mFAIL\033[0m)");
+		suffix = ft_strdup("(curr. ext st > \033[31mFAIL\033[0m)");
 	else
-		suffix = ft_strdup("(ext st: \033[32mSUCCESS\033[0m)");
+		suffix = ft_strdup("(curr. ext st > \033[32mSUCCESS\033[0m)");
 	show_token_info(d, node, "eval", suffix);
 	free(suffix);
 }

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/03 12:56:45 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 15:50:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	get_terminal_prompt(t_data *d)
 	{
 		add_history(terminal_line);
 		exec_prompt(d, terminal_line);
+		update_env_variables(d);
 	}
 	free(terminal_line);
 	rl_replace_line("", 0);
