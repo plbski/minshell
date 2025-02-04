@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 12:48:17 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 10:37:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	free_data(t_data *data)
 	free_count += safe_free(data->cwd);
 	free_count += safe_free(data->prev_cwd);
 	free_count += safe_free(data->start_wd);
-	free_count += safe_free(data->doc_wd);
+	free_count += safe_free(data->man_wd);
 	free_count += safe_free(data->history_wd);
 	free_count += safe_free(data->logname);
 	if (debug_output)

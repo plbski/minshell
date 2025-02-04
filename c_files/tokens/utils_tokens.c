@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 13:01:27 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 12:10:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,43 @@ void	unquote_splits(t_data *d, char **splits)
 	i = -1;
 	while (splits[++i])
 		remove_chars(d, &splits[i], "\'\"");
+}
+
+t_token	*get_next_token(t_token *token, t_toktype type, int stops_at_same)
+{
+	t_toktype	same_type;
+
+	same_type = token->type;
+	token = token->next;
+	while (token)
+	{
+		if (token->type == type)
+			return (token);
+		if (stops_at_same && token->type == same_type)
+			return (NULL);
+		token = token->next;
+	}
+	return (NULL);
+}
+
+void	link_token_pipes(t_token *tokens)
+{
+	t_token	*node;
+	t_token	*output;
+
+	node = token_first(tokens);
+	while (node)
+	{
+		if (node->type == tk_command || node->type == tk_exec)
+		{
+			output = get_next_token(node, tk_pipe, 1);
+			if (output)
+			{
+				node->pipe_out = output->next;
+				if (output->next->type != tk_command)
+					output->next->type = tk_exec;
+			}
+		}
+		node = node->next;
+	}
 }

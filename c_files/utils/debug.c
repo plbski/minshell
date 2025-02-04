@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 15:31:36 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 13:13:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,50 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 {
 	int	i;
 
-	show_token_info(d, node, "executed", " | ");
-	printf("arg: \"%s%s%s\", ", YELLOW, arg, RESET);
 	i = -1;
+	printf("executed: %s [%s]", node->name, arg);
 	while (flg && flg[++i])
-		printf("flag[%d] \"%s%s%s\", ", i, YELLOW, flg[i], RESET);
+		printf("[%s]", flg[i]);
 	if (d->last_exit_status == FCT_FAIL)
-		printf("cmd return: %s%s", RED, "FAIL");
+		printf("	%s%s", RED, "FAIL");
 	else
-		printf("cmd return: %s%s", GREEN, "SUCCESS");
-	printf("[%d]\n\n%s", d->last_exit_status, RESET);
+		printf("	%s%s", GREEN, "SUCCESS");
+	printf("[%d]\n%s", d->last_exit_status, RESET);
 }
 
-void	show_token_info(t_data *d, t_token *node, char *prfx, char *suffix)
+void	show_token_info(t_data *d, t_token *node, char *prefix, char *suffix)
 {
-	printf("%s%s%s: \"%s\" type \"%s\" par %d%s", \
-CYAN, prfx, RESET, node->name, d->types_names[node->type], node->par, suffix);
+	char		pipe_out[30];
+	char		arg_color[30];
+
+	if (node->type == tk_command || node->type == tk_exec)
+		ft_strlcpy(arg_color, RED, 30);
+	else if (node->type == tk_argument)
+		ft_strlcpy(arg_color, YELLOW, 30);
+	else if (node->type == tk_pipe)
+		ft_strlcpy(arg_color, CYAN, 30);
+	else if (node->type == tk_logical)
+		ft_strlcpy(arg_color, BLUE, 30);
+	else
+		ft_strlcpy(arg_color, GREY, 30);
+
+	if (node->pipe_out)
+		ft_strlcpy(pipe_out, node->pipe_out->name, 30);
+	else
+		ft_strlcpy(pipe_out, " ", 30);
+	printf("%s%-8s%s%-8s %s%-10s%s %-6d %-10s%-8s\n", \
+		GREEN, prefix, RESET, node->name, arg_color, \
+		d->types_names[node->type], RESET, node->par, pipe_out, suffix);
 }
 
-void	show_tokens_info(t_data *d, t_token *node, char *prfx)
+void	show_tokens_info(t_data *d, t_token *node, char *prfx, char *suffix)
 {
+	printf("	%s%-8s %-10s %-6s %-5s%s\n", \
+		GREY, "name", "type", "brk", "pipe", RESET);
 	node = token_first(node);
 	while (node)
 	{
-		show_token_info(d, node, prfx, "\n");
+		show_token_info(d, node, prfx, suffix);
 		node = node->next;
 	}
 	printf("\n");
@@ -47,9 +67,12 @@ void	show_tokens_info(t_data *d, t_token *node, char *prfx)
 
 void	show_cmd_status(t_data *d, t_token *node)
 {
+	char	*suffix;
+
 	if (d->last_exit_status == FCT_FAIL)
-		printf("(exit status: %s) %s", "\033[31mFAIL", RESET);
+		suffix = ft_strdup("(ext st: \033[31mFAIL\033[0m)");
 	else
-		printf("(exit status: %s) %s", "\033[32mSUCCESS", RESET);
-	show_token_info(d, node, "evaluating", "\n");
+		suffix = ft_strdup("(ext st: \033[32mSUCCESS\033[0m)");
+	show_token_info(d, node, "eval", suffix);
+	free(suffix);
 }

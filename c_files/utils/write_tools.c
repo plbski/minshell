@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 18:58:52 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 00:26:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,7 @@ char	*replace_str(t_data *d, char *str, char *remove, char *replace)
 			j++;
 		if (remove[j])
 			continue ;
-		i += j;
-		j = 0;
-		new_str = ms_malloc(d, ft_strlen(str) - i + 1);
-		while (str[i])
-			new_str[j++] = str[i++];
-		new_str[j] = '\0';
+		new_str = ms_strdup(d, str + i + j);
 		joined = ms_strjoin(d, replace, new_str);
 		free(new_str);
 		return (joined);

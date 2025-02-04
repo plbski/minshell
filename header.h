@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/03 18:58:27 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 13:19:57 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define CMD_NOT_FOUND	127
 # define FCT_SUCCESS	0
 # define FCT_FAIL		1
+# define EXIT_CHILD		-1
 
 int	g_quit_in_heredoc;
 
@@ -103,7 +104,7 @@ typedef struct s_data
 	int			last_cmd_status;
 	char		*cwd;
 	char		*prev_cwd;
-	char		*doc_wd;
+	char		*man_wd;
 	char		*start_wd;
 	char		*history_wd;
 	char		*home_wd;
@@ -122,18 +123,27 @@ typedef struct s_token
 	t_toktype		type;
 	struct s_token	*prv;
 	struct s_token	*next;
+	struct s_token	*pipe_out;
 	int				par;
 	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
 }	t_token;
 
+typedef struct s_tk_pipe
+{
+	t_token	*in;
+	t_token	*out;
+	int		pid;
+	int		fd[2];
+}	t_tk_pipe;
+
 //		pipe_parse/pipe.c
+t_token		*get_pipe_output(t_token *input);
+t_token		*handle_pipe(t_data *d, t_token *cmd);
+
 //		pipe_parse/redir.c
 void		create_file(t_data *d, char *file_name, t_toktype r_type);
 t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type);
 void		close_redir_stream(t_data *d);
-t_token		*execute_pipe(t_data *d, t_token *cmd, int prevfd);
-int			should_call_pipe(t_token *node);
-t_token		*handle_pipe(t_data *d, t_token *cmd);
 
 //		pipe_parse/heredoc.c
 char		*heredoc(char *end, t_data *d, char *print, int is_quote);
@@ -198,7 +208,7 @@ void		reorder_dblst(t_dblist *list);
 //		utils/debug.c
 void		show_exec_info(t_data *d, t_token *node, char *arg, char **flg);
 void		show_token_info(t_data *d, t_token *node, char *prfx, char *suffix);
-void		show_tokens_info(t_data *d, t_token *node, char *prfx);
+void		show_tokens_info(t_data *d, t_token *node, char *prfx, char *suffix);
 void		show_cmd_status(t_data *d, t_token *node);
 
 //		utils/prompt_checker2.c
@@ -252,6 +262,8 @@ int			exec_prompt(t_data *d, char *terminal_line);
 //		tokens/utils_tokens.c
 char		**split_prompt(t_data *d, char *str);
 void		unquote_splits(t_data *d, char **splits);
+t_token		*get_next_token(t_token *token, t_toktype type, int stops_at_same);
+void		link_token_pipes(t_token *tokens);
 
 //		tokens/token_expand_tools.c
 char		*expand_special_segment(t_data *d, char *split, int *i);
@@ -273,9 +285,6 @@ t_token		*get_token(t_token *lst, char *name);
 void		clear_tokens(t_token *token);
 void		remove_token(t_token *token);
 void		merge_sort_tokens(t_token **head_ref);
-
-//		minishell.c
-int			main(int argc, char *argv[], char **env);
 
 void		reset_readline(void);
 char		*get_next_line(int fd);

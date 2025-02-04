@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/03 18:41:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 10:49:18 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	init_data_directories(t_data *data)
 
 	working_dir_buff = custom_get_cwd(data);
 	data->start_wd = working_dir_buff;
-	data->doc_wd = ft_strjoin(working_dir_buff, "/doc/");
+	data->man_wd = ft_strjoin(working_dir_buff, "/man/");
 	data->history_wd = ft_strjoin(working_dir_buff, "/.history.txt");
 	read_history(data->history_wd);
 	return (1);
@@ -81,7 +81,7 @@ void	init_data(t_data *data, char **env)
 	data->start_wd = NULL;
 	data->home_wd = NULL;
 	data->logname = NULL;
-	data->doc_wd = NULL;
+	data->man_wd = NULL;
 	data->environ = NULL;
 	data->env_list = NULL;
 	data->tmp_list = NULL;

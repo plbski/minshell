@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/31 16:39:36 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 10:37:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	man(t_data *d, char *arg, char **flags, int status)
 	int		fct_ret;
 
 	(void)status;
-	path = ft_str_mega_join(d->doc_wd, arg, ".txt", NULL);
+	path = ft_str_mega_join(d->man_wd, arg, ".txt", NULL);
 	if (!path)
 		custom_exit(d, "man path alloc failed", NULL, EXIT_FAILURE);
 	fct_ret = execute_man(d, path);
@@ -83,7 +83,7 @@ int	man(t_data *d, char *arg, char **flags, int status)
 	i = -1;
 	while (flags[++i])
 	{
-		path = ft_str_mega_join(d->doc_wd, flags[i], ".txt", NULL);
+		path = ft_str_mega_join(d->man_wd, flags[i], ".txt", NULL);
 		if (!path)
 			custom_exit(d, "man path alloc failed", NULL, EXIT_FAILURE);
 		if (execute_man(d, path) == FCT_SUCCESS)

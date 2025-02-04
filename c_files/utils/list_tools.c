@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 15:21:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 10:51:15 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	init_env_list(t_data *d, char **env)
 	d->env_list = arr_to_dblst((void **)env);
 	if (!d->env_list)
 		custom_exit(d, "List alloc failed", NULL, 1);
+	export(d, "gen=test_programs/gen", NULL, 1);
+	export(d, "rev=test_programs/rev", NULL, 1);
+	export(d, "sort=test_programs/sort", NULL, 1);
+	export(d, "choose=test_programs/choose", NULL, 1);
 }
 
 void	reorder_dblst(t_dblist *list)

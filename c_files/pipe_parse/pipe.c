@@ -6,113 +6,97 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 19:06:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 13:49:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-void	handle_child_pipe(t_data *d, t_token *cmd, int pipefd[2], int prevfd)
+static void	handle_child(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 {
-	if (prevfd != -1)
-    {
-        dup2(prevfd, STDIN_FILENO);
-        close(prevfd);
-    }
-	close(pipefd[0]);
-	dup2(pipefd[1], STDOUT_FILENO);
-	close(pipefd[1]);
+	if (fd_in)
+	{
+		dup2(fd_in[0], STDIN_FILENO);
+		close(fd_in[0]);
+	}
+	if (fd_out)
+	{
+		dup2(fd_out[1], STDOUT_FILENO);
+		close(fd_out[1]);
+	}
 	handle_command_token(d, cmd);
-	close_redir_stream(d);
-	custom_exit(d, NULL, NULL, EXIT_SUCCESS);
+	custom_exit(d, NULL, NULL, EXIT_CHILD);
 }
 
-int	handle_parent(int child_pid, int pipefd[2], int prev_fd)
+static void	handle_parent(int or_stdin, int **fds, int *pids, int pipes_count)
 {
-	int	wait_status;
+	int	i;
 
 	setup_signal(1, 0);
-	close(pipefd[1]);
-	if (prev_fd != -1)
-        close(prev_fd);
-	dup2(pipefd[0], STDIN_FILENO);
-	close(pipefd[0]);
-	if (waitpid(child_pid, &wait_status, 0) == -1)
+	i = -1;
+	while (++i < pipes_count)
 	{
-		perror("waitpid");
-		return (FCT_FAIL);
+		close(fds[i][0]);
+		close(fds[i][1]);
 	}
+	i = -1;
+	while (++i < pipes_count + 1)
+		waitpid(pids[i], NULL, 0);
 	setup_signal(0, 0);
-	if (WIFEXITED(wait_status))
-		return (WEXITSTATUS(wait_status));
-	else if (WIFSIGNALED(wait_status))
-		return (128 + WTERMSIG(wait_status));
-	return (-1);
+	dup2(or_stdin, STDIN_FILENO);
+	close(or_stdin);
 }
 
-t_token	*update_token_index(t_token *node)
+static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 {
-	node = node->next;
-	while (node)
+	int		base_stdin;
+	int		**pipe_fds;
+	pid_t	*pids;
+	int		i;
+
+	pipe_fds = ms_malloc(d, sizeof(int *) * pipes_amount);
+	pids = ms_malloc(d, sizeof(pid_t) * (pipes_amount + 1));
+	i = -1;
+	while (++i < 2)
 	{
-		if (node->type == tk_command || node->type == tk_exec || \
-			node->type == tk_pipe)
+		pipe_fds[i] = malloc(sizeof(int) * 2);
+		if (pipe(pipe_fds[i]) == -1)
+			custom_exit(d, "error in pipe_fd", NULL, EXIT_FAILURE);
+	}
+	base_stdin = dup(STDIN_FILENO);
+	i = -1;
+	while (++i < pipes_amount)
+	{
+		pids[i] = fork();
+		if (pids[i] == -1)
+			custom_exit(d, "fork", NULL, EXIT_FAILURE);
+		if (pids[i] == 0)
+		{
+			if (i > 0)
+				handle_child(d, start_cmd, pipe_fds[i - 1], pipe_fds[i]);
+			else
+				handle_child(d, start_cmd->pipe_out, NULL, pipe_fds[i]);
 			break ;
-		node = node->next;
+		}
+		start_cmd = start_cmd->pipe_out;
 	}
-	if (node && node->type == tk_pipe)
-		node = node->next;
-	return (node);
+	handle_parent(base_stdin, pipe_fds, pids, pipes_amount);
 }
 
-t_token	*execute_pipe(t_data *d, t_token *cmd, int prevfd)
+t_token	*handle_pipe(t_data *d, t_token *cmd_in)
 {
-	int	pipefd[2];
-	int	pid;
+	t_token		*node;
+	int			pipes_count;
 
-	if (pipe(pipefd) == -1)
-		custom_exit(d, "pipe failed", NULL, EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		custom_exit(d, "pipe fork failed", NULL, EXIT_FAILURE);
-	if (pid == 0)
-		handle_child_pipe(d, cmd, pipefd, prevfd);
-	else
-		d->last_exit_status = handle_parent(pid, pipefd, prevfd);
-	return (update_token_index(cmd));
-}
-
-t_token	*handle_pipe(t_data *d, t_token *cmd)
-{
-	int	original_stdin;
-	int	prev_fd;
-
-	if (d->debug_mode)
-		printf("called pipe from %s%s%s\n", RED, cmd->name, RESET);
-	prev_fd = -1;
-	original_stdin = dup(STDIN_FILENO);
-	while (should_call_pipe(cmd))
+	pipes_count = 0;
+	node = cmd_in;
+	while (node && node->pipe_out)
 	{
-		cmd = execute_pipe(d, cmd, prev_fd);
-		prev_fd = dup(STDIN_FILENO);
+		pipes_count++;
+		node = node->pipe_out;
 	}
-    dup2(original_stdin, STDIN_FILENO);
-	close(original_stdin);
-	if (d->debug_mode)
-		printf("pipe ended at %s%s%s\n", RED, cmd->name, RESET);
-	return (cmd);
-}
-
-int	should_call_pipe(t_token *node)
-{
-	node = node->next;
-	while (node)
-	{
-		if (node->type == tk_command || node->type == tk_exec)
-			return (0);
-		if (node->type == tk_pipe)
-			return (1);
-		node = node->next;
-	}
-	return (0);
+	execute_pipes(d, cmd_in, pipes_count);
+	if (!node || !node->pipe_out)
+		return (node);
+	return (node->pipe_out->next);
 }
