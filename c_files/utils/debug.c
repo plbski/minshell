@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 16:14:51 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 16:18:22 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	show_token_info(t_data *d, t_token *node, char *prefix, char *suffix)
 		ft_strlcpy(arg_color, BLUE, 30);
 	else
 		ft_strlcpy(arg_color, GREY, 30);
-
 	if (node->pipe_out)
 		ft_strlcpy(pipe_out, node->pipe_out->name, 30);
 	else

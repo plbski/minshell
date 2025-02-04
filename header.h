@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/04 15:47:48 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 17:36:22 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 # include "lists/lists.h"
+# include "dprintf/ft_printf.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -207,8 +208,8 @@ void		reorder_dblst(t_dblist *list);
 
 //		utils/debug.c
 void		show_exec_info(t_data *d, t_token *node, char *arg, char **flg);
-void		show_token_info(t_data *d, t_token *node, char *prfx, char *suffix);
-void		show_tokens_info(t_data *d, t_token *node, char *prfx, char *suffix);
+void		show_token_info(t_data *d, t_token *node, char *prfx, char *suffx);
+void		show_tokens_info(t_data *d, t_token *node, char *prfx, char *suffx);
 void		show_cmd_status(t_data *d, t_token *node);
 
 //		utils/prompt_checker2.c

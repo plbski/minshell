@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 09:21:51 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 17:38:56 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ int	exec(t_data *d, char *program, char **argv, int u __attribute__((unused)))
 	}
 	if (access(program, F_OK) == -1)
 	{
-		printf("msh: exec: %s:not found\n", program);
+		ft_dprintf(2, "msh: exec: %s:not found\n", program);
 		return (FCT_FAIL);
 	}
 	if (access(program, X_OK) == -1)
 	{
-		printf("msh: %s: Permission denied\n", program);
+		ft_dprintf(2, "msh: %s: Permission denied\n", program);
 		return (FCT_FAIL);
 	}
 	child_pid = fork();
@@ -100,7 +100,6 @@ int	exec(t_data *d, char *program, char **argv, int u __attribute__((unused)))
 	else
 	{
 		d->last_exit_status = handle_parent_process(child_pid);
-		printf("\n");
-		return (FCT_SUCCESS);
+		return (printf("\n"), FCT_SUCCESS);
 	}
 }

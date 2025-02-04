@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 21:20:59 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 17:39:12 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 	while (d->bltin_names[++i])
 		if (cmp_str(d->bltin_names[i], cmd_name))
 			return (d->blt_fct[i](d, arg, flags, EXIT_SUCCESS));
-	printf("msh: %s: command not found\n", cmd_name);
+	ft_dprintf(2, "msh: %s: command not found\n", cmd_name);
 	d->last_exit_status = FCT_FAIL;
 	return (FCT_FAIL);
 }

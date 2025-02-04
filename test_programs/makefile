@@ -29,7 +29,7 @@ $(SORT_NAME):
 	$(CC) $(CFLAGS) $(SORT_SRC) -o $(SORT_NAME)
 
 all: $(GEN_NAME) $(CHOOSE_NAME) $(REV_NAME) $(SORT_NAME)
-	@echo "$(GREEN)test programs$(RESET) compiled."
+	@echo "$(GREEN)tst_prgs$(RESET)	suffessfully compiled."
 
 $(NAME): all
 

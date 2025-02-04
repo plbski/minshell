@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 16:03:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 16:20:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ char	*get_env_value(t_data *d, t_dblist *list, char *key)
 	return (free(content_copy), free(no_key), value);
 }
 
-void	update_variable(t_data *d, t_dblist *list, char **data_var, char *key_name)
+void	update_env_var(t_data *d, t_dblist *list, char **var, char *key)
 {
-	char	*var;
+	char	*new_var_value;
 
-	var = get_env_value(d, list, key_name);
-	if (var && (!*data_var || !cmp_str(d->home_wd, *data_var)))
+	new_var_value = get_env_value(d, list, key);
+	if (new_var_value && (!*var || !cmp_str(d->home_wd, *var)))
 	{
-		safe_free(*data_var);
-		*data_var = var;
+		safe_free(*var);
+		*var = new_var_value;
 	}
 }
 
@@ -70,8 +70,8 @@ int	update_env_variables(t_data *d)
 		d->debug_mode = ft_atoi(debug);
 		free(debug);
 	}
-	update_variable(d, d->env_list, &d->home_wd, "HOME");
-	update_variable(d, d->env_list, &d->logname, "LOGNAME");
+	update_env_var(d, d->env_list, &d->home_wd, "HOME");
+	update_env_var(d, d->env_list, &d->logname, "LOGNAME");
 	return (1);
 }
 

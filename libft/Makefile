@@ -36,11 +36,11 @@ bonus: $(ALL_OBJ)
 
 clean:
 	rm -f $(ALL_OBJ)
-	@echo "Libft .o removed."
+	@if [ -z "$(QUIET)" ]; then echo "Libft	cleaned"; fi
 
 fclean: clean
 	rm -f $(NAME)
-	@echo "Libft .a removed."
+	@echo "Libft	fcleaned"
 
 re: fclean all
 

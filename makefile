@@ -16,11 +16,13 @@ c_files/tokens/token_parser2.c c_files/tokens/token_expand_tools.c c_files/token
 c_files/utils/write_tools.c c_files/builtins/cat.c
 
 LIBFT_DIR = libft/
+DPRINTF_DIR = dprintf/
 GNL_DIR = gnl/
 LISTS_DIR = lists/
 TEST_PRG_DIR = test_programs/
 
 GNL = $(GNL_DIR)get_next_line.a
+DPRINTF = $(DPRINTF_DIR)printf.a
 LISTS = $(LISTS_DIR)lists.a
 LIBFT = $(LIBFT_DIR)libft.a
 
@@ -35,12 +37,16 @@ MAGENTA = 	\033[35m
 CYAN = 		\033[36m
 RESET = 	\033[0m
 
-$(MINISHELL_NAME): $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(GNL) $(LISTS)
-	$(CC) $(CFLAGS) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
+$(MINISHELL_NAME): $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(GNL) $(DPRINTF) $(LISTS)
+	make -C $(TEST_PRG_DIR) --no-print-directory re
+	$(CC) $(CFLAGS) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
 	@echo "$(MAGENTA)$(MINISHELL_NAME) successfully built.$(RESET)"
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) --no-print-directory
+
+$(DPRINTF):
+	make -C $(DPRINTF_DIR) --no-print-directory
 
 $(GNL):
 	make -C $(GNL_DIR) --no-print-directory
@@ -50,23 +56,25 @@ $(LISTS):
 
 all: $(MINISHELL_NAME)
 
-debug: $(MINISHELL_NAME) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(GNL) $(LISTS)
-	$(CC) $(CFLAGS) -fsanitize=address -g $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
+debug: $(MINISHELL_NAME) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(DPRINTF) $(GNL) $(LISTS)	make -C $(TEST_PRG_DIR) --no-print-directory re
+	make -C $(TEST_PRG_DIR) --no-print-directory re
+	$(CC) $(CFLAGS) -fsanitize=address -g $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
 	@echo "$(MAGENTA)$(MINISHELL_NAME) -fsan successfully built.$(RESET)"
 
 clean:
 	make -C $(LIBFT_DIR) --no-print-directory clean
-	make -C $(GNL_DIR) --no-print-directory clean
+	make -C $(DPRINTF_DIR) --no-print-directory clean
 	make -C $(LISTS_DIR) --no-print-directory clean
+	make -C $(GNL_DIR) --no-print-directory clean
 	make -C $(TEST_PRG_DIR) --no-print-directory clean
 	rm -f $(MINISHELL_NAME)
 
 fclean: clean
-	make -C $(LIBFT_DIR) --no-print-directory fclean
-	make -C $(LISTS_DIR) --no-print-directory fclean
-	make -C $(GNL_DIR) --no-print-directory fclean
+	make -C $(LIBFT_DIR) --no-print-directory fclean QUIET=1
+	make -C $(DPRINTF_DIR) --no-print-directory fclean QUIET=1
+	make -C $(LISTS_DIR) --no-print-directory fclean QUIET=1
+	make -C $(GNL_DIR) --no-print-directory fclean QUIET=1
 
 re: fclean all
-	make -C $(TEST_PRG_DIR) --no-print-directory re
 
 phony: all clean fclean re

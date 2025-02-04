@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 15:37:38 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 16:19:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 			if (i == 0)
 				handle_child(d, start_cmd, NULL, pipe_fds[i]);
 			else if (i == pipes_amount)
-                handle_child(d, start_cmd, pipe_fds[i - 1], NULL);
+				handle_child(d, start_cmd, pipe_fds[i - 1], NULL);
 			else
 				handle_child(d, start_cmd, pipe_fds[i - 1], pipe_fds[i]);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:33:06 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 13:46:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/04 16:24:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_token	*new_token(char *name, t_token *prv, t_toktype type, int parenth_order)
 	if (!token)
 		return (NULL);
 	token->next = NULL;
+	token->pipe_out = NULL;
 	token->prv = prv;
 	if (prv)
 		prv->next = token;

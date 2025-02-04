@@ -337,3 +337,28 @@ clear
 ls
 pwd
 clear
+clear
+ls
+clear
+clear
+clear
+ls *
+clear
+ls | b 
+ls | cat
+$gen | $sort
+$sort "1 2 3 4"
+$sort "1 2 3 -3"
+cat simps.txt
+cat simps.txt | sort
+clear
+ls
+pwd
+clear
+ls
+pwd
+clear
+ls
+pwd
+olapo
+olapo

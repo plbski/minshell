@@ -29,11 +29,11 @@ all: $(NAME)
 
 clean:
 	rm -f $(OBJECTS)
-	@echo "Lists .o removed."
+	@if [ -z "$(QUIET)" ]; then echo "Lists	cleaned"; fi
 
 fclean: clean
 	rm -f $(NAME)
-	@echo "Lists .a removed."
+	@echo "Lists	fcleaned"
 
 re: fclean all
 
