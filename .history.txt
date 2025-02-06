@@ -447,3 +447,19 @@ ls | cat
 $gen | $sort
 cd test_programs/
 ./gen | ./sort
+ls | cat
+ls | cat
+ls | pwd
+ls | pwd
+ls | pwd
+ls | pwd
+ls | cat
+ls > output.txt | pwd
+ls > output.txt | pwd
+"
+"
+\
+exit
+/bin/ls
+/bin/ls | /bin/ cat
+/bin/ls | /bin/cat

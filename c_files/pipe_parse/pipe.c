@@ -6,7 +6,7 @@
 /*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/06 17:41:52 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:05:20 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ static void	handle_parent(int or_stdin, int **fds, int *pids, int pipes_count)
 	close(or_stdin);
 }
 
+static int	**ini_pipefds(t_data *d, int pipes_amount, int **pipe_fds)
+{
+	int	i;
+
+	i = -1;
+	pipe_fds = ms_malloc(d, sizeof(int *) * pipes_amount);
+	while (++i <= pipes_amount)
+	{
+		pipe_fds[i] = malloc(sizeof(int) * 2);
+		if (pipe(pipe_fds[i]) == -1)
+			custom_exit(d, "error in pipe_fd", NULL, EXIT_FAILURE);
+	}
+	return(pipe_fds);
+}
 static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 {
 	int		base_stdin;
@@ -54,15 +68,8 @@ static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 	pid_t	*pids;
 	int		i;
 
-	pipe_fds = ms_malloc(d, sizeof(int *) * pipes_amount);
+	pipe_fds = ini_pipefds(d, pipes_amount, NULL);
 	pids = ms_malloc(d, sizeof(pid_t) * (pipes_amount + 1));
-	i = -1;
-	while (++i <= pipes_amount)
-	{
-		pipe_fds[i] = malloc(sizeof(int) * 2);
-		if (pipe(pipe_fds[i]) == -1)
-			custom_exit(d, "error in pipe_fd", NULL, EXIT_FAILURE);
-	}
 	base_stdin = dup(STDIN_FILENO);
 	i = -1;
 	while (++i <= pipes_amount)
@@ -78,9 +85,7 @@ static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 				handle_child(d, start_cmd, pipe_fds[i - 1], NULL);
 			else
 				handle_child(d, start_cmd, pipe_fds[i - 1], pipe_fds[i]);
-			break ;
 		}
-		printf("pipe %s executed\n", start_cmd->name);
 		start_cmd = start_cmd->pipe_out;
 	}
 	handle_parent(base_stdin, pipe_fds, pids, pipes_amount);

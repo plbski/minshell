@@ -1,4 +1,4 @@
-
-[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0mola
-
-
+[34mman                           [0m[34mtest_programs                 [0m[34mgnl                           [0m[0m10_history.txt                [0m
+[35mheader.h                      [0m[34mlists                         [0m[0mmakefile                      [0m[34mminishell.dSYM                [0m
+[0msimps.txt                     [0m[34mlibft                         [0m[34mc_files                       [0m[31mminishell                     [0m
+[34mdprintf                       [0m[0mff                            [0m[0moutput.txt                    [0m[0men.subject_Minishell.pdf      [0m
