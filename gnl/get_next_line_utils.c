@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:14:54 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 01:34:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/06 17:32:52 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int	update_fd(t_data *d, int fd, int index, int i)
 	tot_size = 0;
 	full_buffer[0] = '\0';
 	buffer[0] = '\0';
-	while (!contains(buffer, '\n') && index < MAXSIZE)
+	bites_read = BUFFER_SIZE;
+	while (!contains(buffer, '\n') && index < MAXSIZE && bites_read == BUFFER_SIZE)
 	{
 		bites_read = read(fd, buffer, BUFFER_SIZE);
 		if (bites_read < 0)

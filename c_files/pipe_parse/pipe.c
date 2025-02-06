@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 16:19:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/06 17:41:52 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static void	handle_parent(int or_stdin, int **fds, int *pids, int pipes_count)
 
 	setup_signal(1, 0);
 	i = -1;
-	while (++i < pipes_count)
+	while (++i <= pipes_count)
 	{
 		close(fds[i][0]);
 		close(fds[i][1]);
 	}
 	i = -1;
-	while (++i < pipes_count + 1)
-		waitpid(pids[i], NULL, 0);
+	while (++i < pipes_count)
+		waitpid(pids[i], NULL, 0); // l erreur etait la on attendais un de trop
 	setup_signal(0, 0);
 	dup2(or_stdin, STDIN_FILENO);
 	close(or_stdin);
@@ -57,7 +57,7 @@ static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 	pipe_fds = ms_malloc(d, sizeof(int *) * pipes_amount);
 	pids = ms_malloc(d, sizeof(pid_t) * (pipes_amount + 1));
 	i = -1;
-	while (++i < pipes_amount)
+	while (++i <= pipes_amount)
 	{
 		pipe_fds[i] = malloc(sizeof(int) * 2);
 		if (pipe(pipe_fds[i]) == -1)
@@ -65,7 +65,7 @@ static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 	}
 	base_stdin = dup(STDIN_FILENO);
 	i = -1;
-	while (++i < pipes_amount + 1)
+	while (++i <= pipes_amount)
 	{
 		pids[i] = fork();
 		if (pids[i] == -1)
@@ -100,6 +100,6 @@ t_token	*handle_pipe(t_data *d, t_token *cmd_in)
 	}
 	execute_pipes(d, cmd_in, pipes_count);
 	if (!node || !node->pipe_out)
-		return (node);
+		return (NULL);
 	return (node->pipe_out->next);
 }

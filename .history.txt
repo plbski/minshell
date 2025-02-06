@@ -362,3 +362,88 @@ ls
 pwd
 olapo
 olapo
+$sort "1 2 3 -3"
+$gen | $sort
+$gen | $sort
+$gen | $sort
+$gen | $sort
+$gen | $sort
+ls
+cd test_programs/
+./gen
+./sort "3 2 4"
+./gen | ./sort$
+./gen | ./sort
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+./gen | ./sort
+cd test_programs/
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+cd test_programs/
+./gen | ./sort
+$gen | $sort
+cd test_programs/
+./gen
+./gen | ./sort
+ls | cat
+ls
+ls | cat
+pwd
+pwd | cat
+pwd | cat
+pwd | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+$gen | $sort
+cd test_programs/
+./gen | ./sort
