@@ -6,7 +6,7 @@
 /*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/06 18:18:14 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/06 20:02:12 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_redir_stream(t_data *d)
 {
-	if (dup2(1, STDOUT_FILENO) == -1)
+	if (dup2(1, STDIN_FILENO) == -1)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
 	if (dup2(0, STDOUT_FILENO) == -1)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
@@ -82,7 +82,7 @@ t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type)
 	if (type == tk_red_out || type == tk_red_app)
 		create_file(d, after_redir->name, type);
 	else if (type == tk_red_in)
-		create_file(d, before_redir->name, tk_red_in);
+		create_file(d, after_redir->name, tk_red_in);
 	if (after_redir)
 		return (after_redir->next);
 	return (after_redir);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 16:25:15 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/06 20:02:25 by plbuet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ t_token	*handle_command_token(t_data *d, t_token *node)
 	redir = (nxt && (nxt->type == tk_red_app || nxt->type == tk_red_in \
 		|| nxt->type == tk_red_out || nxt->type == tk_hered));
 	if (redir)
-		nxt = handle_redir_token(d, nxt, nxt->type);
+		{
+			nxt = handle_redir_token(d, nxt, nxt->type);}
 	d->last_exit_status = execute_command(d, node->name, arg, flags);
-	if (redir)
-		close_redir_stream(d);
+	close_redir_stream(d);
 	if (d->debug_mode)
 		show_exec_info(d, node, arg, flags);
 	free_void_array((void ***)&flags);

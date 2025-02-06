@@ -463,3 +463,33 @@ exit
 /bin/ls
 /bin/ls | /bin/ cat
 /bin/ls | /bin/cat
+/bin/ls | /bin/cat
+cd test_programs/
+./sort < ../output.txt 
+cd test_programs/
+./sort < ../output.txt 
+mheader.h                      mmlists                         mmmakefile                      mmminishell.dSYM                m
+msimps.txt                     mmlibft                         mmc_files                       mmminishell                     m
+mdprintf                       mmff                            mmoutput.txt                    mmen.subject_Minishell.pdf      m
+cat < output.txt 
+pwd | cat
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cat < output.txt 
+cd test_programs/
+./sort < ../output.txt 
