@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_expand_tools.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 14:21:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/07 15:42:11 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,20 @@ char	*expand_split(t_data *d, char *split, int len, int i)
 	int		spl_index;
 
 	spl_index = 0;
-	spl_values = malloc(sizeof(char *) * len);
+	spl_values = ms_malloc(d, sizeof(char *) * len);
 	i = 0;
 	while (i < len && split[i])
 	{
 		if (split[i] == '$' && is_in_quote(split, i) != 1)
 		{
 			new_str = expand_segment(d, split, &i);
-			new_str && (spl_values[spl_index++] = new_str);
+			if (new_str)
+				spl_values[spl_index++] = new_str;
 		}
 		else
 		{
-			split[i] == '$' && (i++);
+			if (split[i] == '$')
+				i++;
 			spl_values[spl_index++] = copy_until_char(d, split, &i, "$");
 		}
 		i++;
@@ -113,7 +115,21 @@ void	expand_splits(t_data *d, char **splits)
 void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 {
 	char	*new_name;
+	char	*bin_str;
+	int		was_cmd;
 
+	was_cmd = 0;
+	if (node->type == tk_exec && (access(node->name, F_OK) == -1 || access(node->name, X_OK) == -1))
+	{
+		bin_str = ms_strjoin(d, "/bin/", node->name);
+		if (access(bin_str, F_OK) != -1 && access(bin_str, X_OK) != -1)
+		{
+			node->name = bin_str;
+			node->type = tk_exec;
+		}
+		else
+			node->type = tk_argument;
+	}
 	if (chr_amnt(node->name, '$') && !chr_amnt(node->name, '\''))
 	{
 		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);
@@ -122,7 +138,7 @@ void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 		free(node->name);
 		node->name = new_name;
 		if (set_new_type)
-			node->type = get_token_type(d, node->name, node->prv);
+			node->type = get_token_type(d, &was_cmd, node->name, node->prv);
 	}
 	remove_chars(d, &node->name, "\'\"");
 }

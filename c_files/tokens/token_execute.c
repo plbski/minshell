@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/06 20:02:25 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/07 14:20:01 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_token	*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args)
 	return (next_node);
 }
 
-t_token	*handle_command_token(t_data *d, t_token *node)
+t_token	*handle_command_token(t_data *d, t_token *node, int handle_redir)
 {
 	t_token		*nxt;
 	char		**flags;
@@ -59,11 +59,11 @@ t_token	*handle_command_token(t_data *d, t_token *node)
 	}
 	redir = (nxt && (nxt->type == tk_red_app || nxt->type == tk_red_in \
 		|| nxt->type == tk_red_out || nxt->type == tk_hered));
-	if (redir)
-		{
-			nxt = handle_redir_token(d, nxt, nxt->type);}
+	if (redir && handle_redir)
+		nxt = handle_redir_token(d, nxt, nxt->type);
 	d->last_exit_status = execute_command(d, node->name, arg, flags);
-	close_redir_stream(d);
+	if (redir && handle_redir)
+		close_redir_stream(d);
 	if (d->debug_mode)
 		show_exec_info(d, node, arg, flags);
 	free_void_array((void ***)&flags);
@@ -102,7 +102,7 @@ t_token	*handle_token(t_data *d, t_token *node)
 	{
 		if (node->pipe_out)
 			return (handle_pipe(d, node));
-		return (handle_command_token(d, node));
+		return (handle_command_token(d, node, 1));
 	}
 	if (type == tk_hered)
 		return (handle_redir_token(d, node, node->type));
@@ -131,7 +131,6 @@ int	exec_prompt(t_data *d, char *terminal_line)
 		if (d->debug_mode)
 			show_cmd_status(d, node);
 		node = handle_token(d, node);
-		close_redir_stream(d);
 	}
 	clear_tokens(tokens);
 	return (d->last_cmd_status);

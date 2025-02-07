@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:27:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/06 19:41:18 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/07 14:40:09 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	cat(t_data *d, char *arg, char **flags, int status)
 	int	i;
 	int	fct_ret;
 	char	*buffer;
-	(void)status;
 
+	(void)status;
 	if (!arg)
 	{
 		while ((buffer = get_next_line(STDIN_FILENO)) != NULL)

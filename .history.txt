@@ -493,3 +493,208 @@ cat < output.txt
 cat < output.txt 
 cd test_programs/
 ./sort < ../output.txt 
+clear
+ls
+clear
+echo ola
+echo >> output.txt 
+echo >> output.txt 
+cat | ls
+ls | cat
+ls | cat
+cat < output.txt 
+cat < output.txt 
+cat > output.txt 
+echo ola > output.txt 
+clear
+ls
+pwd
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+ls
+pwd
+clear
+ls #
+ls *
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+clear
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool >> output.txt 
+echo cool > output.txt 
+ls | cat
+ls >> output.txt | cat
+ls >> output.txt | cat
+ls >> output.txt | cat
+ls >> output.txt | cat
+ls >> output.txt | cat
+ls >> output.txt | cat
+ls >> output.txt | cat | ls | cd .. | ls
+echo bonjour | cat | ls
+echo bonjour | cat
+echo bonjour | ls | cat
+echo bonjour | ls
+cat | ls
+ls | cat | pwd
+cat | ls
+ls | cat
+ls | pwd
+pwd | cat
+ls | cat
+pwd | cat | ls
+pwd | /bin/cat | ls
+pwd | cat | cat
+pwd | cat | cat
+pwd | cat | cat
+pwd | cat | cat
+pwd | cat | cat
+pwd | cat | cat
+pwd | cat
+pwd | cat | cat
+pwd | cat | cat | ls
+pwd | cat
+cat | pwd
+pwd | cat
+ls | cat
+ls | cat
+ls | cat
+ls | cat
+cat | ls
+deb=1
+cat | ls
+cat | ls
+cat | ls
+ls | cat
+ls | cat | cat
+ls | cat | cat
+deb=1
+ls | cat | cat
+ls | cat | cat
+ls | cat
+ls | pwd | echo bonjour
+ls | pwd | echo bonjour | echo top
+ls | cat
+cat | ls
+ls | cat | cat
+cat | cat | ls
+cat | cat | ls
+ls
+ls *
+clear
+./minishell
+exit
+olapo
+grep
+clear
+grep
+touch ola
+touch top
+touch ola
+echo touch ola
+clear
+echo touch ola
+echo touch super
+echo touch super topitop
+echo touch super topitop cpp;
+echo touch super topitop cpp touch
+touch
+deb=1
+clear
+echo touch super topitop cpp touch
+ls cd
+ls cd cd cd cd 
+ls cd cd cd
+ls touch cd cd
+touch ls ls ls
+deb=1
+touch ls ls ls
+touch ls ls ls
+touch ls ls ls
+deb=1
+touch ls ls ls
+ls touch touch touch
+touch ls ls ls | ls
+touch ls ls ls | ls
+pwd
+ls | cd
+pwd
+ls | cd ..
+pwd
+clear
+cat | cat 
+echo a
+echo a|ls
+ls
+./gnl/
+./gnl
+ls
+clear
+/bin/ls
+ls
+exit
+./minishell
+./minishell
+export pipe='|'
+ls $pipe echo a
+ls o
+echo $US''ER
+deb=1
+echo $US''ER
+"    "
+deb=0
+clear
+		
+cata
+cat | ls
+echo "ls | a"
+echo "ls | a" << simps.txt 
+echo "ls | a" << simps.txt 
+echo "ls | a" << simps.txt 
+<< end
+<< simps.txt 
+echo "ls | a" >> simps.txt 
+cat simps.txt 
+fjsd << jo
+clear
+90
+unset ?
+echo $?
+unset sfd
+echo $?
+export est
+esport
+export
+clear
+export a
+export
+clear
+export
+export a=a b=b
+export
+clear
+rm .history.txt
+ls
+clear
+./minishell
+echo -nnnnnnnnnnn
+echo -n
+echo -n a
+echo -n -n
+echo -na
+echo a -n
+ls cd ..
+90
+<< >
+./gnl
+"     "
+echo "ls | a" << simps.txt

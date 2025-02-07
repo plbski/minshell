@@ -1,0 +1,32 @@
+echo a -n > flag pas pris en compte
+echo a -nnnnn > flag est valide
+export > "declare -x ...."
+export > check triage pas bien effectue
+unset > return status SUCCESS meme si argument existe pas
+pipe avec une seule commande
+heredoc pipe kill ? Si heredoc > lancer heredoc avant tout le reste
+Remplacer notre cat par le bon
+ls cd .. probleme
+si no env au depart, faire comme bash: garder que les ENV que bash garde
+
+si export sans valeur (export a) ajouter a export mais pas dans env (pas afficher avec env)
+
+SE REFERER A BASH
+
+Recheck tous les messages erreur pour que ce soit identiques a bash
+
+
+gerrer les exit status de cd (y'a des soucis)
+
+gestion des ? et des ' dans le parsing, echo $US''ER devrait output > ER
+
+heredoc avec redir ensuite ne devrait marcher et afficher message erreur
+
+mauvais message d 'erreur sur l'exec (si dossier)
+
+gerer les tab (juste retour a la ligne)
+
+echo "ls | a" << simps.txt quitte le programme apres d
+
+heredoc = gnl
+

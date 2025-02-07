@@ -1,0 +1,11 @@
+a.out
+choose
+choose_exit.c
+gen
+gen.c
+makefile
+output.txt
+rev
+rev.c
+sort
+sort.c

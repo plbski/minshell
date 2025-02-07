@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/06 20:10:06 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/07 16:03:56 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	handle_child(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 		dup2(fd_out[1], STDOUT_FILENO);
 		close(fd_out[1]);
 	}
-	handle_command_token(d, cmd);
+	handle_command_token(d, cmd, 1);
 	custom_exit(d, NULL, NULL, EXIT_CHILD);
 }
 
@@ -41,7 +41,7 @@ static void	handle_parent(int or_stdin, int **fds, int *pids, int pipes_count)
 	}
 	i = -1;
 	while (++i < pipes_count)
-		waitpid(pids[i], NULL, 0); // l erreur etait la on attendais un de trop
+		waitpid(pids[i], NULL, 0);
 	setup_signal(0, 0);
 	dup2(or_stdin, STDIN_FILENO);
 	close(or_stdin);
@@ -61,6 +61,7 @@ static int	**ini_pipefds(t_data *d, int pipes_amount, int **pipe_fds)
 	}
 	return(pipe_fds);
 }
+
 static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 {
 	int		base_stdin;

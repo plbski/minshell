@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/06 14:56:30 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/07 15:41:06 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-#include "string.h"
+# include "string.h"
 # include <time.h>
 # include <fcntl.h>
 # include <signal.h>
@@ -27,6 +27,7 @@
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 # define START_ANIM_TEXT "			\033[31m~~~ \033[35mMinishell \033[31mby \
 \033[34mgvlente \033[31m& \033[34mpbuet\033[31m ~~~ \033[0m"
@@ -52,7 +53,7 @@
 # define FCT_FAIL		1
 # define EXIT_CHILD		-1
 
-int	g_quit_in_heredoc;
+extern int	g_quit_in_heredoc;
 
 typedef enum e_token_type
 {
@@ -104,6 +105,8 @@ typedef struct s_data
 	int			shlvl;
 	int			last_exit_status;
 	int			last_cmd_status;
+	int			saved_stdin;
+	int			saved_stdout;
 	char		*cwd;
 	char		*prev_cwd;
 	char		*man_wd;
@@ -146,6 +149,7 @@ t_token		*handle_pipe(t_data *d, t_token *cmd);
 void		create_file(t_data *d, char *file_name, t_toktype r_type);
 t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type);
 void		close_redir_stream(t_data *d);
+void		save_original_fds(t_data *d);
 
 //		pipe_parse/heredoc.c
 char		*heredoc(char *end, t_data *d, char *print, int is_quote);
@@ -257,7 +261,7 @@ void		setup_signal(int is_waiting, int is_heredoc);
 
 //		tokens/token_execute.c
 t_token		*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args);
-t_token		*handle_command_token(t_data *d, t_token *node);
+t_token		*handle_command_token(t_data *d, t_token *node, int handle_redir);
 t_token		*handle_token(t_data *d, t_token *node);
 int			exec_prompt(t_data *d, char *terminal_line);
 
@@ -275,7 +279,7 @@ void		expand_splits(t_data *d, char **splits);
 void		update_node_expansion(t_data *d, t_token *node, int set_new_type);
 
 //		tokens/token_parser.c
-t_toktype	get_token_type(t_data *d, char *str, t_token *prev);
+t_toktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev);
 int			requires_arg(t_token *node);
 int			validate_token(t_data*d, t_token *node);
 t_token		*tokenize_string(t_data *d, char *prompt);
