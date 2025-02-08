@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 16:20:36 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/08 01:38:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	update_env_var(t_data *d, t_dblist *list, char **var, char *key)
 		safe_free(*var);
 		*var = new_var_value;
 	}
+	else if (!new_var_value)
+		*var = ms_strdup(d, "?");
 }
 
 int	update_env_variables(t_data *d)

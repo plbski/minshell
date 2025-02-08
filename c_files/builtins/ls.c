@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/04 00:03:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/08 00:09:02 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	ls(t_data *d, char *arg, char **flags, int status)
 	i = -1;
 	while (flags[++i])
 	{
-		if (execute_ls(d, flags[i], 1, 0) == FCT_SUCCESS)
+		if (execute_ls(d, flags[i], 1, 1) == FCT_SUCCESS)
 		{
 			fct_ret = FCT_SUCCESS;
 			if (flags[i + 1] && is_directory(flags[i + 1]))

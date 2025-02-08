@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/31 19:53:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/07 23:16:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	cd(t_data *d, char *arg, char **flags, int status)
 	{
 		printf("cd: no such file or directory: %s\n", path);
 		free(path);
-		return (FCT_FAIL);
+		return (FCT_SUCCESS);
 	}
 	update_cwd(d);
 	free(path);

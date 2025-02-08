@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:33:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 21:43:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/08 00:53:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_quote_end(t_data *d, char *end, char *msg)
 	char	*quote_append;
 	char	*quote_end;
 
-	quote_append = heredoc(end, d, msg, 1);
+	quote_append = parse_heredoc(end, d, msg);
 	if (!quote_append)
 		return (NULL);
 	quote_end = ms_strjoin(d, quote_append, end);
@@ -124,7 +124,7 @@ int	validate_prmpt(t_data *d, char **prmpt)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] != ' ')
+		if (str[i] != ' ' && str[i] != '\t')
 			is_only_space = 0;
 		if ((str[i] == '<' || str[i] == '>') && !is_in_quote(str, i))
 			has_redir = 1;

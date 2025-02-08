@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:23:03 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/28 00:58:55 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/07 22:59:59 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,28 @@ void	print_content(void *content)
 
 void	print_prefixed_content(void *content)
 {
-	if (content)
-		printf("export %s\n", (char *)content);
+	char	*str;
+	int		i;
+	int		has_value;
+
+	if (!content)
+		return ;
+	str = (char *)content;
+	printf("declare -x ");
+	i = -1;
+	has_value = 0;
+	while (str[++i])
+	{
+		if (str[i - 1] == '=' && !has_value)
+		{
+			has_value = 1;
+			printf("\"");
+		}
+		printf("%c", str[i]);
+	}
+	if (has_value)
+		printf("\"");
+	printf("\n");
 }
 
 void	dblst_print_list(t_dblist *lst, int has_prefix)

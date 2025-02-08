@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 00:26:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/07 23:52:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	write_at_rel_path(t_data *d, char *content, char *file_name)
 	int		fd;
 
 	printf("CREATING FILE\n");
-	full_path = ft_strjoin(d->cwd, file_name);
-	printf("%s\n", full_path);
+	full_path = ms_strjoin(d, d->cwd, file_name);
 	fd = open(full_path, O_CREAT | O_APPEND | 0644);
 	if (fd == -1)
 		return (0);
@@ -81,4 +80,15 @@ char	*read_file(t_data *d, int fd)
 		line = get_next_line(fd);
 	}
 	return (content);
+}
+
+int	is_builtin_cmd(t_data *d, char *str)
+{
+	int	i;
+
+	i = -1;
+	while (d->bltin_names[++i])
+		if (cmp_str(str, d->bltin_names[i]))
+			return (1);
+	return (0);
 }

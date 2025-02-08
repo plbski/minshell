@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/07 14:20:01 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:54:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ t_token	*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args)
 	return (next_node);
 }
 
+int	validate_redir(t_token *redir)
+{
+	if (redir->type == tk_red_in)
+	{
+		if (!redir->next)
+			return (printf("syntax error near \
+				unexpected token `newline'\n"), 0);
+		else if (access(redir->next->name, F_OK) == -1)
+			return (printf("mash: %s: No such file or directory\n", \
+				redir->next->name), 0);
+	}
+	return (1);
+}
+
 t_token	*handle_command_token(t_data *d, t_token *node, int handle_redir)
 {
 	t_token		*nxt;
@@ -60,7 +74,14 @@ t_token	*handle_command_token(t_data *d, t_token *node, int handle_redir)
 	redir = (nxt && (nxt->type == tk_red_app || nxt->type == tk_red_in \
 		|| nxt->type == tk_red_out || nxt->type == tk_hered));
 	if (redir && handle_redir)
+	{
+		if (!validate_redir(node->next))
+		{
+			free_void_array((void ***)&flags);
+			return (NULL);
+		}
 		nxt = handle_redir_token(d, nxt, nxt->type);
+	}
 	d->last_exit_status = execute_command(d, node->name, arg, flags);
 	if (redir && handle_redir)
 		close_redir_stream(d);

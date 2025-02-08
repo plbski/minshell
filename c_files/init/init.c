@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/07 14:31:15 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:32:48 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static int	init_data_directories(t_data *data)
 
 	working_dir_buff = custom_get_cwd(data);
 	data->start_wd = working_dir_buff;
-	data->man_wd = ft_strjoin(working_dir_buff, "/man/");
-	data->history_wd = ft_strjoin(working_dir_buff, "/.history.txt");
+	data->man_wd = ms_strjoin(data, working_dir_buff, "/man/");
+	data->history_wd = ms_strjoin(data, working_dir_buff, "/.history.txt");
 	read_history(data->history_wd);
 	return (1);
 }
@@ -74,6 +74,28 @@ static void	init_shlvl(t_data *data)
 	}
 }
 
+void	init_with_empty_env(t_data *d)
+{
+	char	**base_env;
+	char	*pwd;
+	char	*pwd_path;
+
+	base_env = malloc(sizeof(char *) * 6);
+	base_env[0] = ms_strdup(d, "SHLVL=1");
+	base_env[1] = ms_strdup(d, "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/\
+			usr/bin:.:/.local/opt/go/bin:/go/bin");
+	base_env[2] = ms_strdup(d, "_=/usr/bin/env");
+	pwd = ms_strdup(d, "PWD=");
+	pwd_path = custom_get_cwd(d);
+	base_env[3] = ms_strjoin(d, pwd, pwd_path);
+	free(pwd);
+	free(pwd_path);
+	base_env[4] = getenv("LOGNAME");
+	base_env[5] = NULL;
+	init_env_list(d, base_env);
+	free_void_array((void ***)&base_env);
+}
+
 void	init_data(t_data *data, char **env)
 {
 	data->cwd = NULL;
@@ -85,12 +107,17 @@ void	init_data(t_data *data, char **env)
 	data->environ = NULL;
 	data->env_list = NULL;
 	data->tmp_list = NULL;
+	data->saved_stdin = -1;
+	data->saved_stdout = -1;
 	data->pipefd = -1;
 	data->fd = -1;
 	g_quit_in_heredoc = 0;
 	data->last_cmd_status = FCT_FAIL;
 	data->last_exit_status = 0;
-	init_env_list(data, env);
+	if (!env || !env[0])
+		init_with_empty_env(data);
+	else
+		init_env_list(data, env);
 	data->environ = list_to_arr(data->env_list);
 	update_env_variables(data);
 	init_data_directories(data);

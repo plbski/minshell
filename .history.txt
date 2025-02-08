@@ -698,3 +698,163 @@ ls cd ..
 ./gnl
 "     "
 echo "ls | a" << simps.txt
+cd ..
+$?
+cd olapo
+$?
+/bin/ls
+ls
+clear
+export
+export
+export
+export
+export alo
+export ola=3
+export
+clear
+export alo
+export
+clear
+export alo
+export
+export ola=3
+export
+env
+env
+export
+env
+env
+export
+env
+echo -nnnn
+echo -----n
+echo -nnnnn
+echo -nnnn -n -nnn
+echo -nnnn ola
+echo -nnn ola -nnn
+echo -nnn ola -nnn
+echo -nnn ola -nnn
+pwd
+unset olapola
+$?
+ls
+clear
+ls
+env
+export
+clear
+ls
+clear
+pwd
+env
+env
+man
+touch cool
+touch cool
+exec lists
+exec olapo
+exec olapo
+exec lists
+echo "ls | a"
+echo "ls | a" << simps.txt
+echo "ls | a" << olapo
+<< olapo
+ls cd ..
+ls cd cd cd
+deb=1
+ls cd cd cd
+clear
+ls cd cd cd
+coolios
+>> <
+cd .. << simps.txt
+<< olao
+<< olao
+<< olao
+<< olao
+<< olapo
+<< olapo
+<< olapo
+<< alopa
+<< olapo
+<< olapo
+alo "
+alo""
+alo '
+cool''
+cd .. && echo "
+super""
+cat << ola
+<< cool
+<< ola
+<< ola
+env
+clear
+cd ..
+cd -
+<< alopa
+cat << alopa
+cat << alopa
+cat << alopa
+cat << olapo
+cat << olapo
+cat << olapo
+cat << olapo
+cat < top
+cat < output.txt 
+cat < alo
+cat > ola
+echo < ola
+echo < alo
+echo > ola
+echo < alo
+echo < ola
+echo < alo
+echo < alo
+echo < ola
+echo < ola
+ecjo < alo
+echo < alo
+echo < alo
+echo < alo
+echo < top
+echo < top
+echo < top
+echo < atop
+echo < alopa
+echo < alo
+echo < alopa
+env
+echo < ola
+echo cool
+cd .
+deb=1
+deb=
+l
+ao
+lao
+wn
+env
+ls
+pwd
+echo < ola
+echo < ola
+make re
+ola
+echo < ola
+echo < ola
+echo $topa
+echo < alo
+echo < alo
+echo alo ola >> output.txt 
+echo < capo
+echo < olapo
+cat < olapo
+cat < ola
+cat < out
+cat >> output.txt 
+cat >> output.txt
+<< ola > output
+cool
+echo "ls | a" << simps.txt

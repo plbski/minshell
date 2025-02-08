@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 09:33:49 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 17:39:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/08 00:53:17 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	is_valid_redir(char *p, int i, int j, char c)
 	while (p[++i])
 	{
 		c = p[i];
-		if (p[i] == '>' || p[i] == '<')
+		if (char_in_str(p[i], "><"))
 		{
 			j = i + 1;
 			while (p[j] == ' ')
@@ -68,7 +68,7 @@ int	check_pipe_validity(t_data *d, char **prmpt, int last_pipe_index)
 		i++;
 	if (str[i] == '\0')
 	{
-		heredoc_content = heredoc(NULL, d, "> ", 0);
+		heredoc_content = parse_heredoc(NULL, d, "> ");
 		if (!heredoc_content)
 			return (0);
 		new_prmpt = ms_strjoin(d, *prmpt, heredoc_content);

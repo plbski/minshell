@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/07 13:37:18 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/08 00:01:49 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	exec(t_data *d, char *program, char **argv, int u __attribute__((unused)))
 		free_void_array((void ***)&argv);
 		argv = set_argv(d, program);
 	}
-	if (access(program, F_OK) == -1)
+	if (access(program, F_OK) == -1 || is_directory(program))
 	{
 		ft_dprintf(2, "msh: exec: %s:not found\n", program);
 		return (FCT_FAIL);
@@ -94,6 +94,8 @@ int	exec(t_data *d, char *program, char **argv, int u __attribute__((unused)))
 		ft_dprintf(2, "msh: %s: Permission denied\n", program);
 		return (FCT_FAIL);
 	}
+	printf("%s %s", program, argv[0]);
+	exit(0);
 	child_pid = fork();
 	if (child_pid == 0)
 		return (handle_child_process(d, program, argv));

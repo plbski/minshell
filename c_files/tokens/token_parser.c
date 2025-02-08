@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/07 15:45:10 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/07 23:55:40 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static t_toktype	get_token_type_2(t_data *d, int *was_cmd, char *str, t_token *p
 
 t_toktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev)
 {
-	int	i;
-
 	if (cmp_str(str, "<"))
 		return (tk_red_in);
 	if (cmp_str(str, ">"))
@@ -57,17 +55,9 @@ t_toktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev)
 		return (tk_wildcard);
 	if (*was_cmd)
 		return (tk_argument);
-	if (!prev || prev->type == tk_pipe || prev->type == tk_logical || \
-		prev->type == tk_argument)
-	{
-		i = -1;
-		while (d->bltin_names[++i])
-			if (cmp_str(str, d->bltin_names[i]))
-			{
-				*was_cmd = 1;
-				return (tk_command);
-			}
-	}
+	if (is_builtin_cmd(d, str) && (!prev || prev->type == tk_pipe \
+	|| prev->type == tk_logical || prev->type == tk_argument))
+		return (*was_cmd = 1, tk_command);
 	return (get_token_type_2(d, was_cmd, str, prev));
 }
 

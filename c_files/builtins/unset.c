@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/31 16:39:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/07 23:19:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int	unset(t_data *d, char *arg, char **flags, int status)
 	}
 	if (ret_val == FCT_SUCCESS)
 		update_environ(d);
-	return (ret_val);
+	return (FCT_SUCCESS);
 }

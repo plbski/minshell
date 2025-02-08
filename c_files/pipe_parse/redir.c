@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/07 14:19:52 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:39:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ void	close_redir_stream(t_data *d)
 	if (d->fd >= 0)
 		close(d->fd);
 	d->fd = -1;
-	if (dup2(d->saved_stdin, STDIN_FILENO) == -1 || \
-		dup2(d->saved_stdout, STDOUT_FILENO) == -1)
-		custom_exit(d, "Failed to restore fds", NULL, EXIT_FAILURE);
-	close(d->saved_stdin);
-	close(d->saved_stdout);
+	if (d->saved_stdin == -1 && d->saved_stdout == -1)
+		return ;
+	if (d->saved_stdin != -1 && dup2(d->saved_stdin, STDIN_FILENO) == -1)
+		custom_exit(d, "Failed to restore STDIN", NULL, EXIT_FAILURE);
+	if (d->saved_stdout != -1 && dup2(d->saved_stdout, STDOUT_FILENO) == -1)
+		custom_exit(d, "Failed to restore STDOUT", NULL, EXIT_FAILURE);
+	if (d->saved_stdin != -1)
+		close(d->saved_stdin);
+	if (d->saved_stdout != -1)
+		close(d->saved_stdout);
 	d->saved_stdin = -1;
 	d->saved_stdout = -1;
 }
@@ -49,11 +54,13 @@ static int	get_fd(t_data *d, char *file_path, t_toktype r_type)
 	return (fd);
 }
 
-void	create_file(t_data *d, char *file_name, t_toktype r_type)
+int	create_file(t_data *d, char *file_name, t_toktype r_type)
 {
 	char	*path;
 	int		dup_target;
 
+	if (access(file_name, F_OK) == -1 && r_type == tk_red_in)
+		return (printf("msh: %s: No such file or directory\n", file_name), 0);
 	if (d->debug_mode)
 		printf("created %s for %d\n", file_name, r_type);
 	save_original_fds(d);
@@ -73,22 +80,18 @@ void	create_file(t_data *d, char *file_name, t_toktype r_type)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
 	if (d->fd >= 0)
 		close(d->fd);
+	return (1);
 }
 
 t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type)
 {
 	t_token		*after_redir;
 	t_token		*before_redir;
-	char		*return_content;
-
 
 	after_redir = redir_node->next;
 	before_redir = redir_node->prv;
 	if (type == tk_hered)
-	{
-		return_content = heredoc(after_redir->name, d, "heredoc> ", 0);
-		safe_free(return_content);
-	}
+		ft_heredoc(after_redir->name, d, "heredoc> ");
 	else if (!after_redir || ! before_redir)
 		custom_exit(d, "Error in redir tokens", NULL, EXIT_FAILURE);
 	if (type == tk_red_out || type == tk_red_app)

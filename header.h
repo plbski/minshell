@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/07 15:41:06 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:58:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_data
 	char		*home_wd;
 	char		*logname;
 	char		**environ;
+	int			heredocpipe[2];
 	const char	**types_names;
 	t_dblist	*env_list;
 	t_dblist	*tmp_list;
@@ -146,13 +147,14 @@ t_token		*get_pipe_output(t_token *input);
 t_token		*handle_pipe(t_data *d, t_token *cmd);
 
 //		pipe_parse/redir.c
-void		create_file(t_data *d, char *file_name, t_toktype r_type);
+int			create_file(t_data *d, char *file_name, t_toktype r_type);
 t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type);
 void		close_redir_stream(t_data *d);
 void		save_original_fds(t_data *d);
 
 //		pipe_parse/heredoc.c
-char		*heredoc(char *end, t_data *d, char *print, int is_quote);
+void		ft_heredoc(char *end, t_data *d, char *print);
+char		*parse_heredoc(char *end, t_data *d, char *print);
 
 //		init.c
 char		*custom_get_cwd(t_data *d);
@@ -191,6 +193,7 @@ int			write_at_abs_path(char *content, char *path, int flags);
 int			write_at_rel_path(t_data *d, char *content, char *file_name);
 char		*replace_str(t_data *d, char *str, char *remove, char *replace);
 char		*read_file(t_data *d, int fd);
+int			is_builtin_cmd(t_data *d, char *str);
 
 //		utils/env_tools.c
 void		update_environ(t_data *d);
