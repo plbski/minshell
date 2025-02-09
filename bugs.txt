@@ -1,4 +1,6 @@
-pipe avec une seule commande
+pipe avec une seule commande 
+	fait avec ajustement lors de la recuperation du prompt msg
+
 heredoc pipe kill ? Si heredoc > lancer heredoc avant tout le reste
 Remplacer notre cat par le bon
 

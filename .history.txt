@@ -858,3 +858,34 @@ cat >> output.txt
 << ola > output
 cool
 echo "ls | a" << simps.txt
+<< e|
+ls | ls
+ls | ls
+ls | ls
+ls |
+ls | cat
+ls |
+ls | cat
+ls | cat
+ls |
+ls | cat
+ls |
+ls | cat
+ls | cat
+ls |
+ls
+ls |
+ls
+ls |
+ls
+ls |
+ls
+ls |
+ls | ls
+ls 
+ls | cat ff
+ls |
+ls | cat
+ls | cat
+ls | cat | ls
+ls | cat | ls
