@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 16:31:01 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 18:29:50 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
-
-char	*get_quote_split(char *str, int *i, char c)
-{
-	char	*quote;
-	int		len;
-
-	len = *i;
-	while (str[len] && str[len] != c)
-		len++;
-	if (str[len] == c)
-		len++;
-	quote = malloc((len - *i) + 1);
-	len = 0;
-	while (str[*i] && str[*i] != c)
-		quote[len++] = str[(*i)++];
-	if (str[*i] == c)
-		quote[len++] = str[(*i)++];
-	quote[len] = '\0';
-	return (quote);
-}
 
 char	*get_new_split(char *str, int *i)
 {
@@ -48,7 +28,7 @@ char	*get_new_split(char *str, int *i)
 	}
 
 	len = *i;
-	while (str[len] && !char_in_str(str[len], "()\'\" "))
+	while (str[len] && !char_in_str(str[len], "() "))
 		len++;
 	size = (len - *i + 1);
 	new_split = malloc(size);
@@ -79,8 +59,6 @@ char	**split_prompt(t_data *d, char *str)
 		if (!str[i])
 			break ;
 		splits[token_index++] = get_new_split(str, &i);
-		if (char_in_str(str[i], "\'\""))
-			splits[token_index++] = get_quote_split(str, &i, str[i]);
 	}
 	splits[token_index] = NULL;
 	return (splits);

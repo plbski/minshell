@@ -1065,3 +1065,132 @@ env
 export cmd=USolatopER
 env
 bash
+echo cool top
+echo top && echo cool
+echo top || echo cool
+deb=1
+echo top || echo cool
+echo top || echo cool
+echo top || echo cool
+de=1
+echo top || echo cool
+deb=1
+echo top || echo cool
+echo top || echo cool
+echo top || echo cool
+deb=1
+echo top || echo cool
+echo top || echo cool top super
+echo top || echo cool top super && echo sup
+deb=0
+echo top || echo cool top super && echo sup
+echo 1 || echo 2 3 4 && echo 5
+cd olapo && echo 1 23
+cd olapo && echo 1 23
+deb=1
+cd olapo && echo 1 23
+cd olapo && echo 1 23
+deb=1
+cd olapo && echo 1 23
+deb=0
+cd olapo
+$?
+cd olapo && echo 1 23
+cd olapo && echo 1 23 && echo 3
+cd olapo && echo 1 23 || echo 3
+cd olapo && (cd quack && cd prout)
+(cd quack && cd prout) && echo top
+(cd quack && cd prout) || echo top
+cd quack && cd prout || echo top
+((cd .. || echo 3) || cd prout) || echo top
+cd -
+((cd .. || echo 3) || cd prout) || echo top
+$?
+((cd .. || echo 3) || cd prout) && cd top
+$?
+clear
+clear
+cd USER"top"
+cd .. || (echo tiptopt && echo cool)
+cd .. || (echo tiptopt && echo cool)
+deb=1
+cd .. || (echo tiptopt && echo cool)
+cd .. || (echo tiptopt && echo cool)
+deb=1
+cd .. || (echo tiptopt && echo cool)
+cd .. || (echo tiptopt && echo cool)
+cd .. || (echo tiptopt && echo cool) && echo cool
+cd top && cd tip && cd tap
+echo tip echo tap echo top
+echo tip && echo tap || echo top
+cd ~/Desktop
+cd -
+ls ~/Desktop
+ls
+clear
+cd -
+cd -
+touch ~/Desktop/Newfile.txt
+touch ola
+ls bin
+ls /bin
+clear
+cd /
+ls
+cd bin
+clear
+ls
+ls cat
+ls touch
+cd touch
+clear
+ls
+touch cool
+open .
+deb==1
+deb=1
+cd home
+clear
+deb=1
+touch ola
+env
+LOGNAME=giulio
+export LOGNAME=giulio
+env
+en
+env
+USER=giu
+LOGNAME=giu
+touch ola
+echo ..
+echo .
+open ..
+clear
+open c_files
+open ..
+clear
+open ~/Desktop
+clear
+pwd
+touch ola top super
+touch 1 2 3
+ls
+ls apa
+open . && open ..
+open . ..
+open ..
+echo $US''ER
+echo $US''ER
+deb=1 
+echo $US''ER
+echo $US''ER
+echo $US''ER
+echo $
+echo $US''ER
+deb=1
+echo $US''ER
+echo $US''ER
+echo $US''ER
+echo $US''ER $LOGNAME
+echo $US''ER logi$LOGNAME
+echo $US''ER logi$LOGN?AME

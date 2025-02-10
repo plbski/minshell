@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_expand_tools.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:52:53 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 18:39:43 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 	else if (split[*i + 1] == '$')
 		str = ft_itoa(getpid());
 	else if (split[*i + 1] == '?')
-		str = ft_itoa(d->last_exit_status);
+		str = ft_itoa(d->last_exit_st);
 	else if (split[*i + 1] == '0')
 		str = ms_strdup(d, START_ANIM_TEXT);
 	else
@@ -82,7 +82,6 @@ char	*expand_split(t_data *d, char *split, int len, int i)
 
 	spl_index = 0;
 	spl_values = ms_malloc(d, sizeof(char *) * len);
-	i = 0;
 	while (i < len && split[i])
 	{
 		if (split[i] == '$' && is_in_quote(split, i) != 1)
@@ -132,15 +131,16 @@ void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 	char	*new_name;
 	int		was_cmd;
 
+	if (d->debug_mode)
+		printf("Evaluating %s's expansion\n", node->name);
 	was_cmd = 0;
-
 	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/'))
 	{
 		new_name = expand_home_token(d, node->name);
 		free(node->name);
 		node->name = new_name;
 	}
-	if (chr_amnt(node->name, '$') && !chr_amnt(node->name, '\''))
+	if (chr_amnt(node->name, '$'))
 	{
 		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);
 		if (d->debug_mode)

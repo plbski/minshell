@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 12:31:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 18:23:36 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	handle_parent_process(pid_t child_pid)
 	return (-1);
 }
 
-static int	validate_exec(const char *file)
+int	validate_exec(const char *file)
 {
 	struct stat	st;
 	int			fd;
@@ -85,7 +85,7 @@ static int	validate_exec(const char *file)
 int	exec(t_data *d, char *prg, char **argv, int u __attribute__((unused)))
 {
 	pid_t		child_pid;
-	char		*path_cmd;
+	char		*new_prg;
 
 	if (!argv || !argv[0])
 	{
@@ -94,26 +94,19 @@ int	exec(t_data *d, char *prg, char **argv, int u __attribute__((unused)))
 	}
 	if (!validate_exec(prg))
 	{
-		path_cmd = get_dir_in_path(d, prg);
-		if (!path_cmd || !validate_exec(path_cmd))
-		{
-			if (path_cmd)
-				free(path_cmd);
-			if (access(prg, X_OK) == -1)
-				ft_dprintf(2, "msh: %s: Permission denied\n", prg);
-			else
-				ft_dprintf(2, "msh: exec: %s: not found\n", prg);
+		new_prg = handle_path_in_dir(d, prg);
+		if (!new_prg)
 			return (CMD_NOT_FOUND);
-		}
-		free(prg);
-		prg = path_cmd;
 	}
+	else
+		new_prg = ms_strdup(d, prg);
 	child_pid = fork();
 	if (child_pid == 0)
-		return (handle_child_process(d, prg, argv));
+		return (handle_child_process(d, new_prg, argv));
 	else
 	{
-		d->last_exit_status = handle_parent_process(child_pid);
+		d->last_exit_st = handle_parent_process(child_pid);
+		free(new_prg);
 		return (printf("\n"), FCT_SUCCESS);
 	}
 }

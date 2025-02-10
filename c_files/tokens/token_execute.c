@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 14:28:07 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 17:26:53 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,20 @@ t_token	*handle_logical_token(t_data *d, t_token *node)
 {
 	int			min_par;
 
-	if (cmp_str(node->name, "||") && d->last_exit_status == FCT_SUCCESS)
-	{
-		if (d->debug_mode)
-			printf("%sskipped %s%s\n", GREY, node->name, RESET);
-		node = node->next;
-	}
-	if (cmp_str(node->name, "&&") && d->last_exit_status == FCT_FAIL)
+	if ((cmp_str(node->name, "||") && d->last_exit_st == FCT_SUCCESS) || \
+	(cmp_str(node->name, "&&") && d->last_exit_st > 0))
 	{
 		min_par = node->par;
-		while (node->next && node->next->par >= min_par)
+		node = node->next;
+		if (node && node->next)
+			node = node->next;
+		while (node && ((node->type == tk_argument || node->par > min_par)))
 		{
 			if (d->debug_mode)
 				printf("%sskipped %s%s\n", GREY, node->name, RESET);
 			node = node->next;
 		}
+		return (node);
 	}
 	return (node->next);
 }

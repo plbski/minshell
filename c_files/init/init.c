@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/08 01:32:48 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 17:22:22 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	init_data(t_data *data, char **env)
 	data->fd = -1;
 	g_quit_in_heredoc = 0;
 	data->last_cmd_status = FCT_FAIL;
-	data->last_exit_status = 0;
+	data->last_exit_st = 0;
 	if (!env || !env[0])
 		init_with_empty_env(data);
 	else

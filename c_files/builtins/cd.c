@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/07 23:16:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 17:11:52 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	cd(t_data *d, char *arg, char **flags, int status)
 	{
 		printf("cd: no such file or directory: %s\n", path);
 		free(path);
-		return (FCT_SUCCESS);
+		return (FCT_FAIL);
 	}
 	update_cwd(d);
 	free(path);

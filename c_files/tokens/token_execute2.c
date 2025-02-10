@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 12:28:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 17:22:22 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_token	*handle_command_token(t_data *d, t_token *node, int handle_redir)
 		}
 		nxt = handle_redir_token(d, nxt, nxt->type);
 	}
-	d->last_exit_status = execute_command(d, node->name, arg, flags);
+	d->last_exit_st = execute_command(d, node->name, arg, flags);
 	if (redir && handle_redir)
 		close_redir_stream(d);
 	if (d->debug_mode)

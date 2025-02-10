@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/10 14:29:08 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 18:19:24 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_data
 	int			pipefd;
 	int			debug_mode;
 	int			shlvl;
-	int			last_exit_status;
+	int			last_exit_st;
 	int			last_cmd_status;
 	int			saved_stdin;
 	int			saved_stdout;
@@ -249,6 +249,8 @@ int			export(t_data *d, char *arg, char **flags, int tmp_mem);
 //		exec_utils.c
 char		**set_argv(t_data *d, char *prog_name);
 char		*get_dir_in_path(t_data *d, char *cmd_name);
+char		*handle_path_in_dir(t_data *d, char *prg);
+int			validate_exec(const char *file);
 
 //		free.c
 int			safe_free(void *item);

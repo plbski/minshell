@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parser2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 12:06:26 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 17:22:22 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ int	validate_token(t_data *d, t_token *node)
 	{
 		printf("%d\n", node->type);
 		ft_dprintf(2, "msh: command not found: %s\n", node->name);
-		d->last_exit_status = CMD_NOT_FOUND;
+		d->last_exit_st = CMD_NOT_FOUND;
 		return (0);
 	}
 	if (typ == tk_argument && !chr_amnt(node->name, '=') && (!node->prv || node->prv->type != tk_exec || \
 	node->prv->type != tk_command))
 	{
 		ft_dprintf(2, "msh: command not found: %s\n", node->name);
-		d->last_exit_status = CMD_NOT_FOUND;
+		d->last_exit_st = CMD_NOT_FOUND;
 		return (0);
 	}
 	if (requires_arg(node) && !node->next)
 	{
 		ft_dprintf(2, "msh: parse error near \'%s\'\n", node->name);
-		d->last_exit_status = FCT_FAIL;
+		d->last_exit_st = FCT_FAIL;
 		return (0);
 	}
 	return (1);

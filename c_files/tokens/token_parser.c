@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:24:35 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 17:37:03 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,14 @@ static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
 	return (start);
 }
 
-static t_token	*get_split_token(t_data *d, char **splits)
+static t_token	*get_split_tokens(t_data *d, char **splits, \
+	int i, t_token *token)
 {
-	int			i;
-	t_token		*token;
 	int			bracket;
 	t_tktype	type;
 	int			was_cmd;
 
 	bracket = 0;
-	i = -1;
 	was_cmd = 0;
 	token = NULL;
 	while (splits[++i])
@@ -96,7 +94,7 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	t_token		*token;
 
 	splits = split_prompt(d, prompt);
-	token = get_split_token(d, splits);
+	token = get_split_tokens(d, splits, -1, NULL);
 	free_void_array((void ***)&splits);
 	token = token_first(token);
 	link_token_pipes(token);

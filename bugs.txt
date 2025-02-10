@@ -8,15 +8,11 @@ SE REFERER A BASH
 
 Recheck tous les messages erreur pour que ce soit identiques a bash
 
-gestion des ? et des ' dans le parsing, echo $US''ER devrait output > ER
-
 heredoc avec redir ensuite ne devrait marcher et afficher message erreur
 
 echo "ls | a" << simps.txt quitte le programme apres d
 
 heredoc = gnl
-
-paths and commands with ~ ?
 
 Exec touch ?
 

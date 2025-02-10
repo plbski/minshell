@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_execute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 12:02:11 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 17:50:36 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,5 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 	while (d->bltin_names[++i])
 		if (cmp_str(d->bltin_names[i], cmd_name))
 			return (d->blt_fct[i](d, arg, flags, EXIT_SUCCESS));
-	ft_dprintf(2, "msh: %s: command not found\n", cmd_name);
-	d->last_exit_status = FCT_FAIL;
-	return (FCT_FAIL);
+	return (handle_direct_exec(d, cmd_name, arg, flags));
 }

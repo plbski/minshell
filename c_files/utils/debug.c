@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 16:18:22 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 17:22:22 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 	int	i;
 
 	i = -1;
-	if (d->last_exit_status == FCT_FAIL)
+	if (d->last_exit_st == FCT_FAIL)
 		printf("%s%s execution: %s", RED, node->name, "FAIL");
 	else
 		printf("%s%s execution: %s", GREEN, node->name, "SUCCESS");
-	printf("[%d] %s", d->last_exit_status, RESET);
+	printf("[%d] %s", d->last_exit_st, RESET);
 	if (arg)
 		printf("[%s", arg);
 	while (flg && flg[++i])
@@ -78,7 +78,7 @@ void	show_cmd_status(t_data *d, t_token *node)
 {
 	char	*suffix;
 
-	if (d->last_exit_status == FCT_FAIL)
+	if (d->last_exit_st == FCT_FAIL)
 		suffix = ft_strdup("(curr. ext st > \033[31mFAIL\033[0m)");
 	else
 		suffix = ft_strdup("(curr. ext st > \033[32mSUCCESS\033[0m)");

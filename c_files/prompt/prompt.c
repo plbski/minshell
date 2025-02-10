@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/10 13:56:04 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 17:18:41 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,33 @@ static char	*get_prompt_message(t_data *d)
 	free(logname_part);
 	return (prompt_msg);
 }
-char *solo_pipe(char *terminale_line)
+
+char	*solo_pipe(t_data *d, char *trm_line)
 {
 	char	*pipe_ptr;
-	char	*additional_line;
+	char	*add_line;
 	char	*tmp;
 
-	pipe_ptr = ft_strrchr(terminale_line, '|');
+	pipe_ptr = ft_strrchr(trm_line, '|');
 	if (!pipe_ptr)
-		return (terminale_line);
+		return (trm_line);
 	while ((*pipe_ptr && *pipe_ptr == ' ') || *pipe_ptr == '|')
 		pipe_ptr++;
 	if (*pipe_ptr == '\0' || *pipe_ptr == '|')
 	{
 		printf("%c\n", *pipe_ptr);
-		additional_line = readline(">");
-		if (additional_line)
+		add_line = readline(">");
+		if (add_line)
 		{
-			tmp = terminale_line;
-			terminale_line = ft_str_mega_join(terminale_line, " ", additional_line, NULL);
+			tmp = trm_line;
+			trm_line = ft_str_mega_join(trm_line, " ", add_line, NULL);
+			if (!trm_line)
+				custom_exit(d, "alloc in solo pipe", NULL, EXIT_FAILURE);
 			free(tmp);
-			free(additional_line);
+			free(add_line);
 		}
 	}
-	printf("terminal : %s\n", terminale_line);
-	return (terminale_line);
+	return (trm_line);
 }
 
 int	get_terminal_prompt(t_data *d)
@@ -76,7 +78,7 @@ int	get_terminal_prompt(t_data *d)
 		return (0);
 	if (validate_prmpt(d, &terminal_line))
 	{
-		terminal_line = solo_pipe(terminal_line);
+		terminal_line = solo_pipe(d, terminal_line);
 		add_history(terminal_line);
 		exec_prompt(d, terminal_line);
 		update_env_variables(d);

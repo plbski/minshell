@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 12:31:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 18:19:43 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_dir_in_path(t_data *d, char *cmd_name)
 
 	path_env = get_env_value(d, d->env_list, "PATH");
 	if (!path_env)
-		custom_exit(d, "PATH not found in environment", NULL, EXIT_FAILURE);
+		return (NULL);
 	splitted_path = ft_split(path_env, ':');
 	free(path_env);
 	if (!splitted_path)
@@ -50,4 +50,22 @@ char	*get_dir_in_path(t_data *d, char *cmd_name)
 	}
 	free_void_array((void ***)&splitted_path);
 	return (cmd_path);
+}
+
+char	*handle_path_in_dir(t_data *d, char *prg)
+{
+	char		*path_dir;
+
+	path_dir = get_dir_in_path(d, prg);
+	if (!path_dir || !validate_exec(path_dir))
+	{
+		if (path_dir)
+			free(path_dir);
+		if (access(prg, X_OK) == -1)
+			ft_dprintf(2, "msh: %s: Permission denied\n", *prg);
+		else
+			ft_dprintf(2, "msh: exec: %s: not found\n", prg);
+		return (NULL);
+	}
+	return (path_dir);
 }
