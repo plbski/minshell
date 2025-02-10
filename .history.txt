@@ -1194,3 +1194,28 @@ echo $US''ER
 echo $US''ER $LOGNAME
 echo $US''ER logi$LOGNAME
 echo $US''ER logi$LOGN?AME
+echo alo | cat && (echo 1 && echo 2)
+cat
+echo alo | pwd || echo 1
+echo alo | (pwd || echo 1)
+echo alo | (pwd && echo 1)
+ls | (cat && echo 1)
+ls | cat
+cat < output.txtt
+cat < output.txt
+cat < bugs.txt
+echo bo && cat < bugs.txt
+clear
+cd "~"
+cd -
+cd ~
+cd -
+cd "~"
+cd olapo
+cd "~"
+echo "~"
+echo 
+echo '~'
+echo "
+"
+echo ~
