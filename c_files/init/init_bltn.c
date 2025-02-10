@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bltn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/08 01:58:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 14:28:07 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	init_types_names(t_data *d)
 
 static void	init_builtins_pointers(t_data *data)
 {
-	data->blt_fct[e_cat] = cat;
 	data->blt_fct[e_cd] = cd;
 	data->blt_fct[e_clear] = clear;
 	data->blt_fct[e_echo] = echo;
@@ -55,7 +54,6 @@ static void	init_builtins_names(t_data *data)
 	data->bltin_names = malloc(13 * sizeof(char *));
 	if (!data->bltin_names)
 		custom_exit(data, "Bltin_names alloc failed", NULL, EXIT_FAILURE);
-	data->bltin_names[e_cat] = ms_strdup(data, "cat");
 	data->bltin_names[e_cd] = ms_strdup(data, "cd");
 	data->bltin_names[e_clear] = ms_strdup(data, "clear");
 	data->bltin_names[e_echo] = ms_strdup(data, "echo");

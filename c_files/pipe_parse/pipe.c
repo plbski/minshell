@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/08 00:40:07 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 14:46:04 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,28 @@
 
 static void	handle_child(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 {
+	int	should_redir;
+
+	should_redir = 1;
 	if (fd_in)
 	{
-		dup2(fd_in[0], STDIN_FILENO);
-		close(fd_in[0]);
+		if (cmd->next && cmd->next->type == tk_hered)
+		{
+			ft_heredoc(cmd->next->next->name, d, "heredoc> ");
+			should_redir = 0;
+		}
+		else
+		{
+			dup2(fd_in[0], STDIN_FILENO);
+			close(fd_in[0]);
+		}
 	}
 	if (fd_out)
 	{
 		dup2(fd_out[1], STDOUT_FILENO);
 		close(fd_out[1]);
 	}
-	handle_command_token(d, cmd, 1);
+	handle_command_token(d, cmd, should_redir);
 	custom_exit(d, NULL, NULL, EXIT_CHILD);
 }
 

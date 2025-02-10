@@ -17,3 +17,8 @@ echo "ls | a" << simps.txt quitte le programme apres d
 heredoc = gnl
 
 paths and commands with ~ ?
+
+Exec touch ?
+
+
+ls | cat << tete = il faut reset STDIN lors de l'appel de cat

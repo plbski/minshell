@@ -978,3 +978,22 @@ clear
 ./unvalid_program 
 ./unvalid_program 
 /bin/ls
+echo $PATH
+./minishell
+ddknawf | << tete
+cat << text
+ddknawf | << tete
+ddawk cat << tete
+ddawk | cat << tete
+deb01
+deb=1
+ddawk | cat << tete
+ddawk | cat << tete
+ls | cat << tete
+ls | cat
+ls | cat
+ls | cat << tete
+ls | cat << tete
+ls | cat << tete
+ls | cat << tete
+l
