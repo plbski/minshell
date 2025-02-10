@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/09 18:51:25 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/10 13:56:04 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int	get_terminal_prompt(t_data *d)
 	free(prompt_msg);
 	if (!terminal_line)
 		return (0);
-	terminal_line = solo_pipe(terminal_line);
 	if (validate_prmpt(d, &terminal_line))
 	{
+		terminal_line = solo_pipe(terminal_line);
 		add_history(terminal_line);
 		exec_prompt(d, terminal_line);
 		update_env_variables(d);

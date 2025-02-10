@@ -997,3 +997,14 @@ ls | cat << tete
 ls | cat << tete
 ls | cat << tete
 l
+ls | cat << tete
+ls | cat << tete
+e
+ls | cat << tete
+ls | cat << tete
+<< cool
+top
+super
+<< ola
+top
+super
