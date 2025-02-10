@@ -6,7 +6,7 @@
 /*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:20:17 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 15:36:52 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static void	handle_child(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 	{
 		dup2(fd_out[1], STDOUT_FILENO);
 		close(fd_out[1]);
+	}
+	if (cmd->next && cmd->next->type == tk_hered)
+	{
+		ft_heredoc(cmd->next->next->name, d, "heredoc >");
+		dup2(d->heredocpipe[0], STDIN_FILENO);
+		close(d->heredocpipe[0]);
 	}
 	handle_command_token(d, cmd, should_redir);
 	custom_exit(d, NULL, NULL, EXIT_CHILD);

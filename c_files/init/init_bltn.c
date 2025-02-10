@@ -6,7 +6,7 @@
 /*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 14:28:07 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 15:55:37 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	init_builtins_pointers(t_data *data)
 
 static void	init_builtins_names(t_data *data)
 {
-	data->bltin_names = malloc(13 * sizeof(char *));
+	data->bltin_names = malloc(12 * sizeof(char *));
 	if (!data->bltin_names)
 		custom_exit(data, "Bltin_names alloc failed", NULL, EXIT_FAILURE);
 	data->bltin_names[e_cd] = ms_strdup(data, "cd");
@@ -65,7 +65,7 @@ static void	init_builtins_names(t_data *data)
 	data->bltin_names[e_man] = ms_strdup(data, "man");
 	data->bltin_names[e_pwd] = ms_strdup(data, "pwd");
 	data->bltin_names[e_unset] = ms_strdup(data, "unset");
-	data->bltin_names[12] = NULL;
+	data->bltin_names[11] = NULL;
 }
 
 void	init_builtins_data(t_data *d)

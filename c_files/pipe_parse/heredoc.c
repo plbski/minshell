@@ -6,7 +6,7 @@
 /*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:16:47 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/10 15:34:30 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,4 @@ void	ft_heredoc(char *end, t_data *d, char *print)
 	setup_signal(0, 0);
 	if (dup2(d->heredocpipe[0], STDIN_FILENO) == -1)
 		custom_exit(d, "erreur dup2 dans heredoc", NULL, EXIT_FAILURE);
-	close(d->heredocpipe[0]);
 }

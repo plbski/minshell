@@ -1008,3 +1008,60 @@ super
 << ola
 top
 super
+cd ls
+cd ~/Desktop
+ls ~
+clear
+echo ~
+ls ~
+ls | cat << bonjour
+cool
+ls | cat << bonjour
+<< ola
+cool
+echo ~
+cd ~
+cd -
+clear
+echo ~
+echo ~
+echo ~
+echo ~   ~
+cd ~
+cd -
+cd ~/desktop
+cd ~/Desktop
+cd -
+echo ~/Desktop
+ls
+ls
+ls
+clear
+echo ~ ~
+exit
+ls | a << simps.txt
+ols
+deb=1
+echo 
+echo $US''ER
+echo $US""ER
+deb=1
+deb=0
+echo $US""ER
+echo $US''ER
+echo $US''ER
+echo $US''ER
+clear
+deb=1
+echo $US''ER
+echo $US''ER
+echo $US''ER
+echo $US'olatop'ER
+echo $US'olatop'ER
+export cmd=$US'olatop'ER
+env
+export cmd=$USolatopER
+env
+export cmd=USolatopER
+env
+bash
