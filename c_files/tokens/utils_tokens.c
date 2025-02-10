@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 14:19:40 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 11:04:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void	unquote_splits(t_data *d, char **splits)
 		remove_chars(d, &splits[i], "\'\"");
 }
 
-t_token	*get_next_token(t_token *token, t_toktype type, int stops_at_same)
+t_token	*get_next_token(t_token *token, t_tktype type, int stops_at_same)
 {
-	t_toktype	same_type;
+	t_tktype	same_type;
 
 	same_type = token->type;
 	token = token->next;

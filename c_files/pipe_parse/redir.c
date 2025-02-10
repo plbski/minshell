@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/08 01:39:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 11:04:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	close_redir_stream(t_data *d)
 	d->saved_stdout = -1;
 }
 
-static int	get_fd(t_data *d, char *file_path, t_toktype r_type)
+static int	get_fd(t_data *d, char *file_path, t_tktype r_type)
 {
 	int	fd;
 
@@ -54,7 +54,7 @@ static int	get_fd(t_data *d, char *file_path, t_toktype r_type)
 	return (fd);
 }
 
-int	create_file(t_data *d, char *file_name, t_toktype r_type)
+int	create_file(t_data *d, char *file_name, t_tktype r_type)
 {
 	char	*path;
 	int		dup_target;
@@ -83,7 +83,7 @@ int	create_file(t_data *d, char *file_name, t_toktype r_type)
 	return (1);
 }
 
-t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type)
+t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_tktype type)
 {
 	t_token		*after_redir;
 	t_token		*before_redir;

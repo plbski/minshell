@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/08 01:58:07 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 12:32:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef enum e_token_type
 	tk_wildcard,
 	tk_flag,
 	tk_exec,
-}	t_toktype;
+}	t_tktype;
 
 typedef enum e_builtins
 {
@@ -126,7 +126,7 @@ typedef struct s_data
 typedef struct s_token
 {
 	char			*name;
-	t_toktype		type;
+	t_tktype		type;
 	struct s_token	*prv;
 	struct s_token	*next;
 	struct s_token	*pipe_out;
@@ -143,12 +143,11 @@ typedef struct s_tk_pipe
 }	t_tk_pipe;
 
 //		pipe_parse/pipe.c
-t_token		*get_pipe_output(t_token *input);
 t_token		*handle_pipe(t_data *d, t_token *cmd);
 
 //		pipe_parse/redir.c
-int			create_file(t_data *d, char *file_name, t_toktype r_type);
-t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_toktype type);
+int			create_file(t_data *d, char *file_name, t_tktype r_type);
+t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_tktype type);
 void		close_redir_stream(t_data *d);
 void		save_original_fds(t_data *d);
 
@@ -248,6 +247,10 @@ int			unset(t_data *d, char *arg, char **flags, int status);
 int			pwd(t_data *d, char *arg, char **flags, int status);
 int			export(t_data *d, char *arg, char **flags, int tmp_mem);
 
+//		exec_utils.c
+char		**set_argv(t_data *d, char *prog_name);
+char		*get_dir_in_path(t_data *d, char *cmd_name);
+
 //		free.c
 int			safe_free(void *item);
 int			free_void_array(void ***item);
@@ -263,15 +266,18 @@ void		init_builtins_data(t_data *d);
 void		setup_signal(int is_waiting, int is_heredoc);
 
 //		tokens/token_execute.c
-t_token		*set_args(t_data *d, t_token *strt, t_toktype k_typ, char ***args);
+t_token		*set_args(t_data *d, t_token *strt, t_tktype k_typ, char ***args);
 t_token		*handle_command_token(t_data *d, t_token *node, int handle_redir);
 t_token		*handle_token(t_data *d, t_token *node);
 int			exec_prompt(t_data *d, char *terminal_line);
 
+//		tokens/token_execute_2.c
+char		*get_dir_in_path(t_data *d, char *cmd_name);
+
 //		tokens/utils_tokens.c
 char		**split_prompt(t_data *d, char *str);
 void		unquote_splits(t_data *d, char **splits);
-t_token		*get_next_token(t_token *token, t_toktype type, int stops_at_same);
+t_token		*get_next_token(t_token *token, t_tktype type, int stops_at_same);
 void		link_token_pipes(t_token *tokens);
 
 //		tokens/token_expand_tools.c
@@ -282,13 +288,13 @@ void		expand_splits(t_data *d, char **splits);
 void		update_node_expansion(t_data *d, t_token *node, int set_new_type);
 
 //		tokens/token_parser.c
-t_toktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev);
+t_tktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev);
 int			requires_arg(t_token *node);
 int			validate_token(t_data*d, t_token *node);
 t_token		*tokenize_string(t_data *d, char *prompt);
 
 //		tokens/tokens.c
-t_token		*new_token(char *name, t_token *prv, t_toktype type, int par);
+t_token		*new_token(char *name, t_token *prv, t_tktype type, int par);
 t_token		*token_first(t_token *lst);
 t_token		*get_token(t_token *lst, char *name);
 void		clear_tokens(t_token *token);

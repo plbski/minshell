@@ -6,38 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/07 23:55:40 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 11:23:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-static t_toktype	get_token_type_2(t_data *d, int *was_cmd, char *str, t_token *prev)
-{
-	char	*bin_str;
-
-	(void)d;
-	if (cmp_str(str, "..") || cmp_str(str, "."))
-		return (tk_argument);
-	if (!prev || (prev->type != tk_exec && prev->type != tk_command))
-	{
-		if (str[0] == '.' && str[1] == '/')
-			return (tk_exec);
-		if (access(str, X_OK) != -1)
-			return (tk_exec);
-		bin_str = ms_strjoin(d, "/bin/", str);
-		if (access(bin_str, F_OK) != -1 && access(bin_str, X_OK) != -1)
-		{
-			free(bin_str);
-			*was_cmd = 1;
-			return (tk_exec);
-		}
-		free(bin_str);
-	}
-	return (tk_argument);
-}
-
-t_toktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev)
+t_tktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev)
 {
 	if (cmp_str(str, "<"))
 		return (tk_red_in);
@@ -58,7 +33,7 @@ t_toktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev)
 	if (is_builtin_cmd(d, str) && (!prev || prev->type == tk_pipe \
 	|| prev->type == tk_logical || prev->type == tk_argument))
 		return (*was_cmd = 1, tk_command);
-	return (get_token_type_2(d, was_cmd, str, prev));
+	return (tk_exec);
 }
 
 static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
@@ -88,7 +63,7 @@ static t_token	*get_split_token(t_data *d, char **splits)
 	int			i;
 	t_token		*token;
 	int			bracket;
-	t_toktype	type;
+	t_tktype	type;
 	int			was_cmd;
 
 	bracket = 0;
@@ -99,13 +74,11 @@ static t_token	*get_split_token(t_data *d, char **splits)
 	{
 		if (cmp_str(splits[i], "(") || cmp_str(splits[i], ")"))
 		{
-			bracket++;
-			if (splits[i][0] == ')')
-				bracket -= 2;
+			bracket += 2 * (splits[i][0] == '(') - 1;
 			continue ;
 		}
 		type = get_token_type(d, &was_cmd, splits[i], token);
-		if (type == tk_command)
+		if (type == tk_command || type == tk_exec)
 			was_cmd = 1;
 		else if (type == tk_pipe || type == tk_logical)
 			was_cmd = 0;

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/08 00:01:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 12:31:43 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,6 @@ static int	increment_shlvl(t_data *d)
 	free(element->content);
 	element->content = new_content;
 	return (1);
-}
-
-static char	**set_argv(t_data *d, char *prog_name)
-{
-	char	**new_argv;
-
-	new_argv = malloc(sizeof(char *) * 2);
-	if (!new_argv)
-		custom_exit(d, "Exec argv error", NULL, EXIT_FAILURE);
-	new_argv[0] = ms_strdup(d, prog_name);
-	new_argv[1] = NULL;
-	return (new_argv);
 }
 
 static int	handle_child_process(t_data *d, char *program, char **argv)
@@ -75,30 +63,54 @@ static int	handle_parent_process(pid_t child_pid)
 	return (-1);
 }
 
-int	exec(t_data *d, char *program, char **argv, int u __attribute__((unused)))
+static int	validate_exec(const char *file)
+{
+	struct stat	st;
+	int			fd;
+	char		buf[4];
+
+	if (is_directory(file))
+		return (0);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	if (fstat(fd, &st) == -1 || !S_ISREG(st.st_mode))
+		return (0);
+	if (read(fd, buf, 4) != 4)
+		return (0);
+	close(fd);
+	return (1);
+}
+
+int	exec(t_data *d, char *prg, char **argv, int u __attribute__((unused)))
 {
 	pid_t		child_pid;
+	char		*path_cmd;
 
 	if (!argv || !argv[0])
 	{
 		free_void_array((void ***)&argv);
-		argv = set_argv(d, program);
+		argv = set_argv(d, prg);
 	}
-	if (access(program, F_OK) == -1 || is_directory(program))
+	if (!validate_exec(prg))
 	{
-		ft_dprintf(2, "msh: exec: %s:not found\n", program);
-		return (FCT_FAIL);
+		path_cmd = get_dir_in_path(d, prg);
+		if (!path_cmd || !validate_exec(path_cmd))
+		{
+			if (path_cmd)
+				free(path_cmd);
+			if (access(prg, X_OK) == -1)
+				ft_dprintf(2, "msh: %s: Permission denied\n", prg);
+			else
+				ft_dprintf(2, "msh: exec: %s: not found\n", prg);
+			return (CMD_NOT_FOUND);
+		}
+		free(prg);
+		prg = path_cmd;
 	}
-	if (access(program, X_OK) == -1)
-	{
-		ft_dprintf(2, "msh: %s: Permission denied\n", program);
-		return (FCT_FAIL);
-	}
-	printf("%s %s", program, argv[0]);
-	exit(0);
 	child_pid = fork();
 	if (child_pid == 0)
-		return (handle_child_process(d, program, argv));
+		return (handle_child_process(d, prg, argv));
 	else
 	{
 		d->last_exit_status = handle_parent_process(child_pid);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_expand_tools.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/07 15:42:11 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:28:38 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,21 +115,9 @@ void	expand_splits(t_data *d, char **splits)
 void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 {
 	char	*new_name;
-	char	*bin_str;
 	int		was_cmd;
 
 	was_cmd = 0;
-	if (node->type == tk_exec && (access(node->name, F_OK) == -1 || access(node->name, X_OK) == -1))
-	{
-		bin_str = ms_strjoin(d, "/bin/", node->name);
-		if (access(bin_str, F_OK) != -1 && access(bin_str, X_OK) != -1)
-		{
-			node->name = bin_str;
-			node->type = tk_exec;
-		}
-		else
-			node->type = tk_argument;
-	}
 	if (chr_amnt(node->name, '$') && !chr_amnt(node->name, '\''))
 	{
 		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);

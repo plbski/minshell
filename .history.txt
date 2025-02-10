@@ -889,3 +889,92 @@ ls | cat
 ls | cat
 ls | cat | ls
 ls | cat | ls
+ls | alo
+./minishell
+/bin/ls
+/bin/cat < output.txt
+deb=1
+echo cool && cd ..
+cd .. && echo cool
+deb=1
+cd .. && echo cool
+cd .. echo cool
+clear
+ls && echo cool
+ls && echo cool top super | output.txt
+clear
+echo && super top
+echo && super top
+deb=1
+echo && super top
+clear
+echo && super top
+derb=1
+deb=1
+echo && super top
+echo && super top
+deb=1
+echo && super top
+echo && super top
+deb=1
+echo && super top
+echo && super top
+echo && ..
+deb=1
+deb=1
+ls
+deb=1
+deb=1
+clear
+deb=0
+echo && ..
+$?
+exec ola.c
+exec ola.c
+exec minishell
+exec minishell
+exec minishell
+exec ola.c
+exec unvalid_program 
+exec minishell
+exec unvalid_program 
+$?
+clear
+exec unvalid_program 
+$?
+./unvalid_program 
+deb=1
+./unvalid_program 
+./minishell
+clear
+./unvalid_program 
+./unvalid_program 
+./unvalid_program 
+./unvalid_program 
+./minish
+./minish
+deb=1
+./minish
+./unvalid_program 
+clear
+./unvalid_program 
+./unvalid_program 
+./unvalid_program 
+deb=1
+./unvalid_program 
+./unvalid_program 
+deb=1
+./unvalid_program 
+./unvalid_program 
+./unvalid_program 
+./unvalid_program 
+./unvalid_program 
+/bin/ls
+/bin/cd ..
+/bin/ls
+/bin/olapo
+./unvalid_program 
+clear
+./unvalid_program 
+./unvalid_program 
+/bin/ls

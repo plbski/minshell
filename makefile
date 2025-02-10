@@ -13,7 +13,8 @@ c_files/builtins/env.c c_files/builtins/pwd.c c_files/builtins/clear.c c_files/b
 c_files/builtins/echo.c c_files/prompt/prompt_execute.c c_files/prompt/prompt_checker.c c_files/prompt/prompt.c \
 c_files/prompt/prompt_checker2.c c_files/signal.c c_files/tokens/token_execute.c c_files/tokens/utils_tokens.c \
 c_files/tokens/token_parser2.c c_files/tokens/token_expand_tools.c c_files/tokens/token_parser.c c_files/tokens/tokens.c \
-c_files/utils/write_tools.c c_files/builtins/cat.c c_files/pipe_parse/parse_heredoc.c
+c_files/utils/write_tools.c c_files/builtins/cat.c c_files/pipe_parse/parse_heredoc.c c_files/tokens/token_execute2.c \
+c_files/builtins/exec_utils.c
 
 LIBFT_DIR = libft/
 DPRINTF_DIR = dprintf/

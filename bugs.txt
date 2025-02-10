@@ -16,5 +16,4 @@ echo "ls | a" << simps.txt quitte le programme apres d
 
 heredoc = gnl
 
-
-paths and commands with ~ ? 
+paths and commands with ~ ?

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/08 01:46:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/10 12:06:26 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,19 @@ int	requires_arg(t_token *node)
 
 int	validate_token(t_data *d, t_token *node)
 {
-	t_toktype	typ;
+	t_tktype	typ;
 
 	typ = node->type;
-	if (typ != tk_command && typ != tk_exec && typ != tk_hered && \
-		!chr_amnt(node->name, '=') && !node->prv)
+	if (!node->prv && (typ != tk_command && typ != tk_exec && \
+	typ != tk_hered && !chr_amnt(node->name, '=')))
+	{
+		printf("%d\n", node->type);
+		ft_dprintf(2, "msh: command not found: %s\n", node->name);
+		d->last_exit_status = CMD_NOT_FOUND;
+		return (0);
+	}
+	if (typ == tk_argument && !chr_amnt(node->name, '=') && (!node->prv || node->prv->type != tk_exec || \
+	node->prv->type != tk_command))
 	{
 		ft_dprintf(2, "msh: command not found: %s\n", node->name);
 		d->last_exit_status = CMD_NOT_FOUND;
