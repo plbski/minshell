@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:22:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/26 12:06:38 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 13:38:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**list_to_arr(t_dblist *l)
 	if (!list)
 		return (NULL);
 	i = 0;
-	while (l->next)
+	while (l)
 	{
 		list[i++] = list_strdup(l->content);
 		l = l->next;

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/08 00:09:02 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 13:05:56 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	execute_ls(t_data *d, char *arg, int print_arg, int error_if_dir)
 	if (!directory)
 	{
 		if (error_if_dir)
-			printf("ls: %s: No such file or directory\n", arg);
+			ft_dprintf(2, "ls: %s: No such file or directory\n", arg);
 		return (FCT_FAIL);
 	}
 	entry = readdir(directory);

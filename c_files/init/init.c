@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/11 09:20:52 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 18:30:21 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	init_data(t_data *data, char **env)
 	data->tmp_list = NULL;
 	data->saved_stdin = -1;
 	data->saved_stdout = -1;
-	data->pipefd = -1;
 	data->fd = -1;
 	g_quit_in_heredoc = 0;
 	data->last_cmd_status = FCT_FAIL;

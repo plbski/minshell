@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_execute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 17:50:36 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:14:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

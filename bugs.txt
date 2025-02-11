@@ -18,3 +18,10 @@ Exec touch ?
 
 
 ls | cat << tete = il faut reset STDIN lors de l'appel de cat
+alo cool
+cool top
+cool top
+cool top
+cool top
+cool top
+cool top

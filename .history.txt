@@ -1263,3 +1263,287 @@ export
 ls
 cd
 clear
+olapo
+olapa
+papaowq
+clear
+olapo
+olap
+bugs.txt
+ola.txt
+c_files
+c_files
+ola.txt
+ola.txt
+ola.txt
+./minishell
+ola.txt
+make re
+./unvalid
+./minishell
+./c_files
+./ola.txt
+ls
+pwd
+clear
+ls *
+clear
+cat *
+clear
+clear
+ls
+pwd
+cat output.txt 
+cat < output.txt 
+echo nouveaux > output.txt ola.txt 
+deb=1
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+clear
+clear
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+deb=1
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+clear
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+make re
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+kvw
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+clear
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt
+clear
+echo nouveaux > output.txt
+echo nouveaux > output.txt ola.txt 
+echo nouveaux > output.txt ola.txt 
+echo nouveaux >> output.txt ola.txt 
+clear
+echo nouveaux >> output.txt ola.txt 
+echo nouveaux >> output.txt
+echo nouveaux >> output.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt
+echo nouveaux >> output.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+clear
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+clear
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt
+echo nouveaux >> output.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt ola.txt
+echo nouveaux >> output.txt
+echo nouveaux >> output.txt ola.txt
+$?
+echo nouveaux >> output.txt
+$?
+cd ..
+$?
+cd -
+echo nouveau >> output.txt 
+$?
+cd .. >> output.txt 
+cd .. >> output.txt ola.txt
+pwd >> output.txt ola.txt 
+echo cool
+$?
+clear
+pwd >> output.txt ola.txt 
+$?
+pwd >> output.txt ola.txt 
+pwd >> output.txt ola.txt 
+clear
+pwd >> output.txt ola.txt 
+pwd >> output.txt ola.txt 
+clear
+pwd >> output.txt ola.txt 
+$?
+pwd
+$?
+cd olapo >> output.txt ola.txt 
+$?
+cd olapo
+cd olapo >> output.txt ola.txt 
+cd olapo >> output.txt ola.txt 
+cd olapo >> output.txt ola.txt 
+echo olapo >> output.txt ola.txt 
+$?
+exit oal bool
+clear
+echo olapo >> output.txt ola.txt 
+clear
+echo olapo >> output.txt ola.txt 
+echo olapo >> output.txt ola.txt 
+echo olapo >> output.txt ola.txt  super.txt
+cd olapo >> output.txt ola.txt 
+cd olapo >> output.txt ola.txt 
+cd olapo >> output.txt ola.txt 
+$?
+cd olapo >> output.txt ola.txt 
+cd olapo >> output.txt ola.txt 
+clear
+ls
+pwd
+cd olapo
+cd olapo >> output.txt 
+cd olapo >> output.txt ola.txt 
+echo olapoao >> output.txt 
+echo olapoao >> output.txt ola.txt 
+cat << olapo
+cat << olapo
+cat << olapo olapi olepe
+deb=1
+cat << olapo olapi olepe
+clear
+ls
+pwd
+cd .. .
+echo olapo olapa olapi
+echo olapo olapa olapi
+clear
+echo olapo olapa
+echo olapo olapa
+echo olapo olapa olapi
+echo cool top
+echo cool top
+echo cool top super tip
+echo cool top super tip
+echo cool top super tip
+clear
+make re
+.
+echo cool top super tip
+echo cool top super tip
+cat output.txt bugs.txt 
+cat output.txt bugs.txt 
+cat output.txt bugs.txt olapo
+cat << quack bugs.txt olapo
+deb=1
+cat << quack bugs.txt olapo
+echo ola > output.txt bugs.txt 
+echo alo > output.txt bugs.txt 
+deb=0
+echo alo > output.txt
+echo alo >> output.txt
+echo alo >> output.txt 
+echo alo >> output.txt 
+deb=1
+echo alo >> output.txt 
+£?
+$?
+echo alo >> output.txt 
+echo alo >> output.txt 
+echo alo >> output.txt 
+clear
+echo alo >> output.txt 
+echo alo >> output.txt 
+echo alo >> output.txt 
+deb=1
+echo alo >> output.txt 
+echo alo >> output.txt 
+echo alo >> output.txt 
+make re
+.
+echo alo >> output.txt 
+lkm
+ok
+pop
+popapo
+echo alo >> output.txt 
+echo alo >> output.txt 
+echo alo >> output.txt bugs.txt
+echo alo >> output.txt bugs.txt
+$?
+echo alo >> output.txt bugs.txt
+echo alo >> output.txt bugs.txt
+$?
+echo alo >> output.txt bugs.txt
+echo alo >> output.txt bugs.txt
+echo alo >> output.txt bugs.txt
+echo alo >> output.txt bugs.txt
+echo alo cool >> output.txt bugs.txt
+echo alo cool >> output.txt bugs.txt
+echo alo cool >> output.txt bugs.txt
+echo alo cool >> output.txt bugs.txt
+echo alo cool >> output.txt bugs.txt
+echo alo cool >> output.txt bugs.txt
+echo ola cool >> output.txt 
+echo ola cool < output.txt 
+cat < output.txt 
+clear
+clear
+ls
+ls ola cool
+echo cool top >> output.txt bugs.txt 
+echo cool top >> output.txt bugs.txt 
+echo cool top >> output.txt bugs.txt 
+echo cool top >> output.txt bugs.txt 
+echo cool top >> output.txt bugs.txt 
+clear
+echo cool top >> output.txt bugs.txt 
+$?
+cd colapo >> output.txt bugs.txt 
+$?
+open .
+./get_files_in_dir.sh c_files
+ls /Usersa/giuliovalente/bin
+ls /Usersa/giuliovalente/bin/
+ls /Usersa/giuliovalente
+ls /Users/giuliovalente/bin/
+./get_files_in_dir.sh c_files
+cd /Users/giuliovalente/bin
+ls
+./get_files_in_dir.sh 

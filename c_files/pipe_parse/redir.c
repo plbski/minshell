@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 08:58:38 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 18:17:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	close_redir_stream(t_data *d)
 	d->saved_stdout = -1;
 }
 
-static int	get_fd(t_data *d, char *file_path, t_tktype r_type)
+int	get_fd(t_data *d, char *file_path, t_tktype r_type)
 {
 	int	fd;
 
@@ -61,8 +61,6 @@ int	create_file(t_data *d, char *file_name, t_tktype r_type)
 
 	if (access(file_name, F_OK) == -1 && r_type == tk_red_in)
 		return (printf("msh: %s: No such file or directory\n", file_name), 0);
-	if (d->debug_mode)
-		printf("created %s for %d\n", file_name, r_type);
 	save_original_fds(d);
 	d->fd = 0;
 	if (!file_name)
@@ -83,26 +81,25 @@ int	create_file(t_data *d, char *file_name, t_tktype r_type)
 	return (1);
 }
 
-t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_tktype type)
+t_token	*handle_redir(t_data *d, t_token *redir, \
+		t_token *tok_after, t_tktype type)
 {
-	t_token		*after_redir;
 	t_token		*before_redir;
 
-	after_redir = redir_node->next;
-	before_redir = redir_node->prv;
+	before_redir = redir->prv;
 	if (type == tk_hered)
-		ft_heredoc(after_redir->name, d, "heredoc> ");
-	else if (!after_redir || ! before_redir)
+		ft_heredoc(tok_after->name, d, "heredoc> ");
+	else if (!tok_after || ! before_redir)
 		custom_exit(d, "Error in redir tokens", NULL, EXIT_FAILURE);
 	if (type == tk_red_out || type == tk_red_app)
 	{
 		if (before_redir && before_redir->pipe_out)
 			handle_command_token(d, before_redir, 0);
-		create_file(d, after_redir->name, type);
+		create_file(d, tok_after->name, type);
 	}
 	else if (type == tk_red_in)
-		create_file(d, after_redir->name, tk_red_in);
-	if (after_redir)
-		return (after_redir->next);
-	return (after_redir);
+		create_file(d, tok_after->name, tk_red_in);
+	if (tok_after)
+		return (tok_after->next);
+	return (tok_after);
 }

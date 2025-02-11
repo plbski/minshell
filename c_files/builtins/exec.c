@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 20:39:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 18:08:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ static int	handle_child_process(t_data *d, char *program, char **argv)
 	increment_shlvl(d);
 	update_environ(d);
 	execve(program, argv, d->environ);
-	printf("\"%s\" exec failed\n", program);
+	ft_dprintf(2, "\"%s\" exec failed\n", program);
 	custom_exit(d, NULL, NULL, EXIT_FAILURE);
 	return (FCT_FAIL);
 }
 
-static int	handle_parent_process(pid_t child_pid)
+int	handle_parent_process(pid_t child_pid)
 {
 	int	wait_status;
 
@@ -74,7 +74,7 @@ int	validate_exec(const char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (0);
-	if (fstat(fd, &st) == -1 || !S_ISREG(st.st_mode))
+	if (fstat(fd, &st) == -1 || !S_ISREG(st.st_mode) || !(st.st_mode & S_IXUSR))
 		return (0);
 	if (read(fd, buf, 4) != 4)
 		return (0);

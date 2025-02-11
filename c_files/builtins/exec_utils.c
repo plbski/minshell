@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 18:19:43 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:04:20 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ char	*handle_path_in_dir(t_data *d, char *prg)
 	{
 		if (path_dir)
 			free(path_dir);
-		if (access(prg, X_OK) == -1)
-			ft_dprintf(2, "msh: %s: Permission denied\n", *prg);
-		else
+		if (access(prg, F_OK) == -1 || is_directory(prg))
 			ft_dprintf(2, "msh: exec: %s: not found\n", prg);
+		else
+			ft_dprintf(2, "msh: %s: Permission denied\n", prg);
 		return (NULL);
 	}
 	return (path_dir);

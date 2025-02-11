@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/11 09:20:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 18:30:12 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef enum e_redir_type
 typedef struct s_data
 {
 	int			fd;
-	int			pipefd;
 	int			debug_mode;
 	int			shlvl;
 	int			last_exit_st;
@@ -133,22 +132,15 @@ typedef struct s_token
 	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
 }	t_token;
 
-typedef struct s_tk_pipe
-{
-	t_token	*in;
-	t_token	*out;
-	int		pid;
-	int		fd[2];
-}	t_tk_pipe;
-
 //		pipe_parse/pipe.c
 t_token		*handle_pipe(t_data *d, t_token *cmd);
 
 //		pipe_parse/redir.c
 int			create_file(t_data *d, char *file_name, t_tktype r_type);
-t_token		*handle_redir_token(t_data *d, t_token *redir_node, t_tktype type);
+t_token		*handle_redir(t_data *d, t_token *rd, t_token *aft_rd, t_tktype tp);
 void		close_redir_stream(t_data *d);
 void		save_original_fds(t_data *d);
+int			get_fd(t_data *d, char *file_path, t_tktype r_type);
 
 //		pipe_parse/heredoc.c
 void		ft_heredoc(char *end, t_data *d, char *print);
@@ -188,11 +180,10 @@ char		**ft_split_str(t_data *d, char *str, char *sep);
 int			char_in_str(char c, const char *txt);
 
 //		utils/write_tools.c
-int			write_at_abs_path(char *content, char *path, int flags);
-int			write_at_rel_path(t_data *d, char *content, char *file_name);
 char		*replace_str(t_data *d, char *str, char *remove, char *replace);
 char		*read_file(t_data *d, int fd);
 int			is_builtin_cmd(t_data *d, char *str);
+void		reverse_str_array(char **arr, int size);
 
 //		utils/env_tools.c
 void		update_environ(t_data *d);
@@ -309,5 +300,10 @@ char		*get_next_line(int fd);
 int			handle_direct_exec(t_data *d, char *cmd_name, \
 	char *arg, char **flags);
 int			is_directory(const char *path);
+
+t_token		*exec_cmd_with_redir(t_data *d, t_token *cmd_node, \
+		char *arg, char **flags);
+int			handle_parent_process(pid_t child_pid);
+t_token		*skip_type(t_token *tok, t_tktype type_to_skip);
 
 #endif

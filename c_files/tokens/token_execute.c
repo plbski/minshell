@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 17:26:53 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:59:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_token	*handle_token(t_data *d, t_token *node)
 		return (handle_command_token(d, node, 1));
 	}
 	if (type == tk_hered)
-		return (handle_redir_token(d, node, node->type));
+		return (handle_redir(d, node, node->next, node->type));
 	if (type == tk_logical)
 		return (handle_logical_token(d, node));
 	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
