@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_expand_tools.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 18:39:43 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:12:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,6 @@ char	*expand_segment(t_data *d, char *split, int *i)
 		return (NULL);
 	str = ms_strdup(d, value);
 	return (str);
-}
-
-char	*expand_home_token(t_data *d, char *cmd_name)
-{
-	char	*new_cmd_name;
-	char	*separate_home;
-
-	separate_home = ft_remove_prefix(d, cmd_name, "~");
-	if (!separate_home)
-		custom_exit(d, "alloc in home_token", NULL, EXIT_FAILURE);
-	new_cmd_name = ft_strjoin(d->home_wd, separate_home);
-	if (!new_cmd_name)
-		custom_exit(d, "alloc in home_token", NULL, EXIT_FAILURE);
-	free(separate_home);
-	return (new_cmd_name);
 }
 
 char	*expand_split(t_data *d, char *split, int len, int i)

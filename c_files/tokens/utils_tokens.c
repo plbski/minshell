@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 18:29:50 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:02:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ char	*get_new_split(char *str, int *i)
 		(*i)++;
 		return (new_split);
 	}
-
 	len = *i;
-	while (str[len] && !char_in_str(str[len], "() "))
+	while (str[len] && (is_in_quote(str, *i) || !char_in_str(str[len], "() ")))
 		len++;
 	size = (len - *i + 1);
 	new_split = malloc(size);

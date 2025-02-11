@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/08 01:38:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 09:32:57 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	update_environ(t_data *d)
 char	*get_env_value(t_data *d, t_dblist *list, char *key)
 {
 	t_dblist	*element;
-	char		*content_copy;
 	char		*no_key;
 	char		*value;
 
@@ -37,14 +36,13 @@ char	*get_env_value(t_data *d, t_dblist *list, char *key)
 	element = get_dblst_at_key(list, key);
 	if (!element || !element->content)
 		return (NULL);
-	content_copy = ms_strdup(d, element->content);
-	no_key = ft_remove_prefix(d, content_copy, key);
+	no_key = ft_remove_prefix(d, element->content, key);
 	if (!no_key)
 		custom_exit(d, "env key alloc", NULL, EXIT_FAILURE);
 	value = ft_remove_prefix(d, no_key, "=");
 	if (!value)
 		custom_exit(d, "env value alloc", NULL, EXIT_FAILURE);
-	return (free(content_copy), free(no_key), value);
+	return (free(no_key), value);
 }
 
 void	update_env_var(t_data *d, t_dblist *list, char **var, char *key)
@@ -52,25 +50,27 @@ void	update_env_var(t_data *d, t_dblist *list, char **var, char *key)
 	char	*new_var_value;
 
 	new_var_value = get_env_value(d, list, key);
-	if (new_var_value && (!*var || !cmp_str(d->home_wd, *var)))
+	if (new_var_value)
 	{
 		safe_free(*var);
 		*var = new_var_value;
 	}
-	else if (!new_var_value)
+	else if (!new_var_value && !*var)
 		*var = ms_strdup(d, "?");
 }
 
 int	update_env_variables(t_data *d)
 {
 	char	*debug;
+	char	*tmp_debug;
 
 	debug = get_env_value(d, d->env_list, "deb");
 	if (debug)
 	{
-		debug = ft_remove_prefix(d, debug, "=");
-		d->debug_mode = ft_atoi(debug);
+		tmp_debug = ft_remove_prefix(d, debug, "=");
+		d->debug_mode = ft_atoi(tmp_debug);
 		free(debug);
+		free(tmp_debug);
 	}
 	update_env_var(d, d->env_list, &d->home_wd, "HOME");
 	update_env_var(d, d->env_list, &d->logname, "LOGNAME");

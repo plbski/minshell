@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 16:05:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 09:18:57 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,37 @@ void	add_to_list(t_data *d, t_dblist *lst, char *content)
 	dblst_add_back(&lst, new_node);
 }
 
+void	init_with_empty_env(t_data *d)
+{
+	char	**base_env;
+	char	*pwd;
+	char	*pwd_path;
+
+	base_env = malloc(sizeof(char *) * 6);
+	base_env[0] = ms_strdup(d, "SHLVL=1");
+	base_env[1] = ms_strdup(d, "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/\
+			usr/bin:.:/.local/opt/go/bin:/go/bin");
+	base_env[2] = ms_strdup(d, "_=/usr/bin/env");
+	pwd = ms_strdup(d, "PWD=");
+	pwd_path = custom_get_cwd(d);
+	base_env[3] = ms_strjoin(d, pwd, pwd_path);
+	free(pwd);
+	free(pwd_path);
+	base_env[4] = getenv("LOGNAME");
+	base_env[5] = NULL;
+	init_env_list(d, base_env);
+	free_void_array((void ***)&base_env);
+}
+
 void	init_env_list(t_data *d, char **env)
 {
+	if (!env || !env[0])
+		init_with_empty_env(d);
 	if (d->env_list)
 		dblst_clear(&d->env_list, free);
 	d->env_list = arr_to_dblst((void **)env);
 	if (!d->env_list)
 		custom_exit(d, "List alloc failed", NULL, 1);
-	export(d, "gen=test_programs/gen", NULL, 1);
-	export(d, "rev=test_programs/rev", NULL, 1);
-	export(d, "sort=test_programs/sort", NULL, 1);
-	export(d, "choose=test_programs/choose", NULL, 1);
-	if (d->debug_mode)
-		export(d, "deb=1", NULL, 0);
-	else
-		export(d, "deb=0", NULL, 0);
 }
 
 void	reorder_dblst(t_dblist *list)

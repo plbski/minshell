@@ -1219,3 +1219,47 @@ echo '~'
 echo "
 "
 echo ~
+git add .
+open .
+vim ola.txt
+ls
+./minishell
+cd ".. top super"
+ls . | cat
+echo cool >> output.txt
+clear
+clear
+ls
+pwd
+clear
+ls
+pwd
+cd ..
+cd ..
+ls
+pwd
+cd -
+export
+ls
+export
+export
+ls
+pwd
+cd ..
+cd -
+clear
+unset ola
+export cool=3
+export
+ls
+pwd
+clear
+ls
+pwd
+cd
+cd -
+clear
+export
+ls
+cd
+clear

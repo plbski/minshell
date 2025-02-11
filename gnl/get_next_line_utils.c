@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:14:54 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/06 17:32:52 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/11 08:47:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,25 @@ void	upd_buffers(t_data *d, char buffer[])
 	d->leftover[lftover_index] = '\0';
 }
 
-int	update_fd(t_data *d, int fd, int index, int i)
+int	update_fd(t_data *d, int fd, int index, ssize_t	b_read)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	char	full_buffer[MAXSIZE + 1];
-	ssize_t	bites_read;
+	int		i;
 	ssize_t	tot_size;
 
 	tot_size = 0;
 	full_buffer[0] = '\0';
 	buffer[0] = '\0';
-	bites_read = BUFFER_SIZE;
-	while (!contains(buffer, '\n') && index < MAXSIZE && bites_read == BUFFER_SIZE)
+	while (!contains(buffer, '\n') && index < MAXSIZE && b_read == BUFFER_SIZE)
 	{
-		bites_read = read(fd, buffer, BUFFER_SIZE);
-		if (bites_read < 0)
+		b_read = read(fd, buffer, BUFFER_SIZE);
+		if (b_read < 0)
 			return (-1);
-		if (bites_read == 0)
+		if (!b_read)
 			break ;
-		tot_size += bites_read;
-		buffer[bites_read] = '\0';
+		tot_size += b_read;
+		buffer[b_read] = '\0';
 		i = 0;
 		while (buffer[i] && index < MAXSIZE)
 			full_buffer[index++] = buffer[i++];

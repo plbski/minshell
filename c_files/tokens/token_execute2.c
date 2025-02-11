@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 17:22:22 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:10:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,23 @@ int	validate_redir(t_token *redir)
 	return (1);
 }
 
+int	setup_redir_exec(t_data *d, t_token **nxt, t_token *node, char **flags)
+{
+	t_token	*next;
+
+	next = *nxt;
+	if (!(next && (next->type == tk_red_app || next->type == tk_red_in \
+		|| next->type == tk_red_out || next->type == tk_hered)))
+		return (0);
+	if (!validate_redir(node->next))
+	{
+		free_void_array((void ***)&flags);
+		return (0);
+	}
+	*nxt = handle_redir_token(d, next, next->type);
+	return (1);
+}
+
 t_token	*handle_command_token(t_data *d, t_token *node, int handle_redir)
 {
 	t_token		*nxt;
@@ -71,17 +88,9 @@ t_token	*handle_command_token(t_data *d, t_token *node, int handle_redir)
 		arg = nxt->name;
 		nxt = set_args(d, nxt, tk_argument, &flags);
 	}
-	redir = (nxt && (nxt->type == tk_red_app || nxt->type == tk_red_in \
-		|| nxt->type == tk_red_out || nxt->type == tk_hered));
-	if (redir && handle_redir)
-	{
-		if (!validate_redir(node->next))
-		{
-			free_void_array((void ***)&flags);
-			return (NULL);
-		}
-		nxt = handle_redir_token(d, nxt, nxt->type);
-	}
+	redir = 0;
+	if (handle_redir)
+		redir = setup_redir_exec(d, &nxt, node, flags);
 	d->last_exit_st = execute_command(d, node->name, arg, flags);
 	if (redir && handle_redir)
 		close_redir_stream(d);

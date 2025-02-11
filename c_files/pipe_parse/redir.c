@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:10:54 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/11 08:58:38 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
-
 
 void	save_original_fds(t_data *d)
 {
@@ -67,7 +66,7 @@ int	create_file(t_data *d, char *file_name, t_tktype r_type)
 	save_original_fds(d);
 	d->fd = 0;
 	if (!file_name)
-	custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
+		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
 	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
 	if (!path)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
@@ -107,4 +106,3 @@ t_token	*handle_redir_token(t_data *d, t_token *redir_node, t_tktype type)
 		return (after_redir->next);
 	return (after_redir);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/10 17:22:22 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:20:52 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,6 @@ static void	init_shlvl(t_data *data)
 	}
 }
 
-void	init_with_empty_env(t_data *d)
-{
-	char	**base_env;
-	char	*pwd;
-	char	*pwd_path;
-
-	base_env = malloc(sizeof(char *) * 6);
-	base_env[0] = ms_strdup(d, "SHLVL=1");
-	base_env[1] = ms_strdup(d, "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/\
-			usr/bin:.:/.local/opt/go/bin:/go/bin");
-	base_env[2] = ms_strdup(d, "_=/usr/bin/env");
-	pwd = ms_strdup(d, "PWD=");
-	pwd_path = custom_get_cwd(d);
-	base_env[3] = ms_strjoin(d, pwd, pwd_path);
-	free(pwd);
-	free(pwd_path);
-	base_env[4] = getenv("LOGNAME");
-	base_env[5] = NULL;
-	init_env_list(d, base_env);
-	free_void_array((void ***)&base_env);
-}
-
 void	init_data(t_data *data, char **env)
 {
 	data->cwd = NULL;
@@ -114,14 +92,12 @@ void	init_data(t_data *data, char **env)
 	g_quit_in_heredoc = 0;
 	data->last_cmd_status = FCT_FAIL;
 	data->last_exit_st = 0;
-	if (!env || !env[0])
-		init_with_empty_env(data);
-	else
-		init_env_list(data, env);
+	init_env_list(data, env);
 	data->environ = list_to_arr(data->env_list);
 	update_env_variables(data);
 	init_data_directories(data);
 	update_cwd(data);
 	init_shlvl(data);
 	init_builtins_data(data);
+	export_usefull_var(data);
 }

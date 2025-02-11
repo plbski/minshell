@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bltn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:55:37 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/11 09:20:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,18 @@ static void	init_builtins_names(t_data *data)
 	data->bltin_names[e_pwd] = ms_strdup(data, "pwd");
 	data->bltin_names[e_unset] = ms_strdup(data, "unset");
 	data->bltin_names[11] = NULL;
+}
+
+void	export_usefull_var(t_data *d)
+{
+	export(d, "gen=test_programs/gen", NULL, 0);
+	export(d, "rev=test_programs/rev", NULL, 0);
+	export(d, "sort=test_programs/sort", NULL, 0);
+	export(d, "choose=test_programs/choose", NULL, 0);
+	if (d->debug_mode)
+		export(d, "deb=1", NULL, 0);
+	else
+		export(d, "deb=0", NULL, 0);
 }
 
 void	init_builtins_data(t_data *d)

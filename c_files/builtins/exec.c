@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 18:23:36 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:39:43 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ int	exec(t_data *d, char *prg, char **argv, int u __attribute__((unused)))
 	{
 		d->last_exit_st = handle_parent_process(child_pid);
 		free(new_prg);
-		return (printf("\n"), FCT_SUCCESS);
+		return (FCT_SUCCESS);
 	}
 }

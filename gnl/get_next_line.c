@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 01:33:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/06 16:10:26 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/11 08:48:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_next_line(int fd)
 	d = &t_datas[fd];
 	if (contains(d->leftover, '\n'))
 		return (handle_leftover(d));
-	status = update_fd(d, fd, 0, 0);
+	status = update_fd(d, fd, 0, BUFFER_SIZE);
 	if (status <= 0)
 	{
 		ret = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 17:37:03 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:13:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,19 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	if (d->debug_mode)
 		show_tokens_info(d, token, "init", "");
 	return (token);
+}
+
+char	*expand_home_token(t_data *d, char *cmd_name)
+{
+	char	*new_cmd_name;
+	char	*separate_home;
+
+	separate_home = ft_remove_prefix(d, cmd_name, "~");
+	if (!separate_home)
+		custom_exit(d, "alloc in home_token", NULL, EXIT_FAILURE);
+	new_cmd_name = ft_strjoin(d->home_wd, separate_home);
+	if (!new_cmd_name)
+		custom_exit(d, "alloc in home_token", NULL, EXIT_FAILURE);
+	free(separate_home);
+	return (new_cmd_name);
 }

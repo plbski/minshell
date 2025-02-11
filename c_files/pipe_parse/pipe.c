@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:36:52 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/11 08:58:13 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,20 @@ static int	**ini_pipefds(t_data *d, int pipes_amount, int **pipe_fds)
 		if (pipe(pipe_fds[i]) == -1)
 			custom_exit(d, "error in pipe_fd", NULL, EXIT_FAILURE);
 	}
-	return(pipe_fds);
+	return (pipe_fds);
 }
 
-static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
+static void	exec_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
 {
 	int		base_stdin;
 	int		**pipe_fds;
 	pid_t	*pids;
-	int		i;
 
-	pipe_fds = ini_pipefds(d, pipes_amount, NULL);
-	pids = ms_malloc(d, sizeof(pid_t) * (pipes_amount + 1));
+	pipe_fds = ini_pipefds(d, pipes_len, NULL);
+	pids = ms_malloc(d, sizeof(pid_t) * (pipes_len + 1));
 	base_stdin = dup(STDIN_FILENO);
 	i = -1;
-	while (++i <= pipes_amount)
+	while (++i <= pipes_len)
 	{
 		pids[i] = fork();
 		if (pids[i] == -1)
@@ -90,15 +89,15 @@ static void	execute_pipes(t_data *d, t_token *start_cmd, int pipes_amount)
 		if (pids[i] == 0)
 		{
 			if (i == 0)
-				handle_child(d, start_cmd, NULL, pipe_fds[i]);
-			else if (i == pipes_amount)
-				handle_child(d, start_cmd, pipe_fds[i - 1], NULL);
+				handle_child(d, strt_cmd, NULL, pipe_fds[i]);
+			else if (i == pipes_len)
+				handle_child(d, strt_cmd, pipe_fds[i - 1], NULL);
 			else
-				handle_child(d, start_cmd, pipe_fds[i - 1], pipe_fds[i]);
+				handle_child(d, strt_cmd, pipe_fds[i - 1], pipe_fds[i]);
 		}
-		start_cmd = start_cmd->pipe_out;
+		strt_cmd = strt_cmd->pipe_out;
 	}
-	handle_parent(base_stdin, pipe_fds, pids, pipes_amount);
+	handle_parent(base_stdin, pipe_fds, pids, pipes_len);
 }
 
 t_token	*handle_pipe(t_data *d, t_token *cmd_in)
@@ -113,7 +112,7 @@ t_token	*handle_pipe(t_data *d, t_token *cmd_in)
 		pipes_count++;
 		node = node->pipe_out;
 	}
-	execute_pipes(d, cmd_in, pipes_count);
+	exec_pipes(d, cmd_in, pipes_count, -1);
 	if (!node || !node->pipe_out)
 		return (NULL);
 	return (node->pipe_out->next);

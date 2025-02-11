@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parser2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 17:22:22 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 08:42:44 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	validate_token(t_data *d, t_token *node)
 		d->last_exit_st = CMD_NOT_FOUND;
 		return (0);
 	}
-	if (typ == tk_argument && !chr_amnt(node->name, '=') && (!node->prv || node->prv->type != tk_exec || \
-	node->prv->type != tk_command))
+	if (typ == tk_argument && !chr_amnt(node->name, '=') && \
+	(!node->prv || node->prv->type != tk_exec || node->prv->type != tk_command))
 	{
 		ft_dprintf(2, "msh: command not found: %s\n", node->name);
 		d->last_exit_st = CMD_NOT_FOUND;

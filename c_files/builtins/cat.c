@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:27:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/07 14:40:09 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:13:52 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,21 @@ int	exec_cat(t_data *d, char *file_name)
 
 int	cat(t_data *d, char *arg, char **flags, int status)
 {
-	int	i;
-	int	fct_ret;
+	int		i;
+	int		fct_ret;
 	char	*buffer;
 
 	(void)status;
 	if (!arg)
 	{
-		while ((buffer = get_next_line(STDIN_FILENO)) != NULL)
+		buffer = get_next_line(STDIN_FILENO);
+		while (buffer != NULL)
 		{
 			printf("%s", buffer);
 			free(buffer);
+			buffer = get_next_line(STDIN_FILENO);
 		}
-		free(buffer);
+		safe_free(buffer);
 		return (FCT_SUCCESS);
 	}
 	fct_ret = exec_cat(d, arg);

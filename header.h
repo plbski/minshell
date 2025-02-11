@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/10 18:19:24 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:20:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ char		*parse_heredoc(char *end, t_data *d, char *print);
 char		*custom_get_cwd(t_data *d);
 int			update_cwd(t_data *data);
 void		init_data(t_data *data, char **env);
+void		export_usefull_var(t_data *d);
 
 //		utils/string_tools.c
 char		*ft_remove_prefix(t_data *d, const char *str, char *prefix);
@@ -286,6 +287,7 @@ char		*expand_special_segment(t_data *d, char *split, int *i);
 char		*expand_segment(t_data *d, char *split, int *i);
 char		*expand_split(t_data *d, char *split, int len, int i);
 void		expand_splits(t_data *d, char **splits);
+char		*expand_home_token(t_data *d, char *cmd_name);
 void		update_node_expansion(t_data *d, t_token *node, int set_new_type);
 
 //		tokens/token_parser.c

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 22:41:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 17:39:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/11 08:43:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	custom_exit(t_data *data, char *error_msg, char **flags, int status)
 		{
 			if (!is_all_digit(error_msg))
 			{
-				ft_dprintf(2, "msh: exit: %s: numeric argument required\n", error_msg);
+				ft_dprintf(2, "msh: exit: %s: numeric \
+						argument required\n", error_msg);
 				free_data(data);
 				exit(EXIT_FAILURE);
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/10 18:47:49 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:34:51 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static char	*get_cd_path(t_data *d, char *arg)
 {
 	char	*path;
 
+	if (!arg)
+		arg = d->home_wd;
 	path = NULL;
 	if (!ft_strncmp(arg, "-", 2))
 	{
