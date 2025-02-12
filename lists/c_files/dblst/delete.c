@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:23:03 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 13:00:59 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 14:07:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ void	print_prefixed_content(void *content)
 		}
 		printf("%c", str[i]);
 	}
-	if (has_value)
+	if (i > 0 && str[i - 1] == '=' && !has_value)
+		printf("\"\"");
+	else if (has_value)
 		printf("\"");
 	printf("\n");
 }

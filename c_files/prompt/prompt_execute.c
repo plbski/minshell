@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 13:03:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 13:48:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 	while (d->bltin_names[++i])
 		if (cmp_str(d->bltin_names[i], cmd_name))
 			return (d->blt_fct[i](d, arg, flags, EXIT_SUCCESS));
+	if (cmp_str(cmd_name, "var") && d->var_list)
+		return (dblst_print_list(d->var_list, 0), FCT_SUCCESS);
 	if (access(cmd_name, X_OK) != -1)
 		return (handle_direct_exec(d, cmd_name, arg, flags));
 	if (cmd_name[0] == '.' && cmd_name[1] == '/')

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 12:42:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 13:25:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_data
 	const char	**types_names;
 	t_dblist	*env_list;
 	t_dblist	*tmp_list;
+	t_dblist	*var_list;
 	char		**bltin_names;
 	int			(*blt_fct[9])(struct s_data *d, char *arg, char **flg, int s);
 }	t_data;

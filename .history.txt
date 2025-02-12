@@ -1804,3 +1804,226 @@ export
 guacamole=2
 env
 export
+var ola=3
+var
+clear
+env
+tmp
+export
+olala=5
+env
+echo $olala
+export
+clear
+export olala=5
+olala=1
+echo $olala
+export
+clear
+declare cool
+echo $cool
+declare -x col=1
+export
+env
+clear
+var
+var var
+deb=1
+clear
+var
+olala=2
+var
+var
+olala=3
+var
+aloalo=2
+var
+unset olala
+var
+unset coolios
+var
+coolios=2
+var
+unset olapo
+unset -a
+unset r
+unset -r
+coolios=2
+var
+unset coo
+unset r
+unset -r
+a=2 b=3 c=1 f=3
+var
+unset -r
+unset
+var
+unset a c f coolios
+var
+declare ola
+declare ola
+var
+export aola
+declare aloa
+var
+unset aloa
+var
+declare -x aloa
+var
+var
+ola=3
+var
+unset ola
+var
+var
+clear
+ola=3
+env
+export
+clear
+var
+unset ola
+var
+env
+LESS=-I
+env
+fvar
+var
+env
+export
+env
+PAGER=MORE
+env
+export alo=
+env
+clear
+export COOLIOS=2
+export
+en
+env
+export
+clear
+export ola=
+export
+ola=4
+export
+var
+declare ola=5
+var
+export
+clear
+debo=
+var
+debo=
+var
+echo $debo
+env
+unset -r env
+env
+unset SHLVL
+env
+export
+unset SHLVL
+env
+unset PATH
+env
+clear
+clear
+env | grep "SHLVL"
+export | grep "SHLVL"
+export
+clear
+env | grep "HOME"
+env | grep PATH
+env | grep PATH | awk ":"
+grep SHLVL
+env | grep SHLVL
+cd ..
+cd -
+env | grep SHLVL
+env | grep SHLVL
+env
+deb=0
+deb=1
+clear
+ls
+clear
+make re
+exit
+exit 1024
+exit ola
+deb=1
+clear
+ls
+clear
+var
+unset deb
+deb=1
+ola
+deb=0
+clear
+var
+unset deb
+var
+deb=0
+clear
+ls
+pwd
+deb=1
+ls
+clear
+unset deb
+clear
+ls
+pwd
+clear
+ls
+deb=1
+ls
+unset deb
+ls
+pwd
+clear
+clear
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+$?
+$?
+$?
+$?
+clear
+$?
+$?
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+clear
+env | grep SHLVL
+export | grep SHLVL
+unset SHLVL
+export | grep SHLVL
+env | grep SHLVL
+env | grep SHLVL
+cat
+cat < output.txt 
+cat << hello
+clear
+cat > output.txt 

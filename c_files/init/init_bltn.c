@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 12:27:45 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 14:43:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,12 @@ static void	init_builtins_names(t_data *data)
 
 void	export_usefull_var(t_data *d)
 {
-	export(d, "gen=test_programs/gen", NULL, 0);
-	export(d, "rev=test_programs/rev", NULL, 0);
-	export(d, "sort=test_programs/sort", NULL, 0);
-	export(d, "choose=test_programs/choose", NULL, 0);
 	if (d->debug_mode)
-		export(d, "deb=1", NULL, 0);
+		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, "deb=1")));
 	else
-		export(d, "deb=0", NULL, 0);
+		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, "deb=0")));
+	if (!get_dblst_at_key(d->env_list, "SHLVL"))
+		export(d, ms_strdup(d, "SHLVL=1"), NULL, 0);
 }
 
 void	init_builtins_data(t_data *d)

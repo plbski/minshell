@@ -6,22 +6,37 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 12:56:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 14:11:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-static int	exec_unset(t_data *d, char *arg)
+static int	remove_element(t_dblist **list, char *arg)
 {
 	t_dblist	*element;
 
-	element = get_dblst_at_key(d->env_list, arg);
-	if (!element && d->tmp_list)
-		element = get_dblst_at_key(d->tmp_list, arg);
+	if (!*list)
+		return (0);
+	element = get_dblst_at_key(*list, arg);
 	if (!element)
-		return (FCT_FAIL);
+		return (0);
+	if (!element->next)
+		*list = NULL;
 	dblst_delone(element, free);
+	return (1);
+}
+
+static int	exec_unset(t_data *d, char *arg)
+{
+	int	has_unset;
+
+	has_unset = 0;
+	has_unset += remove_element(&d->env_list, arg);
+	has_unset += remove_element(&d->tmp_list, arg);
+	has_unset += remove_element(&d->var_list, arg);
+	if (!has_unset)
+		return (FCT_FAIL);
 	return (FCT_SUCCESS);
 }
 

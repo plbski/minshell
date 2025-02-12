@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 09:12:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 13:41:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*expand_segment(t_data *d, char *split, int *i)
 	value = get_env_value(d, d->env_list, var_name);
 	if (!value)
 		value = get_env_value(d, d->tmp_list, var_name);
+	if (!value)
+		value = get_env_value(d, d->var_list, var_name);
 	free(var_name);
 	(*i)--;
 	if (!value)

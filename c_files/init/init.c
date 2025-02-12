@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 12:27:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 14:18:13 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,6 @@ static int	init_data_directories(t_data *data)
 	return (1);
 }
 
-static void	init_shlvl(t_data *data)
-{
-	char	*lvl;
-
-	lvl = get_env_value(data, data->env_list, "SHLVL");
-	if (lvl)
-	{
-		data->shlvl = ft_atoi(lvl) + 1;
-		free(lvl);
-	}
-	else
-	{
-		add_to_list(data, data->env_list, "SHLVL=1");
-		data->shlvl = 1;
-		update_environ(data);
-	}
-}
-
 void	init_data(t_data *data, char **env)
 {
 	data->cwd = NULL;
@@ -85,6 +67,7 @@ void	init_data(t_data *data, char **env)
 	data->environ = NULL;
 	data->env_list = NULL;
 	data->tmp_list = NULL;
+	data->var_list = NULL;
 	data->saved_stdin = -1;
 	data->saved_stdout = -1;
 	data->fd = -1;
@@ -96,7 +79,6 @@ void	init_data(t_data *data, char **env)
 	update_env_variables(data);
 	init_data_directories(data);
 	update_cwd(data);
-	init_shlvl(data);
 	init_builtins_data(data);
 	export_usefull_var(data);
 }

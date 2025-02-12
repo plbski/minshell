@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 08:58:13 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 14:41:36 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,13 @@ static void	handle_parent(int or_stdin, int **fds, int *pids, int pipes_count)
 	close(or_stdin);
 }
 
-static int	**ini_pipefds(t_data *d, int pipes_amount, int **pipe_fds)
+static int	**ini_pipefds(t_data *d, int pipes_amount)
 {
 	int	i;
+	int	**pipe_fds;
 
+	pipe_fds = ms_malloc(d, sizeof(int *) * (pipes_amount + 1));
 	i = -1;
-	pipe_fds = ms_malloc(d, sizeof(int *) * pipes_amount);
 	while (++i <= pipes_amount)
 	{
 		pipe_fds[i] = malloc(sizeof(int) * 2);
@@ -77,7 +78,7 @@ static void	exec_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
 	int		**pipe_fds;
 	pid_t	*pids;
 
-	pipe_fds = ini_pipefds(d, pipes_len, NULL);
+	pipe_fds = ini_pipefds(d, pipes_len);
 	pids = ms_malloc(d, sizeof(pid_t) * (pipes_len + 1));
 	base_stdin = dup(STDIN_FILENO);
 	i = -1;
@@ -104,6 +105,7 @@ t_token	*handle_pipe(t_data *d, t_token *cmd_in)
 {
 	t_token		*node;
 	int			pipes_count;
+	int			wait_time;
 
 	pipes_count = 0;
 	node = cmd_in;
@@ -113,6 +115,9 @@ t_token	*handle_pipe(t_data *d, t_token *cmd_in)
 		node = node->pipe_out;
 	}
 	exec_pipes(d, cmd_in, pipes_count, -1);
+	wait_time = 0;
+	while (wait_time++ < 9999999)
+		continue ;
 	if (!node || !node->pipe_out)
 		return (NULL);
 	return (node->pipe_out->next);

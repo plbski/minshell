@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 09:32:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 14:27:49 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	update_environ(t_data *d)
 {
 	char		**new_env;
 
+	if (!d->env_list)
+		custom_exit(d, "No env list to update", NULL, EXIT_FAILURE);
 	new_env = list_to_arr(d->env_list);
 	if (!new_env)
 		return ;
@@ -64,7 +66,7 @@ int	update_env_variables(t_data *d)
 	char	*debug;
 	char	*tmp_debug;
 
-	debug = get_env_value(d, d->env_list, "deb");
+	debug = get_env_value(d, d->var_list, "deb");
 	if (debug)
 	{
 		tmp_debug = ft_remove_prefix(d, debug, "=");
@@ -72,6 +74,8 @@ int	update_env_variables(t_data *d)
 		free(debug);
 		free(tmp_debug);
 	}
+	else
+		d->debug_mode = 0;
 	update_env_var(d, d->env_list, &d->home_wd, "HOME");
 	update_env_var(d, d->env_list, &d->logname, "LOGNAME");
 	return (1);
