@@ -6,11 +6,25 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 14:00:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 15:32:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
+
+
+static int	is_valid_key(char *key)
+{
+	int	i;
+
+	if (!key)
+		return (0);
+	i = -1;
+	while (key[++i])
+		if (!ft_isalnum(key[i]) && !(key[i] == '+' && !key[i + 1]))
+			return (0);
+	return (1);
+}
 
 static void	handle_joined_arg(t_data *d, char *key, char *value)
 {
@@ -23,18 +37,31 @@ static void	handle_joined_arg(t_data *d, char *key, char *value)
 		node = get_dblst_at_key(d->tmp_list, key);
 	if (!node)
 		node = get_dblst_at_key(d->var_list, key);
-	new_value = ms_strjoin(d, node->content, value);
-	free(node->content);
+	if (!node)
+		return ;
+	printf("WOW\n");
+	if (node->content)
+		new_value = ft_strjoin(node->content, value);
+	else
+		new_value = ft_str_mega_join(key, "=", value, NULL);
+	if (!new_value)
+		custom_exit(d, "alloc for joined export arg", NULL, EXIT_FAILURE);
+	printf("key %s value %s new_val %s\n", key, value, new_value);
+	exit(0);
+	if (node->content)
+		safe_free(node->content);
 	node->content = new_value;
 }
 
-static void	handle_no_value_export(t_data *d, char *arg, int tmp_mem)
+static int	handle_no_value_export(t_data *d, char *arg, int tmp_mem)
 {
 	t_dblist	*var_node;
 	char		*new_content;
 
+	if (!is_valid_key(arg))
+		return (printf("msh: export: %s: invalid option\n", arg), 127);
 	if (get_dblst_node(d->env_list, arg))
-		return ;
+		return (FCT_SUCCESS);
 	if (!tmp_mem)
 	{
 		var_node = get_dblst_at_key(d->var_list, arg);
@@ -45,16 +72,17 @@ static void	handle_no_value_export(t_data *d, char *arg, int tmp_mem)
 		if (get_dblst_node(d->env_list, new_content))
 		{
 			free(new_content);
-			return ;
+			return (FCT_SUCCESS);
 		}
 		dblst_add_back(&d->env_list, dblst_new(ms_strdup(d, new_content)));
 		update_environ(d);
 	}
 	else if (!get_dblst_node(d->var_list, arg))
 		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, arg)));
+	return (FCT_SUCCESS);
 }
 
-static void	exec_export(t_data *d, char *arg, int tmp_mem)
+static int	exec_export(t_data *d, char *arg, int tmp_mem)
 {
 	char		*key;
 	char		*value;
@@ -63,6 +91,9 @@ static void	exec_export(t_data *d, char *arg, int tmp_mem)
 	if (!chr_amnt(arg, '='))
 		return (handle_no_value_export(d, arg, tmp_mem));
 	key = truncate_at_end(arg, '=');
+	if (!is_valid_key(key))
+		return (safe_free(key), \
+			printf("msh: %s: command not found\n", arg), CMD_NOT_FOUND);
 	value = ft_strchr(arg, '=') + 1;
 	if (key[ft_strlen(key) - 1] == '+')
 		handle_joined_arg(d, key, value);
@@ -76,14 +107,14 @@ static void	exec_export(t_data *d, char *arg, int tmp_mem)
 		else if (!set_key_value(d, d->var_list, key, value))
 			dblst_add_back(&d->var_list, new_node);
 	}
-	safe_free(key);
-	update_environ(d);
+	return (safe_free(key), update_environ(d), FCT_SUCCESS);
 }
 
 int	export(t_data *d, char *arg, char **flags, int tmp_mem)
 {
 	int			i;
 	t_dblist	*env_copy;
+	int			ret_value;
 
 	if (!arg)
 	{
@@ -93,9 +124,15 @@ int	export(t_data *d, char *arg, char **flags, int tmp_mem)
 		dblst_clear(&env_copy, free);
 		return (FCT_SUCCESS);
 	}
-	exec_export(d, arg, tmp_mem);
+	ret_value = exec_export(d, arg, tmp_mem);
+	if (ret_value != FCT_SUCCESS)
+		return (ret_value);
 	i = -1;
 	while (flags && flags[++i])
-		exec_export(d, flags[i], tmp_mem);
+	{
+		ret_value = exec_export(d, flags[i], tmp_mem);
+		if (ret_value != FCT_SUCCESS)
+			return (ret_value);
+	}
 	return (FCT_SUCCESS);
 }

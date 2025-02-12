@@ -1,0 +1,6 @@
+git fetch [<options>] [<repository>] [<refspec>…]
+
+Options:
+
+    --all: Fetches all remotes.
+    --prune: Removes stale references to deleted branches.

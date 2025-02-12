@@ -1,0 +1,25 @@
+tgoto
+
+Synopsis:
+
+char *tgoto(const char *cap, int col, int row);
+
+Description:
+Generates a cursor motion string for a terminal.
+
+A cursor motion string is a specific terminal capability that defines how to move the cursor to a particular position (row and column) on the screen. It typically includes placeholders that get replaced with the desired coordinates.
+
+The capability "cm" (cursor motion) in the terminfo database is a format string for this. It specifies how the terminal expects the cursor motion command to be structured.
+
+The tgoto function takes this format string and fills in the placeholders with the desired column and row numbers to produce the exact command for moving the cursor.
+
+Example:
+
+char *cursor_move = tgetstr("cm", NULL);   // Get cursor motion format string.
+char *move_to = tgoto(cursor_move, 10, 5); // Move to column 10, row 5.
+tputs(move_to, 1, putchar);                // Execute the command.
+
+
+Example:
+
+char *move = tgoto(tgetstr("cm", NULL), 10, 5);

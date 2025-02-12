@@ -1,0 +1,12 @@
+ioctl
+
+Synopsis:
+
+int ioctl(int fd, unsigned long request, ...);
+
+Description:
+Performs device-specific input/output operations on a file descriptor.
+
+Example:
+
+ioctl(fd, TIOCGWINSZ, &winsize);

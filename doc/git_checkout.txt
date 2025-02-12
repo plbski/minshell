@@ -1,0 +1,6 @@
+git checkout [<options>] <branch_or_commit> [--] [<paths>…]
+
+Options:
+
+    <branch_or_commit>: Branch name or commit hash.
+    -b <branch_name>: Create a new branch and switch to it.

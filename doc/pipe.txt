@@ -1,0 +1,14 @@
+pipe
+
+Synopsis:
+
+int pipe(int pipefd[2]);
+
+Description:
+Creates a unidirectional data channel, represented by two file descriptors: one for reading and one for writing.
+
+Example:
+
+int pipefd[2];
+pipe(pipefd);
+// pipefd[0] for reading, pipefd[1] for writing

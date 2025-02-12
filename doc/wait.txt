@@ -1,0 +1,16 @@
+wait
+
+Synopsis:
+
+pid_t wait(int *status);
+
+Description:
+Waits for any child process to terminate.
+
+Return Value:
+Returns the process ID of the terminated child or -1 on error.
+
+Example:
+
+int status;
+pid_t pid = wait(&status);

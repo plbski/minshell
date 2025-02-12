@@ -2027,3 +2027,60 @@ cat < output.txt
 cat << hello
 clear
 cat > output.txt 
+unset SHLVL
+var
+olapo=5
+var
+clear
+echo $OLAPO
+echo $olapo
+olapo+=5
+olapo-=5
+echo $olapo
+var
+bash
+ola=3
+var
+ola-=3
+ola+=3
+ola-=3
+ola=3
+ola+=3
+echo $ola
+ola-=3
+export -+ ola cool
+export
+export | grep +-
+clear
+var
+export -+
+echo $-+
+export -+=cool
+export -+
+export alo=3
+export alo+=3
+echo $alo
+clear
+export ola=3
+export ola+=3
+echo $ola
+export alo
+echo $alo
+export alo+=3
+echo $alo
+alo+=3
+echo $alo
+exportz
+export
+echo $ola
+echo $alo
+export alo=3
+export
+export alo=
+export
+export alo
+export alo+=3
+echo $alo
+echo ola
+export ola
+export ola+=32

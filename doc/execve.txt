@@ -1,0 +1,14 @@
+execve
+
+Synopsis:
+
+int execve(const char *pathname, char *const argv[], char *const envp[]);
+
+Description:
+Replaces the current process image with a new one specified by pathname.
+
+Example:
+
+char *args[] = { "/bin/ls", "-la", NULL };
+char *env[] = { NULL };
+execve("/bin/ls", args, env);
