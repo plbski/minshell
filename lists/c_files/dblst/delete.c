@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:23:03 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/07 22:59:59 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 13:00:59 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	dblst_delone(t_dblist *lst, void (*del)(void *))
 {
 	if (!lst)
 		return ;
-	if (lst->content)
+	if (del && lst->content)
 		del(lst->content);
-	if (lst->next)
-		lst->next->prev = lst->prev;
 	if (lst->prev)
 		lst->prev->next = lst->next;
+	if (lst->next)
+		lst->next->prev = lst->prev;
 	free(lst);
 }
 

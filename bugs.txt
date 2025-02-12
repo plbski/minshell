@@ -16,12 +16,6 @@ heredoc = gnl
 
 Exec touch ?
 
-
 ls | cat << tete = il faut reset STDIN lors de l'appel de cat
-alo cool
-cool top
-cool top
-cool top
-cool top
-cool top
-cool top
+
+cat /etc/passwd | grep root | wc -l (pas d'output pour wc -l alors qu'on devrait recevoir le nombre de lignes)

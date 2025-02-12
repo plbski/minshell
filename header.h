@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/11 18:30:12 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 12:42:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,12 @@ typedef enum e_token_type
 typedef enum e_builtins
 {
 	e_cd,
-	e_clear,
 	e_echo,
 	e_env,
 	e_exec,
 	e_exit,
 	e_export,
-	e_ls,
-	e_man,
+	e_doc,
 	e_pwd,
 	e_unset,
 }	t_builtins_types;
@@ -99,6 +97,7 @@ typedef enum e_redir_type
 typedef struct s_data
 {
 	int			fd;
+	int			received_env;
 	int			debug_mode;
 	int			shlvl;
 	int			last_exit_st;
@@ -118,7 +117,7 @@ typedef struct s_data
 	t_dblist	*env_list;
 	t_dblist	*tmp_list;
 	char		**bltin_names;
-	int			(*blt_fct[12])(struct s_data *d, char *arg, char **flg, int s);
+	int			(*blt_fct[9])(struct s_data *d, char *arg, char **flg, int s);
 }	t_data;
 
 typedef struct s_token
@@ -220,7 +219,7 @@ int			validate_prmpt_b(char **prmpt, int has_redir, int is_only_spc);
 int			get_terminal_prompt(t_data *d);
 
 //		builtins
-int			man(t_data *d, char *arg, char **flags, int status);
+int			doc(t_data *d, char *arg, char **flags, int status);
 //		ls.c
 DIR			*get_directory(t_data *d, char *arg);
 void		display_entry(struct dirent *entry, int *len);
@@ -242,7 +241,7 @@ int			export(t_data *d, char *arg, char **flags, int tmp_mem);
 char		**set_argv(t_data *d, char *prog_name);
 char		*get_dir_in_path(t_data *d, char *cmd_name);
 char		*handle_path_in_dir(t_data *d, char *prg);
-int			validate_exec(const char *file);
+int			is_valid_exec_file(const char *file);
 
 //		free.c
 int			safe_free(void *item);
@@ -305,5 +304,8 @@ t_token		*exec_cmd_with_redir(t_data *d, t_token *cmd_node, \
 		char *arg, char **flags);
 int			handle_parent_process(pid_t child_pid);
 t_token		*skip_type(t_token *tok, t_tktype type_to_skip);
+
+int			is_valid_exec_file(const char *file);
+int			increment_shlvl(t_data *d);
 
 #endif

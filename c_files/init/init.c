@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/11 18:30:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 12:27:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	init_data_directories(t_data *data)
 
 	working_dir_buff = custom_get_cwd(data);
 	data->start_wd = working_dir_buff;
-	data->man_wd = ms_strjoin(data, working_dir_buff, "/man/");
+	data->man_wd = ms_strjoin(data, working_dir_buff, "/doc/");
 	data->history_wd = ms_strjoin(data, working_dir_buff, "/.history.txt");
 	read_history(data->history_wd);
 	return (1);

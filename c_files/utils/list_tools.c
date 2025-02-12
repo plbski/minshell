@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 09:18:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 13:22:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	add_to_list(t_data *d, t_dblist *lst, char *content)
 	dblst_add_back(&lst, new_node);
 }
 
-void	init_with_empty_env(t_data *d)
+char	**get_base_env(t_data *d)
 {
 	char	**base_env;
 	char	*pwd;
@@ -61,17 +61,29 @@ void	init_with_empty_env(t_data *d)
 	free(pwd_path);
 	base_env[4] = getenv("LOGNAME");
 	base_env[5] = NULL;
-	init_env_list(d, base_env);
-	free_void_array((void ***)&base_env);
+	return (base_env);
 }
 
 void	init_env_list(t_data *d, char **env)
 {
-	if (!env || !env[0])
-		init_with_empty_env(d);
+	char	**base_env;
+
+	d->received_env = (env && env[0]);
+	if (!d->received_env)
+		base_env = get_base_env(d);
 	if (d->env_list)
 		dblst_clear(&d->env_list, free);
-	d->env_list = arr_to_dblst((void **)env);
+	if (d->received_env)
+	{
+		d->tmp_list = arr_to_dblst((void **)env);
+		d->env_list = arr_to_dblst((void **)env);
+	}
+	else
+	{
+		d->env_list = arr_to_dblst((void **)base_env);
+		d->tmp_list = arr_to_dblst((void **)base_env);
+		free_void_array((void ***)&base_env);
+	}
 	if (!d->env_list)
 		custom_exit(d, "List alloc failed", NULL, 1);
 }

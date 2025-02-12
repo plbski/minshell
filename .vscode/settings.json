@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"ft_printf.h": "c",
-		"compare": "c",
-		"type_traits": "c",
-		"__locale": "c"
-	}
-}

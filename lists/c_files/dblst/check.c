@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:09:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 10:58:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 12:58:17 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,14 @@ t_dblist	*get_dblst_at_key(t_dblist *lst, char *key)
 	while (lst)
 	{
 		content = (char *)lst->content;
-		j = 0;
-		while (content[j] == key[j] && content[j] != '=')
-			j++;
-		if (!content[j] || content[j] == '=')
-			return (lst);
+		if (content)
+		{
+			j = 0;
+			while (content[j] == key[j] && content[j] != '=')
+				j++;
+			if (!content[j] || content[j] == '=')
+				return (lst);
+		}
 		lst = lst->next;
 		if (lst == start)
 			break ;

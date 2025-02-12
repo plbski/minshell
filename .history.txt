@@ -1547,3 +1547,260 @@ ls /Users/giuliovalente/bin/
 cd /Users/giuliovalente/bin
 ls
 ./get_files_in_dir.sh 
+exec
+ls
+pwd
+clear
+exec
+exec olapo
+exec ~/bin/get_files_in_dir.sh
+get_files_in_dir.sh c_files
+echo ola
+cleaer
+cleaer
+ckear
+clear
+echo ola cool super
+claer top
+clear top
+clear
+skndv
+cool
+ls
+ls *
+ls * >> output.txt bugs.txt 
+clear
+clear
+ls
+ls * >> output.txt bugs.txt 
+ls * >> output.txt
+clear
+clear
+ls
+pwd
+clear
+clear
+$?
+man git_init
+echo d->man_wd
+man git_init
+man git_init
+man git_init
+man ls
+clear
+doc git_init
+man git_init
+man ls
+clear
+doc git_init
+doc ls
+man ls
+clear
+ls
+pwd
+cd
+cd -
+man
+man ls
+clear
+exit 5
+export ola=3
+env
+unset ola
+env
+export
+clear
+env
+export name=US''ER
+echo $name
+export USER=giulio
+echo $US''ER
+echo $US'col'ER
+./get_files_in_dir
+./get_files_in_dir.sh
+./get_files_in_dir.sh c_files
+./olapo
+chmod u=wrx test.sh
+./test.sh
+./tets.sh
+./test.sh
+clear
+./test.sh
+clear
+./test.sh
+clear
+clear
+./get_files_in_dir.sh
+./get_files_in_dir.sh
+./get_files_in_dir.sh c_files
+./giuliovalente/bin/get_files_in_dir.sh c_files
+./test.sh
+exec test.sh
+exec
+clear
+ls
+cat
+clear
+pwd
+pwd pwd
+clear
+unset
+man
+doc
+doc
+man
+doc
+clear
+doc
+man
+clear
+pwd << ola
+cat << ola
+clear
+ls
+pwd
+clear
+pwd
+.
+...
+.....
+clear
+echo "			 cool"
+clear
+ls
+clear
+pwd
+cat /etc/passwd
+clear
+echo -n "sans saut de ligne"
+cd /tmp
+cd -
+clear
+cd /pahqu
+ls olapo 2> erreru.txt
+ls | grep minishell
+cat /etc/passwd | grep root | wc -l
+cat /etc/passwd | grep root | wc -l
+mkdir c_files
+cat folder
+ls | wc -l
+wc -l
+touch cool
+touch cool.txt "super"
+exec
+exec touch cool.txt
+./touch cool.txt
+./touch cool.txt
+clear
+./touch oola
+./touch oola
+./touch oola
+./touch oola
+./minishell
+./minishell
+make re
+./touch oola
+./unvalid
+./unvalid
+clear
+ls
+pwd
+clear
+./touch
+./olapo
+./olapo
+./minishell
+/bin/ls
+clear
+exec /bin/ls
+./bin/ls
+cler
+clear
+ls
+cd ..
+pwd
+ls * 
+clear
+clear
+ls * | cat | output.txt
+clear
+ls
+pwd
+clear
+deb=0
+clear
+ls
+pwd
+clear
+rm oola
+rm -rf a.out.dSYM/
+rm -rf .vscode
+rm -rf minishell.dSYM/
+man git_init
+deb=0
+man git_init
+clear
+doc git_init
+doc git_init
+doc
+deb=0
+doc
+deb=1
+doc git_init
+deb=0
+clear
+doc git_init
+ls
+clear
+cat < output.txt 
+echo chool
+echo chool top auper
+echo chool top auper >> output.txt bugs.txt 
+ls
+exit 3
+sola
+clear
+ls
+pwd
+touch ola
+env
+ls
+clear
+clear
+clear
+cleatr
+clear
+pwd
+cleae
+clear
+clear
+ls
+pwd
+clear
+export ola=alopa=4
+env
+env
+debora=6
+env
+export
+export
+export debora
+export
+env
+olapo=3
+env
+export
+export dabord
+env
+export
+guacamole=5
+env
+env
+export
+clear
+export guacamole=5
+env
+export
+guacamole=2
+env
+export

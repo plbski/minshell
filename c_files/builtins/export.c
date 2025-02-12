@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/11 09:25:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 13:14:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	handle_joined_arg(t_data *d, char *key, char *value)
 	node->content = new_value;
 }
 
-static void	handle_no_key_export(t_data *d, char *arg)
+static void	handle_no_value_export(t_data *d, char *arg)
 {
 	t_dblist	*new_node;
 
@@ -36,6 +36,7 @@ static void	handle_no_key_export(t_data *d, char *arg)
 		return ;
 	new_node = dblst_new(ms_strdup(d, arg));
 	dblst_add_back(&d->env_list, new_node);
+	update_environ(d);
 }
 
 static void	exec_export(t_data *d, char *arg, int tmp_mem)
@@ -45,7 +46,7 @@ static void	exec_export(t_data *d, char *arg, int tmp_mem)
 	t_dblist	*new_node;
 
 	if (!chr_amnt(arg, '='))
-		return (handle_no_key_export(d, arg));
+		return (handle_no_value_export(d, arg));
 	key = truncate_at_end(arg, '=');
 	value = ft_strchr(arg, '=') + 1;
 	if (key[ft_strlen(key) - 1] == '+')

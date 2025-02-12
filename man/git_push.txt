@@ -1,7 +1,0 @@
-git push [<options>] [<repository> [<refspec>…]]
-
-Options:
-
-    <repository>: Remote name (e.g., origin).
-    --force: Forces the push, overwriting remote changes.
-    --delete <branch>: Deletes a remote branch.
