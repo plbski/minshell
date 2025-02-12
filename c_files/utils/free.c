@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 10:37:27 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 18:05:02 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	free_data(t_data *data)
 	dblst_clear(&data->env_list, free);
 	free_count += dblst_size(data->tmp_list);
 	dblst_clear(&data->tmp_list, free);
+	free_count += dblst_size(data->tmp_list);
+	dblst_clear(&data->var_list, free);
 	free_count += free_void_array((void ***)&data->bltin_names);
 	free_count += free_void_array((void ***)&data->types_names);
 	free_count += free_void_array((void ***)&data->environ);
@@ -60,6 +62,7 @@ int	free_data(t_data *data)
 	free_count += safe_free(data->man_wd);
 	free_count += safe_free(data->history_wd);
 	free_count += safe_free(data->logname);
+	free_count += safe_free(data->home_wd);
 	if (debug_output)
 		printf("freed %d items.\n", free_count);
 	return (free_count);

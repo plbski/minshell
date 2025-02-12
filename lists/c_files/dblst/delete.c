@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:23:03 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 14:07:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 17:37:50 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	print_prefixed_content(void *content)
 	has_value = 0;
 	while (str[++i])
 	{
-		if (str[i - 1] == '=' && !has_value)
+		if (i > 0 && str[i - 1] == '=' && !has_value)
 		{
 			has_value = 1;
 			printf("\"");

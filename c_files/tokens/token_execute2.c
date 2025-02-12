@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 18:53:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 18:28:40 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ t_token	*set_args(t_data *d, t_token *strt, t_tktype k_typ, char ***args_arr)
 	return (next);
 }
 
+
+t_token	*setup_args(t_data *d, char **arg, t_token *nxt, char ***flags)
+{
+	if (!nxt || nxt->type != tk_argument)
+		return (nxt);
+	update_node_expansion(d, nxt, 0);
+	*arg = nxt->name;
+	return (set_args(d, nxt, tk_argument, flags));
+}
+
 int	validate_redir(t_token *redir)
 {
 	if (redir->type == tk_red_in)
@@ -56,7 +66,7 @@ int	validate_redir(t_token *redir)
 	return (1);
 }
 
-int	setup_redir_exec(t_data *d, t_token **nxt, char **flags)
+int	setup_redir_exec(t_data *d, t_token **nxt)
 {
 	t_token	*redir;
 
@@ -65,23 +75,11 @@ int	setup_redir_exec(t_data *d, t_token **nxt, char **flags)
 		&& redir->type != tk_red_out && redir->type != tk_hered))
 		return (-1);
 	if (!validate_redir(redir))
-	{
-		free_void_array((void ***)&flags);
-		return (-1);
-	}
+		return (0);
 	if (redir->type == tk_red_app || redir->type == tk_red_out)
 		return (redir->type);
 	*nxt = handle_redir(d, *nxt, redir->next, redir->type);
 	return (redir->type);
-}
-
-t_token	*setup_args(t_data *d, char **arg, t_token *nxt, char ***flags)
-{
-	if (!nxt || nxt->type != tk_argument)
-		return (nxt);
-	update_node_expansion(d, nxt, 0);
-	*arg = nxt->name;
-	return (set_args(d, nxt, tk_argument, flags));
 }
 
 t_token	*handle_command_token(t_data *d, t_token *node, int handle_redir)
@@ -97,7 +95,9 @@ t_token	*handle_command_token(t_data *d, t_token *node, int handle_redir)
 	redir = -1;
 	if (handle_redir)
 	{
-		redir = setup_redir_exec(d, &nxt, flags);
+		redir = setup_redir_exec(d, &nxt);
+		if (!redir)
+			return (free_void_array((void ***)&flags), NULL);
 		if (redir == tk_red_out || redir == tk_red_app)
 			nxt = exec_cmd_with_redir(d, node, arg, flags);
 		else

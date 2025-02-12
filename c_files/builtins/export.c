@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 15:32:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 18:07:28 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,12 @@ static void	handle_joined_arg(t_data *d, char *key, char *value)
 		node = get_dblst_at_key(d->var_list, key);
 	if (!node)
 		return ;
-	printf("WOW\n");
 	if (node->content)
 		new_value = ft_strjoin(node->content, value);
 	else
 		new_value = ft_str_mega_join(key, "=", value, NULL);
 	if (!new_value)
 		custom_exit(d, "alloc for joined export arg", NULL, EXIT_FAILURE);
-	printf("key %s value %s new_val %s\n", key, value, new_value);
-	exit(0);
 	if (node->content)
 		safe_free(node->content);
 	node->content = new_value;
@@ -74,7 +71,7 @@ static int	handle_no_value_export(t_data *d, char *arg, int tmp_mem)
 			free(new_content);
 			return (FCT_SUCCESS);
 		}
-		dblst_add_back(&d->env_list, dblst_new(ms_strdup(d, new_content)));
+		dblst_add_back(&d->env_list, dblst_new(new_content));
 		update_environ(d);
 	}
 	else if (!get_dblst_node(d->var_list, arg))

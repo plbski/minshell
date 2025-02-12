@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:09:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 12:58:17 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 17:55:43 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ t_dblist	*get_dblst_at_key(t_dblist *lst, char *key)
 		if (content)
 		{
 			j = 0;
-			while (content[j] == key[j] && content[j] != '=')
+			while (key[j] && content[j] && content[j] == key[j])
 				j++;
-			if (!content[j] || content[j] == '=')
+			if (content[j] == '=' && key[j] == '\0')
 				return (lst);
 		}
 		lst = lst->next;

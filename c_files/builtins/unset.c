@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 14:11:06 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 17:40:47 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	remove_element(t_dblist **list, char *arg)
 {
 	t_dblist	*element;
 
-	if (!*list)
+	if (!*list || !arg)
 		return (0);
 	element = get_dblst_at_key(*list, arg);
 	if (!element)
@@ -31,6 +31,8 @@ static int	exec_unset(t_data *d, char *arg)
 {
 	int	has_unset;
 
+	if (!arg)
+		return (FCT_FAIL);
 	has_unset = 0;
 	has_unset += remove_element(&d->env_list, arg);
 	has_unset += remove_element(&d->tmp_list, arg);

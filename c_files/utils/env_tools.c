@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 14:27:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 18:02:36 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ char	*get_env_value(t_data *d, t_dblist *list, char *key)
 	if (!no_key)
 		custom_exit(d, "env key alloc", NULL, EXIT_FAILURE);
 	value = ft_remove_prefix(d, no_key, "=");
+	free(no_key);
 	if (!value)
 		custom_exit(d, "env value alloc", NULL, EXIT_FAILURE);
-	return (free(no_key), value);
+	return (value);
 }
 
 void	update_env_var(t_data *d, t_dblist *list, char **var, char *key)
@@ -57,7 +58,7 @@ void	update_env_var(t_data *d, t_dblist *list, char **var, char *key)
 		safe_free(*var);
 		*var = new_var_value;
 	}
-	else if (!new_var_value && !*var)
+	else if (!*var)
 		*var = ms_strdup(d, "?");
 }
 
