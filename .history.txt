@@ -2086,3 +2086,5 @@ export ola
 export ola+=32
 clear
 env | grep SHLVL
+ls
+<< test

@@ -62,6 +62,9 @@ debug: $(MINISHELL_NAME) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(DPRINT
 	$(CC) $(CFLAGS) -fsanitize=address -g $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
 	@echo "$(MAGENTA)$(MINISHELL_NAME) -fsan successfully built.$(RESET)"
 
+valgrind:
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=a.supp --log-file="leaks.log" ./minishell
+
 clean:
 	make -C $(LIBFT_DIR) --no-print-directory clean
 	make -C $(DPRINTF_DIR) --no-print-directory clean
