@@ -6,7 +6,7 @@
 /*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:34:30 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:33:03 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,7 @@ static void	exec_heredoc(t_data *d, char *nd, char *print)
 
 void	ft_heredoc(char *end, t_data *d, char *print)
 {
-	if (pipe(d->heredocpipe) == -1)
-		custom_exit(d, "pipe error", NULL, EXIT_FAILURE);
-	save_original_fds(d);
-	setup_signal(1, 1);
-	exec_heredoc(d, end, print);
-	g_quit_in_heredoc = 0;
-	setup_signal(0, 0);
-	if (dup2(d->heredocpipe[0], STDIN_FILENO) == -1)
-		custom_exit(d, "erreur dup2 dans heredoc", NULL, EXIT_FAILURE);
+	ft_dprintf(d->fd, parse_heredoc(end, d, print, 0));
+	if (dup2(d->fd, STDIN_FILENO) == -1)
+		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
 }

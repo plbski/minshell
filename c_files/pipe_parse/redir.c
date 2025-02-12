@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 18:16:32 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:32:55 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,17 @@ int	get_fd(t_data *d, char *file_path, t_tktype r_type)
 {
 	int	fd;
 
+	printf("%s\n", file_path);
 	if (r_type == tk_red_app)
 		fd = open(file_path, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else if (r_type == tk_red_out)
 		fd = open(file_path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	else
+	else if (r_type == tk_red_in)
 		fd = open(file_path, O_RDONLY);
+	else
+		fd = open(file_path, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (fd == -1)
-		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+		custom_exit(d, "erreur open files", NULL, EXIT_FAILURE);
 	return (fd);
 }
 
@@ -72,8 +75,10 @@ int	create_file(t_data *d, char *file_name, t_tktype r_type)
 	free(path);
 	if ((r_type == tk_red_app || r_type == tk_red_out))
 		dup_target = STDOUT_FILENO;
-	else
+	else if (r_type == tk_red_in)
 		dup_target = STDIN_FILENO;
+	else
+		return (1);
 	if (dup2(d->fd, dup_target) == -1)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
 	if (d->fd >= 0)
@@ -88,7 +93,10 @@ t_token	*handle_redir(t_data *d, t_token *redir, \
 
 	before_redir = redir->prv;
 	if (type == tk_hered)
+	{
+		create_file(d,"ressource/.heredoc", tk_hered);
 		ft_heredoc(tok_after->name, d, "heredoc> ");
+	}
 	else if (!tok_after || ! before_redir)
 		custom_exit(d, "Error in redir tokens", NULL, EXIT_FAILURE);
 	if (type == tk_red_out || type == tk_red_app)
