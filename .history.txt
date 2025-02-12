@@ -2084,3 +2084,5 @@ echo $alo
 echo ola
 export ola
 export ola+=32
+clear
+env | grep SHLVL

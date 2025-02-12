@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bltn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 14:43:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/12 17:28:41 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,19 @@ static void	init_builtins_names(t_data *data)
 
 void	export_usefull_var(t_data *d)
 {
+	char	*shlvl;
+
 	if (d->debug_mode)
 		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, "deb=1")));
 	else
 		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, "deb=0")));
 	if (!get_dblst_at_key(d->env_list, "SHLVL"))
 		export(d, ms_strdup(d, "SHLVL=1"), NULL, 0);
+	shlvl = get_env_value(d, d->env_list, "SHLVL");
+	if (!shlvl)
+		custom_exit(d, "alloc shlvl failed", NULL, EXIT_FAILURE);
+	d->shlvl = ft_atoi(shlvl);
+	free(shlvl);
 }
 
 void	init_builtins_data(t_data *d)
