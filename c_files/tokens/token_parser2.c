@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parser2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 02:04:35 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:50:15 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,70 +46,4 @@ int	validate_token(t_data *d, t_token *node)
 		return (0);
 	}
 	return (1);
-}
-
-void	split_list(t_token *source, t_token **front_ref, t_token **back_ref)
-{
-	t_token	*fast;
-	t_token	*slow;
-
-	slow = source;
-	fast = source->next;
-	while (fast != NULL)
-	{
-		fast = fast->next;
-		if (fast != NULL)
-		{
-			slow = slow->next;
-			fast = fast->next;
-		}
-	}
-	*front_ref = source;
-	*back_ref = slow->next;
-	slow->next = NULL;
-	if (*back_ref != NULL)
-		(*back_ref)->prv = NULL;
-}
-
-t_token	*merge_sorted_lists(t_token *a, t_token *b)
-{
-	t_token	*result;
-
-	result = NULL;
-	if (a == NULL)
-		return (b);
-	if (b == NULL)
-		return (a);
-	if (a->par >= b->par)
-	{
-		result = a;
-		result->next = merge_sorted_lists(a->next, b);
-		if (result->next != NULL)
-			result->next->prv = result;
-		result->prv = NULL;
-	}
-	else
-	{
-		result = b;
-		result->next = merge_sorted_lists(a, b->next);
-		if (result->next != NULL)
-			result->next->prv = result;
-		result->prv = NULL;
-	}
-	return (result);
-}
-
-void	merge_sort_tokens(t_token **head_ref)
-{
-	t_token	*head;
-	t_token	*a;
-	t_token	*b;
-
-	head = *head_ref;
-	if ((head == NULL) || (head->next == NULL))
-		return ;
-	split_list(head, &a, &b);
-	merge_sort_tokens(&a);
-	merge_sort_tokens(&b);
-	*head_ref = merge_sorted_lists(a, b);
 }

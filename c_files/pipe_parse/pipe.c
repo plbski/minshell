@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 07:28:35 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:52:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ static void	exec_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
 	pipe_fds = ini_pipefds(d, pipes_len);
 	pids = ms_malloc(d, sizeof(pid_t) * (pipes_len + 1));
 	base_stdin = dup(STDIN_FILENO);
-	save_original_fds(d);
 	i = -1;
 	while (++i <= pipes_len)
 	{
@@ -107,7 +106,6 @@ static void	exec_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
 		}
 		strt_cmd = strt_cmd->pipe_out;
 	}
-	close_redir_stream(d);
 	handle_parent(base_stdin, pipe_fds, pids, pipes_len);
 }
 
