@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 06:44:00 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:31:48 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ int	main(int argc, char *argv[], char **env)
 	data.debug_mode = argc > 1;
 	setup_signal(0, 0);
 	init_data(&data, env);
-	data.prv_input = get_last_line(&data, data.history_wd);
-	if (data.prv_input)
-		data.prv_input[ft_strlen(data.prv_input) - 1] = '\0';
 	printf("%s lv %d\n", START_ANIM_TEXT, data.shlvl);
 	while (42)
 	{

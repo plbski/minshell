@@ -19,3 +19,4 @@ clear
 << hero | grep "ola"
 deb=1
 << hero | grep "ola"
+<< hero | grep "ola"
