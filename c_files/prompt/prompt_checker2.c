@@ -6,15 +6,16 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 09:33:49 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 08:43:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 18:21:33 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-int	is_valid_redir(char *p, int i, int j, char c)
+char	is_valid_redir(char *p, int i, int j, char c)
 {
-	i = -1;
+	if (char_in_str(p[0], "&|>"))
+		return (p[0]);
 	while (p[++i])
 	{
 		c = p[i];
@@ -37,18 +38,18 @@ int	is_valid_redir(char *p, int i, int j, char c)
 				return (c);
 		}
 	}
-	return (1);
+	return ('\0');
 }
 
 int	check_redir_validity(char *prompt)
 {
 	char	invalid_token;
 
-	invalid_token = is_valid_redir(prompt, 0, 0, 0);
-	if (invalid_token == '>' || invalid_token == '<')
+	invalid_token = is_valid_redir(prompt, -1, 0, 0);
+	if (invalid_token)
 	{
 		ft_dprintf(2, "msh: syntax error near \
-				unexpected token %c\n", invalid_token);
+unexpected token %c\n", invalid_token);
 		return (0);
 	}
 	return (1);

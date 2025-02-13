@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 06:42:45 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:08:40 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,32 @@ int	is_builtin_cmd(t_data *d, char *str)
 	return (0);
 }
 
-void	reverse_str_array(char **arr, int size)
+char	*char_join(char a, char b, char c, char d)
 {
-	int		i;
-	int		j;
-	char	*temp;
+	const char	chars[] = {a, b, c, d};
+	char		*str;
+	int			len;
+	int			i;
 
-	i = 0;
-	j = size - 1;
-	while (i < j)
-	{
-		temp = arr[i];
-		arr[i] = arr[j];
-		arr[j] = temp;
-		i++;
-		j--;
-	}
+	len = 0;
+	i = -1;
+	while (++i < 4)
+		if (chars[i])
+			len++;
+	if (!len)
+		return (NULL);
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	len = 0;
+	i = -1;
+	while (++i < 4)
+		if (chars[i])
+			str[len++] = chars[i];
+	str[len] = '\0';
+	return (str);
 }
+
 
 void	remove_quotes(t_data *d, char **str)
 {

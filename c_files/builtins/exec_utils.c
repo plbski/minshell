@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 01:57:58 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:17:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ char	*handle_path_in_dir(t_data *d, char *prg, int is_indirect)
 			ft_dprintf(2, "msh: exec: %s: \
 				cannot execute: Is a directory\n", prg);
 		else
-			ft_dprintf(2, "%s: command not found\n", prg);
+			ft_dprintf(2, "msh: %s: command not found\n", prg);
 	}
 	else if (access(prg, F_OK) == -1)
 	{
 		if (!is_indirect)
 			ft_dprintf(2, "msh: exec: %s: not found\n", prg);
 		else
-			ft_dprintf(2, "%s: command not found\n", prg);
+			ft_dprintf(2, "msh: %s: command not found\n", prg);
 	}
 	else
 		ft_dprintf(2, "msh: %s: Permission denied\n", prg);

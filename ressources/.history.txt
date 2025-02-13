@@ -42,3 +42,33 @@ ls | cat << out
 << ola | cat
 ls << cool
 bash
+ls | echo cool >> output.txt | echo top >> output.txt 
+ls | cat
+ls
+clear
+ls | echo cool >> output.txt | echo top >> output.txt 
+clear
+ls
+pwd
+cat cat cat
+cat ls ola > ola
+.-minishell
+.,.
+clear
+.
+clear
+pwdpwd
+pwdola
+<< cool | << top | << bonjour
+<< cool | << top | << bonjour | cat
+<< ola | cat
+cat < output.txt 
+ls&&echo cool
+ls||echo cool
+deb=1
+ls&&cd ..&&echo wow||echo top
+ls&&"echo cool"
+ls&&"c_files"
+>> <
+<< red
+clear

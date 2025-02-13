@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 17:29:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 18:21:50 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ int			is_directory(const char *path);
 char		*replace_str(t_data *d, char *str, char *remove, char *replace);
 char		*read_file(t_data *d, int fd);
 int			is_builtin_cmd(t_data *d, char *str);
-void		reverse_str_array(char **arr, int size);
+char		*char_join(char a, char b, char c, char d);
 void		remove_quotes(t_data *d, char **str);
 
 //		utils/list_tools.c
@@ -283,7 +283,7 @@ char		*solo_pipe(t_data *d, char *trm_line);
 int			get_terminal_prompt(t_data *d);
 
 //		prompt/prompt_checker2.c
-int			is_valid_redir(char *p, int i, int j, char c);
+char		is_valid_redir(char *p, int i, int j, char c);
 int			check_redir_validity(char *prompt);
 int			check_pipe_validity(t_data *d, char **prmpt, int last_pipe_index);
 int			validate_prmpt_b(char **prmpt, int has_redir, int is_only_spc);
