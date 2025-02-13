@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 07:18:04 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:13:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_heredoc(char *end, t_data *d, char *print)
 {
 	int	heredoc_fd;
 
-	heredoc_fd = open(d->heredoc_wd, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	heredoc_fd = open(d->heredoc_wd, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (heredoc_fd == -1)
 		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
 	setup_signal(1, 1);

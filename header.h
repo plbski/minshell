@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 14:52:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 16:18:21 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ t_token		*get_next_redir(t_token *d);
 void		handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags);
 void		handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags);
 void		handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags);
-void		handle_redir_heredoc(t_data *d, t_token *cmd, char *rg, char **flg);
+void		handle_redir_heredoc(t_data *d, t_token *cmd);
 t_token		*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags);
 
 //		pipe_parse/heredoc.c
@@ -184,8 +184,7 @@ int			get_char_index(char *str, char c);
 //		utils/string_tools.c
 char		*ft_remove_prefix(t_data *d, const char *str, char *prefix);
 char		*truncate_at_end(const char *str, char cut_letter);
-char		*ft_str_mega_join(const char *a, const char *b, \
-const char *c, const char d);
+char		*ft_str_mega_join(const char *a, const char *b, const char *c, const char *d);
 int			chr_amnt(const char *str, char c);
 int			get_arr_len(void **arr);
 
@@ -295,7 +294,7 @@ void		setup_signal(int is_waiting, int is_heredoc);
 //		tokens/token_execute2.c
 t_token		*set_args(t_data *d, t_token *cmd, t_token *arg_tk, char ***fl);
 t_token		*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags);
-int			validate_redir(t_token *redir);
+int			validate_redir(t_data *d, t_token *redir);
 t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
 
 //		tokens/token_execute.c
@@ -335,5 +334,6 @@ void		remove_token(t_token *token);
 
 //		minishell.c
 char		*get_last_line(t_data *d, const char *filename);
+char		*get_next_line(int fd);
 
 #endif

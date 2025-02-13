@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 14:52:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 16:15:46 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 static void	handle_child(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 {
 	int	should_redir;
-	int	heredoc_fd;
-	int	has_herd;
 
 	update_node_expansion(d, cmd, 0);
-	has_herd = (cmd->next && cmd->next->type == tk_hered && cmd->next->next);
 	if (fd_in)
 	{
 		dup2(fd_in[0], STDIN_FILENO);
@@ -33,13 +30,6 @@ static void	handle_child(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 		close(fd_out[1]);
 	}
 	should_redir = !fd_out;
-	if (has_herd)
-	{
-		heredoc_fd = ft_heredoc(cmd->next->next->name, d, "heredoc > ");
-		dup2(heredoc_fd, STDOUT_FILENO);
-		close(heredoc_fd);
-		should_redir = 0;
-	}
 	handle_command_token(d, cmd, should_redir);
 	custom_exit(d, NULL, NULL, EXIT_CHILD);
 }

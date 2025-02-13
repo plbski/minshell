@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 07:23:15 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:13:52 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ t_token	*handle_token(t_data *d, t_token *node)
 	t_tktype	type;
 
 	type = node->type;
-	if (type == tk_hered && !node->prv)
+	if (type == tk_hered)
 	{
-		if (node->next && node->next->pipe_out)
-			return (handle_pipe(d, node->next));
-		handle_redir_heredoc(d, NULL, node->next->name, NULL);
+		handle_redir_heredoc(d, node->next);
 		return (node->next->next);
 	}
 	if (type == tk_logical)
@@ -78,6 +76,8 @@ int	exec_prompt(t_data *d, char *terminal_line)
 			show_cmd_status(d, node);
 		node = handle_token(d, node);
 	}
+	if (d->heredocfd != -1)
+		close (d->heredocfd);
 	tokens = token_first(tokens);
 	clear_tokens(tokens);
 	return (d->last_cmd_status);

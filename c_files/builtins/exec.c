@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 01:58:42 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:41:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int	handle_parent_process(pid_t child_pid)
 
 static char	*validate_exec(t_data *d, char *prg, int is_indirect)
 {
+	if (prg[0] == '.' && !prg[1])
+	{
+		ft_dprintf(2, ".: usage: . filename [arguments]\n");
+		return (NULL);
+	}
 	if (prg[0] == '.' && prg[1] == '/')
 	{
 		if (is_directory(prg))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 06:43:12 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:23:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,25 @@ void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 	close_redir_stream(d);
 }
 
-void	handle_redir_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
+void	handle_redir_heredoc(t_data *d, t_token *cmd)
+{
+	if (d->heredocfd != -1)
+		close(d->heredocfd);
+	if (!cmd)
+		custom_exit(d, "wtf in heredoc", NULL, EXIT_FAILURE);
+	if (cmd->redir_arg)
+		d->heredocfd = ft_heredoc(cmd->redir_arg->name, d, "heredoc> ");
+	else if (cmd->next)
+		d->heredocfd = ft_heredoc(cmd->next->name, d, "heredoc> ");
+	else
+		d->heredocfd = ft_heredoc(cmd->name, d, "heredoc> ");
+}
+
+void	consumate_heredoc_and_execute(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	save_original_fds(d);
-	d->fd = 0;
-	if (dup2(d->fd, STDIN_FILENO == -1))
-		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	if (cmd)
-		ft_heredoc(cmd->redir_arg->name, d, "heredoc> ");
-	else if (arg)
-		ft_heredoc(arg, d, "heredoc> ");
-	else
-		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
-	close(d->fd);
-	if (cmd && dup2(d->fd, STDOUT_FILENO))
-		d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	dup2(d->heredocfd, STDIN_FILENO);
+	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
 	close_redir_stream(d);
 }
 
@@ -100,9 +104,20 @@ t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 	t_tktype	red_type;
 	t_token		*last_node;
 
+	if (d->heredocfd != -1 || (cmd && cmd->redir && cmd->redir->type == tk_hered))
+	{
+		last_node = cmd->next;
+		if (cmd && cmd->redir && cmd->redir->type == tk_hered)
+		{
+			handle_redir_heredoc(d, cmd->redir_arg);
+			last_node = cmd->redir_arg->next;
+		}
+		consumate_heredoc_and_execute(d, cmd, arg, flags);
+		return (last_node);
+	}
 	red_type = cmd->redir->type;
 	if (red_type == tk_hered)
-		handle_redir_heredoc(d, cmd, arg, flags);
+		handle_redir_heredoc(d, cmd);
 	else if (red_type == tk_red_app)
 		handle_redir_app(d, cmd, arg, flags);
 	else if (red_type == tk_red_out)

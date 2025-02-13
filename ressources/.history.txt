@@ -1,0 +1,27 @@
+clear
+<< ola
+<< ola | cat
+<< ola
+ls | << ola | cat
+clear
+ls | << ola | cat
+deb=1
+ls | << ola | cat
+deb=1
+ls | << ola | cat
+deb=1
+ls | << ola | cat
+clear
+ls | << ola | cat
+deb=1
+ls | << ola | cat
+deb=1
+ls | << ola | cat
+ls | << ola alo ola | cat
+clear
+bash
+ls << out
+<< out alo ola
+bash
+<< out alo ola
+<< out | cat

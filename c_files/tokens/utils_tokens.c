@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 21:02:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 15:30:02 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,11 @@ void	link_token_pipes(t_token *tokens)
 			if (output)
 			{
 				node->pipe_out = output->next;
-				if (output->next->type != tk_command)
-					output->next->type = tk_exec;
+				if (output->next && output->next->is_redir)
+				{
+					if (output->next->next)
+						output->next->next->type = tk_argument;
+				}
 			}
 		}
 		node = node->next;

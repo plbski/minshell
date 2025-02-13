@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 05:15:08 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:18:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 	return (set_args(d, cmd, arg_token, flags));
 }
 
-int	validate_redir(t_token *redir)
+int	validate_redir(t_data *d, t_token *redir)
 {
+	if (d->heredocfd != -1)
+		return (1);
 	if (!redir->next)
 		return (printf("syntax error near \
 			unexpected token `newline'\n"), 0);
@@ -79,9 +81,9 @@ t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
 	arg = NULL;
 	flags = NULL;
 	nxt = setup_args(d, &arg, node, &flags);
-	if (should_redir && node->redir)
+	if ((should_redir && node->redir) || d->heredocfd != -1)
 	{
-		if (!validate_redir(node->redir))
+		if (!validate_redir(d, node->redir))
 			return (NULL);
 		nxt = handle_redir_cmd(d, node, arg, flags);
 	}
