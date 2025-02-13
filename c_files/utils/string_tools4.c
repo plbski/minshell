@@ -6,19 +6,19 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 04:35:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/03 10:10:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 18:48:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-char	*ft_strstr(char *str, char *to_find)
+char	*ft_strstr(const char *str, const char *to_find)
 {
-	char	*cur_str;
-	char	*cur_to_find;
+	const char	*cur_str;
+	const char	*cur_to_find;
 
 	if (!*to_find)
-		return (str);
+		return ((char *)str);
 	while (*str)
 	{
 		cur_str = str;
@@ -29,7 +29,7 @@ char	*ft_strstr(char *str, char *to_find)
 			cur_to_find++;
 		}
 		if (!*cur_to_find)
-			return (cur_str - ft_strlen(to_find));
+			return ((char *)str);
 		str++;
 	}
 	return (NULL);

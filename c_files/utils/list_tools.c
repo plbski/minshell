@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 13:22:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 22:05:54 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ t_dblist	*get_dblst_node(t_dblist *lst, const char *content)
 		lst = lst->next;
 	}
 	return (NULL);
-}
-
-void	add_to_list(t_data *d, t_dblist *lst, char *content)
-{
-	t_dblist	*new_node;
-	char		*new_content;
-
-	if (!content)
-		custom_exit(d, "no content for new list node", NULL, EXIT_FAILURE);
-	new_content = ms_strdup(d, content);
-	new_node = dblst_new(new_content);
-	dblst_add_back(&lst, new_node);
 }
 
 char	**get_base_env(t_data *d)
@@ -88,24 +76,28 @@ void	init_env_list(t_data *d, char **env)
 		custom_exit(d, "List alloc failed", NULL, 1);
 }
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (unsigned char)(*s1) - (unsigned char)(*s2);
+}
+
 void	reorder_dblst(t_dblist *list)
 {
 	t_dblist	*db_b;
 	char		*tmp;
-	int			min_len;
 
-	while (list->next)
+	while (list)
 	{
 		db_b = list->next;
-		while (db_b->next)
+		while (db_b)
 		{
-			if (!list->content || !db_b->content)
-				continue ;
-			min_len = ft_strlen((char *)list->content);
-			if (min_len > ft_strlen((char *)db_b->content))
-				min_len = ft_strlen((char *)db_b->content);
-			if (ft_strncmp((char *)list->content, (char *)db_b->content, \
-				min_len) > 0)
+			if (list->content && db_b->content && \
+				ft_strcmp((char *)list->content, (char *)db_b->content) > 0)
 			{
 				tmp = list->content;
 				list->content = db_b->content;

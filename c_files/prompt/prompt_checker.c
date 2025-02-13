@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_checker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:33:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 01:06:11 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 20:55:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-char	*get_quote_end(t_data *d, char *end, char *msg)
+static char	*get_quote_end(t_data *d, char *end, char *msg)
 {
 	char	*quote_append;
 	char	*quote_end;
@@ -25,7 +25,7 @@ char	*get_quote_end(t_data *d, char *end, char *msg)
 	return (quote_end);
 }
 
-int	set_quotes(t_data *d, char **prompt)
+static int	set_quotes(t_data *d, char **prompt)
 {
 	char	*quote_end;
 	int		qt_index;
@@ -53,35 +53,7 @@ int	set_quotes(t_data *d, char **prompt)
 	return (free(*prompt), *prompt = new_prompt, 1);
 }
 
-int	set_pipe(t_data *d, char **prmpt)
-{
-	char	*str;
-	int		pipe_index;
-	int		i;
-	int		no_space_found;
-
-	no_space_found = 0;
-	pipe_index = -1;
-	i = -1;
-	str = *prmpt;
-	while (str[++i])
-	{
-		if (char_in_str(str[i], "|&") && !is_in_quote(str, i))
-		{
-			if (!no_space_found)
-			{
-				printf("syntax error near unexpected token `%c'\n", str[i]);
-				return (0);
-			}
-			pipe_index = i;
-		}
-		if (str[i] != ' ')
-			no_space_found = 1;
-	}
-	return (check_pipe_validity(d, prmpt, pipe_index));
-}
-
-int	set_par(t_data *d, char **prmpt, int i)
+static int	set_par(t_data *d, char **prmpt, int i)
 {
 	int		has_open;
 	char	*prmpt_end;
@@ -108,27 +80,43 @@ int	set_par(t_data *d, char **prmpt, int i)
 	return (free(prmpt_end), free(*prmpt), *prmpt = new_prmpt, 1);
 }
 
+static int	find_unvalid_patterns(char *prmpt)
+{
+	const char	patterns[11][4] = {"| |", "& &", "& |", "| &", \
+		"&|", "|&", ">|", "<|", "|>", "|<", "< <"};
+	char		*pattern;
+	int			i;
+
+	i = -1;
+	while (++i < 11)
+	{
+		pattern = ft_strstr(prmpt, patterns[i]);
+		if (pattern)
+			break ;
+	}
+	if (pattern)
+		return (printf("msh: syntax error near unexpected token '%c'\n", \
+				pattern[0]), 1);
+	return (0);
+}
+
 int	validate_prmpt(t_data *d, char **prmpt)
 {
 	int		i;
-	int		is_only_space;
 	int		has_redir;
 	char	*str;
 
-	if (!*prmpt || *prmpt[0] == '\0')
+	if (!*prmpt || *prmpt[0] == '\0' || find_unvalid_patterns(*prmpt))
 		return (0);
 	if (!set_quotes(d, prmpt) || !set_par(d, prmpt, -1) || !set_pipe(d, prmpt))
 		return (0);
 	has_redir = 0;
 	str = *prmpt;
-	is_only_space = 1;
 	i = -1;
 	while (str[++i])
-	{
-		if (str[i] != ' ' && str[i] != '\t')
-			is_only_space = 0;
 		if ((str[i] == '<' || str[i] == '>') && !is_in_quote(str, i))
 			has_redir = 1;
-	}
-	return (validate_prmpt_b(prmpt, has_redir, is_only_space));
+	if (!has_redir)
+		return (1);
+	return (check_redir_validity(*prmpt));
 }

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 17:41:35 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 19:09:28 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ static void	exec_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
 			custom_exit(d, "fork", NULL, EXIT_FAILURE);
 		if (pids[i] == 0)
 		{
-			if (strt_cmd->redir)
-				dup2(base_stdin, STDIN_FILENO);
 			if (i == 0)
 				handle_child(d, strt_cmd, NULL, pipe_fds[i]);
 			else if (i == pipes_len)

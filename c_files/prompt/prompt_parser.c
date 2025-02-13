@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:03:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 18:12:47 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 18:33:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*get_new_split(char *str, int *i)
 	if (new_split)
 		return (new_split);
 	len = *i;
-	while (str[len] && (is_in_quote(str, *i) || !char_in_str(str[len], "()<>&| ")))
+	while (str[len] && (is_in_quote(str, *i) || \
+		!char_in_str(str[len], "()<>&| ")))
 		len++;
 	size = (len - *i + 1);
 	new_split = malloc(size);

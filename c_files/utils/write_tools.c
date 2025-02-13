@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 18:08:40 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 19:09:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ char	*char_join(char a, char b, char c, char d)
 	str[len] = '\0';
 	return (str);
 }
-
 
 void	remove_quotes(t_data *d, char **str)
 {

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 18:17:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 22:00:33 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*handle_path_in_dir(t_data *d, char *prg, int is_indirect)
 	char		*path_dir;
 
 	path_dir = get_dir_in_path(d, prg);
-	if (path_dir && is_valid_exec_file(path_dir))
+	if (path_dir && is_valid_exec_file(path_dir, &is_indirect, is_indirect))
 		return (path_dir);
 	safe_free(path_dir);
 	if (is_directory(prg))
@@ -82,21 +82,22 @@ char	*handle_path_in_dir(t_data *d, char *prg, int is_indirect)
 	return (NULL);
 }
 
-int	is_valid_exec_file(const char *file)
+int	is_valid_exec_file(const char *file, int *fct_ret, int is_direct)
 {
 	struct stat	st;
 	int			fd;
 	char		buf[4];
 
+	(void)is_direct;
 	if (is_directory(file))
-		return (0);
+		return (*fct_ret = 126, 0);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (0);
+		return (*fct_ret = 127, 0);
 	if (fstat(fd, &st) == -1 || !S_ISREG(st.st_mode) || !(st.st_mode & S_IXUSR))
-		return (0);
+		return (*fct_ret = 126, close(fd), 0);
 	if (read(fd, buf, 4) != 4)
-		return (0);
+		return (*fct_ret = 127, close(fd), 0);
 	close(fd);
 	return (1);
 }

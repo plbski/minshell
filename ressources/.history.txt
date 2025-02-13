@@ -1,74 +1,101 @@
 clear
-<< ola
-<< ola | cat
-<< ola
-ls | << ola | cat
-clear
-ls | << ola | cat
-deb=1
-ls | << ola | cat
-deb=1
-ls | << ola | cat
-deb=1
-ls | << ola | cat
-clear
-ls | << ola | cat
-deb=1
-ls | << ola | cat
-deb=1
-ls | << ola | cat
-ls | << ola alo ola | cat
-clear
-bash
-ls << out
-<< out alo ola
-bash
-<< out alo ola
-<< out | cat
-<< hero
-cat >> output.txt 
-ls >> output.txt 
-cat < output.txt 
-clear
-<< ola | cat
-<< ola
-<< ola | cat
-cat | cat | cat
-cat
-clear
-cat
-ls | cat
-ls | cat << out
-<< ola | cat
-ls << cool
-bash
-ls | echo cool >> output.txt | echo top >> output.txt 
-ls | cat
 ls
-clear
-ls | echo cool >> output.txt | echo top >> output.txt 
+pwd
+ls
+   &
 clear
 ls
 pwd
-cat cat cat
-cat ls ola > ola
-.-minishell
-.,.
+/bin/ls
 clear
-.
+cd ~
+ls
+cd -
+./~/bin/get_files_in_dir.sh c_files
+exec ~/bin/get_files_in_dir.sh c_files
+exec
+exec minishll
+exec minishell
+exec ~/bin/get_files_in_dir.sh c_files
+chmod u=wrx unvalid
+./unvalid
+exec ~/bin/get_files_in_dir.sh c_files
 clear
-pwdpwd
-pwdola
-<< cool | << top | << bonjour
-<< cool | << top | << bonjour | cat
-<< ola | cat
-cat < output.txt 
-ls&&echo cool
-ls||echo cool
-deb=1
-ls&&cd ..&&echo wow||echo top
-ls&&"echo cool"
-ls&&"c_files"
->> <
-<< red
+exec ~/bin/get_files_in_dir.sh c_files
+export PATH+=~/bin
+exec ~/bin/get_files_in_dir.sh c_files
+get_files_in_dir.sh c_files
+./get_files_in_dir.sh c_files
+./get_files_in_dir.sh
+get_files_in_dir.sh c_files
+echo $PATH
+get_files_in_dir.sh c_files
+get_files_in_dir.sh
+get_files_in_dir.sh c_files
+ls
+pwd
 clear
+get_files_in_dir.sh c_files
+clear
+get_files_in_dir.sh c_files
+clear
+get_files_in_dir.sh c_files
+clear
+get_files_in_dir.sh c_files
+clear
+get_files_in_dir.sh c_files
+clear
+get_files_in_dir.sh c_files
+clear
+get_files_in_dir.sh c_files
+$?
+cd olapo
+$?
+olapo
+$?
+get_files_in_dir.sh c_files
+unvalid
+./unvalid
+unvalid
+get_files_in_dir.sh c_files
+clear
+get_files_in_dir.sh c_files
+unvalid
+./unvalid
+olapo
+unvalid
+./unvalid
+./minishell
+clear
+./unvalid
+./minishell
+clear
+./minishell
+clear
+./minishell
+olapo
+unvalid
+ls -la olapo
+ls
+olapo
+clear
+pwd
+unvalid
+./unvalid
+clear
+ls
+pwd
+clear
+env
+export
+ZSH+=cool
+export
+export ola=3
+export
+export a aa b bb c cc
+export
+export -___-
+export wapo|
+export wapo|ola
+export
+ls |

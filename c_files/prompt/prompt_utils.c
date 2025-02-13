@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 18:04:48 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 20:01:13 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,19 @@ int	get_terminal_prompt(t_data *d)
 	free(prompt_msg);
 	if (!user_input)
 		return (0);
+	if (only_space(user_input))
+		return (free(user_input), rl_replace_line("", 0), rl_on_new_line(), 1);
+	if (!d->prv_input || !cmp_str(d->prv_input, user_input))
+		add_history(user_input);
 	if (validate_prmpt(d, &user_input))
 	{
 		user_input = solo_pipe(d, user_input);
 		exec_prompt(d, user_input);
-		if (!d->prv_input || !cmp_str(d->prv_input, user_input))
-			add_history(user_input);
 		safe_free(d->prv_input);
 		d->prv_input = ms_strdup(d, user_input);
 		update_env_variables(d);
 	}
-	free(user_input);
-	return (rl_replace_line("", 0), rl_on_new_line(), 1);
+	return (free(user_input), rl_replace_line("", 0), rl_on_new_line(), 1);
 }
 
 void	unquote_splits(t_data *d, char **splits)

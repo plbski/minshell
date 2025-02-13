@@ -6,13 +6,79 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 09:33:49 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 18:21:33 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 19:05:18 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-char	is_valid_redir(char *p, int i, int j, char c)
+int	only_space(char *str)
+{
+	int	i;
+	int	is_only_space;
+
+	is_only_space = 1;
+	i = -1;
+	while (str[++i])
+		if (str[i] != ' ' && str[i] != '\t')
+			is_only_space = 0;
+	return (is_only_space);
+}
+
+static int	check_pipe_validity(t_data *d, char **prmpt, int last_pipe_index)
+{
+	int		i;
+	char	*heredoc_content;
+	char	*new_prmpt;
+	char	*str;
+
+	if (last_pipe_index == -1)
+		return (1);
+	str = *prmpt;
+	i = last_pipe_index + 1;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (str[i] == '\0')
+	{
+		heredoc_content = parse_heredoc(NULL, d, "> ");
+		if (!heredoc_content)
+			return (0);
+		new_prmpt = ms_strjoin(d, *prmpt, heredoc_content);
+		free(*prmpt);
+		*prmpt = new_prmpt;
+	}
+	return (1);
+}
+
+int	set_pipe(t_data *d, char **prmpt)
+{
+	char	*str;
+	int		pipe_index;
+	int		i;
+	int		no_space_found;
+
+	no_space_found = 0;
+	pipe_index = -1;
+	i = -1;
+	str = *prmpt;
+	while (str[++i])
+	{
+		if (char_in_str(str[i], "|&") && !is_in_quote(str, i))
+		{
+			if (!no_space_found)
+			{
+				printf("syntax error near unexpected token `%c'\n", str[i]);
+				return (0);
+			}
+			pipe_index = i;
+		}
+		if (str[i] != ' ')
+			no_space_found = 1;
+	}
+	return (check_pipe_validity(d, prmpt, pipe_index));
+}
+
+static char	is_valid_redir(char *p, int i, int j, char c)
 {
 	if (char_in_str(p[0], "&|>"))
 		return (p[0]);
@@ -53,38 +119,4 @@ unexpected token %c\n", invalid_token);
 		return (0);
 	}
 	return (1);
-}
-
-int	check_pipe_validity(t_data *d, char **prmpt, int last_pipe_index)
-{
-	int		i;
-	char	*heredoc_content;
-	char	*new_prmpt;
-	char	*str;
-
-	if (last_pipe_index == -1)
-		return (1);
-	str = *prmpt;
-	i = last_pipe_index + 1;
-	while (str[i] && str[i] == ' ')
-		i++;
-	if (str[i] == '\0')
-	{
-		heredoc_content = parse_heredoc(NULL, d, "> ");
-		if (!heredoc_content)
-			return (0);
-		new_prmpt = ms_strjoin(d, *prmpt, heredoc_content);
-		free(*prmpt);
-		*prmpt = new_prmpt;
-	}
-	return (1);
-}
-
-int	validate_prmpt_b(char **prmpt, int has_redir, int is_only_spc)
-{
-	if (is_only_spc)
-		return (0);
-	if (!has_redir)
-		return (1);
-	return (check_redir_validity(*prmpt));
 }

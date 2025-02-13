@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 18:21:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 22:04:55 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <sys/ioctl.h>
 
 # define START_ANIM_TEXT "			\033[31m~~~ \033[35mMinishell \033[31mby \
 \033[34mgvlente \033[31m& \033[34mpbuet\033[31m ~~~ \033[0m"
@@ -184,7 +185,8 @@ int			get_char_index(char *str, char c);
 //		utils/string_tools.c
 char		*ft_remove_prefix(t_data *d, const char *str, char *prefix);
 char		*truncate_at_end(const char *str, char cut_letter);
-char		*ft_str_mega_join(const char *a, const char *b, const char *c, const char *d);
+char		*ft_str_mega_join(const char *a, const char *b, \
+		const char *c, const char *d);
 int			chr_amnt(const char *str, char c);
 int			get_arr_len(void **arr);
 
@@ -196,7 +198,7 @@ int			update_env_variables(t_data *d);
 int			set_key_value(t_data *d, t_dblist *list, char *key, char *value);
 
 //		utils/string_tools4.c
-char		*ft_strstr(char *str, char *to_find);
+char		*ft_strstr(const char *str, const char *to_find);
 char		**ft_split_str(t_data *d, char *str, char *sep);
 int			char_in_str(char c, const char *txt);
 
@@ -214,7 +216,6 @@ void		remove_quotes(t_data *d, char **str);
 
 //		utils/list_tools.c
 t_dblist	*get_dblst_node(t_dblist *lst, const char *content);
-void		add_to_list(t_data *d, t_dblist *lst, char *content);
 char		**get_base_env(t_data *d);
 void		init_env_list(t_data *d, char **env);
 void		reorder_dblst(t_dblist *list);
@@ -244,7 +245,6 @@ int			execute_ls(t_data *d, char *arg, int print_arg, int error_if_dir);
 int			ls(t_data *d, char *arg, char **flags, int status);
 
 //		builtins/exec.c
-int			handle_parent_process(pid_t child_pid);
 int			exec(t_data *d, char *prg, char **argv, int is_indirect);
 
 //		builtins/exit.c
@@ -264,7 +264,7 @@ int			echo(t_data *d, char *arg, char **flags, int status);
 char		**set_argv(t_data *d, char *prog_name);
 char		*get_dir_in_path(t_data *d, char *cmd_name);
 char		*handle_path_in_dir(t_data *d, char *prg, int is_indirect);
-int			is_valid_exec_file(const char *file);
+int			is_valid_exec_file(const char *file, int *fct_ret, int is_direct);
 int			increment_shlvl(t_data *d);
 
 //		prompt/prompt_execute.c
@@ -272,21 +272,16 @@ int			handle_direct_exec(t_data *d, char *cmd_name, char *arg, char **fl);
 int			execute_command(t_data *d, char *cmd_name, char *arg, char **flags);
 
 //		prompt/prompt_checker.c
-char		*get_quote_end(t_data *d, char *end, char *msg);
-int			set_quotes(t_data *d, char **prompt);
-int			set_pipe(t_data *d, char **prmpt);
-int			set_par(t_data *d, char **prmpt, int i);
 int			validate_prmpt(t_data *d, char **prmpt);
+
+//		prompt/prompt_checker2.c
+int			only_space(char *str);
+int			set_pipe(t_data *d, char **prmpt);
+int			check_redir_validity(char *prompt);
 
 //		prompt/prompt.c
 char		*solo_pipe(t_data *d, char *trm_line);
 int			get_terminal_prompt(t_data *d);
-
-//		prompt/prompt_checker2.c
-char		is_valid_redir(char *p, int i, int j, char c);
-int			check_redir_validity(char *prompt);
-int			check_pipe_validity(t_data *d, char **prmpt, int last_pipe_index);
-int			validate_prmpt_b(char **prmpt, int has_redir, int is_only_spc);
 
 //		signal.c
 void		setup_signal(int is_waiting, int is_heredoc);
@@ -301,7 +296,7 @@ t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
 t_token		*handle_logical_token(t_data *d, t_token *node);
 t_token		*handle_token(t_data *d, t_token *node);
 int			exec_prompt(t_data *d, char *terminal_line);
-t_token		*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags);
+t_token		*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flg);
 
 //		tokens/utils_tokens.c
 char		*get_new_split(char *str, int *i);
@@ -336,5 +331,7 @@ void		remove_token(t_token *token);
 //		minishell.c
 char		*get_last_line(t_data *d, const char *filename);
 char		*get_next_line(int fd);
+
+void		ensure_new_line(void);
 
 #endif
