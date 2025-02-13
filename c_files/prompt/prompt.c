@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/10 17:18:41 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 06:34:58 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,27 @@ char	*solo_pipe(t_data *d, char *trm_line)
 int	get_terminal_prompt(t_data *d)
 {
 	char	*prompt_msg;
-	char	*terminal_line;
+	char	*user_input;
 
 	if (!d->cwd)
 		custom_exit(d, "No cwd", NULL, EXIT_FAILURE);
 	prompt_msg = get_prompt_message(d);
 	if (!prompt_msg)
 		custom_exit(d, "Prompt alloc failed", NULL, EXIT_FAILURE);
-	terminal_line = readline(prompt_msg);
+	user_input = readline(prompt_msg);
 	free(prompt_msg);
-	if (!terminal_line)
+	if (!user_input)
 		return (0);
-	if (validate_prmpt(d, &terminal_line))
+	if (validate_prmpt(d, &user_input))
 	{
-		terminal_line = solo_pipe(d, terminal_line);
-		add_history(terminal_line);
-		exec_prompt(d, terminal_line);
+		user_input = solo_pipe(d, user_input);
+		exec_prompt(d, user_input);
+		if (!d->prv_input || !cmp_str(d->prv_input, user_input))
+			add_history(user_input);
+		safe_free(d->prv_input);
+		d->prv_input = ms_strdup(d, user_input);
 		update_env_variables(d);
 	}
-	free(terminal_line);
-	rl_replace_line("", 0);
-	rl_on_new_line ();
-	return (1);
+	free(user_input);
+	return (rl_replace_line("", 0), rl_on_new_line(), 1);
 }

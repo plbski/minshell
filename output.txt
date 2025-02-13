@@ -1,0 +1,10 @@
+2
+ola output.txt cool ca va
+ola cool ca va
+ola
+ola
+ola
+ola
+ola
+ola
+ola

@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 18:28:53 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 07:23:15 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,21 @@ t_token	*handle_token(t_data *d, t_token *node)
 	t_tktype	type;
 
 	type = node->type;
-	if (type == tk_command || type == tk_exec)
+	if (type == tk_hered && !node->prv)
+	{
+		if (node->next && node->next->pipe_out)
+			return (handle_pipe(d, node->next));
+		handle_redir_heredoc(d, NULL, node->next->name, NULL);
+		return (node->next->next);
+	}
+	if (type == tk_logical)
+		return (handle_logical_token(d, node));
+	else if (type == tk_command || type == tk_exec)
 	{
 		if (node->pipe_out)
 			return (handle_pipe(d, node));
 		return (handle_command_token(d, node, 1));
 	}
-	if (type == tk_hered)
-		return (handle_redir(d, node, node->next, node->type));
-	if (type == tk_logical)
-		return (handle_logical_token(d, node));
 	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
 		export(d, node->name, NULL, 1);
 	return (node->next);
@@ -73,6 +78,7 @@ int	exec_prompt(t_data *d, char *terminal_line)
 			show_cmd_status(d, node);
 		node = handle_token(d, node);
 	}
+	tokens = token_first(tokens);
 	clear_tokens(tokens);
 	return (d->last_cmd_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute_and_capture.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:37:20 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 18:27:32 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 06:48:43 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,6 @@ t_token	*redirect_pipe(t_data *d, t_token *nxt, int pipefd[2], int redir)
 	return (nxt);
 }
 
-t_token	*get_after_red(t_data *d, t_token *cmd)
-{
-	t_token	*next;
-
-	next = cmd;
-	while (next && next->type != tk_red_out && next->type != tk_red_app)
-		next = next->next;
-	if (!next || !next->next)
-		custom_exit(d, "exec redir error: no after redir", NULL, EXIT_FAILURE);
-	return (next->next);
-}
-
 t_token	*skip_type(t_token *tok, t_tktype type_to_skip)
 {
 	while (tok && tok->type == type_to_skip)
@@ -76,30 +64,18 @@ t_token	*skip_type(t_token *tok, t_tktype type_to_skip)
 	return (tok);
 }
 
-t_token	*exec_cmd_with_redir(t_data *d, t_token *cmd, char *arg, char **flags)
+t_token	*get_next_redir(t_token *d)
 {
-	pid_t	pid;
-	int		pipefd[2];
-	t_token	*after_red;
-	int		ret_value;
+	t_token	*node;
 
-	after_red = get_after_red(d, cmd);
-	if (pipe(pipefd) == -1)
-		custom_exit(d, "Pipe creation failed", NULL, EXIT_FAILURE);
-	pid = fork();
-	if (pid == 0)
+	if (!d)
+		return (NULL);
+	node = d;
+	while (node)
 	{
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[0]);
-		ret_value = execute_command(d, cmd->name, arg, flags);
-		custom_exit(d, "null", NULL, ret_value);
+		if (node->is_redir)
+			return (node);
+		node = node->next;
 	}
-	close(pipefd[1]);
-	d->last_exit_st = handle_parent_process(pid);
-	if (d->last_exit_st == FCT_SUCCESS)
-		after_red = redirect_pipe(d, after_red, pipefd, after_red->prv->type);
-	else
-		after_red = skip_type(after_red, tk_argument);
-	close(pipefd[0]);
-	return (after_red);
+	return (NULL);
 }

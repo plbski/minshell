@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 15:34:30 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/13 07:18:04 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,19 @@ static int	should_skip_line(char *line, int *print_line)
 	return (0);
 }
 
-static void	exec_heredoc(t_data *d, char *nd, char *print)
+void	exec_heredoc(char *nd, char *print, int heredoc_fd)
 {
 	char	*line;
 	int		print_prompt;
 
+	print_prompt = 1;
 	while (1)
 	{
-		ft_dprintf(STDOUT_FILENO, "%s", print);
+		if (print_prompt)
+			ft_dprintf(STDOUT_FILENO, "%s", print);
+		print_prompt = 1;
 		line = get_next_line(STDIN_FILENO);
-		if (!line || handle_heredoc_interrupt())
+		if (handle_heredoc_interrupt())
 			break ;
 		if (should_skip_line(line, &print_prompt))
 			continue ;
@@ -58,21 +61,21 @@ static void	exec_heredoc(t_data *d, char *nd, char *print)
 			free(line);
 			break ;
 		}
-		ft_dprintf(d->heredocpipe[1], "%s\n", line);
+		write(heredoc_fd, line, ft_strlen(line));
+		write(heredoc_fd, "\n", 1);
 		safe_free(line);
 	}
-	close(d->heredocpipe[1]);
 }
 
-void	ft_heredoc(char *end, t_data *d, char *print)
+int	ft_heredoc(char *end, t_data *d, char *print)
 {
-	if (pipe(d->heredocpipe) == -1)
-		custom_exit(d, "pipe error", NULL, EXIT_FAILURE);
-	save_original_fds(d);
+	int	heredoc_fd;
+
+	heredoc_fd = open(d->heredoc_wd, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (heredoc_fd == -1)
+		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
 	setup_signal(1, 1);
-	exec_heredoc(d, end, print);
-	g_quit_in_heredoc = 0;
+	exec_heredoc(end, print, heredoc_fd);
 	setup_signal(0, 0);
-	if (dup2(d->heredocpipe[0], STDIN_FILENO) == -1)
-		custom_exit(d, "erreur dup2 dans heredoc", NULL, EXIT_FAILURE);
+	return (heredoc_fd);
 }

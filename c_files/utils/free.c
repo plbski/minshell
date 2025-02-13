@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 18:05:02 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 06:14:16 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	free_data(t_data *data)
 	free_count += safe_free(data->history_wd);
 	free_count += safe_free(data->logname);
 	free_count += safe_free(data->home_wd);
+	free_count += safe_free(data->prv_input);
 	if (debug_output)
 		printf("freed %d items.\n", free_count);
 	return (free_count);

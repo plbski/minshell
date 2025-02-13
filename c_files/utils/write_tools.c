@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 18:17:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 06:42:45 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,27 @@ void	reverse_str_array(char **arr, int size)
 		i++;
 		j--;
 	}
+}
+
+void	remove_quotes(t_data *d, char **str)
+{
+	int		i;
+	int		j;
+	char	*new_str;
+
+	if (!str || !*str)
+		return ;
+	new_str = ms_malloc(d, ft_strlen(*str) + 1);
+	i = -1;
+	j = 0;
+	while ((*str)[++i])
+	{
+		if (((*str)[i] == '\"' || (*str)[i] == '\'') \
+			&& (!is_in_quote(*str, i) || i == 0))
+			continue ;
+		new_str[j++] = (*str)[i];
+	}
+	new_str[j] = '\0';
+	free(*str);
+	*str = new_str;
 }

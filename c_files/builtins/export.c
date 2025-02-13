@@ -6,12 +6,11 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 18:07:28 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:21:19 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
-
 
 static int	is_valid_key(char *key)
 {

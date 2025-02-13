@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 12:16:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 01:58:42 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,27 @@ int	handle_parent_process(pid_t child_pid)
 	return (-1);
 }
 
-static char	*validate_exec(t_data *d, char *prg)
+static char	*validate_exec(t_data *d, char *prg, int is_indirect)
 {
 	if (prg[0] == '.' && prg[1] == '/')
 	{
-		if (access(prg, F_OK) == -1 || is_directory(prg))
-			ft_dprintf(2, "msh: exec: %s: not found\n", prg);
+		if (is_directory(prg))
+			ft_dprintf(2, "msh: %s: Is a directory\n", prg);
+		else if (access(prg, F_OK) == -1)
+			ft_dprintf(2, "msh: %s: no such file or directory\n", prg);
 		else
 			ft_dprintf(2, "msh: %s: Permission denied\n", prg);
 		return (NULL);
 	}
-	return (handle_path_in_dir(d, prg));
+	return (handle_path_in_dir(d, prg, is_indirect));
 }
 
-int	exec(t_data *d, char *prg, char **argv, int u)
+int	exec(t_data *d, char *prg, char **argv, int is_indirect)
 {
 	pid_t		child_pid;
 	char		*new_prg;
 
-	(void)u;
-	if (cmp_str(prg, "exec"))
+	if (cmp_str(prg, "exec") || !prg)
 		return (FCT_SUCCESS);
 	if (!argv || !argv[0])
 	{
@@ -75,7 +76,7 @@ int	exec(t_data *d, char *prg, char **argv, int u)
 		argv = set_argv(d, prg);
 	}
 	if (!is_valid_exec_file(prg))
-		new_prg = validate_exec(d, prg);
+		new_prg = validate_exec(d, prg, is_indirect);
 	else
 		new_prg = ms_strdup(d, prg);
 	if (!new_prg)

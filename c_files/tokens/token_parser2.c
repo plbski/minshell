@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parser2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 08:42:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 02:04:35 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

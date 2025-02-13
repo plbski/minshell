@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 14:18:13 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 06:13:45 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,15 @@ static int	init_data_directories(t_data *data)
 	working_dir_buff = custom_get_cwd(data);
 	data->start_wd = working_dir_buff;
 	data->man_wd = ms_strjoin(data, working_dir_buff, "/doc/");
-	data->history_wd = ms_strjoin(data, working_dir_buff, "/.history.txt");
+	data->history_wd = ft_str_mega_join(working_dir_buff, \
+		"/ressources/", ".history.txt", NULL);
+	if (!data->history_wd)
+		custom_exit(data, "alloc for history wd", NULL, EXIT_FAILURE);
 	read_history(data->history_wd);
+	data->heredoc_wd = ft_str_mega_join(working_dir_buff, \
+		"/ressources/", ".heredoc.txt", NULL);
+	if (!data->heredoc_wd)
+		custom_exit(data, "alloc for heredoc_wd", NULL, EXIT_FAILURE);
 	return (1);
 }
 
@@ -68,6 +75,7 @@ void	init_data(t_data *data, char **env)
 	data->env_list = NULL;
 	data->tmp_list = NULL;
 	data->var_list = NULL;
+	data->prv_input = NULL;
 	data->saved_stdin = -1;
 	data->saved_stdout = -1;
 	data->fd = -1;

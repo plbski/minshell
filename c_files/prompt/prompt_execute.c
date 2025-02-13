@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_execute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 13:48:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 01:57:07 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	handle_direct_exec(t_data *d, char *cmd_name, char *arg, char **flags)
 	while (++i < arr_len)
 		new_flg[i] = ms_strdup(d, flags[i - 1 - (arg != NULL)]);
 	new_flg[i] = NULL;
-	fct_ret = exec(d, rm_name, new_flg, 0);
+	fct_ret = exec(d, rm_name, new_flg, 1);
 	free_void_array((void ***)&new_flg);
 	return (free(rm_name), fct_ret);
 }
@@ -52,16 +52,6 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 			return (d->blt_fct[i](d, arg, flags, EXIT_SUCCESS));
 	if (cmp_str(cmd_name, "var") && d->var_list)
 		return (dblst_print_list(d->var_list, 0), FCT_SUCCESS);
-	if (access(cmd_name, X_OK) != -1)
-		return (handle_direct_exec(d, cmd_name, arg, flags));
-	if (cmd_name[0] == '.' && cmd_name[1] == '/')
-		return (handle_direct_exec(d, cmd_name, arg, flags));
-	else if (!ft_strncmp(cmd_name, "exec", 5))
-	{
-		if (!arg)
-			return (FCT_SUCCESS);
-		return (handle_direct_exec(d, arg, NULL, flags));
-	}
 	else if (chr_amnt(cmd_name, '=') == 1)
 		return (export(d, cmd_name, flags, 1));
 	else if (cmp_str(cmd_name, "declare") && arg && cmp_str(arg, "-x"))

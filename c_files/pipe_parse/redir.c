@@ -6,100 +6,111 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 18:16:32 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 06:43:12 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-void	save_original_fds(t_data *d)
+void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 {
-	d->saved_stdin = dup(STDIN_FILENO);
-	d->saved_stdout = dup(STDOUT_FILENO);
-	if (d->saved_stdin == -1 || d->saved_stdout == -1)
-		custom_exit(d, "Failed to save original fd", NULL, EXIT_FAILURE);
-}
-
-void	close_redir_stream(t_data *d)
-{
-	if (d->fd >= 0)
-		close(d->fd);
-	d->fd = -1;
-	if (d->saved_stdin == -1 && d->saved_stdout == -1)
-		return ;
-	if (d->saved_stdin != -1 && dup2(d->saved_stdin, STDIN_FILENO) == -1)
-		custom_exit(d, "Failed to restore STDIN", NULL, EXIT_FAILURE);
-	if (d->saved_stdout != -1 && dup2(d->saved_stdout, STDOUT_FILENO) == -1)
-		custom_exit(d, "Failed to restore STDOUT", NULL, EXIT_FAILURE);
-	if (d->saved_stdin != -1)
-		close(d->saved_stdin);
-	if (d->saved_stdout != -1)
-		close(d->saved_stdout);
-	d->saved_stdin = -1;
-	d->saved_stdout = -1;
-}
-
-int	get_fd(t_data *d, char *file_path, t_tktype r_type)
-{
-	int	fd;
-
-	if (r_type == tk_red_app)
-		fd = open(file_path, O_WRONLY | O_APPEND | O_CREAT, 0644);
-	else if (r_type == tk_red_out)
-		fd = open(file_path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	else
-		fd = open(file_path, O_RDONLY);
-	if (fd == -1)
-		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	return (fd);
-}
-
-int	create_file(t_data *d, char *file_name, t_tktype r_type)
-{
+	char	*file_name;
 	char	*path;
-	int		dup_target;
 
-	if (access(file_name, F_OK) == -1 && r_type == tk_red_in)
-		return (printf("msh: %s: No such file or directory\n", file_name), 0);
+	if (!cmd || !cmd->redir_arg || !cmd->redir_arg->name)
+		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
+	file_name = cmd->redir_arg->name;
 	save_original_fds(d);
-	d->fd = 0;
-	if (!file_name)
-		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
 	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
 	if (!path)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
-	d->fd = get_fd(d, path, r_type);
+	d->fd = get_fd(d, path, tk_red_out);
 	free(path);
-	if ((r_type == tk_red_app || r_type == tk_red_out))
-		dup_target = STDOUT_FILENO;
-	else
-		dup_target = STDIN_FILENO;
-	if (dup2(d->fd, dup_target) == -1)
+	if (dup2(d->fd, STDOUT_FILENO) == -1)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	if (d->fd >= 0)
-		close(d->fd);
-	return (1);
+	close(d->fd);
+	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	close_redir_stream(d);
 }
 
-t_token	*handle_redir(t_data *d, t_token *redir, \
-		t_token *tok_after, t_tktype type)
+void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 {
-	t_token		*before_redir;
+	char	*file_name;
+	char	*path;
 
-	before_redir = redir->prv;
-	if (type == tk_hered)
-		ft_heredoc(tok_after->name, d, "heredoc> ");
-	else if (!tok_after || ! before_redir)
-		custom_exit(d, "Error in redir tokens", NULL, EXIT_FAILURE);
-	if (type == tk_red_out || type == tk_red_app)
+	if (!cmd || !cmd->redir_arg || !cmd->redir_arg->name)
+		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
+	file_name = cmd->redir_arg->name;
+	save_original_fds(d);
+	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
+	if (!path)
+		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
+	d->fd = get_fd(d, path, tk_red_app);
+	free(path);
+	if (dup2(d->fd, STDOUT_FILENO) == -1)
+		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+	close(d->fd);
+	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	close_redir_stream(d);
+}
+
+void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
+{
+	char	*file_name;
+
+	if (!cmd || !cmd->redir_arg || !cmd->redir_arg->name)
+		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
+	file_name = cmd->redir_arg->name;
+	if (access(file_name, F_OK) == -1)
 	{
-		if (before_redir && before_redir->pipe_out)
-			handle_command_token(d, before_redir, 0);
-		create_file(d, tok_after->name, type);
+		printf("msh: %s: No such file or directory\n", file_name);
+		d->last_exit_st = FCT_FAIL;
+		return ;
 	}
-	else if (type == tk_red_in)
-		create_file(d, tok_after->name, tk_red_in);
-	if (tok_after)
-		return (tok_after->next);
-	return (tok_after);
+	save_original_fds(d);
+	d->fd = open(file_name, O_RDONLY);
+	if (d->fd == -1)
+		custom_exit(d, "error opening file", NULL, EXIT_FAILURE);
+	if (dup2(d->fd, STDIN_FILENO) == -1)
+		custom_exit(d, "error dup2", NULL, EXIT_FAILURE);
+	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	close_redir_stream(d);
+}
+
+void	handle_redir_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
+{
+	save_original_fds(d);
+	d->fd = 0;
+	if (dup2(d->fd, STDIN_FILENO == -1))
+		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+	if (cmd)
+		ft_heredoc(cmd->redir_arg->name, d, "heredoc> ");
+	else if (arg)
+		ft_heredoc(arg, d, "heredoc> ");
+	else
+		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
+	close(d->fd);
+	if (cmd && dup2(d->fd, STDOUT_FILENO))
+		d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	close_redir_stream(d);
+}
+
+t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
+{
+	t_tktype	red_type;
+	t_token		*last_node;
+
+	red_type = cmd->redir->type;
+	if (red_type == tk_hered)
+		handle_redir_heredoc(d, cmd, arg, flags);
+	else if (red_type == tk_red_app)
+		handle_redir_app(d, cmd, arg, flags);
+	else if (red_type == tk_red_out)
+		handle_redir_out(d, cmd, arg, flags);
+	else if (red_type == tk_red_in)
+		handle_redir_in(d, cmd, arg, flags);
+	last_node = cmd->redir_arg;
+	while (last_node && last_node->type == tk_argument)
+		last_node = last_node->next;
+	return (last_node);
 }

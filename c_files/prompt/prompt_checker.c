@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_checker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:33:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/08 00:53:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 01:06:11 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	set_quotes(t_data *d, char **prompt)
 		qt_index = get_char_index(*prompt, '\'');
 	if (chr_amnt(*prompt, '\"') % 2 == 1)
 		dbqt_index = get_char_index(*prompt, '\"');
-	if (qt_index == -1 && dbqt_index == -1)
+	if ((qt_index == -1 && dbqt_index == -1) || \
+		is_in_quote(*prompt, qt_index) || is_in_quote(*prompt, dbqt_index))
 		return (1);
 	if ((qt_index > 0 && qt_index < dbqt_index) || dbqt_index == -1)
 		quote_end = get_quote_end(d, "\'", "quote> ");

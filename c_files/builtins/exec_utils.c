@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 12:18:41 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 01:57:58 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	**set_argv(t_data *d, char *prog_name)
 {
 	char	**new_argv;
 
+	if (!prog_name)
+		custom_exit(d, "no prog name in set_argv", NULL, EXIT_FAILURE);
 	new_argv = malloc(sizeof(char *) * 2);
 	if (!new_argv)
 		custom_exit(d, "Exec argv error", NULL, EXIT_FAILURE);
@@ -52,22 +54,32 @@ char	*get_dir_in_path(t_data *d, char *cmd_name)
 	return (cmd_path);
 }
 
-char	*handle_path_in_dir(t_data *d, char *prg)
+char	*handle_path_in_dir(t_data *d, char *prg, int is_indirect)
 {
 	char		*path_dir;
 
 	path_dir = get_dir_in_path(d, prg);
-	if (!path_dir || !is_valid_exec_file(path_dir))
+	if (path_dir && is_valid_exec_file(path_dir))
+		return (path_dir);
+	safe_free(path_dir);
+	if (is_directory(prg))
 	{
-		if (path_dir)
-			free(path_dir);
-		if (access(prg, F_OK) == -1 || is_directory(prg))
+		if (!is_indirect)
+			ft_dprintf(2, "msh: exec: %s: \
+				cannot execute: Is a directory\n", prg);
+		else
+			ft_dprintf(2, "%s: command not found\n", prg);
+	}
+	else if (access(prg, F_OK) == -1)
+	{
+		if (!is_indirect)
 			ft_dprintf(2, "msh: exec: %s: not found\n", prg);
 		else
-			ft_dprintf(2, "msh: %s: Permission denied\n", prg);
-		return (NULL);
+			ft_dprintf(2, "%s: command not found\n", prg);
 	}
-	return (path_dir);
+	else
+		ft_dprintf(2, "msh: %s: Permission denied\n", prg);
+	return (NULL);
 }
 
 int	is_valid_exec_file(const char *file)

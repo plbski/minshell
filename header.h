@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 13:25:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 06:48:28 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,12 @@ typedef struct s_data
 	char		*man_wd;
 	char		*start_wd;
 	char		*history_wd;
+	char		*heredoc_wd;
 	char		*home_wd;
 	char		*logname;
 	char		**environ;
-	int			heredocpipe[2];
+	char		*prv_input;
+	int			heredocfd;
 	const char	**types_names;
 	t_dblist	*env_list;
 	t_dblist	*tmp_list;
@@ -128,6 +130,9 @@ typedef struct s_token
 	struct s_token	*prv;
 	struct s_token	*next;
 	struct s_token	*pipe_out;
+	struct s_token	*redir;
+	struct s_token	*redir_arg;
+	int				is_redir;
 	int				par;
 	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
 }	t_token;
@@ -136,14 +141,13 @@ typedef struct s_token
 t_token		*handle_pipe(t_data *d, t_token *cmd);
 
 //		pipe_parse/redir.c
-int			create_file(t_data *d, char *file_name, t_tktype r_type);
-t_token		*handle_redir(t_data *d, t_token *rd, t_token *aft_rd, t_tktype tp);
+t_token		*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags);
 void		close_redir_stream(t_data *d);
 void		save_original_fds(t_data *d);
 int			get_fd(t_data *d, char *file_path, t_tktype r_type);
 
 //		pipe_parse/heredoc.c
-void		ft_heredoc(char *end, t_data *d, char *print);
+int			ft_heredoc(char *end, t_data *d, char *print);
 char		*parse_heredoc(char *end, t_data *d, char *print);
 
 //		init.c
@@ -184,6 +188,7 @@ char		*replace_str(t_data *d, char *str, char *remove, char *replace);
 char		*read_file(t_data *d, int fd);
 int			is_builtin_cmd(t_data *d, char *str);
 void		reverse_str_array(char **arr, int size);
+void		remove_quotes(t_data *d, char **str);
 
 //		utils/env_tools.c
 void		update_environ(t_data *d);
@@ -233,7 +238,7 @@ int			clear(t_data *d, char *a, char **f, int st);
 int			cat(t_data *d, char *arg, char **flags, int status);
 int			echo(t_data *d, char *arg, char **flags, int status);
 int			env(t_data *d, char *arg, char **flags, int has_prefix);
-int			exec(t_data *d, char *program, char **argv, int u);
+int			exec(t_data *d, char *program, char **argv, int is_indirect);
 int			unset(t_data *d, char *arg, char **flags, int status);
 int			pwd(t_data *d, char *arg, char **flags, int status);
 int			export(t_data *d, char *arg, char **flags, int tmp_mem);
@@ -241,7 +246,7 @@ int			export(t_data *d, char *arg, char **flags, int tmp_mem);
 //		exec_utils.c
 char		**set_argv(t_data *d, char *prog_name);
 char		*get_dir_in_path(t_data *d, char *cmd_name);
-char		*handle_path_in_dir(t_data *d, char *prg);
+char		*handle_path_in_dir(t_data *d, char *prg, int is_indirect);
 int			is_valid_exec_file(const char *file);
 
 //		free.c
@@ -259,7 +264,7 @@ void		init_builtins_data(t_data *d);
 void		setup_signal(int is_waiting, int is_heredoc);
 
 //		tokens/token_execute.c
-t_token		*set_args(t_data *d, t_token *strt, t_tktype k_typ, char ***args);
+t_token		*set_args(t_data *d, t_token *cmd, t_token *arg, char ***flags);
 t_token		*handle_command_token(t_data *d, t_token *node, int handle_redir);
 t_token		*handle_token(t_data *d, t_token *node);
 int			exec_prompt(t_data *d, char *terminal_line);
@@ -308,5 +313,8 @@ t_token		*skip_type(t_token *tok, t_tktype type_to_skip);
 
 int			is_valid_exec_file(const char *file);
 int			increment_shlvl(t_data *d);
+t_token		*get_next_redir(t_token *d);
+void		handle_redir_heredoc(t_data *d, t_token *cmd, \
+	char *arg, char **flags);
 
 #endif

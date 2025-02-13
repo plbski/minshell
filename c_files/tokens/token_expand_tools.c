@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_expand_tools.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 13:41:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 02:24:51 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 	char	*new_name;
 	int		was_cmd;
 
-	if (d->debug_mode)
-		printf("Evaluating %s's expansion\n", node->name);
 	was_cmd = 0;
 	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/'))
 	{
@@ -137,5 +135,9 @@ void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 		if (set_new_type)
 			node->type = get_token_type(d, &was_cmd, node->name, node->prv);
 	}
-	remove_chars(d, &node->name, "\'\"");
+	if (node->type == tk_command || node->type == tk_exec)
+		node->redir = get_next_redir(node);
+	if (node->redir)
+		node->redir_arg = node->redir->next;
+	remove_quotes(d, &node->name);
 }
