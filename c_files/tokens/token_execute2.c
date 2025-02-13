@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 16:18:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 17:30:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,29 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 	return (set_args(d, cmd, arg_token, flags));
 }
 
+t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
+{
+	char	*content;
+
+	d->heredocfd = open(d->heredoc_wd, O_RDONLY, 0644);
+	if (!cmd)
+	{
+		content = get_fd_content(d, d->heredocfd);
+		if (content)
+			printf("%s", content);
+		return (NULL);
+	}
+	save_original_fds(d);
+	dup2(d->heredocfd, STDIN_FILENO);
+	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	close_redir_stream(d);
+	d->heredocfd = -1;
+	close(d->heredocfd);
+	if (cmd->redir_arg)
+		return (cmd->redir_arg->next);
+	return (cmd->next);
+}
+
 int	validate_redir(t_data *d, t_token *redir)
 {
 	if (d->heredocfd != -1)
@@ -85,7 +108,10 @@ t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
 	{
 		if (!validate_redir(d, node->redir))
 			return (NULL);
-		nxt = handle_redir_cmd(d, node, arg, flags);
+		if (node->redir)
+			nxt = handle_redir_cmd(d, node, arg, flags);
+		if (d->heredocfd != -1)
+			nxt = consumate_heredoc(d, node, arg, flags);
 	}
 	else
 		d->last_exit_st = execute_command(d, node->name, arg, flags);

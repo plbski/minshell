@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 16:13:52 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 17:29:55 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	exec_prompt(t_data *d, char *terminal_line)
 		node = handle_token(d, node);
 	}
 	if (d->heredocfd != -1)
-		close (d->heredocfd);
+		consumate_heredoc(d, NULL, NULL, NULL);
 	tokens = token_first(tokens);
 	clear_tokens(tokens);
 	return (d->last_cmd_status);

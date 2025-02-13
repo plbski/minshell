@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 16:18:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 17:29:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ t_token		*get_next_redir(t_token *d);
 void		handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags);
 void		handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags);
 void		handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags);
-void		handle_redir_heredoc(t_data *d, t_token *cmd);
+void		handle_redir_heredoc(t_data *d, t_token *redir_arg);
 t_token		*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags);
 
 //		pipe_parse/heredoc.c
@@ -301,6 +301,7 @@ t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
 t_token		*handle_logical_token(t_data *d, t_token *node);
 t_token		*handle_token(t_data *d, t_token *node);
 int			exec_prompt(t_data *d, char *terminal_line);
+t_token		*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags);
 
 //		tokens/utils_tokens.c
 char		*get_new_split(char *str, int *i);

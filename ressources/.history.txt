@@ -25,3 +25,20 @@ ls << out
 bash
 << out alo ola
 << out | cat
+<< hero
+cat >> output.txt 
+ls >> output.txt 
+cat < output.txt 
+clear
+<< ola | cat
+<< ola
+<< ola | cat
+cat | cat | cat
+cat
+clear
+cat
+ls | cat
+ls | cat << out
+<< ola | cat
+ls << cool
+bash
