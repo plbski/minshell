@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 02:20:38 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 03:55:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:45:28 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,22 @@ void	reset_redir(t_data *d)
 		close(d->saved_stdout);
 	d->saved_stdin = -1;
 	d->saved_stdout = -1;
+}
+
+void	restore_fds(t_data *d)
+{
+	if (d->base_stdin != -1)
+	{
+		if (dup2(d->base_stdin, STDIN_FILENO) == -1)
+			custom_exit(d, "Failed to restore stdin", NULL, EXIT_FAILURE);
+		close(d->base_stdin);
+		d->base_stdin = -1;
+	}
+	if (d->base_stdout != -1)
+	{
+		if (dup2(d->base_stdout, STDIN_FILENO) == -1)
+			custom_exit(d, "Failed to restore stdout", NULL, EXIT_FAILURE);
+		close(d->base_stdout);
+		d->base_stdout = -1;
+	}
 }

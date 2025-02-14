@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 03:50:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 16:12:38 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 		close(fd_out[0]);
 		close(fd_out[1]);
 	}
-	should_redir = !fd_out;
+	if (cmd->redir)
+		restore_fds(d);
+	should_redir = 1;
 	handle_command_token(d, cmd, should_redir);
 	custom_exit(d, NULL, NULL, EXIT_CHILD);
 }

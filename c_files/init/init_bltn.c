@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 22:50:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:33:38 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	init_builtins_names(t_data *data)
 		custom_exit(data, "Bltin_names alloc failed", NULL, EXIT_FAILURE);
 	data->bltin_names[e_cd] = ms_strdup(data, "cd");
 	data->bltin_names[e_echo] = ms_strdup(data, "echo");
-	data->bltin_names[e_ls] = ms_strdup(data, "ls");
+	data->bltin_names[e_ls] = ms_strdup(data, "mls");
 	data->bltin_names[e_env] = ms_strdup(data, "env");
 	data->bltin_names[e_exec] = ms_strdup(data, "exec");
 	data->bltin_names[e_exit] = ms_strdup(data, "exit");

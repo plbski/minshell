@@ -6,7 +6,7 @@
 /*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 16:47:19 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:06:52 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_heredoc(char *end, t_data *d, char *print)
 {
 	int	heredoc_fd;
 
-	printf("%s\n", d->heredoc_wd);
+	//consumate_stdin(d);
 	heredoc_fd = open(d->heredoc_wd, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (heredoc_fd == -1)
 		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 12:48:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:19:21 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ typedef enum e_redir_type
 
 typedef struct s_data
 {
+	int			base_stdin;
+	int			base_stdout;
 	int			auto_compl_pid;
 	int			fd;
 	int			received_env;
@@ -338,5 +340,7 @@ void		remove_token(t_token *token);
 char		*get_last_line(t_data *d, const char *filename);
 
 char		*get_next_line(int fd);
+void		restore_fds(t_data *d);
+void		consumate_stdin(t_data *d);
 
 #endif
