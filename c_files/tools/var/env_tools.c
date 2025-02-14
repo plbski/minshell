@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 04:23:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 13:42:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,18 @@
 void	update_environ(t_data *d)
 {
 	char		**new_env;
+	int			i;
 
 	if (!d->env_list)
-		custom_exit(d, "No env list to update", NULL, EXIT_FAILURE);
+	{
+		i = -1;
+		while (d->environ && d->environ[++i])
+		{
+			free(d->environ[i]);
+			d->environ[i] = NULL;
+		}
+		return ;
+	}
 	new_env = list_to_arr(d->env_list);
 	if (!new_env)
 		return ;

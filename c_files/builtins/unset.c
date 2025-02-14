@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 22:29:32 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 13:23:40 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	remove_element(t_dblist **list, char *arg)
 	element = get_dblst_at_key(*list, arg);
 	if (!element)
 		return (0);
-	if (!element->next)
-		*list = NULL;
+	if (element == *list)
+		*list = element->next;
 	dblst_delone(element, free);
 	return (1);
 }
@@ -57,10 +57,9 @@ int	unset(t_data *d, char *arg, char **flags, int status)
 	i = -1;
 	while (flags && flags[++i])
 	{
-		if (exec_unset(d, flags[i]) == FCT_SUCCESS)
-			ret_val = FCT_SUCCESS;
+		if (exec_unset(d, flags[i]) != FCT_SUCCESS)
+			ret_val = FCT_FAIL;
 	}
-	if (ret_val == FCT_SUCCESS)
-		update_environ(d);
-	return (FCT_SUCCESS);
+	update_environ(d);
+	return (ret_val);
 }

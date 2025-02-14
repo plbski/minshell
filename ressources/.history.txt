@@ -223,3 +223,176 @@ clear
 ls ..*
 ls ../*
 ls ../.
+cat en.subject_Minishell.pdf | grap Bonus
+cat en.subject_Minishell.pdf | grep Bonus
+cat en.subject_Minishell.pdf 
+cllear
+clear
+cd doc
+cat * | grep switch
+cd ..
+cat doc | grep switch
+$? + $?
+clear
+echo $? && cd olapo || echo $?
+(echo $? && cd olapo || echo $?) && export -__ | echo $? 
+bash
+xv
+echo cat lol.c | cat > lol.c
+echo "cat lol.c" | cat > lol.c
+echo 'ola >> output.txt'
+echo 'ola >> outpu"t.txt"'
+emv
+unset -= COLORTERM _P9K_SSH_TTY HOMEBREW_CELLAR INFOPATH GIT_ASKPASS VSCODE_GIT_ASKPASS_NOD
+env | grep =
+clear
+env | cut -d'=' -f2-
+env | cut -d'=' -f2-
+env
+for var in $(env | cut -d'=' -f1); do unset "$var"; done
+clear
+unset SHLVL
+env
+unset PATH
+env
+unset -
+unset _
+env
+unset PWD
+env
+unset SHLVL PATH _ PWD
+clear
+env
+export
+unset PATH PWD SHLVL _
+export
+var
+unset deb
+export
+env
+clear
+env
+unset SHLVL
+exporrt
+export
+unset PATH
+export
+unset PWD _
+export
+env
+unset SHLVL PATH _ PWD
+pwd
+clear
+env
+unset SHLVL PATH _ PWD
+export
+env
+clear
+env
+unset SHLVL PATH _ PWD
+export
+env
+unset SHLVL PATH _ PWD
+clear
+env
+unset SHLVL PATH _ PWD
+env
+export
+export first=1
+env
+export
+env
+unset SHLVL PATH _ PWD
+env
+export
+export ola=3
+env
+export
+env
+unset SHLVL
+unset PATH
+unset PWD
+env
+unset _
+export
+expoet a=b
+export a=b
+export
+env
+a=b
+var
+a=b
+var
+env
+unset SHLVL PATH _ PWD
+env
+export a=b
+env
+unset SHLVL PATH _ PWD
+env
+export a=b
+env
+unset SHLVL PATH _ PWD
+export a=b
+env
+unset SHLVL PATH _ PWD
+export a=b
+echo $a
+export
+export b=c
+export
+clear
+env
+unset SHLVL PATH _ PWD
+export
+export a=b
+export
+export b=c
+export
+env
+unset SHLVL PATH _ PWD
+export
+env
+export a=b
+export
+export b=c
+export
+env
+unset SHLVL PATH _ PWD
+export a=b
+export
+echo $a
+env
+unset SHLVL PATH _ PWD
+export a=b
+export
+env
+unset SHLVL PATH _ PWD
+export a=b
+export
+env
+unset SHLVL PATH _ PWD
+export a=b
+export
+clear
+env
+unset SHLVL PATH _ PWD
+export
+export a=b
+export
+env
+clear
+env
+unset SHLVL PATH _ PWD
+env
+export
+export ola=5
+env
+export
+export ola="'5'""
+export
+ola'
+echo << ola
+cat << ola
+olapo'
+olapo'

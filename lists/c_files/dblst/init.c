@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:07:37 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/27 13:24:22 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 13:27:55 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	dblst_add_back(t_dblist **lst, t_dblist *new)
 		return ;
 	if (!*lst)
 	{
+		new->next = NULL;
+		new->prev = NULL;
 		*lst = new;
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 04:22:40 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 12:48:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,6 @@
 # define RESET "\033[0m"
 # define GREY "\033[38;5;240m"
 # define LIGHT_GREY "\033[38;5;250m"
-
-# ifndef NO_COLOR
-#  define NO_COLOR
-#  define PROMPT_SQARE ""
-#  define RED ""
-#  define GREEN ""
-#  define YELLOW ""
-#  define BLUE ""
-#  define MAGENTA ""
-#  define CYAN ""
-#  define RESET ""
-#  define GREY ""
-#  define LIGHT_GREY ""
-# endif
-
-# ifndef NO_COLOR
-#  define NO_COLOR 1
-#  define PROMPT_SQARE ""
-#  define RED ""
-#  define GREEN ""
-#  define YELLOW ""
-#  define BLUE ""
-#  define MAGENTA ""
-#  define CYAN ""
-#  define RESET ""
-#  define GREY ""
-#  define LIGHT_GREY ""
-# endif
 
 # define PROMPT_LOGNAME_COL 	CYAN
 # define PROMPT_CWD_COL			YELLOW

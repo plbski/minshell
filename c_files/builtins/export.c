@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 04:02:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 13:41:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ int	export(t_data *d, char *arg, char **flags, int tmp_mem)
 		env_copy = arr_to_dblst((void **)d->environ);
 		reorder_dblst(dblst_first(env_copy));
 		dblst_print_list(env_copy, 1);
-		dblst_clear(&env_copy, free);
-		return (FCT_SUCCESS);
+		return (dblst_clear(&env_copy, free), FCT_SUCCESS);
 	}
 	ret_value = exec_export(d, arg, tmp_mem);
 	if (ret_value != FCT_SUCCESS)

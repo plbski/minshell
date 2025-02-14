@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:22:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/11 13:38:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 13:41:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	**list_to_arr(t_dblist *l)
 	if (!l)
 		return (NULL);
 	list_size = dblst_size(l);
+	if (list_size <= 0)
+		return (NULL);
 	l = dblst_first(l);
 	list = malloc(sizeof(char *) * (list_size + 1));
 	if (!list)
@@ -49,7 +51,8 @@ char	**list_to_arr(t_dblist *l)
 	i = 0;
 	while (l)
 	{
-		list[i++] = list_strdup(l->content);
+		if (l->content)
+			list[i++] = list_strdup(l->content);
 		l = l->next;
 	}
 	list[i] = NULL;
