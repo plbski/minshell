@@ -1,0 +1,27 @@
+[?2004h[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0mls
+[?2004la.out
+a.supp
+c_files
+doc
+dprintf
+en.subject_Minishell.pdf
+gnl
+header.h
+libft
+lists
+lol.c
+makefile
+minishell
+minishell.dSYM
+olapo.txt
+ressources
+test_programs
+tester
+[?2004h[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0mpwd
+[?2004l/Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell
+[?2004h[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0m^C[?2004l
+[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0m[?2004h[?2004l
+[?2004h[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0mls
+[?2004l[?2004h[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0mpwd
+[?2004l[?2004h[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0m^C[?2004l
+[36mgiuliovalente [0m[33m~/Desktop/42/42_Projects_GIT/core_3/minishell[35m$ [0m[0m[?2004h[?2004l

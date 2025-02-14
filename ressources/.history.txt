@@ -432,3 +432,26 @@ cat | cat | cat | cat | ls
 clear
 cat | olapo
 cat | olapo | ls
+ls
+pwd
+ls
+pwd
+exit 10
+exit "ola"
+clear
+ls
+pwd
+echo ola >> output.txt | echo bonjour >> output.txt | echo cool >> output.txt
+echo ola >> output.txt
+echo bonjour >> output.txt
+echo cool >> output.txt
+echo cool << redir | echo top << redira | echo tip << rediro
+clear
+echo cool << redir | echo top << redira | echo tip << rediro
+clear
+cat < output.txt | cat < output.txt | cat < output.txt 
+echo bonjour > output.txt && echo bonjour > output.txt
+echo bonjour >> output.txt && echo bonjour >> output.txt
+echo bonjour >> output.txt | echo bonjour >> output.txt 
+echo bonjour >> output.txt | echo bonjour >> output.txt | echo bonjour >> output.txt 
+echo "a" >> output.txt | echo "b" > output.txt | echo "c" > output.txt 
