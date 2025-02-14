@@ -396,3 +396,39 @@ echo << ola
 cat << ola
 olapo'
 olapo'
+echo Hello from parent
+pwd
+ls
+echo Hello from parent
+pwd
+ls
+echo Hello from parent
+pwd
+ls
+ls | cat << test
+cat << test
+ ls | cat << test 
+clear
+ ls | cat << test 
+clear
+ ls | cat << test 
+ls | cat << test 
+clear
+ls | cat << test 
+<< ola
+<< oola
+<< oal
+<< coo
+<< alo
+ls | cat << test 
+ls
+ls | cat << test 
+clear
+ls | cat << test 
+ls | echo cool
+ls | cat << test 
+cat | cat | cat | cat
+cat | cat | cat | cat | ls
+clear
+cat | olapo
+cat | olapo | ls

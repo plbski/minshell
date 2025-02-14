@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 03:50:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:40:55 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 		close(fd_out[0]);
 		close(fd_out[1]);
 	}
+	if (cmd->redir && cmd->redir->type == tk_hered)
+		restore_fds(d);
 	should_redir = !fd_out;
 	handle_command_token(d, cmd, should_redir);
 	custom_exit(d, NULL, NULL, EXIT_CHILD);

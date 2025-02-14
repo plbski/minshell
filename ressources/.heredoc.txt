@@ -1,3 +1,2 @@
-alo
-cool
-bonjour
+ls
+pwd

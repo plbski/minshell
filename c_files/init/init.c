@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 15:53:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:44:33 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,17 @@ static int	init_data_directories(t_data *data)
 	return (1);
 }
 
+void	init_base_stds(t_data *data)
+{
+	data->base_stdin = dup(STDIN_FILENO);
+	data->base_stdout = dup(STDOUT_FILENO);
+	if (data->base_stdin == -1 || data->base_stdout == -1)
+       custom_exit(data, "failed to save stds", NULL, EXIT_FAILURE);
+}
+
 void	init_data(t_data *data, char **env)
 {
+	init_base_stds(data);
 	data->cwd = NULL;
 	data->prev_cwd = NULL;
 	data->start_wd = NULL;
