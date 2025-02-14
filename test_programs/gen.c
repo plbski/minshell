@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 09:33:14 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/04 09:58:15 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 04:36:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ int	main(int argc, char *argv[])
 		nmb_len = atoi(argv[1]);
 	while (nmb_len--)
 		printf("%d ", (rand() % ((nmb_len + 1) * 2)) * (1 - (rand() % 2) * 2));
+	printf("\n");
 }

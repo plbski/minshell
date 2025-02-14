@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 00:33:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 04:02:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ not a valid identifier\n", arg), 127);
 	{
 		new_node = dblst_new(ft_str_mega_join(key, "=", value, NULL));
 		if (!new_node->content)
-			custom_exit(d, "No prompt for node", NULL, 1);
+			custom_exit(d, "N for node", NULL, 1);
 		if (!tmp_mem)
 			dblst_add_back(&d->env_list, new_node);
 		else if (!set_key_value(d, d->var_list, key, value))

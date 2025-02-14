@@ -31,3 +31,195 @@ clear
 echo"first command"||echo"second co'cool'mmand"
 clear
 echo"first command"||echo"second co'cool'mmand"
+echo "hello world"
+echo "hello world"
+$?
+echo 'helllo world'
+echo "hello 'world'"
+echo 'hello "world"'
+echo '""'
+bash
+make re
+./minishell
+exit
+ola '
+ola 
+ola ' '
+ola " 
+ola " 
+bash
+<< ola
+oal '
+oal '
+clear
+oal '
+oal '
+oolapo
+ola ' ' '
+'
+'
+clear
+ls
+pwdc
+clear
+echo "first 'nested \"quoted\" string' second"
+$?
+pwd
+$?
+unset wquqwf
+$?
+export
+$?
+cd /tmp
+clear
+cd -
+cd
+cd -
+echo "Hello" && pwd || echo "Failed"
+echo "Hello world" | cat
+cat < output.txt
+echo "Hello world" | cat
+$?
+pwd | grep home
+pwd | grep /
+pwd | grep minishell
+pwd | grep Users
+env | grep PATH
+env | grep bin
+env | grep local
+env | grep Commands
+env | grep SHLVL
+export NAME="Minishell" | echo "Hello $NAME" | cat -e
+export
+export NAME="Minishell"
+export
+echo $NAME
+export NAME=OLAPO echo $NAME
+echo $NAME
+ls /bin | wc -l
+echo "OK" | grep OK && echo "Success"
+$?
+echo "OK" | grep OK
+echo "OK" | grep OK || echo "SUCC"
+echo "OK" | echo cool
+echo "OK" | cat && echo cool
+echo "OK" | cat || echo cool
+deb=1
+echo "OK" | grep OK || echo "SUCC"
+deb=1
+echo "OK" | grep OK || echo "SUCC"
+deb=1
+echo "OK" | grep OK || echo "SUCC"
+deb=1
+deb=1
+echo "OK" | grep OK || echo "SUCC"
+deb=1
+echo "OK" | grep OK || echo "SUCC"
+deb=1
+deb=1
+echo "OK" | grep OK || echo "SUCC"
+deb=1
+echo "OK" | grep OK || echo "SUCC"
+echo "OK" | grep OK || echo "SUCC" cool super top
+deb=1
+echo "OK" | grep OK || echo "SUCC" cool super top
+deb=1
+echo "OK" | grep OK || echo "SUCC" cool super top
+deb=1
+echo "OK" | grep OK || echo "SUCC" cool super top
+deb=1
+echo "OK" | grep OK || echo "SUCC" cool super top
+deb=0
+echo "OK" | grep OK || echo "SUCC" cool super top
+echo "OK" | grep OK && echo "SUCC" cool super top
+echo "OK" | grep OK
+echo "OK" | grep OK || echo "SUCC" cool super top
+echo "OK" | grep OK || echo "SUCC" cool super top | cat
+echo "OK" | grep OK && echo "SUCC" cool super top | cat
+echo "ok" | cat
+echo "ok" | grep OK | cat
+echo "ok" | echo cool | cat
+echo "ok" | echo cool  && echo top | cat
+echo "ok" | echo cool  || echo top | cat
+exec
+ls
+clear
+ls /bin | grep sh | wc -l | cat -e
+ls /bin | grep sh | wc -l
+ls /bin | grep sh
+ls /bin | grep sh | wc -l
+zsh
+dd
+hostname
+dash
+csh
+tet
+test
+test cool
+wait4path
+ps
+sync
+kd
+ksh
+link
+kill
+ls
+ps
+kill 87954
+ps
+kill 87954
+kill minishel
+kill minishell
+<< l
+ola'
+ola'
+ola(
+clear
+ls
+ls test_programs/
+$?
+clear
+cd ~~
+cd ~
+ls
+cd -
+exec ~/Desktop/42/42_Projects_GIT/core_3/minishell/test_programs/gen
+clear
+exec ~/Desktop/42/42_Projects_GIT/core_3/minishell/test_programs/gen 50
+cc test_programs/gen.c
+exec ~/Desktop/42/42_Projects_GIT/core_3/minishell/test_programs/gen 50
+./test_programs/gen
+cc test_programs/gen.c -o gen
+./gen
+rm gen
+cc test_programs/gen.c -o gen
+rm gen
+clear
+make test_programs
+make test_programs re
+make fclean
+clear
+make re
+cd test_programs/
+clear
+./gen | ./rev
+./gen | ./sort
+cd -
+cc sort.c -o sort
+./gen | ./sort
+./gen 50 | ./sort
+./gen 50 | ./rev | ./sort
+./gen 50 | ./sort | ./rev
+./gen 500 | ./sort | ./rev
+./gen 500 && echo generated 500 numbers | ./sort && echo sorted | ./rev && echo reversed
+clear
+ls
+pwd
+clear
+clear;
+;
+ls *
+clear
+ls ..*
+ls ../*
+ls ../.

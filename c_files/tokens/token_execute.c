@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_execute2.c                                   :+:      :+:    :+:   */
+/*   token_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 17:44:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 03:55:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 			printf("%s", content);
 		return (NULL);
 	}
-	save_original_fds(d);
+	save_stds(d);
 	dup2(d->heredocfd, STDIN_FILENO);
 	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
-	close_redir_stream(d);
+	reset_redir(d);
 	d->heredocfd = -1;
 	close(d->heredocfd);
 	if (cmd->redir_arg)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plbuet <plbuet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 08:44:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/06 14:47:07 by plbuet           ###   ########.fr       */
+/*   Updated: 2025/02/14 04:38:33 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,10 @@ int	main(int argc, char *argv[])
 {
 	char	buffer[99999];
 
-	printf("start test\n");
 	if (argc < 2)
 	{
 		if (!fgets(buffer, 99999, stdin))
 			return (1);
-		printf("buffer : %s\n", buffer);
 		buffer[strcspn(buffer, "\n")] = 0;
 	}
 	else
@@ -81,5 +79,6 @@ int	main(int argc, char *argv[])
 		buffer[99999 - 1] = '\0';
 	}
 	sort(buffer);
+	printf("\n");
 	return (0);
 }

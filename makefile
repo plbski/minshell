@@ -5,16 +5,17 @@ TEST_PRG_NAME = test
 
 MINISHELL_PRG_SRC = c_files/minishell.c
 MINISHELL_SRC = \
-c_files/init/init.c c_files/init/init_bltn.c c_files/pipe_parse/parse_heredoc.c c_files/pipe_parse/fds.c \
-c_files/pipe_parse/pipe.c c_files/pipe_parse/redir_tools.c c_files/pipe_parse/redir.c c_files/pipe_parse/heredoc.c \
-c_files/utils/string_tools3.c c_files/utils/string_tools.c c_files/utils/env_tools.c c_files/utils/string_tools4.c \
-c_files/utils/design_tools.c c_files/utils/write_tools.c c_files/utils/list_tools.c c_files/utils/debug.c \
-c_files/utils/free.c c_files/utils/string_tools2.c c_files/builtins/ls.c c_files/builtins/exec.c c_files/builtins/exit.c \
-c_files/builtins/unset.c c_files/builtins/env.c c_files/builtins/pwd.c c_files/builtins/export.c c_files/builtins/cd.c \
-c_files/builtins/doc.c c_files/builtins/exec_utils.c c_files/builtins/echo.c c_files/prompt/prompt_execute.c \
-c_files/prompt/prompt_checker.c c_files/prompt/prompt.c c_files/prompt/prompt_checker2.c c_files/prompt/prompt_parser.c \
-c_files/signal.c c_files/tokens/token_execute.c c_files/tokens/utils_tokens.c c_files/tokens/token_parser2.c \
-c_files/tokens/token_expand_tools.c c_files/tokens/token_parser.c c_files/tokens/tokens.c \
+c_files/init/init.c c_files/init/init_bltn.c c_files/tools/str_tools/write_tools.c c_files/tools/str_tools/strget_tools.c \
+c_files/tools/str_tools/splitstr_tools.c c_files/tools/str_tools/strcmp_tools.c c_files/tools/str_tools/strmod_tools.c \
+c_files/tools/var/env_tools.c c_files/tools/var/quote_tools.c c_files/tools/var/var_tools.c c_files/tools/var/free_tools.c \
+c_files/tools/var/list_tools.c c_files/tools/debug.c c_files/tools/signal.c c_files/input/input_check.c \
+c_files/input/input_execute.c c_files/input/input_split.c c_files/input/input.c c_files/input/input_checkb.c \
+c_files/redirection/parse_heredoc.c c_files/redirection/fds.c c_files/redirection/pipe.c c_files/redirection/redir_tools.c \
+c_files/redirection/redir.c c_files/redirection/heredoc.c c_files/builtins/ls.c c_files/builtins/exec.c \
+c_files/builtins/exit.c c_files/builtins/unset.c c_files/builtins/env.c c_files/builtins/pwd.c c_files/builtins/export.c \
+c_files/builtins/cd.c c_files/builtins/doc.c c_files/builtins/exec_utils.c c_files/builtins/echo.c c_files/tokens/token_parse2.c \
+c_files/tokens/token_parse.c c_files/tokens/token_execute.c c_files/tokens/utils_tokens.c c_files/tokens/token_expand.c \
+c_files/tokens/tokens.c
 
 LIBFT_DIR = libft/
 DPRINTF_DIR = dprintf/
@@ -27,7 +28,7 @@ DPRINTF = $(DPRINTF_DIR)printf.a
 LISTS = $(LISTS_DIR)lists.a
 LIBFT = $(LIBFT_DIR)libft.a
 
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include
 LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
