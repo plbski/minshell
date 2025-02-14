@@ -396,3 +396,12 @@ echo << ola
 cat << ola
 olapo'
 olapo'
+ls
+ls | cat << test
+<< TEST
+<< test
+cat << test
+ls | cat << test
+<< test
+make re
+<< test

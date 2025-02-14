@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 03:55:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:40:21 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,12 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 
 t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 {
-	char	*content;
-
 	d->heredocfd = open(d->heredoc_wd, O_RDONLY, 0644);
 	if (!cmd)
 	{
-		content = get_fd_content(d, d->heredocfd);
-		if (content)
-			printf("%s", content);
+		// content = get_fd_content(d, d->heredocfd);
+		// if (content)
+		// 	printf("%s", content);
 		return (NULL);
 	}
 	save_stds(d);
