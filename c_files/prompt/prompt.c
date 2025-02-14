@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_utils.c                                     :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 20:01:13 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 23:03:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,4 @@ int	get_terminal_prompt(t_data *d)
 		update_env_variables(d);
 	}
 	return (free(user_input), rl_replace_line("", 0), rl_on_new_line(), 1);
-}
-
-void	unquote_splits(t_data *d, char **splits)
-{
-	int	i;
-
-	i = -1;
-	while (splits[++i])
-		remove_chars(d, &splits[i], "\'\"");
 }

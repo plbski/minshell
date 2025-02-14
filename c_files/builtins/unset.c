@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 17:40:47 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/13 22:29:32 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ static int	exec_unset(t_data *d, char *arg)
 {
 	int	has_unset;
 
+	if (!is_valid_identifier(arg))
+	{
+		printf("msh: unset: `%s': not a valid identifier\n", arg);
+		return (CMD_NOT_FOUND);
+	}
 	if (!arg)
 		return (FCT_FAIL);
 	has_unset = 0;

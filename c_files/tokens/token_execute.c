@@ -1,84 +1,123 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_execute.c                                    :+:      :+:    :+:   */
+/*   token_execute2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 20:05:09 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 17:29:55 by giuliovalen      ###   ########.fr       */
+/*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
+/*   Updated: 2025/02/13 17:44:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-t_token	*handle_logical_token(t_data *d, t_token *node)
+t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 {
-	int			min_par;
+	t_dblist	*list;
+	t_token		*node;
+	char		**new_arr;
 
-	if ((cmp_str(node->name, "||") && d->last_exit_st == FCT_SUCCESS) || \
-	(cmp_str(node->name, "&&") && d->last_exit_st > 0))
+	list = NULL;
+	node = arg_token->next;
+	while (node && (node->type == tk_argument || \
+		(cmd->redir && cmd->redir == node)))
 	{
-		min_par = node->par;
-		node = node->next;
-		if (node && node->next)
-			node = node->next;
-		while (node && ((node->type == tk_argument || node->par > min_par)))
+		if (!node->is_redir && !(cmd->redir_arg && cmd->redir_arg == node))
 		{
-			if (d->debug_mode)
-				printf("%sskipped %s%s\n", GREY, node->name, RESET);
-			node = node->next;
+			update_node_expansion(d, node, 0);
+			dblst_add_back(&list, dblst_new(ms_strdup(d, node->name)));
 		}
-		return (node);
+		node = node->next;
 	}
-	return (node->next);
+	if (!list)
+		return (arg_token);
+	list = dblst_first(list);
+	new_arr = list_to_arr(list);
+	dblst_clear(&list, free);
+	free_void_array((void ***)flags);
+	*flags = new_arr;
+	return (node);
 }
 
-t_token	*handle_token(t_data *d, t_token *node)
+t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 {
-	t_tktype	type;
+	t_token	*arg_token;
 
-	type = node->type;
-	if (type == tk_hered)
+	if (!cmd->next)
+		return (NULL);
+	if (cmd->next->type != tk_argument)
+		return (cmd->next);
+	arg_token = cmd->next;
+	update_node_expansion(d, arg_token, 0);
+	*arg = arg_token->name;
+	if (!arg_token->next)
 	{
-		handle_redir_heredoc(d, node->next);
-		return (node->next->next);
+		*flags = NULL;
+		return (NULL);
 	}
-	if (type == tk_logical)
-		return (handle_logical_token(d, node));
-	else if (type == tk_command || type == tk_exec)
-	{
-		if (node->pipe_out)
-			return (handle_pipe(d, node));
-		return (handle_command_token(d, node, 1));
-	}
-	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
-		export(d, node->name, NULL, 1);
-	return (node->next);
+	return (set_args(d, cmd, arg_token, flags));
 }
 
-int	exec_prompt(t_data *d, char *terminal_line)
+t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 {
-	t_token	*tokens;
-	t_token	*node;
+	char	*content;
 
-	tokens = tokenize_string(d, terminal_line);
-	if (!tokens)
-		return (FCT_FAIL);
-	node = token_first(tokens);
-	d->last_cmd_status = -1;
-	while (node)
+	d->heredocfd = open(d->heredoc_wd, O_RDONLY, 0644);
+	if (!cmd)
 	{
-		update_node_expansion(d, node, 1);
-		if (!validate_token(d, node))
-			break ;
-		if (d->debug_mode)
-			show_cmd_status(d, node);
-		node = handle_token(d, node);
+		content = get_fd_content(d, d->heredocfd);
+		if (content)
+			printf("%s", content);
+		return (NULL);
 	}
+	save_original_fds(d);
+	dup2(d->heredocfd, STDIN_FILENO);
+	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	close_redir_stream(d);
+	d->heredocfd = -1;
+	close(d->heredocfd);
+	if (cmd->redir_arg)
+		return (cmd->redir_arg->next);
+	return (cmd->next);
+}
+
+int	validate_redir(t_data *d, t_token *redir)
+{
 	if (d->heredocfd != -1)
-		consumate_heredoc(d, NULL, NULL, NULL);
-	tokens = token_first(tokens);
-	clear_tokens(tokens);
-	return (d->last_cmd_status);
+		return (1);
+	if (!redir->next)
+		return (printf("syntax error near \
+			unexpected token `newline'\n"), 0);
+	else if (redir->type == tk_red_in && access(redir->next->name, F_OK) == -1)
+		return (printf("mash: %s: No such file or directory\n", \
+			redir->next->name), 0);
+	return (1);
+}
+
+t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
+{
+	t_token		*nxt;
+	char		**flags;
+	char		*arg;
+
+	arg = NULL;
+	flags = NULL;
+	nxt = setup_args(d, &arg, node, &flags);
+	if ((should_redir && node->redir) || d->heredocfd != -1)
+	{
+		if (!validate_redir(d, node->redir))
+			return (NULL);
+		if (node->redir)
+			nxt = handle_redir_cmd(d, node, arg, flags);
+		if (d->heredocfd != -1)
+			nxt = consumate_heredoc(d, node, arg, flags);
+	}
+	else
+		d->last_exit_st = execute_command(d, node->name, arg, flags);
+	if (d->debug_mode)
+		show_exec_info(d, node, arg, flags);
+	if (nxt && nxt->type == tk_argument)
+		nxt = nxt->next;
+	return (free_void_array((void ***)&flags), nxt);
 }

@@ -10,12 +10,11 @@ c_files/pipe_parse/pipe.c c_files/pipe_parse/redir_tools.c c_files/pipe_parse/re
 c_files/utils/string_tools3.c c_files/utils/string_tools.c c_files/utils/env_tools.c c_files/utils/string_tools4.c \
 c_files/utils/design_tools.c c_files/utils/write_tools.c c_files/utils/list_tools.c c_files/utils/debug.c \
 c_files/utils/free.c c_files/utils/string_tools2.c c_files/builtins/ls.c c_files/builtins/exec.c c_files/builtins/exit.c \
-c_files/builtins/cat.c c_files/builtins/unset.c c_files/builtins/env.c c_files/builtins/pwd.c c_files/builtins/clear.c \
-c_files/builtins/export.c c_files/builtins/cd.c c_files/builtins/doc.c c_files/builtins/exec_utils.c \
-c_files/builtins/echo.c c_files/prompt/prompt_execute.c c_files/prompt/prompt_checker.c c_files/prompt/prompt_checker2.c \
-c_files/prompt/prompt_utils.c c_files/prompt/prompt_parser.c c_files/signal.c c_files/tokens/token_execute2.c \
-c_files/tokens/token_execute.c c_files/tokens/utils_tokens.c c_files/tokens/token_parser2.c c_files/tokens/token_expand_tools.c \
-c_files/tokens/token_parser.c c_files/tokens/tokens.c
+c_files/builtins/unset.c c_files/builtins/env.c c_files/builtins/pwd.c c_files/builtins/export.c c_files/builtins/cd.c \
+c_files/builtins/doc.c c_files/builtins/exec_utils.c c_files/builtins/echo.c c_files/prompt/prompt_execute.c \
+c_files/prompt/prompt_checker.c c_files/prompt/prompt.c c_files/prompt/prompt_checker2.c c_files/prompt/prompt_parser.c \
+c_files/signal.c c_files/tokens/token_execute.c c_files/tokens/utils_tokens.c c_files/tokens/token_parser2.c \
+c_files/tokens/token_expand_tools.c c_files/tokens/token_parser.c c_files/tokens/tokens.c \
 
 LIBFT_DIR = libft/
 DPRINTF_DIR = dprintf/
@@ -41,7 +40,7 @@ RESET = 	\033[0m
 
 $(MINISHELL_NAME): $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(GNL) $(DPRINTF) $(LISTS)
 	make -C $(TEST_PRG_DIR) --no-print-directory re
-	$(CC) $(CFLAGS) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -DNO_COLOR -o $(MINISHELL_NAME) $(LDFLAGS)
 	@echo "$(MAGENTA)$(MINISHELL_NAME) successfully built.$(RESET)"
 
 $(LIBFT):

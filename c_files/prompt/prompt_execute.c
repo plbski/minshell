@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_execute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:28:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 01:57:07 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/14 00:25:52 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,77 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 	else if (cmp_str(cmd_name, "declare"))
 		return (export(d, arg, flags, 1));
 	return (handle_direct_exec(d, cmd_name, arg, flags));
+}
+
+t_token	*handle_logical_token(t_data *d, t_token *node)
+{
+	int			min_par;
+
+	if ((cmp_str(node->name, "||") && d->last_exit_st == FCT_SUCCESS) || \
+	(cmp_str(node->name, "&&") && d->last_exit_st > 0))
+	{
+		min_par = node->par;
+		node = node->next;
+		if (node && node->next)
+			node = node->next;
+		while (node && (((node->type == tk_argument || node->is_redir) || node->par > min_par)))
+		{
+			if (d->debug_mode)
+				printf("%sskipped %s%s\n", GREY, node->name, RESET);
+			node = node->next;
+		}
+		if (node && node->is_redir)
+			return (node->next);
+		return (node);
+	}
+	return (node->next);
+}
+
+t_token	*handle_token(t_data *d, t_token *node)
+{
+	t_tktype	type;
+
+	type = node->type;
+	if (type == tk_hered)
+	{
+		handle_redir_heredoc(d, node->next);
+		return (node->next->next);
+	}
+	if (type == tk_logical)
+		return (handle_logical_token(d, node));
+	else if (type == tk_command || type == tk_exec)
+	{
+		if (node->pipe_out)
+			return (handle_pipe(d, node));
+		return (handle_command_token(d, node, 1));
+	}
+	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
+		export(d, node->name, NULL, 1);
+	return (node->next);
+}
+
+int	exec_prompt(t_data *d, char *terminal_line)
+{
+	t_token	*tokens;
+	t_token	*node;
+
+	tokens = tokenize_string(d, terminal_line);
+	if (!tokens)
+		return (FCT_FAIL);
+	node = token_first(tokens);
+	d->last_cmd_status = -1;
+	while (node)
+	{
+		update_node_expansion(d, node, 1);
+		if (!validate_token(d, node))
+			break ;
+		if (d->debug_mode)
+			show_cmd_status(d, node);
+		node = handle_token(d, node);
+	}
+	if (d->heredocfd != -1)
+		consumate_heredoc(d, NULL, NULL, NULL);
+	tokens = token_first(tokens);
+	clear_tokens(tokens);
+	return (d->last_cmd_status);
 }

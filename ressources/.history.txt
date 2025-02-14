@@ -1,101 +1,33 @@
-clear
-ls
-pwd
-ls
-   &
-clear
-ls
-pwd
-/bin/ls
-clear
-cd ~
-ls
-cd -
-./~/bin/get_files_in_dir.sh c_files
-exec ~/bin/get_files_in_dir.sh c_files
-exec
-exec minishll
-exec minishell
-exec ~/bin/get_files_in_dir.sh c_files
-chmod u=wrx unvalid
-./unvalid
-exec ~/bin/get_files_in_dir.sh c_files
-clear
-exec ~/bin/get_files_in_dir.sh c_files
-export PATH+=~/bin
-exec ~/bin/get_files_in_dir.sh c_files
-get_files_in_dir.sh c_files
-./get_files_in_dir.sh c_files
-./get_files_in_dir.sh
-get_files_in_dir.sh c_files
-echo $PATH
-get_files_in_dir.sh c_files
-get_files_in_dir.sh
-get_files_in_dir.sh c_files
-ls
-pwd
-clear
-get_files_in_dir.sh c_files
-clear
-get_files_in_dir.sh c_files
-clear
-get_files_in_dir.sh c_files
-clear
-get_files_in_dir.sh c_files
-clear
-get_files_in_dir.sh c_files
-clear
-get_files_in_dir.sh c_files
-clear
-get_files_in_dir.sh c_files
+echo "Hello" | grep "Hello"
 $?
-cd olapo
-$?
-olapo
-$?
-get_files_in_dir.sh c_files
-unvalid
-./unvalid
-unvalid
-get_files_in_dir.sh c_files
+echo "First command" && echo "Second command"
+echo "First command" && echo "Second comma
+echo "First command" || echo "Second command"
+echo "first command" || echo "second command"
+echo cool || echo pas cool
+deb=1
+echo "first command" || echo "second command"
+var
+deb=1
+debo=5
+ola=5
+deb=1
+echo "first command" || echo "second command"
+echo "first command" || echo "second command" 			 echo coool
+echo "first command" || echo "second command
+deb=1
+echo "first command" || echo "second command
+var
+echo "first command" || echo "second command
+echo "first command" || echo "second command"
 clear
-get_files_in_dir.sh c_files
-unvalid
-./unvalid
-olapo
-unvalid
-./unvalid
-./minishell
+echo "first command" || echo "second command"
+echo"first command"||echo"second command"
+bah
+bash
+echo"first command"||echo"second command"
+echo"first command"||echo"second co'cool'mmand"
 clear
-./unvalid
-./minishell
+echo"first command"||echo"second co'cool'mmand"
 clear
-./minishell
-clear
-./minishell
-olapo
-unvalid
-ls -la olapo
-ls
-olapo
-clear
-pwd
-unvalid
-./unvalid
-clear
-ls
-pwd
-clear
-env
-export
-ZSH+=cool
-export
-export ola=3
-export
-export a aa b bb c cc
-export
-export -___-
-export wapo|
-export wapo|ola
-export
-ls |
+echo"first command"||echo"second co'cool'mmand"

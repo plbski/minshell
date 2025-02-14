@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:03:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 18:33:11 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 01:11:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ char	*get_new_split(char *str, int *i)
 	if (new_split)
 		return (new_split);
 	len = *i;
-	while (str[len] && (is_in_quote(str, *i) || \
-		!char_in_str(str[len], "()<>&| ")))
+	while (str[len] && (!char_in_str(str[len], "()<>&| ") || is_in_quote(str, len)))
 		len++;
 	size = (len - *i + 1);
 	new_split = malloc(size);
@@ -65,7 +64,7 @@ char	**split_prompt(t_data *d, char *str)
 	i = 0;
 	while (i < str_len && str[i])
 	{
-		while (str[i] == ' ')
+		while (str[i] == ' ' || str[i] == '\t')
 			i++;
 		if (!str[i])
 			break ;
@@ -73,4 +72,13 @@ char	**split_prompt(t_data *d, char *str)
 	}
 	splits[token_index] = NULL;
 	return (splits);
+}
+
+void	unquote_splits(t_data *d, char **splits)
+{
+	int	i;
+
+	i = -1;
+	while (splits[++i])
+		remove_chars(d, &splits[i], "\'\"");
 }

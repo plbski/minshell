@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 12:28:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 22:46:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	open_doc_content(char *path)
 		free(line);
 		line = get_next_line(fd);
 	}
-	printf("\n\n:");
+	printf("\n\n");
 }
 
 static int	execute_doc(t_data *d, char *path)

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 19:09:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 01:53:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,24 +93,36 @@ char	*char_join(char a, char b, char c, char d)
 	return (str);
 }
 
+int	add_character(char *str, int i, int *sgqt, int *dbqt)
+{
+	if (str[i] == '\'' && !(*dbqt))
+		return (*sgqt = !(*sgqt), 0);
+	if (str[i] == '\"' && !(*sgqt))
+		return (*dbqt = !(*dbqt), 0);
+	if (!(*sgqt) && !(*dbqt))
+		return (str[i] != '\'' && str[i] != '\"');
+	else
+		return (1);
+}
+
 void	remove_quotes(t_data *d, char **str)
 {
+	char	*new_str;
 	int		i;
 	int		j;
-	char	*new_str;
+	int		sgqt;
+	int		dbqt;
 
 	if (!str || !*str)
 		return ;
-	new_str = ms_malloc(d, ft_strlen(*str) + 1);
+	sgqt = 0;
+	dbqt = 0;
 	i = -1;
 	j = 0;
+	new_str = ms_malloc(d, ft_strlen(*str) + 1);
 	while ((*str)[++i])
-	{
-		if (((*str)[i] == '\"' || (*str)[i] == '\'') \
-			&& (!is_in_quote(*str, i) || i == 0))
-			continue ;
-		new_str[j++] = (*str)[i];
-	}
+		if (add_character(*str, i, &sgqt, &dbqt))
+			new_str[j++] = (*str)[i];
 	new_str[j] = '\0';
 	free(*str);
 	*str = new_str;

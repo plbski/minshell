@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 22:05:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/13 22:16:17 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**get_base_env(t_data *d)
 	char	*pwd;
 	char	*pwd_path;
 
+	printf("getting base env\n");
 	base_env = malloc(sizeof(char *) * 6);
 	base_env[0] = ms_strdup(d, "SHLVL=1");
 	base_env[1] = ms_strdup(d, "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/\
@@ -70,7 +71,7 @@ void	init_env_list(t_data *d, char **env)
 	{
 		d->env_list = arr_to_dblst((void **)base_env);
 		d->tmp_list = arr_to_dblst((void **)base_env);
-		free_void_array((void ***)&base_env);
+		d->environ = base_env;
 	}
 	if (!d->env_list)
 		custom_exit(d, "List alloc failed", NULL, 1);
@@ -83,7 +84,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 		s1++;
 		s2++;
 	}
-	return (unsigned char)(*s1) - (unsigned char)(*s2);
+	return ((unsigned char)(*s1) - (unsigned char)(*s2));
 }
 
 void	reorder_dblst(t_dblist *list)

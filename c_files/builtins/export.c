@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/12 21:21:19 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/14 00:33:57 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static int	handle_no_value_export(t_data *d, char *arg, int tmp_mem)
 	t_dblist	*var_node;
 	char		*new_content;
 
-	if (!is_valid_key(arg))
-		return (printf("msh: export: %s: invalid option\n", arg), 127);
 	if (get_dblst_node(d->env_list, arg))
 		return (FCT_SUCCESS);
 	if (!tmp_mem)
@@ -88,8 +86,8 @@ static int	exec_export(t_data *d, char *arg, int tmp_mem)
 		return (handle_no_value_export(d, arg, tmp_mem));
 	key = truncate_at_end(arg, '=');
 	if (!is_valid_key(key))
-		return (safe_free(key), \
-			printf("msh: %s: command not found\n", arg), CMD_NOT_FOUND);
+		return (safe_free(key), printf("msh: export: \'%s\': \
+not a valid identifier\n", arg), 127);
 	value = ft_strchr(arg, '=') + 1;
 	if (key[ft_strlen(key) - 1] == '+')
 		handle_joined_arg(d, key, value);
@@ -111,7 +109,9 @@ int	export(t_data *d, char *arg, char **flags, int tmp_mem)
 	int			i;
 	t_dblist	*env_copy;
 	int			ret_value;
+	int			env_value;
 
+	env_value = FCT_SUCCESS;
 	if (!arg)
 	{
 		env_copy = arr_to_dblst((void **)d->environ);
@@ -122,13 +122,13 @@ int	export(t_data *d, char *arg, char **flags, int tmp_mem)
 	}
 	ret_value = exec_export(d, arg, tmp_mem);
 	if (ret_value != FCT_SUCCESS)
-		return (ret_value);
+		env_value = ret_value;
 	i = -1;
 	while (flags && flags[++i])
 	{
 		ret_value = exec_export(d, flags[i], tmp_mem);
 		if (ret_value != FCT_SUCCESS)
-			return (ret_value);
+			env_value = ret_value;
 	}
-	return (FCT_SUCCESS);
+	return (env_value);
 }
