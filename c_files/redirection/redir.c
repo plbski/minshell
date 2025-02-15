@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 03:55:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 16:37:28 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 void	handle_redir_heredoc(t_data *d, t_token *hered_arg)
 {
 	if (d->heredocfd != -1)
+	{
+		printf("msh: write error: Broken pipe");
 		close(d->heredocfd);
+	}
 	if (!hered_arg)
 		custom_exit(d, "wtf in heredoc", NULL, EXIT_FAILURE);
 	if (hered_arg)

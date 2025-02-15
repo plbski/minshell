@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 21:58:38 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/15 14:43:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ static int	handle_child(t_data *d, char *prg, char **argv)
 	signal(SIGQUIT, SIG_DFL);
 	increment_shlvl(d);
 	update_environ(d);
+	if (!argv[0] || !cmp_str(prg, argv[0]))
+	{
+		new_args = set_argv(d, prg, argv, get_arr_len((void **)argv));
+		free_void_array((void ***)&argv);
+		argv = new_args;
+	}
 	execve(prg, argv, d->environ);
-	new_args = ms_malloc(d, sizeof(char *) * 3);
-	new_args[0] = ms_strdup(d, "/bin/sh");
-	new_args[1] = ms_strdup(d, prg);
-	new_args[2] = NULL;
-	execve("/bin/sh", new_args, d->environ);
+	free(argv[0]);
+	argv[0] = ms_strdup(d, "/bin/sh");
+	execve("/bin/sh", argv, d->environ);
 	free_void_array((void ***)&new_args);
-	custom_exit(d, NULL, NULL, EXIT_FAILURE);
 	return (FCT_FAIL);
 }
 
@@ -91,7 +94,7 @@ int	exec(t_data *d, char *prg, char **argv, int is_indirect)
 	if (!argv || !argv[0])
 	{
 		free_void_array((void ***)&argv);
-		argv = set_argv(d, new_prg);
+		argv = set_argv(d, new_prg, NULL, 0);
 	}
 	child_pid = fork();
 	if (child_pid == -1)

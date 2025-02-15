@@ -6,23 +6,25 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 22:00:33 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/15 14:40:34 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-char	**set_argv(t_data *d, char *prog_name)
+char	**set_argv(t_data *d, char *prog_name, char **args, int args_len)
 {
 	char	**new_argv;
+	int		i;
 
 	if (!prog_name)
 		custom_exit(d, "no prog name in set_argv", NULL, EXIT_FAILURE);
-	new_argv = malloc(sizeof(char *) * 2);
-	if (!new_argv)
-		custom_exit(d, "Exec argv error", NULL, EXIT_FAILURE);
+	new_argv = ms_malloc(d, sizeof(char *) * (2 + args_len));
 	new_argv[0] = ms_strdup(d, prog_name);
-	new_argv[1] = NULL;
+	i = -1;
+	while (++i < args_len && args && args[i])
+		new_argv[i + 1] = ms_strdup(d, args[i]);
+	new_argv[i + 1] = NULL;
 	return (new_argv);
 }
 
@@ -70,6 +72,8 @@ char	*handle_path_in_dir(t_data *d, char *prg, int is_indirect)
 		else
 			ft_dprintf(2, "msh: %s: command not found\n", prg);
 	}
+	else if (access(prg, X_OK) == -1 && prg[0] == '.' && prg[1] == '/')
+		ft_dprintf(2, "msh: %s: Permission denied\n", prg);
 	else if (access(prg, F_OK) == -1)
 	{
 		if (!is_indirect)
@@ -77,8 +81,6 @@ char	*handle_path_in_dir(t_data *d, char *prg, int is_indirect)
 		else
 			ft_dprintf(2, "msh: %s: command not found\n", prg);
 	}
-	else
-		ft_dprintf(2, "msh: %s: Permission denied\n", prg);
 	return (NULL);
 }
 

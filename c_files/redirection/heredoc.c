@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 15:38:34 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/14 16:32:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	ft_heredoc(char *end, t_data *d, char *print)
 {
 	int	heredoc_fd;
 
-	//consumate_stdin(d);
 	heredoc_fd = open(d->heredoc_wd, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (heredoc_fd == -1)
 		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);

@@ -6,13 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 04:03:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/15 01:55:52 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
-
-int	g_quit_in_heredoc;
 
 char	*get_last_line(t_data *d, const char *filename)
 {
@@ -35,6 +33,8 @@ char	*get_last_line(t_data *d, const char *filename)
 	close(fd);
 	return (last_line);
 }
+
+int	g_quit_in_heredoc = 0;
 
 int	main(int argc, char *argv[], char **env)
 {

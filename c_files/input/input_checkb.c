@@ -80,7 +80,7 @@ int	set_pipe(t_data *d, char **input)
 
 static char	is_valid_redir(char *p, int i, int j, char c)
 {
-	if (char_in_str(p[0], "&|>"))
+	if (char_in_str(p[0], "&|"))
 		return (p[0]);
 	while (p[++i])
 	{
@@ -115,8 +115,12 @@ int	check_redir_validity(char *input)
 	if (invalid_token)
 	{
 		ft_dprintf(2, "msh: syntax error near \
-unexpected token %c\n", invalid_token);
+unexpected token `%c'\n", invalid_token);
 		return (0);
 	}
+	if (input[0] == '<' && input[1] != '<')
+		return (0);
+	if (input[0] == '>')
+		return (0);
 	return (1);
 }

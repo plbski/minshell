@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 15:19:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/15 14:25:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,31 @@
 \033[34mgvlente \033[31m& \033[34mpbuet\033[31m ~~~ \033[0m"
 # define END_ANIM_TEXT	 "					~~~ EXIT ~~~ "
 # define MAX_DIR_LEN 500
+# define PROMPT_SQARE	"U+2589"
+# define RED			"\033[31m"
+# define GREEN			"\033[32m"
+# define YELLOW			"\033[33m"
+# define BLUE			"\033[34m"
+# define MAGENTA		"\033[35m"
+# define CYAN			"\033[36m"
+# define RESET			"\033[0m"
+# define GREY			"\033[38;5;240m"
+# define LIGHT_GREY		"\033[38;5;250m"
+# define BLUE_GREY		"\033[38;5;146m"
+# define PALE_ROSE		"\033[38;5;217m"
+# define PURP_LAVANDA	"\033[38;5;183m"
+# define MENTHA_GREEN	"\033[38;5;121m"
+# define PASTEL_BLUE	"\033[38;5;110m"
 
-# define PROMPT_SQARE "U+2589"
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define YELLOW "\033[33m"
-# define BLUE "\033[34m"
-# define MAGENTA "\033[35m"
-# define CYAN "\033[36m"
-# define RESET "\033[0m"
-# define GREY "\033[38;5;240m"
-# define LIGHT_GREY "\033[38;5;250m"
+# define PROMPT_LOGNAME_COL 	PURP_LAVANDA
+# define PROMPT_CWD_COL			PASTEL_BLUE
 
-# define PROMPT_LOGNAME_COL 	CYAN
-# define PROMPT_CWD_COL			YELLOW
+# define PROMPT_SEGLEN 3
 
 # define CMD_NOT_FOUND	127
 # define FCT_SUCCESS	0
 # define FCT_FAIL		1
 # define EXIT_CHILD		-1
-
-extern int	g_quit_in_heredoc;
 
 typedef enum e_token_type
 {
@@ -142,6 +146,7 @@ typedef struct s_token
 	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
 }	t_token;
 
+extern int	g_quit_in_heredoc;
 
 //		init/init.c
 char		*custom_get_cwd(t_data *d);
@@ -292,7 +297,7 @@ int			cd(t_data *d, char *arg, char **flags, int status);
 int			doc(t_data *d, char *arg, char **flags, int status);
 
 //		builtins/exec_utils.c
-char		**set_argv(t_data *d, char *prog_name);
+char		**set_argv(t_data *d, char *prog_name, char **args, int args_len);
 char		*get_dir_in_path(t_data *d, char *cmd_name);
 char		*handle_path_in_dir(t_data *d, char *prg, int is_indirect);
 int			is_valid_exec_file(const char *file, int *fct_ret, int is_direct);
@@ -341,6 +346,5 @@ char		*get_last_line(t_data *d, const char *filename);
 
 char		*get_next_line(int fd);
 void		restore_fds(t_data *d);
-void		consumate_stdin(t_data *d);
 
 #endif

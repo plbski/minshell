@@ -59,7 +59,7 @@ char	**split_input(t_data *d, char *input)
 
 	token_index = 0;
 	input_len = ft_strlen(input);
-	splits = malloc(sizeof(char *) * input_len);
+	splits = malloc(sizeof(char *) * (input_len + 1));
 	if (!splits)
 		custom_exit(d, "alloc in split", NULL, EXIT_FAILURE);
 	i = 0;

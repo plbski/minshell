@@ -68,7 +68,7 @@ static int	set_par(t_data *d, char **input, int i)
 		if (new_input[i] != ')')
 			continue ;
 		if (!has_open)
-			return (printf("syntax error near unexpected token \')\'\n"), 0);
+			return (printf("syntax error near unexpected token `)'\n"), 0);
 		has_open--;
 	}
 	if (!has_open)
@@ -95,7 +95,7 @@ static int	find_unvalid_patterns(char *input)
 			break ;
 	}
 	if (pattern)
-		return (printf("msh: syntax error near unexpected token '%c'\n", \
+		return (printf("msh: syntax error near unexpected token `%c'\n", \
 				pattern[0]), 1);
 	return (0);
 }

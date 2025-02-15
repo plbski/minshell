@@ -6,11 +6,40 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 16:09:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/15 13:52:29 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
+
+static void	split_seglen(char **prompt, int seglen)
+{
+	char	*new_prmpt;
+	int		i;
+	int		j;
+	int		len;
+
+	new_prmpt = malloc(ft_strlen(*prompt) + 1);
+	i = -1;
+	len = 0;
+	while ((*prompt)[++i])
+	{
+		if ((*prompt)[i] == '/' && char_in_str('/', *prompt + (i + 1)))
+		{
+			j = 0;
+			while ((*prompt)[i] && j++ < seglen)
+				new_prmpt[len++] = (*prompt)[i++];
+			while ((*prompt)[i] && (*prompt)[i] != '/' && \
+				(*prompt)[i] != ' ' && (*prompt)[i] != '$')
+				i++;
+		}
+		if ((*prompt)[i])
+			new_prmpt[len++] = (*prompt)[i];
+	}
+	new_prmpt[len] = '\0';
+	free(*prompt);
+	*prompt = new_prmpt;
+}
 
 static char	*get_prompt_message(t_data *d)
 {
@@ -20,7 +49,8 @@ static char	*get_prompt_message(t_data *d)
 	char	*prompt_msg;
 	char	*icon_part;
 
-	logname_part = ft_str_mega_join(PROMPT_LOGNAME_COL, d->logname, " ", RESET);
+	logname_part = ft_str_mega_join(PROMPT_LOGNAME_COL, \
+			"msh ", "\033[1;35m❯ ", RESET);
 	if (!logname_part)
 		return (NULL);
 	cut_cwd = replace_str(d, d->cwd, d->home_wd, "~");
@@ -31,6 +61,7 @@ static char	*get_prompt_message(t_data *d)
 	free(icon_part);
 	free(cwd_part);
 	free(logname_part);
+	split_seglen(&prompt_msg, PROMPT_SEGLEN);
 	return (prompt_msg);
 }
 

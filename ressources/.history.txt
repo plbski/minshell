@@ -455,3 +455,160 @@ echo bonjour >> output.txt && echo bonjour >> output.txt
 echo bonjour >> output.txt | echo bonjour >> output.txt 
 echo bonjour >> output.txt | echo bonjour >> output.txt | echo bonjour >> output.txt 
 echo "a" >> output.txt | echo "b" > output.txt | echo "c" > output.txt 
+cat < output.txt | cat < output.txt | cat < output.txt 
+echo cool << redir | echo top << redira | echo tip << rediro
+clear
+echo cool << redir | echo top << redira | echo tip << rediro
+cd...
+cd ...
+~/Desktop/42/42_Projects_GIT/core_3/Philosophers/a.out
+~/Desktop/42/42_Projects_GIT/core_3/Philosophers_git/philo
+~/Desktop/42/42_Projects_GIT/core_3/Philosophers_git/philo 4 800 400 400
+code .
+clear
+ls
+pwd
+clear
+ola
+clear
+pwd
+mls
+clea
+clear
+cd ..
+cd -
+ola
+zsh
+clear
+ls
+clear
+pwd
+clear
+pwd
+clear
+ls
+clear
+pwd
+clear
+pwd
+clear
+pwd
+clear
+ls
+$LOGNAME
+env
+export
+declare ola=3
+export
+var
+declare -x ola=3
+export
+var
+declare ola=3
+declare -x ola=3
+unset ola
+var
+export
+env
+vim ~/.bashec
+vim ~/.bashrc
+ls
+clear
+pwd
+<.
+clear
+<.
+<ola
+<.
+ola 3
+<.
+<olapo
+> olapo
+< olapo
+<< olapo
+< olapo
+> olapo
+>> olapo
+>>> olapo
+clear
+olapo
+$?
+olapo
+$?
+./olapo
+olapo
+ls -la olapo
+olapo
+$?
+./olapo
+exec olapo
+$?
+exec olapo
+./olapo
+$?
+olapo
+$?
+olapado
+$?
+./olapado
+$?
+clear
+ls
+pwd
+clear
+get_files_in_dir.sh
+get_files_in_dir
+./get_files_in_dir
+exec ~/bin/get_files_in_dir.sh 
+exec ~/bin/get_files_in_dir.sh c_files
+./~/bin/get_files_in_dir.sh c_files
+exec minishell
+exec olapo
+chmod u=wrx olapo
+exec olapo
+clear
+exec olapo
+exec ~/bin/get_files_in_dir.sh 
+exec ~/bin/get_files_in_dir.sh c_files
+exec ~/bin/get_proto.sh c_files
+cd ~/bin/
+clear
+open .
+ls
+get_files_in_dir.sh
+get_files_in_dir.sh .
+mshell
+cd -
+~/bin/get_files_in_dir.sh c_files
+clear
+~/bin/get_files_in_dir.sh c_files
+clear
+~/bin/get_files_in_dir.sh c_files
+clear
+~/bin/get_files_in_dir.sh c_files
+clear
+~/bin/get_files_in_dir.sh c_files
+clear
+~/bin/get_files_in_dir.sh c_files
+exec ~/bin/get_files_in_dir.sh c_files
+exec ~/bin/get_files_in_dir.sh c_files cool
+exec ~/bin/get_files_in_dir.sh c_files c_files
+exec ~/bin/get_files_in_dir.sh c_files
+exec ~/bin/get_files_in_dir.sh c_files c_files
+exec ~/bin/get_files_in_dir.sh c_files
+olapo cool super
+olapo.sh cool super
+exec ~/bin/get_files_in_dir.sh c_files
+exec ~/bin/get_files_in_dir.sh c_files c_files
+exec ~/bin/get_files_in_dir.sh c_files c_files c_files
+exec ~/bin/get_files_in_dir.sh c_files c_files
+exec ~/bin/get_files_in_dir.sh c_files c_file
+exec ~/bin/get_files_in_dir.sh c_files c_files
+exec ~/bin/get_files_in_dir.sh c_files
+exec ~/bin/get_files_in_dir.sh c_files ola
+exec ~/bin/get_files_in_dir.sh c_files ola alo
+exec ~/bin/get_files_in_dir.sh c_files
+exec ~/bin/get_files_in_dir.sh
+exec ~/bin/get_files_in_dir.sh c_files
+~/bin/get_files_in_dir.sh c_files
+clear
