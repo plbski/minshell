@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 21:45:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 14:00:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,39 @@ int	update_cwd(t_data *data)
 	data->cwd = working_dir_buff;
 	return (1);
 }
+char *name_heredoc(t_data *d)
+{
+	int		i;
+	int 	j;
+	char	*base = "0123456789ABCDEF";
+	char	*result;
+	int		num;
+
+	i = 20000;
+	num = i;
+	while (1)
+	{
+		j = 0;
+		result = ms_malloc(d, 9);
+		i = num;
+		while (i > 0)
+		{
+			result[j] = base[i % 16];
+			i = i / 16;
+			j ++;
+		}
+		result[j] = '\0';
+		result = ft_str_mega_join(d->start_wd, "/", result, ".txt");
+		if (access(result, F_OK) == -1)
+			{
+				int	fd = open(result, O_RDWR | O_CREAT, 0644);
+				close (fd);
+				return (result);
+			}
+		free (result);
+		num ++;
+	}
+}
 
 static int	init_data_directories(t_data *data)
 {
@@ -56,8 +89,8 @@ static int	init_data_directories(t_data *data)
 	if (!data->history_wd)
 		custom_exit(data, "alloc for history wd", NULL, EXIT_FAILURE);
 	read_history(data->history_wd);
-	data->heredoc_wd = ft_str_mega_join(working_dir_buff, \
-		"/ressources/", ".heredoc.txt", NULL);
+	data->heredoc_wd = name_heredoc(data);
+	printf("%s\n", data->heredoc_wd);
 	if (!data->heredoc_wd)
 		custom_exit(data, "alloc for heredoc_wd", NULL, EXIT_FAILURE);
 	return (1);
