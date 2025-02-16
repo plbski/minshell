@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_parser2.c                                    :+:      :+:    :+:   */
+/*   token_parse2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 22:35:41 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 15:23:51 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	validate_token(t_data *d, t_token *node)
 	t_tktype	typ;
 
 	typ = node->type;
-	if (!node->prv && (typ != tk_command && typ != tk_exec && \
+	if (!node->prv && (typ != tk_command && \
 	typ != tk_hered && !chr_amnt(node->name, '=')))
 	{
 		printf("%d\n", node->type);
@@ -33,7 +33,7 @@ int	validate_token(t_data *d, t_token *node)
 		return (0);
 	}
 	if (typ == tk_argument && !chr_amnt(node->name, '=') && \
-	(!node->prv || node->prv->type != tk_exec || node->prv->type != tk_command))
+	(!node->prv || node->prv->type != tk_command))
 	{
 		ft_dprintf(2, "msh: command not found: %s\n", node->name);
 		d->last_exit_st = CMD_NOT_FOUND;

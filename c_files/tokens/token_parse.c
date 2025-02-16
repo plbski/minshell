@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 12:05:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 15:26:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-t_tktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev)
+t_tktype	get_token_type(int *was_cmd, char *str)
 {
 	if (same_str(str, "<"))
 		return (tk_red_in);
@@ -30,10 +30,7 @@ t_tktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev)
 		return (tk_wildcard);
 	if (*was_cmd)
 		return (tk_argument);
-	if (is_builtin_cmd(d, str) && (!prev || prev->type == tk_pipe \
-	|| prev->type == tk_logical || prev->type == tk_argument))
-		return (*was_cmd = 1, tk_command);
-	return (tk_exec);
+	return (tk_command);
 }
 
 static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
@@ -75,8 +72,8 @@ static t_token	*get_split_tokens(t_data *d, char **splits, \
 			bracket += 2 * (splits[i][0] == '(') - 1;
 			continue ;
 		}
-		type = get_token_type(d, &was_cmd, splits[i], token);
-		if (type == tk_command || type == tk_exec)
+		type = get_token_type(&was_cmd, splits[i]);
+		if (type == tk_command)
 			was_cmd = 1;
 		else if (type == tk_pipe || type == tk_logical)
 			was_cmd = 0;

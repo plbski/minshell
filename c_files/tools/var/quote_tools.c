@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 03:26:34 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 04:23:47 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 15:16:26 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,26 @@ int	is_in_quote(char *str, int index)
 	else if (in_single_quote)
 		return (1);
 	return (0);
+}
+
+char	*get_last_line(t_data *d, const char *filename)
+{
+	int		fd;
+	char	*line;
+	char	*last_line;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (NULL);
+	last_line = NULL;
+	line = get_next_line(fd);
+	while (line)
+	{
+		safe_free(last_line);
+		last_line = ms_strdup(d, line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (last_line);
 }

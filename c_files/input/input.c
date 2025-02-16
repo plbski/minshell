@@ -6,11 +6,76 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/16 13:53:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 22:30:32 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
+
+int	*pre_compute_lens(int amount, const char **cols)
+{
+	int	*lens;
+	int	i;
+
+	lens = malloc(sizeof(int) * (amount + 1));
+	i = -1;
+	while (++i < amount)
+		lens[i] = ft_strlen(cols[i]);
+	return (lens);
+}
+
+static void	play_anim(char *str, int i, int bt, int time)
+{
+	const char	*cols[] = {DR15, DR14, DR13, DR12, DR11, DR10, DR9, \
+		DR8, DR7, DR6, DR5, DR4, DR3, DR2, DR1};
+	const char	*color;
+	int			*lens;
+	int			index;
+
+	lens = pre_compute_lens(15, cols);
+	time = 10;
+	while (1)
+	{
+		bt = 0;
+		if (time++ % 1000 == 0 && !ioctl(STDIN_FILENO, FIONREAD, &bt) && bt > 0)
+			break ;
+		write(1, "\r", 1);
+		i = -1;
+		while (str[++i])
+		{
+			index = ((i / 3) + time / 1500) % 15;
+			color = cols[index];
+			write(1, color, lens[index]);
+			write(1, &str[i], 1);
+		}
+		write(1, RESET, 5);
+	}
+}
+
+static void	init_anim(t_data *d, char *prompt)
+{
+	char		*str;
+	char		*shlvl;
+	int			i;
+
+	shlvl = ft_itoa(d->shlvl);
+	str = ms_strjoin(d, START_ANIM_TEXT, shlvl);
+	free(shlvl);
+	write(1, "\033[?25l\n", 7);
+	write(1, prompt, ft_strlen(prompt));
+	write(1, "█", 3);
+	write(1, "\033[A", 3);
+	set_nonblocking_mode(1);
+	play_anim(str, 0, 0, 0);
+	set_nonblocking_mode(0);
+	write(1, "\r", 1);
+	i = -1;
+	while (str[++i])
+		write(1, &str[i], 1);
+	write(1, RESET, 5);
+	write(1, "\n\033[?25h", 7);
+	free(str);
+}
 
 static void	split_seglen(t_data *d, char **str, int prompt_len, char *col)
 {
@@ -22,8 +87,6 @@ static void	split_seglen(t_data *d, char **str, int prompt_len, char *col)
 		return ;
 	splits = ms_split(d, *str, '/');
 	seg_len = prompt_len / get_arr_len((void **)splits);
-	if (seg_len <= 0)
-		seg_len = 1;
 	i = 0;
 	while (splits[++i])
 	{
@@ -33,12 +96,13 @@ static void	split_seglen(t_data *d, char **str, int prompt_len, char *col)
 			setstr(d, &splits[i], ms_strjoin(d, col, splits[i]));
 		else
 		{
-			if (ft_strlen(splits[i]) > seg_len)
+			if (seg_len > 0 && ft_strlen(splits[i]) > seg_len)
 				ms_substr(d, &splits[i], 0, seg_len);
 			setstr(d, &splits[i], ms_strjoin(d, splits[i], "/"));
 		}
 	}
 	setstr(d, str, contract_str(d, splits));
+	free_void_array((void ***)&splits);
 }
 
 static char	*get_prompt_message(t_data *d)
@@ -64,50 +128,20 @@ static char	*get_prompt_message(t_data *d)
 	if (!cwd_part)
 		custom_exit(d, "alloc of cwd_part (prompt)\n", NULL, EXIT_FAILURE);
 	prompt_msg = ms_strjoin(d, msh, cwd_part);
-	free(cwd_part);
-	free(msh);
 	split_seglen(d, &prompt_msg, PROMPT_SEGLEN, PROMPT_CWD_END);
-	return (prompt_msg);
+	if (!prompt_msg)
+		custom_exit(d, "Prompt alloc failed", NULL, EXIT_FAILURE);
+	return (free(cwd_part), free(msh), prompt_msg);
 }
 
-char	*solo_pipe(t_data *d, char *trm_line)
-{
-	char	*pipe_ptr;
-	char	*add_line;
-	char	*tmp;
-
-	pipe_ptr = ft_strrchr(trm_line, '|');
-	if (!pipe_ptr)
-		return (trm_line);
-	while ((*pipe_ptr && *pipe_ptr == ' ') || *pipe_ptr == '|')
-		pipe_ptr++;
-	if (*pipe_ptr == '\0' || *pipe_ptr == '|')
-	{
-		printf("%c\n", *pipe_ptr);
-		add_line = readline(">");
-		if (add_line)
-		{
-			tmp = trm_line;
-			trm_line = ft_str_mega_join(trm_line, " ", add_line, NULL);
-			if (!trm_line)
-				custom_exit(d, "alloc in solo pipe", NULL, EXIT_FAILURE);
-			free(tmp);
-			free(add_line);
-		}
-	}
-	return (trm_line);
-}
-
-int	process_input(t_data *d)
+int	process_input(t_data *d, int start)
 {
 	char	*prompt;
 	char	*user_input;
 
-	if (!d->cwd)
-		custom_exit(d, "No cwd", NULL, EXIT_FAILURE);
 	prompt = get_prompt_message(d);
-	if (!prompt)
-		custom_exit(d, "Prompt alloc failed", NULL, EXIT_FAILURE);
+	if (start)
+		init_anim(d, prompt);
 	user_input = readline(prompt);
 	free(prompt);
 	if (!user_input)
@@ -118,7 +152,6 @@ int	process_input(t_data *d)
 		add_history(user_input);
 	if (validate_input(d, &user_input))
 	{
-		user_input = solo_pipe(d, user_input);
 		exec_input(d, user_input);
 		safe_free(d->prv_input);
 		d->prv_input = ms_strdup(d, user_input);

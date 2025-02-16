@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 12:04:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 16:02:21 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 	else if (split[*i + 1] == '?')
 		str = ft_itoa(d->last_exit_st);
 	else if (split[*i + 1] == '0')
-		str = ms_strdup(d, START_ANIM_TEXT);
+		str = ms_strjoin(d, d->start_wd, "/minishell");
 	else
 		return (NULL);
 	if (!str)
@@ -122,12 +122,11 @@ void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 		replace_strstr(d, &node->name, "~", d->home_wd);
 	if (chr_amnt(node->name, '$'))
 	{
-		free(node->name);
-		node->name = expand_split(d, node->name, ft_strlen(node->name), 0);
+		setstr(d, &node->name, expand_split(d, node->name, ft_strlen(node->name), 0));
 		if (set_new_type)
-			node->type = get_token_type(d, &was_cmd, node->name, node->prv);
+			node->type = get_token_type(&was_cmd, node->name);
 	}
-	if (node->type == tk_command || node->type == tk_exec)
+	if (node->type == tk_command)
 		set_node_redir(node);
 	remove_quotes(d, &node->name);
 }

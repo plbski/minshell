@@ -66,6 +66,9 @@ debug: $(MINISHELL_NAME) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(DPRINT
 valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=a.supp --log-file="leaks.log" ./minishell
 
+leaks: re
+	leaks --atExit -- ./minishell
+
 clean:
 	make -C $(LIBFT_DIR) --no-print-directory clean
 	make -C $(DPRINTF_DIR) --no-print-directory clean

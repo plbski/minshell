@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:03:05 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 12:06:52 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 16:45:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	replace_strstr(t_data *d, char **str, \
 			continue ;
 		new_str = ms_strdup(d, (*str) + i + j);
 		setstr(d, str, ms_strjoin(d, replace, new_str));
+		free(new_str);
 		return ;
 	}
 	return ;

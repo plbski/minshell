@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/10 17:22:22 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:23:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	show_token_info(t_data *d, t_token *node, char *prefix, char *suffix)
 	char		pipe_out[30];
 	char		arg_color[30];
 
-	if (node->type == tk_command || node->type == tk_exec)
+	if (node->type == tk_command)
 		ft_strlcpy(arg_color, RED, 30);
 	else if (node->type == tk_argument)
 		ft_strlcpy(arg_color, YELLOW, 30);

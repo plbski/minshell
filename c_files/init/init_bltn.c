@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 15:33:38 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 16:48:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,17 @@
 
 static void	init_types_names(t_data *d)
 {
-	d->types_names = malloc(sizeof(char *) * 15);
-	if (!d->types_names)
-		custom_exit(d, "alloc in types names", NULL, EXIT_FAILURE);
-	d->types_names[0] = ms_strdup(d, "command");
-	d->types_names[1] = ms_strdup(d, "argument");
-	d->types_names[2] = ms_strdup(d, "expanded argument");
-	d->types_names[3] = ms_strdup(d, "redir in");
-	d->types_names[4] = ms_strdup(d, "redir out");
-	d->types_names[5] = ms_strdup(d, "append");
-	d->types_names[6] = ms_strdup(d, "heredoc");
-	d->types_names[7] = ms_strdup(d, "pipe");
-	d->types_names[8] = ms_strdup(d, "logical");
-	d->types_names[9] = ms_strdup(d, "quote");
-	d->types_names[10] = ms_strdup(d, "dbquote");
-	d->types_names[11] = ms_strdup(d, "wildcard");
-	d->types_names[12] = ms_strdup(d, "flag");
-	d->types_names[13] = ms_strdup(d, "exec");
-	d->types_names[14] = NULL;
+	d->types_names = ms_malloc(d, sizeof(char *) * 9);
+	d->types_names[tk_command] = ms_strdup(d, "command");
+	d->types_names[tk_argument] = ms_strdup(d, "argument");
+	d->types_names[tk_red_in] = ms_strdup(d, "red_in");
+	d->types_names[tk_red_out] = ms_strdup(d, "red_out");
+	d->types_names[tk_red_app] = ms_strdup(d, "red_append");
+	d->types_names[tk_hered] = ms_strdup(d, "heredoc");
+	d->types_names[tk_pipe] = ms_strdup(d, "pipe");
+	d->types_names[tk_logical] = ms_strdup(d, "logical");
+	d->types_names[tk_wildcard] = ms_strdup(d, "wildcard");
+	d->types_names[9] = NULL;
 }
 
 static void	init_builtins_pointers(t_data *data)
@@ -50,9 +43,7 @@ static void	init_builtins_pointers(t_data *data)
 
 static void	init_builtins_names(t_data *data)
 {
-	data->bltin_names = malloc(11 * sizeof(char *));
-	if (!data->bltin_names)
-		custom_exit(data, "Bltin_names alloc failed", NULL, EXIT_FAILURE);
+	data->bltin_names = ms_malloc(data, 11 * sizeof(char *));
 	data->bltin_names[e_cd] = ms_strdup(data, "cd");
 	data->bltin_names[e_echo] = ms_strdup(data, "echo");
 	data->bltin_names[e_ls] = ms_strdup(data, "mls");
@@ -79,7 +70,9 @@ void	export_usefull_var(t_data *d)
 	shlvl = get_env_value(d, d->env_list, "SHLVL");
 	if (!shlvl)
 		custom_exit(d, "alloc shlvl failed", NULL, EXIT_FAILURE);
-	d->shlvl = ft_atoi(shlvl);
+	d->shlvl = ft_atoi(shlvl) + 1;
+	setstr(d, &shlvl, ft_itoa(d->shlvl));
+	set_key_value(d, d->env_list, "SHLVL", shlvl);
 	free(shlvl);
 }
 

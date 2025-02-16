@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/16 13:56:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 22:13:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,17 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "string.h"
-# include <time.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <dirent.h>
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <sys/wait.h>
+# include <termios.h>
 # include <sys/ioctl.h>
 
-# define START_ANIM_TEXT "			\033[31m~~~ \033[35mMinishell \033[31mby \
-\033[34mgvlente \033[31m& \033[34mpbuet\033[31m ~~~ \033[0m"
-# define END_ANIM_TEXT	 "					~~~ EXIT ~~~ "
-# define MAX_DIR_LEN 500
-# define PROMPT_SQARE	"U+2589"
+# define START_ANIM_TEXT "~~~ Minishell by gvlente & pbuet ~~~"
+
 # define RED			"\033[31m"
 # define GREEN			"\033[32m"
 # define YELLOW			"\033[33m"
@@ -44,17 +39,37 @@
 # define RESET			"\033[0m"
 # define GREY			"\033[38;5;240m"
 # define LIGHT_GREY		"\033[38;5;250m"
-# define BLUE_GREY		"\033[38;5;146m"
+# define BLU_GRY		"\033[38;5;146m"
 # define PALE_ROSE		"\033[38;5;217m"
-# define PURP_LAVANDA	"\033[38;5;183m"
+# define PRP_LAV	"\033[38;5;183m"
 # define MENTHA_GREEN	"\033[38;5;121m"
 # define PASTEL_BLUE	"\033[38;5;110m"
 
-# define PROMPT_LOGNAME_COL 	PURP_LAVANDA
+# define DR0  "\033[38;5;255m"  // Blanc cassé
+# define DR1  "\033[38;5;252m"  // Gris très clair
+# define DR2  "\033[38;5;250m"  // Gris clair
+# define DR3  "\033[38;5;247m"  // Gris moyen-clair
+# define DR4  "\033[38;5;244m"  // Gris moyen
+# define DR5  "\033[38;5;240m"  // Gris moyen-foncé
+# define DR6  "\033[38;5;237m"  // Gris foncé
+# define DR7  "\033[38;5;235m"  // Gris très foncé
+# define DR8  "\033[38;5;233m"  // Presque noir
+
+# define DR9  "\033[38;5;127m"  // Brun/Orange foncé
+# define DR10  "\033[38;5;130m"  // Brun/Orange foncé
+# define DR11 "\033[38;5;136m"  // Orange foncé
+# define DR12 "\033[38;5;172m"  // Orange
+# define DR13 "\033[38;5;208m"  // Orange vif
+# define DR14 "\033[38;5;214m"  // Orange clair
+# define DR15 "\033[38;5;220m"  // Jaune-orangé
+# define DR16 "\033[38;5;226m"  // Jaune vif
+# define DR17 "\033[38;5;196m"  // Rouge intense
+
+
+# define PROMPT_SEGLEN 50
+# define PROMPT_LOGNAME_COL 	PRP_LAV
 # define PROMPT_CWD_COL			GREEN
 # define PROMPT_CWD_END			MENTHA_GREEN
-
-# define PROMPT_SEGLEN 30
 
 # define CMD_NOT_FOUND	127
 # define FCT_SUCCESS	0
@@ -65,18 +80,13 @@ typedef enum e_token_type
 {
 	tk_command,
 	tk_argument,
-	tk_expand_arg,
 	tk_red_in,
 	tk_red_out,
 	tk_red_app,
 	tk_hered,
 	tk_pipe,
 	tk_logical,
-	tk_quote,
-	tk_dbquote,
 	tk_wildcard,
-	tk_flag,
-	tk_exec,
 }	t_tktype;
 
 typedef enum e_builtins
@@ -93,27 +103,14 @@ typedef enum e_builtins
 	e_unset,
 }	t_builtins_types;
 
-typedef enum e_redir_type
-{
-	APPEND,
-	OUT,
-	IN,
-	REDIR_HEREDOC,
-}	t_redir_type;
-
 typedef struct s_data
 {
-	int			base_stdin;
-	int			base_stdout;
-	int			auto_compl_pid;
-	int			fd;
-	int			received_env;
-	int			debug_mode;
-	int			shlvl;
-	int			last_exit_st;
-	int			last_cmd_status;
-	int			saved_stdin;
-	int			saved_stdout;
+	t_dblist	*env_list;
+	t_dblist	*tmp_list;
+	t_dblist	*var_list;
+	char		**bltin_names;
+	const char	**types_names;
+	char		**environ;
 	char		*cwd;
 	char		*prev_cwd;
 	char		*man_wd;
@@ -122,14 +119,15 @@ typedef struct s_data
 	char		*heredoc_wd;
 	char		*home_wd;
 	char		*logname;
-	char		**environ;
 	char		*prv_input;
+	int			base_stdin;
+	int			base_stdout;
+	int			saved_stdin;
+	int			saved_stdout;
+	int			debug_mode;
+	int			shlvl;
 	int			heredocfd;
-	const char	**types_names;
-	t_dblist	*env_list;
-	t_dblist	*tmp_list;
-	t_dblist	*var_list;
-	char		**bltin_names;
+	int			last_exit_st;
 	int			(*blt_fct[10])(struct s_data *d, char *arg, char **flg, int s);
 }	t_data;
 
@@ -159,7 +157,6 @@ void		export_usefull_var(t_data *d);
 void		init_builtins_data(t_data *d);
 
 //		tools/str_tools/write_tools.c
-char		*read_file(t_data *d, int fd);
 int			is_builtin_cmd(t_data *d, char *str);
 int			is_all_digit(char *str);
 int			get_char_index(char *str, char c);
@@ -206,9 +203,11 @@ void		remove_quotes(t_data *d, char **str);
 int			is_in_quote(char *str, int index);
 
 //		tools/var/var_tools.c
-void		set_string_color(char **str, char *color);
 void		reset_readline(void);
 int			is_directory(const char *path);
+void		setstr(t_data *d, char **str, char *new);
+char		**ms_split(t_data *d, const char *str, char remove);
+void		ms_substr(t_data *d, char **s, unsigned int start, size_t len);
 
 //		tools/var/free_tools.c
 int			safe_free(void *item);
@@ -247,8 +246,7 @@ char		**split_input(t_data *d, char *input);
 void		unquote_splits(t_data *d, char **splits);
 
 //		input/input.c
-char		*solo_pipe(t_data *d, char *trm_line);
-int			process_input(t_data *d);
+int			process_input(t_data *d, int start);
 
 //		input/input_checkb.c
 int			only_space(char *str);
@@ -262,6 +260,7 @@ char		*parse_heredoc(char *end, t_data *d, char *print);
 int			get_fd(t_data *d, char *file_path, t_tktype r_type);
 void		save_stds(t_data *d);
 void		reset_redir(t_data *d);
+void		restore_fds(t_data *d);
 
 //		redirection/pipe.c
 t_token		*pipe_handler(t_data *d, t_token *cmd_in);
@@ -314,7 +313,7 @@ int			validate_token(t_data *d, t_token *node);
 int			is_valid_identifier(char *arg);
 
 //		tokens/token_parse.c
-t_tktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev);
+t_tktype	get_token_type(int *was_cmd, char *str);
 t_token		*tokenize_string(t_data *d, char *prompt);
 
 //		tokens/token_execute.c
@@ -327,6 +326,7 @@ t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
 //		tokens/utils_tokens.c
 t_token		*get_next_token(t_token *token, t_tktype type, int stops_at_same);
 void		link_token_pipes(t_token *tokens);
+void		set_node_redir(t_token *node);
 
 //		tokens/token_expand.c
 char		*expand_special_segment(t_data *d, char *split, int *i);
@@ -346,10 +346,6 @@ void		remove_token(t_token *token);
 char		*get_last_line(t_data *d, const char *filename);
 
 char		*get_next_line(int fd);
-void		restore_fds(t_data *d);
-void		set_node_redir(t_token *node);
-void		setstr(t_data *d, char **str, char *new);
-char		**ms_split(t_data *d, const char *str, char remove);
-void		ms_substr(t_data *d, char **s, unsigned int start, size_t len);
+void		set_nonblocking_mode(int enable);
 
 #endif

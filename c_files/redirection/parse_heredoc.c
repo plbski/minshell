@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 00:28:20 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 16:36:23 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*exec_parse_heredoc(t_data *d, char *nd, char *print)
 
 	line = NULL;
 	print_prompt = 1;
-	full = ms_strdup(d, "");
+	full = ms_strdup(d, "\n");
 	while (1)
 	{
 		if (print_prompt)
@@ -85,9 +85,17 @@ char	*parse_heredoc(char *end, t_data *d, char *print)
 	setup_signal(0, 0);
 	if (!heredoc_return)
 	{
-		printf("msh: unexpected EOF while looking for matching `%s'\n", end);
-		printf("msh: syntax error: unexpected end of file\n");
+		if (g_quit_in_heredoc)
+			printf("\n");
+		else
+		{
+			if (end && end[0] != '|')
+				printf("msh: unexpected EOF while looking for matching `%s'\n", end);
+			printf("msh: syntax error: unexpected end of file\n");	
+		}
 	}
+	else
+		heredoc_return[ft_strlen(heredoc_return) - 1] = '\0';
 	g_quit_in_heredoc = 0;
 	return (heredoc_return);
 }

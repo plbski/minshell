@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 21:45:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 15:48:40 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ char	*custom_get_cwd(t_data *d)
 {
 	char	*working_dir_buff;
 
-	working_dir_buff = malloc(MAX_DIR_LEN);
+	working_dir_buff = malloc(999);
 	if (!working_dir_buff)
 		custom_exit(d, "alloc for cwd", NULL, EXIT_FAILURE);
-	if (!getcwd(working_dir_buff, MAX_DIR_LEN))
+	if (!getcwd(working_dir_buff, 999))
 	{
 		free(working_dir_buff);
 		custom_exit(d, "alloc for cwd", NULL, EXIT_FAILURE);
@@ -68,7 +68,6 @@ void	init_base_stds(t_data *data)
 	data->saved_stdin = -1;
 	data->saved_stdout = -1;
 	data->heredocfd = -1;
-	data->fd = -1;
 	data->base_stdin = dup(STDIN_FILENO);
 	data->base_stdout = dup(STDOUT_FILENO);
 	if (data->base_stdin == -1 || data->base_stdout == -1)
@@ -90,7 +89,6 @@ void	init_data(t_data *data, char **env)
 	data->var_list = NULL;
 	data->prv_input = NULL;
 	g_quit_in_heredoc = 0;
-	data->last_cmd_status = FCT_FAIL;
 	data->last_exit_st = 0;
 	init_env_list(data, env);
 	data->environ = list_to_arr(data->env_list);

@@ -100,7 +100,7 @@ t_token	*handle_token(t_data *d, t_token *node)
 	}
 	if (type == tk_logical)
 		return (handle_logical_token(d, node));
-	else if (type == tk_command || type == tk_exec)
+	else if (type == tk_command)
 	{
 		if (node->pipe_out)
 			return (pipe_handler(d, node));
@@ -120,7 +120,6 @@ int	exec_input(t_data *d, char *input)
 	if (!tokens)
 		return (FCT_FAIL);
 	node = token_first(tokens);
-	d->last_cmd_status = -1;
 	while (node)
 	{
 		update_node_expansion(d, node, 1);
@@ -134,5 +133,5 @@ int	exec_input(t_data *d, char *input)
 		consumate_heredoc(d, NULL, NULL, NULL);
 	tokens = token_first(tokens);
 	clear_tokens(tokens);
-	return (d->last_cmd_status);
+	return (FCT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 13:41:53 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 17:25:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,22 @@ static int	is_valid_key(char *key)
 		return (0);
 	i = -1;
 	while (key[++i])
-		if (!ft_isalnum(key[i]) && !(key[i] == '+' && !key[i + 1]))
+	{
+		if (i == 0)
+		{
+			if (key[i] != '_' && !ft_isalpha(key[i]))
+			{
+				printf("msh: export: \'%s\': not a valid identifier\n", key);
+				return (0);
+			}
+			continue ;
+		}
+		if (!ft_isdigit(key[i]) && !ft_isalpha(key[i]) && key[i] != '_')
+		{
+			printf("msh: export: \'%s\': not a valid identifier\n", key);
 			return (0);
+		}
+	}
 	return (1);
 }
 
@@ -54,6 +68,8 @@ static int	handle_no_value_export(t_data *d, char *arg, int tmp_mem)
 	t_dblist	*var_node;
 	char		*new_content;
 
+	if (!is_valid_key(arg))
+		return (127);
 	if (get_dblst_node(d->env_list, arg))
 		return (FCT_SUCCESS);
 	if (!tmp_mem)
@@ -86,8 +102,7 @@ static int	exec_export(t_data *d, char *arg, int tmp_mem)
 		return (handle_no_value_export(d, arg, tmp_mem));
 	key = truncate_at_end(arg, '=');
 	if (!is_valid_key(key))
-		return (safe_free(key), printf("msh: export: \'%s\': \
-not a valid identifier\n", arg), 127);
+		return (safe_free(key), 127);
 	value = ft_strchr(arg, '=') + 1;
 	if (key[ft_strlen(key) - 1] == '+')
 		handle_joined_arg(d, key, value);

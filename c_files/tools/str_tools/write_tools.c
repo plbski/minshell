@@ -6,30 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 15:12:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header.h"
-
-char	*read_file(t_data *d, int fd)
-{
-	char	*line;
-	char	*buffer;
-	char	*content;
-
-	line = get_next_line(fd);
-	content = ms_strdup(d, "");
-	while (line != NULL)
-	{
-		buffer = ms_strjoin(d, content, line);
-		free(content);
-		content = buffer;
-		free(line);
-		line = get_next_line(fd);
-	}
-	return (content);
-}
 
 int	is_builtin_cmd(t_data *d, char *str)
 {

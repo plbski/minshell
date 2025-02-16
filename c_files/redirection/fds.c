@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 02:20:38 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 15:45:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 15:07:26 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ void	save_stds(t_data *d)
 
 void	reset_redir(t_data *d)
 {
-	if (d->fd >= 0)
-		close(d->fd);
-	d->fd = -1;
 	if (d->saved_stdin == -1 && d->saved_stdout == -1)
 		return ;
 	if (d->saved_stdin != -1 && dup2(d->saved_stdin, STDIN_FILENO) == -1)

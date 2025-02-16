@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 11:02:47 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 15:24:20 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	link_token_pipes(t_token *tokens)
 	node = token_first(tokens);
 	while (node)
 	{
-		if (node->type == tk_command || node->type == tk_exec)
+		if (node->type == tk_command)
 		{
 			output = get_next_token(node, tk_pipe, 1);
 			if (output)

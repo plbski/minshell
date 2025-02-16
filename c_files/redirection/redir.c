@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 10:29:15 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 15:07:17 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	char	*file_name;
 	char	*path;
+	int		fd;
 
 	if (!cmd || !cmd->red_arg || !cmd->red_arg->name)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
@@ -24,11 +25,11 @@ void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
 	if (!path)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
-	d->fd = get_fd(d, path, tk_red_out);
+	fd = get_fd(d, path, tk_red_out);
 	free(path);
-	if (dup2(d->fd, STDOUT_FILENO) == -1)
+	if (dup2(fd, STDOUT_FILENO) == -1)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	close(d->fd);
+	close(fd);
 	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
@@ -37,6 +38,7 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	char	*file_name;
 	char	*path;
+	int		fd;
 
 	if (!cmd || !cmd->red_arg || !cmd->red_arg->name)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
@@ -45,11 +47,11 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
 	if (!path)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
-	d->fd = get_fd(d, path, tk_red_app);
+	fd = get_fd(d, path, tk_red_app);
 	free(path);
-	if (dup2(d->fd, STDOUT_FILENO) == -1)
+	if (dup2(fd, STDOUT_FILENO) == -1)
 		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
-	close(d->fd);
+	close(fd);
 	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
@@ -57,6 +59,7 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	char	*file_name;
+	int		fd;
 
 	if (!cmd || !cmd->red_arg || !cmd->red_arg->name)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
@@ -68,10 +71,10 @@ void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 		return ;
 	}
 	save_stds(d);
-	d->fd = open(file_name, O_RDONLY);
-	if (d->fd == -1)
+	fd = open(file_name, O_RDONLY);
+	if (fd == -1)
 		custom_exit(d, "error opening file", NULL, EXIT_FAILURE);
-	if (dup2(d->fd, STDIN_FILENO) == -1)
+	if (dup2(fd, STDIN_FILENO) == -1)
 		custom_exit(d, "error dup2", NULL, EXIT_FAILURE);
 	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
