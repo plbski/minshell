@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 16:37:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 10:29:15 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 	char	*file_name;
 	char	*path;
 
-	if (!cmd || !cmd->redir_arg || !cmd->redir_arg->name)
+	if (!cmd || !cmd->red_arg || !cmd->red_arg->name)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
-	file_name = cmd->redir_arg->name;
+	file_name = cmd->red_arg->name;
 	save_stds(d);
 	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
 	if (!path)
@@ -38,9 +38,9 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 	char	*file_name;
 	char	*path;
 
-	if (!cmd || !cmd->redir_arg || !cmd->redir_arg->name)
+	if (!cmd || !cmd->red_arg || !cmd->red_arg->name)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
-	file_name = cmd->redir_arg->name;
+	file_name = cmd->red_arg->name;
 	save_stds(d);
 	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
 	if (!path)
@@ -58,9 +58,9 @@ void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	char	*file_name;
 
-	if (!cmd || !cmd->redir_arg || !cmd->redir_arg->name)
+	if (!cmd || !cmd->red_arg || !cmd->red_arg->name)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
-	file_name = cmd->redir_arg->name;
+	file_name = cmd->red_arg->name;
 	if (access(file_name, F_OK) == -1)
 	{
 		printf("msh: %s: No such file or directory\n", file_name);
@@ -104,7 +104,7 @@ t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 		handle_redir_out(d, cmd, arg, flags);
 	else if (red_type == tk_red_in)
 		handle_redir_in(d, cmd, arg, flags);
-	last_node = cmd->redir_arg;
+	last_node = cmd->red_arg;
 	while (last_node && last_node->type == tk_argument)
 		last_node = last_node->next;
 	return (last_node);

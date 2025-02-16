@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:03:05 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 04:23:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 12:06:52 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,27 +97,26 @@ char	*char_join(char a, char b, char c, char d)
 	return (str);
 }
 
-char	*replace_str(t_data *d, char *str, char *remove, char *replace)
+void	replace_strstr(t_data *d, char **str, \
+		const char *remove, const char *replace)
 {
 	char	*new_str;
 	int		i;
 	int		j;
-	char	*joined;
 
-	if (!str || !remove)
-		return (NULL);
+	if (!str || !*str || !(*str)[0] || !remove || !ft_strstr(*str, remove))
+		return ;
 	i = -1;
-	while (str[++i])
+	while ((*str)[++i])
 	{
 		j = 0;
-		while (remove[j] && remove[j] == str[i + j])
+		while (remove[j] && remove[j] == (*str)[i + j])
 			j++;
 		if (remove[j])
 			continue ;
-		new_str = ms_strdup(d, str + i + j);
-		joined = ms_strjoin(d, replace, new_str);
-		free(new_str);
-		return (joined);
+		new_str = ms_strdup(d, (*str) + i + j);
+		setstr(d, str, ms_strjoin(d, replace, new_str));
+		return ;
 	}
-	return (ms_strdup(d, str));
+	return ;
 }

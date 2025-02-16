@@ -6,62 +6,67 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/15 13:52:29 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 13:53:54 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header.h"
 
-static void	split_seglen(char **prompt, int seglen)
+static void	split_seglen(t_data *d, char **str, int prompt_len, char *col)
 {
-	char	*new_prmpt;
+	char	**splits;
 	int		i;
-	int		j;
-	int		len;
+	int		seg_len;
 
-	new_prmpt = malloc(ft_strlen(*prompt) + 1);
-	i = -1;
-	len = 0;
-	while ((*prompt)[++i])
+	if (!char_in_str('/', *str) || prompt_len <= 0)
+		return ;
+	splits = ms_split(d, *str, '/');
+	seg_len = prompt_len / get_arr_len((void **)splits);
+	if (seg_len <= 0)
+		seg_len = 1;
+	i = 0;
+	while (splits[++i])
 	{
-		if ((*prompt)[i] == '/' && char_in_str('/', *prompt + (i + 1)))
+		if (i == 1 && splits[i][0] != '~' && !splits[i + 1])
+			setstr(d, &splits[i], ms_strjoin(d, "/", splits[i]));
+		if (!splits[i + 1] || char_in_str('$', splits[i]))
+			setstr(d, &splits[i], ms_strjoin(d, col, splits[i]));
+		else
 		{
-			j = 0;
-			while ((*prompt)[i] && j++ < seglen)
-				new_prmpt[len++] = (*prompt)[i++];
-			while ((*prompt)[i] && (*prompt)[i] != '/' && \
-				(*prompt)[i] != ' ' && (*prompt)[i] != '$')
-				i++;
+			if (ft_strlen(splits[i]) > seg_len)
+				ms_substr(d, &splits[i], 0, seg_len);
+			setstr(d, &splits[i], ms_strjoin(d, splits[i], "/"));
 		}
-		if ((*prompt)[i])
-			new_prmpt[len++] = (*prompt)[i];
 	}
-	new_prmpt[len] = '\0';
-	free(*prompt);
-	*prompt = new_prmpt;
+	setstr(d, str, contract_str(d, splits));
 }
 
 static char	*get_prompt_message(t_data *d)
 {
-	char	*logname_part;
+	char	*msh;
 	char	*cwd_part;
 	char	*cut_cwd;
 	char	*prompt_msg;
 	char	*icon_part;
 
-	logname_part = ft_str_mega_join(PROMPT_LOGNAME_COL, \
-			"msh ", "\033[1;35m❯ ", RESET);
-	if (!logname_part)
+	msh = ft_str_mega_join(PROMPT_LOGNAME_COL, "msh ", "\033[1;35m❯ ", RESET);
+	if (!msh)
 		return (NULL);
-	cut_cwd = replace_str(d, d->cwd, d->home_wd, "~");
+	cut_cwd = ms_strdup(d, d->cwd);
+	replace_strstr(d, &cut_cwd, d->home_wd, "~");
+	setstr(d, &cut_cwd, ms_strjoin(d, "/", cut_cwd));
 	icon_part = ft_str_mega_join(MAGENTA, "$ ", RESET, NULL);
+	if (!icon_part)
+		custom_exit(d, "alloc of icon_part (prompt)\n", NULL, EXIT_FAILURE);
 	cwd_part = ft_str_mega_join(PROMPT_CWD_COL, cut_cwd, icon_part, RESET);
 	free(cut_cwd);
-	prompt_msg = ms_strjoin(d, logname_part, cwd_part);
 	free(icon_part);
+	if (!cwd_part)
+		custom_exit(d, "alloc of cwd_part (prompt)\n", NULL, EXIT_FAILURE);
+	prompt_msg = ms_strjoin(d, msh, cwd_part);
 	free(cwd_part);
-	free(logname_part);
-	split_seglen(&prompt_msg, PROMPT_SEGLEN);
+	free(msh);
+	split_seglen(d, &prompt_msg, PROMPT_SEGLEN, PROMPT_CWD_END);
 	return (prompt_msg);
 }
 
@@ -109,7 +114,7 @@ int	process_input(t_data *d)
 		return (0);
 	if (only_space(user_input))
 		return (free(user_input), rl_replace_line("", 0), rl_on_new_line(), 1);
-	if (!d->prv_input || !cmp_str(d->prv_input, user_input))
+	if (!d->prv_input || !same_str(d->prv_input, user_input))
 		add_history(user_input);
 	if (validate_input(d, &user_input))
 	{

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/15 14:43:06 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ static int	handle_child(t_data *d, char *prg, char **argv)
 {
 	char	**new_args;
 
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	increment_shlvl(d);
-	update_environ(d);
-	if (!argv[0] || !cmp_str(prg, argv[0]))
+	if (ft_strstr(prg, ".sh") && argv[0] && !same_str(argv[0], prg))
 	{
 		new_args = set_argv(d, prg, argv, get_arr_len((void **)argv));
 		free_void_array((void ***)&argv);
 		argv = new_args;
 	}
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	increment_shlvl(d);
+	update_environ(d);
 	execve(prg, argv, d->environ);
 	free(argv[0]);
 	argv[0] = ms_strdup(d, "/bin/sh");
@@ -83,7 +83,7 @@ int	exec(t_data *d, char *prg, char **argv, int is_indirect)
 	char		*new_prg;
 	int			ret_val;
 
-	if (cmp_str(prg, "exec") || !prg)
+	if (same_str(prg, "exec") || !prg)
 		return (FCT_SUCCESS);
 	if (!is_valid_exec_file(prg, &ret_val, is_indirect))
 		new_prg = validate_exec(d, prg, is_indirect, &ret_val);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/15 14:25:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 13:56:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@
 # define PASTEL_BLUE	"\033[38;5;110m"
 
 # define PROMPT_LOGNAME_COL 	PURP_LAVANDA
-# define PROMPT_CWD_COL			PASTEL_BLUE
+# define PROMPT_CWD_COL			GREEN
+# define PROMPT_CWD_END			MENTHA_GREEN
 
-# define PROMPT_SEGLEN 3
+# define PROMPT_SEGLEN 30
 
 # define CMD_NOT_FOUND	127
 # define FCT_SUCCESS	0
@@ -140,7 +141,7 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token	*pipe_out;
 	struct s_token	*redir;
-	struct s_token	*redir_arg;
+	struct s_token	*red_arg;
 	int				is_redir;
 	int				par;
 	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
@@ -169,7 +170,8 @@ char		*ms_strjoin(t_data *d, char const *s1, char const *s2);
 char		*ms_strdup(t_data *d, const char *s1);
 void		*ms_malloc(t_data *d, ssize_t size);
 char		*char_join(char a, char b, char c, char d);
-char		*replace_str(t_data *d, char *str, char *remove, char *replace);
+void		replace_strstr(t_data *d, char **str, \
+		const char *remove, const char *replace);
 
 //		tools/str_tools/splitstr_tools.c
 char		*ft_strstr(const char *str, const char *to_find);
@@ -177,7 +179,7 @@ char		**ft_split_str(t_data *d, char *str, char *sep);
 char		*contract_str(t_data *d, char **strs);
 
 //		tools/str_tools/strcmp_tools.c
-int			cmp_str(const char *a, const char *b);
+int			same_str(const char *a, const char *b);
 int			char_in_str(char c, const char *txt);
 int			chr_amnt(const char *str, char c);
 int			get_arr_len(void **arr);
@@ -239,8 +241,8 @@ t_token		*handle_token(t_data *d, t_token *node);
 int			exec_input(t_data *d, char *input);
 
 //		input/input_split.c
-char		*get_token_in_split(char *str, int *i);
-char		*get_new_split(char *str, int *i);
+char		*get_token_in_split(t_data *d, char *str, int *i);
+char		*get_new_split(t_data *d, char *str, int *i);
 char		**split_input(t_data *d, char *input);
 void		unquote_splits(t_data *d, char **splits);
 
@@ -314,7 +316,6 @@ int			is_valid_identifier(char *arg);
 //		tokens/token_parse.c
 t_tktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev);
 t_token		*tokenize_string(t_data *d, char *prompt);
-char		*expand_home_token(t_data *d, char *cmd_name);
 
 //		tokens/token_execute.c
 t_token		*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flg);
@@ -346,5 +347,9 @@ char		*get_last_line(t_data *d, const char *filename);
 
 char		*get_next_line(int fd);
 void		restore_fds(t_data *d);
+void		set_node_redir(t_token *node);
+void		setstr(t_data *d, char **str, char *new);
+char		**ms_split(t_data *d, const char *str, char remove);
+void		ms_substr(t_data *d, char **s, unsigned int start, size_t len);
 
 #endif

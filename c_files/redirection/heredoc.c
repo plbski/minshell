@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 16:32:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	exec_heredoc(char *nd, char *print, int heredoc_fd)
 		if (should_skip_line(line, &print_prompt))
 			continue ;
 		line[ft_strlen(line) - 1] = '\0';
-		if (!nd || cmp_str(line, nd))
+		if (!nd || same_str(line, nd))
 		{
 			free(line);
 			break ;

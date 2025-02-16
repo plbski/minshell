@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 04:24:45 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 12:05:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 t_tktype	get_token_type(t_data *d, int *was_cmd, char *str, t_token *prev)
 {
-	if (cmp_str(str, "<"))
+	if (same_str(str, "<"))
 		return (tk_red_in);
-	if (cmp_str(str, ">"))
+	if (same_str(str, ">"))
 		return (tk_red_out);
-	if (cmp_str(str, ">>"))
+	if (same_str(str, ">>"))
 		return (tk_red_app);
-	if (cmp_str(str, "<<"))
+	if (same_str(str, "<<"))
 		return (tk_hered);
-	if (cmp_str(str, "|"))
+	if (same_str(str, "|"))
 		return (tk_pipe);
-	if (cmp_str(str, "&&") || cmp_str(str, "||"))
+	if (same_str(str, "&&") || same_str(str, "||"))
 		return (tk_logical);
-	if (cmp_str(str, "*"))
+	if (same_str(str, "*"))
 		return (tk_wildcard);
 	if (*was_cmd)
 		return (tk_argument);
@@ -70,7 +70,7 @@ static t_token	*get_split_tokens(t_data *d, char **splits, \
 	token = NULL;
 	while (splits[++i])
 	{
-		if (cmp_str(splits[i], "(") || cmp_str(splits[i], ")"))
+		if (same_str(splits[i], "(") || same_str(splits[i], ")"))
 		{
 			bracket += 2 * (splits[i][0] == '(') - 1;
 			continue ;
@@ -101,19 +101,4 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	if (d->debug_mode)
 		show_tokens_info(d, token, "init", "");
 	return (token);
-}
-
-char	*expand_home_token(t_data *d, char *cmd_name)
-{
-	char	*new_cmd_name;
-	char	*separate_home;
-
-	separate_home = ft_remove_prefix(d, cmd_name, "~");
-	if (!separate_home)
-		custom_exit(d, "alloc in home_token", NULL, EXIT_FAILURE);
-	new_cmd_name = ft_strjoin(d->home_wd, separate_home);
-	if (!new_cmd_name)
-		custom_exit(d, "alloc in home_token", NULL, EXIT_FAILURE);
-	free(separate_home);
-	return (new_cmd_name);
 }

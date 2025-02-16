@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 21:46:12 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	is_builtin_cmd(t_data *d, char *str)
 
 	i = -1;
 	while (d->bltin_names[++i])
-		if (cmp_str(str, d->bltin_names[i]))
+		if (same_str(str, d->bltin_names[i]))
 			return (1);
 	return (0);
 }

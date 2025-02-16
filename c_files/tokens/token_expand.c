@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_expand_tools.c                               :+:      :+:    :+:   */
+/*   token_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 02:48:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 12:04:54 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,29 +115,19 @@ void	expand_splits(t_data *d, char **splits)
 
 void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
 {
-	char	*new_name;
 	int		was_cmd;
 
 	was_cmd = 0;
 	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/'))
-	{
-		new_name = expand_home_token(d, node->name);
-		free(node->name);
-		node->name = new_name;
-	}
+		replace_strstr(d, &node->name, "~", d->home_wd);
 	if (chr_amnt(node->name, '$'))
 	{
-		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);
-		if (d->debug_mode)
-			printf("expanded: %s to %s\n", node->name, new_name);
 		free(node->name);
-		node->name = new_name;
+		node->name = expand_split(d, node->name, ft_strlen(node->name), 0);
 		if (set_new_type)
 			node->type = get_token_type(d, &was_cmd, node->name, node->prv);
 	}
 	if (node->type == tk_command || node->type == tk_exec)
-		node->redir = get_next_redir(node);
-	if (node->redir)
-		node->redir_arg = node->redir->next;
+		set_node_redir(node);
 	remove_quotes(d, &node->name);
 }

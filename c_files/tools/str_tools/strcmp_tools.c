@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:25:15 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 04:23:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header.h"
 
-int	cmp_str(const char *a, const char *b)
+int	same_str(const char *a, const char *b)
 {
 	int	len_a;
 	int	len_b;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:33:06 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 02:16:24 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_token	*new_token(char *name, t_token *prv, t_tktype type, int parenth_order)
 	token->par = parenth_order;
 	token->name = name;
 	token->type = type;
-	token->redir_arg = NULL;
+	token->red_arg = NULL;
 	token->redir = NULL;
 	token->is_redir = (type == tk_red_app || type == tk_red_in || \
 		type == tk_red_out || type == tk_hered);
@@ -57,7 +57,7 @@ t_token	*get_token(t_token *lst, char *name)
 	first = token_first(lst);
 	while (first)
 	{
-		if (first->name && cmp_str(first->name, name))
+		if (first->name && same_str(first->name, name))
 			return (first);
 		first = first->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/15 14:40:34 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:59:21 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ char	**set_argv(t_data *d, char *prog_name, char **args, int args_len)
 	char	**new_argv;
 	int		i;
 
-	if (!prog_name)
-		custom_exit(d, "no prog name in set_argv", NULL, EXIT_FAILURE);
 	new_argv = ms_malloc(d, sizeof(char *) * (2 + args_len));
 	new_argv[0] = ms_strdup(d, prog_name);
 	i = -1;
@@ -68,7 +66,7 @@ char	*handle_path_in_dir(t_data *d, char *prg, int is_indirect)
 	{
 		if (!is_indirect)
 			ft_dprintf(2, "msh: exec: %s: \
-				cannot execute: Is a directory\n", prg);
+cannot execute: Is a directory\n", prg);
 		else
 			ft_dprintf(2, "msh: %s: command not found\n", prg);
 	}
@@ -118,9 +116,6 @@ int	increment_shlvl(t_data *d)
 		return (custom_exit(d, "SHLVL alloc failed", NULL, EXIT_FAILURE));
 	new_content = ft_str_mega_join("SHLVL", "=", new_lvl, NULL);
 	free(new_lvl);
-	if (!new_content)
-		return (custom_exit(d, "SHLVL alloc failed", NULL, EXIT_FAILURE));
-	free(element->content);
-	element->content = new_content;
+	setstr(d, (char **)&element->content, new_content);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 22:41:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/13 22:43:33 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	custom_exit(t_data *data, char *error_msg, char **flags, int status)
 
 	exit_status = status;
 	write_history(data->history_wd);
-	if (status != EXIT_CHILD && (!error_msg || !cmp_str(error_msg, "null")))
+	if (status != EXIT_CHILD && (!error_msg || !same_str(error_msg, "null")))
 		ft_dprintf(2, "exit\n");
 	if (flags && flags[0])
 		return (ft_dprintf(2, "msh: exit: too many arguments\n"), 0);
-	if (error_msg && !cmp_str(error_msg, "null"))
+	if (error_msg && !same_str(error_msg, "null"))
 	{
 		if (status == EXIT_SUCCESS)
 		{

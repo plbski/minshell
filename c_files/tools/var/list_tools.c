@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 04:23:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ t_dblist	*get_dblst_node(t_dblist *lst, const char *content)
 	if (!lst)
 		return (NULL);
 	first_node = dblst_first(lst);
-	if (cmp_str(first_node->content, content))
+	if (same_str(first_node->content, content))
 		return (first_node);
 	lst = first_node->next;
 	while (lst && lst != first_node)
 	{
-		if (cmp_str(lst->content, content))
+		if (same_str(lst->content, content))
 			return (lst);
 		lst = lst->next;
 	}

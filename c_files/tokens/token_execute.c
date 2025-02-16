@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 15:39:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 10:29:15 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 	while (node && (node->type == tk_argument || \
 		(cmd->redir && cmd->redir == node)))
 	{
-		if (!node->is_redir && !(cmd->redir_arg && cmd->redir_arg == node))
+		if (!node->is_redir && !(cmd->red_arg && cmd->red_arg == node))
 		{
 			update_node_expansion(d, node, 0);
 			dblst_add_back(&list, dblst_new(ms_strdup(d, node->name)));
@@ -77,8 +77,8 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 	reset_redir(d);
 	d->heredocfd = -1;
 	close(d->heredocfd);
-	if (cmd->redir_arg)
-		return (cmd->redir_arg->next);
+	if (cmd->red_arg)
+		return (cmd->red_arg->next);
 	return (cmd->next);
 }
 
