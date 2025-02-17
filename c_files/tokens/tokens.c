@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:33:06 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 11:46:37 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 17:21:35 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_token	*new_token(char *name, t_token *prv, t_tktype type, int parenth_order)
 	token->type = type;
 	token->red_arg = NULL;
 	token->redir = NULL;
+	token->nxt_eval = NULL;
 	token->is_redir = (type == tk_red_app || type == tk_red_in || \
 		type == tk_red_out || type == tk_hered);
 	return (token);

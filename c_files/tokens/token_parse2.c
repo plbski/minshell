@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 15:23:51 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 17:40:28 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@ int	validate_token(t_data *d, t_token *node)
 	typ != tk_hered && !chr_amnt(node->name, '=')))
 	{
 		printf("%d\n", node->type);
-		ft_dprintf(2, "msh: command not found: %s\n", node->name);
-		d->last_exit_st = CMD_NOT_FOUND;
-		return (0);
-	}
-	if (typ == tk_argument && !chr_amnt(node->name, '=') && \
-	(!node->prv || node->prv->type != tk_command))
-	{
 		ft_dprintf(2, "msh: command not found: %s\n", node->name);
 		d->last_exit_st = CMD_NOT_FOUND;
 		return (0);

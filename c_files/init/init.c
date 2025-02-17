@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/16 15:48:40 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 16:28:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ static int	init_data_directories(t_data *data)
 	working_dir_buff = custom_get_cwd(data);
 	data->start_wd = working_dir_buff;
 	data->man_wd = ms_strjoin(data, working_dir_buff, "/doc/");
-	data->history_wd = ft_str_mega_join(working_dir_buff, \
+	data->history_wd = ft_megajoin(working_dir_buff, \
 		"/ressources/", ".history.txt", NULL);
 	if (!data->history_wd)
 		custom_exit(data, "alloc for history wd", NULL, EXIT_FAILURE);
 	read_history(data->history_wd);
-	data->heredoc_wd = ft_str_mega_join(working_dir_buff, \
+	data->heredoc_wd = ft_megajoin(working_dir_buff, \
 		"/ressources/", ".heredoc.txt", NULL);
 	if (!data->heredoc_wd)
 		custom_exit(data, "alloc for heredoc_wd", NULL, EXIT_FAILURE);
@@ -88,10 +88,11 @@ void	init_data(t_data *data, char **env)
 	data->tmp_list = NULL;
 	data->var_list = NULL;
 	data->prv_input = NULL;
+	data->brackets = 0;
 	g_quit_in_heredoc = 0;
 	data->last_exit_st = 0;
 	init_env_list(data, env);
-	data->environ = list_to_arr(data->env_list);
+	data->environ = dblst_to_arr(data->env_list);
 	update_env_variables(data);
 	init_data_directories(data);
 	update_cwd(data);

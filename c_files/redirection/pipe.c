@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 16:39:23 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 17:03:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 {
 	int	should_redir;
 
-	update_node_expansion(d, cmd, 0);
+	update_node_expansion(d, cmd);
 	if (fd_in)
 	{
 		dup2(fd_in[0], STDIN_FILENO);

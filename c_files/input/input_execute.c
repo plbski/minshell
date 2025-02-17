@@ -122,7 +122,7 @@ int	exec_input(t_data *d, char *input)
 	node = token_first(tokens);
 	while (node)
 	{
-		update_node_expansion(d, node, 1);
+		update_node_expansion(d, node);
 		if (!validate_token(d, node))
 			break ;
 		if (d->debug_mode)
@@ -132,6 +132,8 @@ int	exec_input(t_data *d, char *input)
 	if (d->heredocfd != -1)
 		consumate_heredoc(d, NULL, NULL, NULL);
 	tokens = token_first(tokens);
+	if (d->debug_mode)
+		show_tokens_info(d, tokens, "aftr ", "");
 	clear_tokens(tokens);
 	return (FCT_SUCCESS);
 }

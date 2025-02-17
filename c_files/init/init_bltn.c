@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 16:48:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 16:48:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	init_types_names(t_data *d)
 {
-	d->types_names = ms_malloc(d, sizeof(char *) * 9);
-	d->types_names[tk_command] = ms_strdup(d, "command");
-	d->types_names[tk_argument] = ms_strdup(d, "argument");
+	d->types_names = ms_malloc(d, sizeof(char *) * 10);
+	d->types_names[tk_command] = ms_strdup(d, "cmd");
+	d->types_names[tk_argument] = ms_strdup(d, "arg");
 	d->types_names[tk_red_in] = ms_strdup(d, "red_in");
 	d->types_names[tk_red_out] = ms_strdup(d, "red_out");
-	d->types_names[tk_red_app] = ms_strdup(d, "red_append");
-	d->types_names[tk_hered] = ms_strdup(d, "heredoc");
+	d->types_names[tk_red_app] = ms_strdup(d, "red_app");
+	d->types_names[tk_hered] = ms_strdup(d, "hered");
 	d->types_names[tk_pipe] = ms_strdup(d, "pipe");
-	d->types_names[tk_logical] = ms_strdup(d, "logical");
-	d->types_names[tk_wildcard] = ms_strdup(d, "wildcard");
+	d->types_names[tk_logical] = ms_strdup(d, "logic");
+	d->types_names[tk_wildcard] = ms_strdup(d, "wildc");
 	d->types_names[9] = NULL;
 }
 

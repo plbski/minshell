@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 00:28:20 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 16:36:23 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 22:42:18 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ char	*parse_heredoc(char *end, t_data *d, char *print)
 		else
 		{
 			if (end && end[0] != '|')
-				printf("msh: unexpected EOF while looking for matching `%s'\n", end);
-			printf("msh: syntax error: unexpected end of file\n");	
+				printf("msh: unexpected EOF while \
+looking for matching `%s'\n", end);
+			printf("msh: syntax error: unexpected end of file\n");
 		}
 	}
 	else

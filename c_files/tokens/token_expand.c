@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 16:02:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 17:02:35 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,20 +113,14 @@ void	expand_splits(t_data *d, char **splits)
 	}
 }
 
-void	update_node_expansion(t_data *d, t_token *node, int set_new_type)
+void	update_node_expansion(t_data *d, t_token *node)
 {
-	int		was_cmd;
-
-	was_cmd = 0;
 	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/'))
 		replace_strstr(d, &node->name, "~", d->home_wd);
 	if (chr_amnt(node->name, '$'))
 	{
-		setstr(d, &node->name, expand_split(d, node->name, ft_strlen(node->name), 0));
-		if (set_new_type)
-			node->type = get_token_type(&was_cmd, node->name);
+		setstr(d, &node->name, \
+				expand_split(d, node->name, ft_strlen(node->name), 0));
 	}
-	if (node->type == tk_command)
-		set_node_redir(node);
 	remove_quotes(d, &node->name);
 }

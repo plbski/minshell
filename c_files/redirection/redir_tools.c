@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:37:20 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 10:21:32 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 17:59:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,3 @@ t_token	*skip_type(t_token *tok, t_tktype type_to_skip)
 	return (tok);
 }
 
-t_token	*get_next_redir(t_token *d)
-{
-	t_token	*node;
-
-	if (!d)
-		return (NULL);
-	node = d;
-	while (node)
-	{
-		if (node->is_redir)
-			return (node);
-		node = node->next;
-	}
-	return (NULL);
-}

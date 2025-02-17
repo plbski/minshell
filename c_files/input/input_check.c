@@ -82,13 +82,13 @@ static int	set_par(t_data *d, char **input, int i)
 
 static int	find_unvalid_patterns(char *input)
 {
-	const char	patterns[11][4] = {"| |", "& &", "& |", "| &", \
-		"&|", "|&", ">|", "<|", "|>", "|<", "< <"};
+	const char	patterns[12][4] = {"| |", "& &", "& |", "| &", \
+		"&|", "|&", ">|", "<|", "|>", "|<", "< <", "$)"};
 	char		*pattern;
 	int			i;
 
 	i = -1;
-	while (++i < 11)
+	while (++i < 12)
 	{
 		pattern = ft_strstr(input, patterns[i]);
 		if (pattern)

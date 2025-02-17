@@ -18,6 +18,8 @@ char	*get_token_in_split(t_data *d, char *str, int *i)
 	char	*joined;
 
 	joined = NULL;
+	if (str[*i] == '$' && str[*i + 1] == '(')
+		return (get_cmd_subst(d, str, i, joined));
 	if (char_in_str(str[*i], "<>&|"))
 	{
 		first = str[(*i)++];
@@ -47,8 +49,8 @@ char	*get_new_split(t_data *d, char *str, int *i)
 	if (new_split)
 		return (new_split);
 	len = *i;
-	while (str[len] && (!char_in_str(str[len], "()<>&| ") \
-		|| is_in_quote(str, len)))
+	while (str[len] && !(str[len] == '$' && str[len + 1] == ')') \
+		&& (!char_in_str(str[len], "()<>&| ") || is_in_quote(str, len)))
 		len++;
 	size = (len - *i + 1);
 	new_split = ms_malloc(d, size);
@@ -61,14 +63,13 @@ char	*get_new_split(t_data *d, char *str, int *i)
 
 char	**split_input(t_data *d, char *input)
 {
-	char	**splits;
-	int		token_index;
-	int		i;
-	int		input_len;
+	t_dblist	*list;
+	int			i;
+	int			input_len;
+	char		**splits;
 
-	token_index = 0;
+	list = NULL;
 	input_len = ft_strlen(input);
-	splits = ms_malloc(d, sizeof(char *) * (input_len + 1));
 	i = 0;
 	while (i < input_len && input[i])
 	{
@@ -76,9 +77,10 @@ char	**split_input(t_data *d, char *input)
 			i++;
 		if (!input[i])
 			break ;
-		splits[token_index++] = get_new_split(d, input, &i);
+		dblst_add_back(&list, dblst_new((void *)get_new_split(d, input, &i)));
 	}
-	splits[token_index] = NULL;
+	splits = dblst_to_arr(list);
+	dblst_clear(&list, free);
 	return (splits);
 }
 

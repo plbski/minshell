@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 11:59:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 03:38:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*get_dir_in_path(t_data *d, char *cmd_name)
 	i = -1;
 	while (splitted_path[++i])
 	{
-		cmd_path = ft_str_mega_join(splitted_path[i], "/", cmd_name, NULL);
+		cmd_path = ft_megajoin(splitted_path[i], "/", cmd_name, NULL);
 		if (access(cmd_path, X_OK) == 0)
 			break ;
 		free(cmd_path);
@@ -114,7 +114,7 @@ int	increment_shlvl(t_data *d)
 	new_lvl = ft_itoa(d->shlvl);
 	if (!new_lvl)
 		return (custom_exit(d, "SHLVL alloc failed", NULL, EXIT_FAILURE));
-	new_content = ft_str_mega_join("SHLVL", "=", new_lvl, NULL);
+	new_content = ft_megajoin("SHLVL", "=", new_lvl, NULL);
 	free(new_lvl);
 	setstr(d, (char **)&element->content, new_content);
 	return (1);

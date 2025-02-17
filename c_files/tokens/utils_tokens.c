@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 15:24:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 17:55:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,17 @@ t_token	*get_last_arg(t_token *cmd)
 	return (NULL);
 }
 
-void	set_node_redir(t_token *cmd)
+void	set_parenthesis_redirections(t_token *tok)
 {
-	cmd->redir = get_next_redir(cmd);
-	if (!cmd->redir)
-		return ;
-	if (cmd->redir->type != tk_red_in)
-		cmd->red_arg = cmd->redir->next;
-	else
-		cmd->red_arg = get_last_arg(cmd);
+	t_token	*node;
+
+	node = tok->next;
+	while (node)
+	{
+		if (node->par < tok->par)
+			break ;
+		node = node->next;
+	}
+	if (node && node->is_redir)
+		tok->redir = node;
 }

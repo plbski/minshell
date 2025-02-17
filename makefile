@@ -15,7 +15,7 @@ c_files/redirection/redir.c c_files/redirection/heredoc.c c_files/builtins/ls.c 
 c_files/builtins/exit.c c_files/builtins/unset.c c_files/builtins/env.c c_files/builtins/pwd.c c_files/builtins/export.c \
 c_files/builtins/cd.c c_files/builtins/doc.c c_files/builtins/exec_utils.c c_files/builtins/echo.c c_files/tokens/token_parse2.c \
 c_files/tokens/token_parse.c c_files/tokens/token_execute.c c_files/tokens/utils_tokens.c c_files/tokens/token_expand.c \
-c_files/tokens/tokens.c
+c_files/tokens/tokens.c c_files/input/input_substitute.c
 
 LIBFT_DIR = libft/
 DPRINTF_DIR = dprintf/

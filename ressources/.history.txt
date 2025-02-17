@@ -1224,3 +1224,502 @@ clear
 pwd
 clear
 pwd
+clear
+pwd
+ls
+pwd
+ls
+clear
+pwd
+ls
+make re
+.
+ls
+clear
+pwd
+clear
+ls
+clear
+pwd
+clear
+ls
+clear
+pwd
+clear
+cd -
+cd ~
+ls
+cd Movies
+clear
+ls
+cd ..
+ls
+cd Templates
+ls
+clear
+cd ..
+cd Desktop
+clear
+ls
+cd 42
+clear
+ls
+cd gnl
+clear
+ls
+cd txt
+cd ..
+cd ~
+cd -
+cd~
+clear
+pwd
+cd ~
+ls
+cd Deskto
+cd Desktop
+clear
+ls
+cd 42
+ls
+clear
+ls
+cd SPEN
+clear
+ls
+cd docker
+clear
+ls
+cd app
+clear
+ls
+cd spen
+clear
+ls
+cd app
+clear
+pwd
+clear
+pwd
+clear
+,s
+ls
+cd ~
+cd ..
+cd -
+c,ear
+clear
+pwd
+clear
+ls
+clear
+pwd
+clear
+ls
+clear
+pwd
+clear
+pwd
+clear
+pwd
+clear
+pwd
+clear
+pwd
+clear
+pwd
+clear
+cd -
+cd ~
+ls
+clear
+pwd
+clear
+./minishell
+$0
+ls
+pwd
+clear
+pwd
+clear
+ls
+clear
+pwd
+ls¨
+pwd
+sleep 30
+sleep 10
+echo $(pwd)
+l
+ls
+pwd loa
+echo $pwd
+bash
+echo $PWD
+echo $(pwd)
+bash
+echo $(pwd)
+pwd
+echo $(pwd
+echo $(pwd)
+echo $(minishell)
+clear
+pwd
+echo $(minishell)
+clear
+echo $(minishell)
+echo $(pwd)
+echo $(minishell)
+echo $(pwd)
+clear
+echo $(mls)
+echo $(pwd)
+echo $(ls)
+echo $(mls)
+echo (cool)
+bash
+echo (cool)
+echo ($cool)
+echo $($pwd top)
+echo $(pwd top)
+echo $(pwd top)super
+echo hey$(pwd top)super
+echo hey $(pwd top)super
+bash
+clear
+./minishell
+echo $(minishell)
+echo $(pwd)
+clear
+make re
+echo $   =
+echo $   )
+echo ($)
+echo ($    )
+echo $($    )
+bash
+clear
+echo $pwd)
+echo ($pwd)
+echo $(pwd)
+l
+plpl
+pl
+cd ..
+echo $pwd)
+echo $(pwd)
+ls
+rm tmp_output 
+cd -
+echo $(pwd)
+echo $(pwd  ola la)
+echo $(echo ola alo ol)
+echo $(echo ola alo)
+echo $(echo ola)
+echo $(echo)
+echo $(ec)
+echo $(echo)
+bash
+echo $(echo ola)
+echo $(pwd pwd)
+echo $(pwd $(pwd))
+bash
+echo $(pwd $(pwd))
+echo $(echo ola alo ol)
+pwd
+echo $(echo ola alo ol)
+echo $()
+echo $(k)
+echo $(echo ola alo ol)
+echo $(pwd)
+cd ~
+echo $(pwd)
+echo $(cd -)
+echo $(pwd)
+echo $(cd -)
+echo $(cd ~)
+echo $(cd)
+echo $(cd -)
+echo $(cd ~)
+cd . ..
+bash
+ls
+pwd
+cler
+cleq
+clear
+pwd
+$0
+pwd
+ls
+pwd
+clear
+ls
+clear
+pwd
+clear
+pwd
+clear
+ls
+clear
+ls
+pwd
+ls
+clear
+ls
+clear
+pwd
+ls
+clear
+lclear
+clear
+pwd
+wl
+echo $(pwd=)
+echo $(pwd=ola)
+echo $(olapo)
+bash
+clear
+echo $(ls)
+bash
+echo $(echo cool)
+echo $(echo $(echo cool))
+clear
+echo $(pwd)
+echo $(echo $(pwd))
+echo $(echo $(echo pwd))
+echo $(echo $(echo $(pwd)))
+clear
+echo $(echo $(echo $(pwd)))
+echo $(minishell)
+clear
+$0
+echo $(bash)
+clear
+echo $(bash)
+echo $(ls | grep c_files)
+echo $(cd ~)
+echo $(~)
+echo $(echo ~)
+echo $(echo -n ~)
+echo -n ~
+echo -n $(echo -n ~)
+echo $(exit)
+echo $(exit 5)
+$?
+bash
+maka leaks
+make leaks
+bash
+(echo "Start" && (echo "Middle" && echo "End") || echo "Fail") | tee result.log
+clear
+echo $(echo $(echo $(ls /bin))) > bin_contents.txt
+echo $(echo $(echo $(ls /bin))) > bin_contents.txt
+(echo "Checking files" && ls /nonexistent || echo "File not found") > check_result.txt 2>&1
+clear
+(echo "Checking files" && ls /nonexistent || echo "File not found") > check_result.txt 2>&1
+(echo "Checking files" && ls /nonexistent || echo "File not found") > check_result.txt 2>&1
+(echo "Checking files" && ls /nonexistent || echo "File not found") > check_result.txt
+echo $(ls && pwd) > output.txt
+echo $(echo $(echo $(ls /bin))) > output.txt 
+echo start && (echo "middle" && echo "end) || echo "fail")
+echo start && (echo "middle" && echo "end") || echo "fail")
+(echo start && (echo "middle" && echo "end") || echo "fail")
+(echo start && (echo "middle" && echo "end") || echo "fail") > output.txt 
+clear
+(echo start && (echo "middle" && echo "end") || echo "fail") > output.txt 
+deb=1
+(echo start >> output1.txt && (echo "middle" && echo "end") || echo "fail") > output.txt
+(echo ola && echo 2) >> output.txt
+clear
+(echo ola && echo 2) >> output.txt
+deb=1
+(echo ola && echo 2) >> output.txt
+cleaer
+clear
+(echo ola && echo 2) >> output.txt
+(echo ola && echo cool)
+deb=0
+clear
+(echo ola && echo cool)
+(echo ola && echo cool) >> output.txt
+(echo ola >> output1.txt && echo cool) >> output.txt
+clear
+(echo ola >> output1.txt && echo cool) >> output.txt
+ls ola && echo cool || cd top && echo ola << output || (echo cool && echo top) >> output.txt
+deb=1
+ls ola && echo cool || cd top && echo ola << output || (echo cool && echo top) >> output.txt
+deb=0
+ls ola && echo cool || cd top && echo ola << output || (echo cool && echo top) >> output.txt
+clear
+ls
+deb=1
+ls
+ls && echo cool
+deb=1
+deb=1
+ls && echo cool
+deb=1
+ls && echo cool
+ls cd pwd
+clear
+deb=1
+ls
+deb=1
+ls && echo bonjour
+deb=1
+ls
+deb=1
+ls && echo bonjour
+clear
+deb=1
+ls
+ls && echo ola
+clear
+ls && echo cool && cd ..
+deb=1
+ls && echo cool && cd ..
+deb=1
+ls && echo cool && cd ..
+clear
+ls && echo cool && cd ..
+deb=1
+ls && echo cool && cd ..
+echo cool
+echo cool && minishell
+clear
+ls
+deb=1
+clear
+ls
+ls || echo
+clear
+deb=1
+ls
+clear
+ls
+clear
+deb=1
+ls
+ls && echo cool
+clear
+ls && echo cool
+deb=1
+deb=1
+ls && echo cool
+ls >> top | cool && super
+deb=1
+deb=1
+ls >> top | cool && super
+make re
+.clear
+deb=1
+ls
+deb=1
+ls
+ls && echo cool >> output.txt
+deb=1
+ls && echo cool >> output.txt
+deb=1
+ls && echo cool >> output.txt
+deb=1
+ls && echo cool >> output.txt
+deb=1
+ls && echo cool >> output.txt
+deb=1
+ls && echo cool >> output.txt
+deb=1
+ls && echo cool >> output.txt
+(echo ola && echo cool) > output.txt
+deb=1
+(echo ola && echo cool) > output.txt
+clear
+clear
+printf
+ls
+deb=1
+clear
+ls
+ls && echo cool
+ls >> output.txt && echo cool >> output
+ls && echo cool >> output
+clear
+ls && echo cool >> output
+deb=1
+ls && echo cool >> output
+ls && echo cool >> outputclear
+ls && echo cool >> output
+deb=1
+ls && echo cool >> output
+deb=0
+ls && echo cool >> output
+deb=1
+ls && echo cool >> output
+<< cool
+ls ola top
+ls top
+ls topapo
+ls topapo tip
+bash
+clear
+<a< shush
+bash
+deb
+var
+unset deb
+deb=1
+ls
+clear
+echo $(cat file1.txt | grep "pattern" > temp.txt) && cat temp.txt | awk '{print $1}' | sort > result.txt
+clear
+echo $(cat file1.txt | grep "pattern" > temp.txt) && cat temp.txt | awk '{print $1}'
+deb=0
+clear
+echo $(cat file1.txt | grep "pattern" > temp.txt) && cat temp.txt | awk '{print $1}'
+$(cat file1.txt)
+clear
+exec minishell
+clear
+./olapo a b c
+exec olapo a b c
+./olapo.sh a b c
+(echo "Start" && (echo "Middle" && echo "End") || echo "Fail") | tee result.log
+(echo "Start" && (echo "Middle" && echo "End") || echo "Fail")
+(echo "Start" && (echo "Middle" && echo "End") || echo "Fail") | cat
+(echo "Start" && (echo "Middle" && echo "End") || echo "Fail") >> output.txt
+deb=1
+(echo "Start" && (echo "Middle" && echo "End") || echo "Fail") >> output.txt
+clear
+pwd
+pwd >> output.txt
+deb=1
+pwd >> output.txt
+deb=1
+pwd >> output.txt
+deb=1
+(echo ola && echo cool >> output.txt) >> output
+bash
+clear
+(echo "First"; echo "Second") > output.txt
+
+clear
+(echo "Hello" > file1.txt && echo "World") > file2.txt
+
+(echo "First"; echo "Second") > output.txt
+
+((echo "Nested 1" && echo "Nested 2") > nested.txt && echo "Outside") > outside.txt
+
+deb=1
+((echo "Nested 1" && echo "Nested 2") > nested.txt && echo "Outside") > outside.txt
+
+clear
+deb=0
+
+clea
+clear
+(echo "First" > file.txt; echo "Second") >> file.txt
+
+(echo "hello" | cat) > test.txt
+
+(echo "Pass" && echo "Fail" > fail.txt) || echo "Fallback"
+((echo "First" | cat) && echo "Second") > output.txt

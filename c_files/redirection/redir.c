@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 15:07:17 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 15:11:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
 	file_name = cmd->red_arg->name;
 	save_stds(d);
-	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
+	path = ft_megajoin(d->cwd, "/", file_name, NULL);
 	if (!path)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
 	fd = get_fd(d, path, tk_red_out);
@@ -44,7 +44,7 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
 	file_name = cmd->red_arg->name;
 	save_stds(d);
-	path = ft_str_mega_join(d->cwd, "/", file_name, NULL);
+	path = ft_megajoin(d->cwd, "/", file_name, NULL);
 	if (!path)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
 	fd = get_fd(d, path, tk_red_app);
@@ -107,8 +107,8 @@ t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 		handle_redir_out(d, cmd, arg, flags);
 	else if (red_type == tk_red_in)
 		handle_redir_in(d, cmd, arg, flags);
-	last_node = cmd->red_arg;
-	while (last_node && last_node->type == tk_argument)
-		last_node = last_node->next;
+	last_node = get_last_arg(cmd);
+	if (last_node)
+		return (last_node->next);
 	return (last_node);
 }

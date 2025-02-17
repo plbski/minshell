@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 13:42:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 03:38:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	update_environ(t_data *d)
 		}
 		return ;
 	}
-	new_env = list_to_arr(d->env_list);
+	new_env = dblst_to_arr(d->env_list);
 	if (!new_env)
 		return ;
 	if (d->environ)
@@ -99,7 +99,7 @@ int	set_key_value(t_data *d, t_dblist *list, char *key, char *value)
 	element = get_dblst_at_key(list, key);
 	if (!element)
 		return (0);
-	new_line = ft_str_mega_join(key, "=", value, NULL);
+	new_line = ft_megajoin(key, "=", value, NULL);
 	if (!new_line)
 		return (custom_exit(d, "Node alloc failed", NULL, EXIT_FAILURE));
 	if (element->content)

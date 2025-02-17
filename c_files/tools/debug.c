@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 15:23:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 16:50:57 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,34 +37,38 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 	printf("\n");
 }
 
-void	show_token_info(t_data *d, t_token *node, char *prefix, char *suffix)
+void	show_token_info(t_data *d, t_token *node, char *prx, char *sufx)
 {
-	char		pipe_out[30];
-	char		arg_color[30];
+	const char	*args[9] = {prx, "", "", "", "", "", "", "", sufx};
+	const char	*arg_cols[] = {RED, GREY, BLUE, PRP_LAV, DR2, CYAN, BLUE, YELLOW};
+	int			i;
+	char		*par;
 
-	if (node->type == tk_command)
-		ft_strlcpy(arg_color, RED, 30);
-	else if (node->type == tk_argument)
-		ft_strlcpy(arg_color, YELLOW, 30);
-	else if (node->type == tk_pipe)
-		ft_strlcpy(arg_color, CYAN, 30);
-	else if (node->type == tk_logical)
-		ft_strlcpy(arg_color, BLUE, 30);
-	else
-		ft_strlcpy(arg_color, GREY, 30);
+	args[1] = node->name;
+	args[2] = d->types_names[node->type];
+	par = ft_itoa(node->par);
+	args[3] = par;
 	if (node->pipe_out)
-		ft_strlcpy(pipe_out, node->pipe_out->name, 30);
-	else
-		ft_strlcpy(pipe_out, " ", 30);
-	printf("%s%-8s%s%-8s %s%-10s%s %-6d %-10s%-8s\n", \
-		GREEN, prefix, RESET, node->name, arg_color, \
-		d->types_names[node->type], RESET, node->par, pipe_out, suffix);
+		args[4] = node->pipe_out->name;
+	if (node->redir)
+		args[5] = node->redir->name;
+	if (node->red_arg)
+		args[6] = node->red_arg->name;
+	if (node->nxt_eval)
+		args[7] = node->nxt_eval->name;
+	printf("%s%-10s %s", GREEN, args[0], RESET);
+	printf("%s%-10s %s", arg_cols[node->type], args[1], RESET);
+	i = 1;
+	while (++i < 9)
+		printf("%-10s %s", args[i], RESET);
+	printf("\n");
+	free(par);
 }
 
 void	show_tokens_info(t_data *d, t_token *node, char *prfx, char *suffix)
 {
-	printf("	%s%-8s %-10s %-6s %-5s%s\n", \
-		GREY, "name", "type", "brk", "pipe", RESET);
+	printf("	  %-5s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", \
+GREY, "name", "type", "brk", "pipe", "redir", "red_arg", "nxt eval", RESET);
 	node = token_first(node);
 	while (node)
 	{

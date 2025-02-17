@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 04:23:26 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 03:38:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*truncate_at_end(const char *str, char cut_letter)
 	return (trunc_str[i] = '\0', trunc_str);
 }
 
-char	*ft_str_mega_join(const char *a, const char *b, \
+char	*ft_megajoin(const char *a, const char *b, \
 	const char *c, const char *d)
 {
 	char	*ab;

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/11 13:05:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 03:38:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ DIR	*get_directory(t_data *d, char *arg)
 	char	*dir_path;
 
 	if (arg)
-		dir_path = ft_str_mega_join(d->cwd, "/", arg, NULL);
+		dir_path = ft_megajoin(d->cwd, "/", arg, NULL);
 	else
 		dir_path = ms_strdup(d, d->cwd);
 	if (!dir_path)

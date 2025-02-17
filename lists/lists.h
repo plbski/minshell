@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:07:59 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/01/27 09:34:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 01:56:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void		clst_iter(t_clst *lst, void (*f)(void *));
 
 //		UTILS
 char		*list_strdup(const char *str);
-char		**list_to_arr(t_dblist *l);
+char		**dblst_to_arr(t_dblist *l);
 
 #endif

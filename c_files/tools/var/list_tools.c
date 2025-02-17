@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 20:38:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/16 22:40:20 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,23 +94,19 @@ void	reorder_dblst(t_dblist *list)
 	}
 }
 
-static struct termios oldt;
-
-void set_nonblocking_mode(int enable)
+void	set_nonblocking_mode(int enable, struct termios *saved)
 {
-    struct termios newt;
+	struct termios	newt;
 
-    if (enable)
-    {
-        tcgetattr(STDIN_FILENO, &oldt);
-        newt = oldt;
-        newt.c_lflag &= ~(ICANON | ECHO);
-        newt.c_cc[VMIN] = 0;  // Ne pas attendre un caractère
-        newt.c_cc[VTIME] = 0; // Pas de timeout
-        tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    }
-    else
-    {
-        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    }
+	if (enable)
+	{
+		tcgetattr(STDIN_FILENO, saved);
+		newt = *saved;
+		newt.c_lflag &= ~(ICANON | ECHO);
+		newt.c_cc[VMIN] = 0;
+		newt.c_cc[VTIME] = 0;
+		tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+	}
+	else
+		tcsetattr(STDIN_FILENO, TCSANOW, saved);
 }

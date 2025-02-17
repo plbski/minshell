@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 10:29:15 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 17:33:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 	{
 		if (!node->is_redir && !(cmd->red_arg && cmd->red_arg == node))
 		{
-			update_node_expansion(d, node, 0);
+			update_node_expansion(d, node);
 			dblst_add_back(&list, dblst_new(ms_strdup(d, node->name)));
 		}
 		node = node->next;
@@ -33,7 +33,7 @@ t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 	if (!list)
 		return (arg_token);
 	list = dblst_first(list);
-	new_arr = list_to_arr(list);
+	new_arr = dblst_to_arr(list);
 	dblst_clear(&list, free);
 	free_void_array((void ***)flags);
 	*flags = new_arr;
@@ -49,7 +49,7 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 	if (cmd->next->type != tk_argument)
 		return (cmd->next);
 	arg_token = cmd->next;
-	update_node_expansion(d, arg_token, 0);
+	update_node_expansion(d, arg_token);
 	*arg = arg_token->name;
 	if (!arg_token->next)
 	{

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/13 22:46:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 03:38:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	doc(t_data *d, char *arg, char **flags, int status)
 		ft_dprintf(2, "What minishell page do you want?\n");
 		return (FCT_SUCCESS);
 	}
-	path = ft_str_mega_join(d->man_wd, arg, ".txt", NULL);
+	path = ft_megajoin(d->man_wd, arg, ".txt", NULL);
 	if (!path)
 		custom_exit(d, "man path alloc failed", NULL, EXIT_FAILURE);
 	fct_ret = execute_doc(d, path);

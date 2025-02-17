@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/16 17:25:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 03:38:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	handle_joined_arg(t_data *d, char *key, char *value)
 	if (node->content)
 		new_value = ft_strjoin(node->content, value);
 	else
-		new_value = ft_str_mega_join(key, "=", value, NULL);
+		new_value = ft_megajoin(key, "=", value, NULL);
 	if (!new_value)
 		custom_exit(d, "alloc for joined export arg", NULL, EXIT_FAILURE);
 	if (node->content)
@@ -108,7 +108,7 @@ static int	exec_export(t_data *d, char *arg, int tmp_mem)
 		handle_joined_arg(d, key, value);
 	else if (!set_key_value(d, d->env_list, key, value))
 	{
-		new_node = dblst_new(ft_str_mega_join(key, "=", value, NULL));
+		new_node = dblst_new(ft_megajoin(key, "=", value, NULL));
 		if (!new_node->content)
 			custom_exit(d, "N for node", NULL, 1);
 		if (!tmp_mem)

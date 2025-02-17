@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/16 22:13:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 17:21:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <termios.h>
 # include <sys/ioctl.h>
 
-# define START_ANIM_TEXT "~~~ Minishell by gvlente & pbuet ~~~"
+# define START_ANIM_TEXT "~~~ Minishell by gvlente & pbuet ~~~ lv "
 
 # define RED			"\033[31m"
 # define GREEN			"\033[32m"
@@ -55,21 +55,38 @@
 # define DR7  "\033[38;5;235m"  // Gris très foncé
 # define DR8  "\033[38;5;233m"  // Presque noir
 
-# define DR9  "\033[38;5;127m"  // Brun/Orange foncé
-# define DR10  "\033[38;5;130m"  // Brun/Orange foncé
-# define DR11 "\033[38;5;136m"  // Orange foncé
-# define DR12 "\033[38;5;172m"  // Orange
-# define DR13 "\033[38;5;208m"  // Orange vif
-# define DR14 "\033[38;5;214m"  // Orange clair
-# define DR15 "\033[38;5;220m"  // Jaune-orangé
-# define DR16 "\033[38;5;226m"  // Jaune vif
-# define DR17 "\033[38;5;196m"  // Rouge intense
+# define DR9  "\033[38;5;130m"  // Brun/Orange foncé
+# define DR10 "\033[38;5;136m"  // Orange foncé
+# define DR11 "\033[38;5;172m"  // Orange
+# define DR12 "\033[38;5;208m"  // Orange vif
+# define DR13 "\033[38;5;214m"  // Orange clair
+# define DR14 "\033[38;5;220m"  // Jaune-orangé
+# define DR15 "\033[38;5;226m"  // Jaune vif
+# define DR16 "\033[38;5;196m"  // Rouge intense
 
+# define DB0  "\033[38;5;32m"   // Bleu foncé
+# define DB1  "\033[38;5;33m"   // Bleu profond
+# define DB2  "\033[38;5;39m"   // Bleu moyen
+# define DB3  "\033[38;5;45m"   // Bleu ciel
+# define DB4  "\033[38;5;51m"   // Bleu léger
+# define DB5  "\033[38;5;57m"   // Bleu clair
+# define DB6  "\033[38;5;63m"   // Bleu très clair
+# define DB7  "\033[38;5;69m"   // Bleu pastel
+# define DB8  "\033[38;5;75m"   // Bleu azur
+# define DB9  "\033[38;5;81m"   // Bleu électrique
+# define DB10 "\033[38;5;87m"   // Bleu vif
+# define DB11 "\033[38;5;93m"   // Bleu cobalt
+# define DB12 "\033[38;5;99m"   // Bleu turquoise
+# define DB13 "\033[38;5;105m"  // Bleu pervenche
+# define DB14 "\033[38;5;111m"  // Bleu très clair
+# define DB15 "\033[38;5;117m"  // Bleu lavande
+# define DB16 "\033[38;5;123m"  // Bleu clair pur
 
-# define PROMPT_SEGLEN 50
-# define PROMPT_LOGNAME_COL 	PRP_LAV
-# define PROMPT_CWD_COL			GREEN
-# define PROMPT_CWD_END			MENTHA_GREEN
+# define PRM_SEGLEN 50
+# define PRM_LOG	PRP_LAV
+# define PRM_CWD	GREEN
+# define PRM_HEAD	PRP_LAV
+# define PRM_CMB	MENTHA_GREEN
 
 # define CMD_NOT_FOUND	127
 # define FCT_SUCCESS	0
@@ -103,34 +120,6 @@ typedef enum e_builtins
 	e_unset,
 }	t_builtins_types;
 
-typedef struct s_data
-{
-	t_dblist	*env_list;
-	t_dblist	*tmp_list;
-	t_dblist	*var_list;
-	char		**bltin_names;
-	const char	**types_names;
-	char		**environ;
-	char		*cwd;
-	char		*prev_cwd;
-	char		*man_wd;
-	char		*start_wd;
-	char		*history_wd;
-	char		*heredoc_wd;
-	char		*home_wd;
-	char		*logname;
-	char		*prv_input;
-	int			base_stdin;
-	int			base_stdout;
-	int			saved_stdin;
-	int			saved_stdout;
-	int			debug_mode;
-	int			shlvl;
-	int			heredocfd;
-	int			last_exit_st;
-	int			(*blt_fct[10])(struct s_data *d, char *arg, char **flg, int s);
-}	t_data;
-
 typedef struct s_token
 {
 	char			*name;
@@ -140,10 +129,41 @@ typedef struct s_token
 	struct s_token	*pipe_out;
 	struct s_token	*redir;
 	struct s_token	*red_arg;
+	struct s_token	*nxt_eval;
+	int				is_cmd_subst;
 	int				is_redir;
 	int				par;
-	int				(*fct)(struct s_data *d, char *arg, char **flg, int s);
 }	t_token;
+
+typedef struct s_data
+{
+	struct termios	oldt;
+	t_dblist		*env_list;
+	t_dblist		*tmp_list;
+	t_dblist		*var_list;
+	char			**bltin_names;
+	const char		**types_names;
+	char			**environ;
+	char			*cwd;
+	char			*prev_cwd;
+	char			*man_wd;
+	char			*start_wd;
+	char			*history_wd;
+	char			*heredoc_wd;
+	char			*home_wd;
+	char			*logname;
+	char			*prv_input;
+	int				base_stdin;
+	int				base_stdout;
+	int				saved_stdin;
+	int				saved_stdout;
+	int				debug_mode;
+	int				shlvl;
+	int				heredocfd;
+	int				last_exit_st;
+	int				brackets;
+	int				(*blt_fct[10])(struct s_data *d, char *a, char **f, int s);
+}	t_data;
 
 extern int	g_quit_in_heredoc;
 
@@ -185,7 +205,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 //		tools/str_tools/strmod_tools.c
 char		*ft_remove_prefix(t_data *d, const char *str, char *prefix);
 char		*truncate_at_end(const char *str, char cut_letter);
-char		*ft_str_mega_join(const char *a, const char *b, \
+char		*ft_megajoin(const char *a, const char *b, \
 		const char *c, const char *d);
 char		*copy_until_char(t_data *d, char *str, int *start, const char *set);
 void		remove_chars(t_data *d, char **txt, const char *to_remove);
@@ -313,7 +333,7 @@ int			validate_token(t_data *d, t_token *node);
 int			is_valid_identifier(char *arg);
 
 //		tokens/token_parse.c
-t_tktype	get_token_type(int *was_cmd, char *str);
+t_tktype	get_token_type(t_token *prv_cmd, char *str);
 t_token		*tokenize_string(t_data *d, char *prompt);
 
 //		tokens/token_execute.c
@@ -326,14 +346,13 @@ t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
 //		tokens/utils_tokens.c
 t_token		*get_next_token(t_token *token, t_tktype type, int stops_at_same);
 void		link_token_pipes(t_token *tokens);
-void		set_node_redir(t_token *node);
 
 //		tokens/token_expand.c
 char		*expand_special_segment(t_data *d, char *split, int *i);
 char		*expand_segment(t_data *d, char *split, int *i);
 char		*expand_split(t_data *d, char *split, int len, int i);
 void		expand_splits(t_data *d, char **splits);
-void		update_node_expansion(t_data *d, t_token *node, int set_new_type);
+void		update_node_expansion(t_data *d, t_token *node);
 
 //		tokens/tokens.c
 t_token		*new_token(char *name, t_token *prv, t_tktype type, int parth_ordr);
@@ -346,6 +365,9 @@ void		remove_token(t_token *token);
 char		*get_last_line(t_data *d, const char *filename);
 
 char		*get_next_line(int fd);
-void		set_nonblocking_mode(int enable);
+void		set_nonblocking_mode(int enable, struct termios *saved);
+char		*get_cmd_subst(t_data *d, char *str, int *i, char *ret_cmd);
+void		set_parenthesis_redirections(t_token *tok);
+t_token		*get_last_arg(t_token *cmd);
 
 #endif
