@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:14:36 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/14 04:29:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:20:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 static void	sigint_handler(int sig __attribute__((unused)))
 {

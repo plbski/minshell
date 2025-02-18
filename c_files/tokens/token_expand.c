@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 17:02:35 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:37:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 char	*expand_special_segment(t_data *d, char *split, int *i)
 {
@@ -24,7 +24,7 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 	else if (split[*i + 1] == '?')
 		str = ft_itoa(d->last_exit_st);
 	else if (split[*i + 1] == '0')
-		str = ms_strjoin(d, d->start_wd, "/minishell");
+		str = ms_strjoin(d, d->home_wd, "/minishell");
 	else
 		return (NULL);
 	if (!str)

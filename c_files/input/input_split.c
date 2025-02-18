@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 char	*get_token_in_split(t_data *d, char *str, int *i)
 {

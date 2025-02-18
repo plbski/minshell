@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:44:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 14:04:45 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 void	handle_child(t_data *d, char *value, int *pipefd)
 {

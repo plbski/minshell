@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:37:20 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 17:59:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 t_token	*redirect_pipe(t_data *d, t_token *nxt, int pipefd[2], int redir)
 {
@@ -44,4 +44,3 @@ t_token	*skip_type(t_token *tok, t_tktype type_to_skip)
 		tok = tok->next;
 	return (tok);
 }
-

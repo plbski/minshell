@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 03:26:34 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 22:42:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header.h"
+#include "../../../msh.h"
 
 static int	add_character(char *str, int i, int *sgqt, int *dbqt)
 {

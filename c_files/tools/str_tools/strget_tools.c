@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:03:05 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 16:45:37 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header.h"
+#include "../../../msh.h"
 
 char	*ms_strjoin(t_data *d, char const *s1, char const *s2)
 {

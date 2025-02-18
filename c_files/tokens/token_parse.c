@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 18:10:18 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 01:07:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 t_tktype	get_token_type(t_token *prv_eval, char *str)
 {
@@ -68,13 +68,12 @@ static	t_token	*set_tok(t_data *d, t_token *prv, char *splt, t_token *prv_eval)
 	return (new_tok);
 }
 
-static t_token	*get_split_tokens(t_data *d, char **splits)
+static t_token	*get_split_tokens(t_data *d, char **splits, t_token *lst)
 {
-	t_token		*list;
 	t_token		*prv_eval;
 	int			i;
 
-	list = NULL;
+	lst = NULL;
 	prv_eval = NULL;
 	d->brackets = 0;
 	i = -1;
@@ -85,55 +84,17 @@ static t_token	*get_split_tokens(t_data *d, char **splits)
 			d->brackets += 2 * (splits[i][0] == '(') - 1;
 			continue ;
 		}
-		list = set_tok(d, list, splits[i], prv_eval);
-		if (list->type == tk_command || list->type == tk_pipe || list->type == tk_logical)
+		lst = set_tok(d, lst, splits[i], prv_eval);
+		if (lst->type != tk_argument && !lst->is_redir)
 		{
 			if (prv_eval)
-				prv_eval->nxt_eval = list;
-			prv_eval = list;
+				prv_eval->nxt_eval = lst;
+			prv_eval = lst;
 		}
-		else if (list->type && prv_eval && prv_eval->type == tk_command)
-			prv_eval->redir = list;
+		else if (lst->type && prv_eval && prv_eval->type == tk_command)
+			prv_eval->redir = lst;
 	}
-	return (list);
-}
-
-t_token	*get_next_redir(t_token *d)
-{
-	t_token	*node;
-
-	if (!d)
-		return (NULL);
-	node = d->next;
-	while (node)
-	{
-		if (node->type != tk_argument)
-			break ;
-		node = node->next;
-	}
-	if (node && node->is_redir)
-		return (node);
-	while (node && node->par >= d->par)
-		node = node->next;
-	if (node && node->is_redir)
-		return (node);
-	return (NULL);
-}
-
-void	set_redir_args(t_token *tok)
-{
-	while (tok)
-	{
-		if (tok->type == tk_command)
-		{
-			tok->redir = get_next_redir(tok);
-			if (tok->redir && tok->redir->type != tk_red_in)
-				tok->red_arg = tok->redir->next;
-			else if (tok->redir)
-				tok->red_arg = get_last_arg(tok);
-		}
-		tok = tok->next;
-	}
+	return (lst);
 }
 
 t_token	*tokenize_string(t_data *d, char *prompt)
@@ -142,11 +103,12 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	t_token		*token;
 
 	splits = split_input(d, prompt);
-	token = get_split_tokens(d, splits);
+	token = get_split_tokens(d, splits, NULL);
 	free_void_array((void ***)&splits);
 	token = token_first(token);
 	link_token_pipes(token);
 	set_redir_args(token);
+	set_subshells(d, token);
 	if (d->debug_mode)
 		show_tokens_info(d, token, "init", "");
 	return (token);

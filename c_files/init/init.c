@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 16:28:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 02:06:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 char	*custom_get_cwd(t_data *d)
 {
@@ -44,22 +44,15 @@ int	update_cwd(t_data *data)
 	return (1);
 }
 
-static int	init_data_directories(t_data *data)
+static int	init_data_directories(t_data *d)
 {
-	char	*working_dir_buff;
+	char	*cwd;
 
-	working_dir_buff = custom_get_cwd(data);
-	data->start_wd = working_dir_buff;
-	data->man_wd = ms_strjoin(data, working_dir_buff, "/doc/");
-	data->history_wd = ft_megajoin(working_dir_buff, \
-		"/ressources/", ".history.txt", NULL);
-	if (!data->history_wd)
-		custom_exit(data, "alloc for history wd", NULL, EXIT_FAILURE);
-	read_history(data->history_wd);
-	data->heredoc_wd = ft_megajoin(working_dir_buff, \
-		"/ressources/", ".heredoc.txt", NULL);
-	if (!data->heredoc_wd)
-		custom_exit(data, "alloc for heredoc_wd", NULL, EXIT_FAILURE);
+	cwd = custom_get_cwd(d);
+	d->man_wd = ms_strjoin(d, cwd, "/doc/");
+	d->heredoc_wd = ms_strjoin(d, cwd, "/ressources/.heredoc.txt");
+	d->history_wd = ms_strjoin(d, cwd, "/ressources/.history.txt");
+	read_history(d->history_wd);
 	return (1);
 }
 
@@ -79,7 +72,6 @@ void	init_data(t_data *data, char **env)
 	init_base_stds(data);
 	data->cwd = NULL;
 	data->prev_cwd = NULL;
-	data->start_wd = NULL;
 	data->home_wd = NULL;
 	data->logname = NULL;
 	data->man_wd = NULL;

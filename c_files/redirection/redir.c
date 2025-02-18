@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 15:11:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 01:23:18 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 {
@@ -27,8 +27,10 @@ void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
 	fd = get_fd(d, path, tk_red_out);
 	free(path);
+	if (fd == -1)
+		return ;
 	if (dup2(fd, STDOUT_FILENO) == -1)
-		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+		custom_exit(d, "dup2 fail handle_redout", NULL, EXIT_FAILURE);
 	close(fd);
 	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
@@ -49,8 +51,10 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 		custom_exit(d, "error in redir", NULL, EXIT_FAILURE);
 	fd = get_fd(d, path, tk_red_app);
 	free(path);
+	if (fd == -1)
+		return ;
 	if (dup2(fd, STDOUT_FILENO) == -1)
-		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+		custom_exit(d, "dup2 fail handle_redapp", NULL, EXIT_FAILURE);
 	close(fd);
 	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
@@ -73,9 +77,9 @@ void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 	save_stds(d);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		custom_exit(d, "error opening file", NULL, EXIT_FAILURE);
+		return ;
 	if (dup2(fd, STDIN_FILENO) == -1)
-		custom_exit(d, "error dup2", NULL, EXIT_FAILURE);
+		custom_exit(d, "dup2 fail handle_redin", NULL, EXIT_FAILURE);
 	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
@@ -88,7 +92,7 @@ void	handle_redir_heredoc(t_data *d, t_token *hered_arg)
 		close(d->heredocfd);
 	}
 	if (!hered_arg)
-		custom_exit(d, "wtf in heredoc", NULL, EXIT_FAILURE);
+		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
 	if (hered_arg)
 		d->heredocfd = ft_heredoc(hered_arg->name, d, "heredoc> ");
 }

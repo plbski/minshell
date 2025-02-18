@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_execute.c                                    :+:      :+:    :+:   */
+/*   token_execute_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 17:33:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 00:52:34 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 {
@@ -88,36 +88,9 @@ int	validate_redir(t_data *d, t_token *redir)
 		return (1);
 	if (!redir->next)
 		return (printf("syntax error near \
-			unexpected token `newline'\n"), 0);
+unexpected token `newline'\n"), 0);
 	else if (redir->type == tk_red_in && access(redir->next->name, F_OK) == -1)
 		return (printf("mash: %s: No such file or directory\n", \
 			redir->next->name), 0);
 	return (1);
-}
-
-t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
-{
-	t_token		*nxt;
-	char		**flags;
-	char		*arg;
-
-	arg = NULL;
-	flags = NULL;
-	nxt = setup_args(d, &arg, node, &flags);
-	if ((should_redir && node->redir) || d->heredocfd != -1)
-	{
-		if (!validate_redir(d, node->redir))
-			return (NULL);
-		if (node->redir)
-			nxt = handle_redir_cmd(d, node, arg, flags);
-		if (d->heredocfd != -1)
-			nxt = consumate_heredoc(d, node, arg, flags);
-	}
-	else
-		d->last_exit_st = execute_command(d, node->name, arg, flags);
-	if (d->debug_mode)
-		show_exec_info(d, node, arg, flags);
-	if (nxt && nxt->type == tk_argument)
-		nxt = nxt->next;
-	return (free_void_array((void ***)&flags), nxt);
 }

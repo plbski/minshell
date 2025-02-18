@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 17:55:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 t_token	*get_next_token(t_token *token, t_tktype type, int stops_at_same)
 {
@@ -42,6 +42,8 @@ void	link_token_pipes(t_token *tokens)
 			output = get_next_token(node, tk_pipe, 1);
 			if (output)
 			{
+				if (output->par != tokens->par)
+					break ;
 				node->pipe_out = output->next;
 				if (output->next && output->next->is_redir)
 				{

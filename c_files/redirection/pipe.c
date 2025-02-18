@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 17:03:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 01:14:40 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 static void	cleanup(int or_stdin, int **fds, int *pids, int pipes_count)
 {
@@ -113,6 +113,8 @@ t_token	*pipe_handler(t_data *d, t_token *cmd_in)
 		pipes_count++;
 		node = node->pipe_out;
 	}
+	if (d->debug_mode)
+		printf("starting pipe chain at %s\n", cmd_in->name);
 	init_pipes(d, cmd_in, pipes_count, -1);
 	if (d->debug_mode)
 		printf("pipe chain ended at %s\n", node->name);

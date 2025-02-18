@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 22:40:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:20:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header.h"
+#include "../../../msh.h"
 
 t_dblist	*get_dblst_node(t_dblist *lst, const char *content)
 {

@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 13:38:33 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 02:05:50 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 static void	play_anim(char *str, int i, int bt, const char **cols)
 {
@@ -21,7 +21,7 @@ static void	play_anim(char *str, int i, int bt, const char **cols)
 	time = -1;
 	while (++time < 14)
 		lens[time] = ft_strlen(cols[time]);
-	while (time++ < 15000)
+	while (time++ < 50000)
 	{
 		bt = 0;
 		if (!ioctl(STDIN_FILENO, FIONREAD, &bt) && bt > 0)
@@ -63,9 +63,9 @@ static void	init_anim(t_data *d, char *prompt)
 	free(str);
 }
 
-static void	split_seglen(t_data *d, char **str, int prompt_len, char *headcol)
+static void	split_seglen(t_data *d, char **str, char *headcol)
 {
-	const char	*cl[] = {DR4, DR3, DR2, DR1, DR0};
+	const char	*cl[] = {D4, D3, D2, D1, D0};
 	char		**splits;
 	int			i;
 	int			arr_len;
@@ -73,7 +73,6 @@ static void	split_seglen(t_data *d, char **str, int prompt_len, char *headcol)
 
 	splits = ms_split(d, *str, '/');
 	arr_len = get_arr_len((void **)splits);
-	seg_len = prompt_len / arr_len;
 	i = arr_len;
 	while (i-- > 1)
 	{
@@ -82,25 +81,21 @@ static void	split_seglen(t_data *d, char **str, int prompt_len, char *headcol)
 		if (!splits[i + 1] || char_in_str('$', splits[i]))
 			setstr(d, &splits[i], ms_strjoin(d, headcol, splits[i]));
 		else
-		{
-			if (seg_len > 0 && ft_strlen(splits[i]) > seg_len)
-				ms_substr(d, &splits[i], 0, seg_len);
 			setstr(d, &splits[i], ft_megajoin(cl[(i * 5) / arr_len], \
-				splits[i], "/", NULL));
-		}
+				splits[i], "/", DRESET));
 	}
 	setstr(d, str, contract_str(d, splits));
 	free_void_array((void ***)&splits);
 }
 
-static char	*get_prompt_message(t_data *d)
+char	*get_prompt_message(t_data *d)
 {
 	char	*msh;
 	char	*cwd_part;
 	char	*cut_cwd;
 	char	*prompt_msg;
 
-	msh = ft_megajoin(PRM_LOG, "msh ", RESET, NULL);
+	msh = ft_megajoin("\001" PRM_START "\002", "msh ", DRESET, NULL);
 	if (!msh)
 		return (NULL);
 	cut_cwd = ms_strdup(d, d->cwd);
@@ -112,10 +107,11 @@ static char	*get_prompt_message(t_data *d)
 		custom_exit(d, "alloc of cwd_part (prompt)\n", NULL, EXIT_FAILURE);
 	prompt_msg = ms_strjoin(d, msh, cwd_part);
 	if (char_in_str('/', prompt_msg) && PRM_SEGLEN > 0)
-		split_seglen(d, &prompt_msg, PRM_SEGLEN, PRM_HEAD);
+		split_seglen(d, &prompt_msg, "\001" PRM_HEAD "\002");
 	if (!prompt_msg)
 		custom_exit(d, "Prompt alloc failed", NULL, EXIT_FAILURE);
-	setstr(d, &prompt_msg, ft_megajoin(prompt_msg, PRM_CMB, "$ ", RESET));
+	setstr(d, &prompt_msg, \
+			ft_megajoin(prompt_msg, "\001" PRM_CMB "\002", "$ ", DRESET));
 	return (free(cwd_part), free(msh), prompt_msg);
 }
 

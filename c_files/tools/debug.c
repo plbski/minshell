@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 16:50:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 02:07:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 {
@@ -18,9 +18,9 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 
 	i = -1;
 	if (d->last_exit_st == FCT_FAIL)
-		printf("%s%s execution: %s", RED, node->name, "FAIL");
+		printf("%s%s exect: %s", RED, node->name, "FAIL");
 	else
-		printf("%s%s execution: %s", GREEN, node->name, "SUCCESS");
+		printf("%s%s exect: %s", GREEN, node->name, "SUCCESS");
 	printf("[%d] %s", d->last_exit_st, RESET);
 	if (arg)
 		printf("[%s", arg);
@@ -39,12 +39,11 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 
 void	show_token_info(t_data *d, t_token *node, char *prx, char *sufx)
 {
-	const char	*args[9] = {prx, "", "", "", "", "", "", "", sufx};
-	const char	*arg_cols[] = {RED, GREY, BLUE, PRP_LAV, DR2, CYAN, BLUE, YELLOW};
+	const char	*args[10] = {prx, node->name, "", "", "", "", "", "", "", sufx};
+	const char	*arg_cols[] = {RED, GREY, DR0, DR1, DR2, CYAN, BLUE, YELLOW};
 	int			i;
 	char		*par;
 
-	args[1] = node->name;
 	args[2] = d->types_names[node->type];
 	par = ft_itoa(node->par);
 	args[3] = par;
@@ -56,19 +55,28 @@ void	show_token_info(t_data *d, t_token *node, char *prx, char *sufx)
 		args[6] = node->red_arg->name;
 	if (node->nxt_eval)
 		args[7] = node->nxt_eval->name;
-	printf("%s%-10s %s", GREEN, args[0], RESET);
-	printf("%s%-10s %s", arg_cols[node->type], args[1], RESET);
+	if (node->subsh_out)
+		args[8] = node->subsh_out->name;
+	printf("%s%-7.6s %s", GREEN, args[0], RESET);
+	printf("%s%-7.6s %s", arg_cols[node->type], args[1], RESET);
 	i = 1;
-	while (++i < 9)
-		printf("%-10s %s", args[i], RESET);
+	while (++i < 10)
+		printf("%-7.6s %s", args[i], RESET);
 	printf("\n");
 	free(par);
 }
 
 void	show_tokens_info(t_data *d, t_token *node, char *prfx, char *suffix)
 {
-	printf("	  %-5s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", \
-GREY, "name", "type", "brk", "pipe", "redir", "red_arg", "nxt eval", RESET);
+	const char	*rg[8] = {"name", "type", "par", "pipe", \
+			"redir", "rd_arg", "eval", "subs"};
+	int			i;
+
+	printf("        %s", GREY);
+	i = -1;
+	while (++i < 8)
+		printf("%-7s ", rg[i]);
+	printf("%s\n", RESET);
 	node = token_first(node);
 	while (node)
 	{

@@ -6,16 +6,18 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 02:20:38 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/16 15:07:26 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 01:23:54 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 int	get_fd(t_data *d, char *file_path, t_tktype r_type)
 {
 	int	fd;
 
+	if (!file_path)
+		custom_exit(d, "no path in get_fd", NULL, EXIT_FAILURE);
 	if (r_type == tk_red_app)
 		fd = open(file_path, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else if (r_type == tk_red_out)
@@ -23,7 +25,10 @@ int	get_fd(t_data *d, char *file_path, t_tktype r_type)
 	else
 		fd = open(file_path, O_RDONLY);
 	if (fd == -1)
-		custom_exit(d, "erreur dup2", NULL, EXIT_FAILURE);
+	{
+		printf("read on %s returned -1\n", file_path);
+		return (-1);
+	}
 	return (fd);
 }
 

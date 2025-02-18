@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 17:21:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 01:42:35 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#ifndef MSH_H
+# define MSH_H
 
+# include "msh_style.h"
 # include "libft/libft.h"
 # include "lists/lists.h"
 # include "dprintf/ft_printf.h"
@@ -27,66 +28,6 @@
 # include <readline/history.h>
 # include <termios.h>
 # include <sys/ioctl.h>
-
-# define START_ANIM_TEXT "~~~ Minishell by gvlente & pbuet ~~~ lv "
-
-# define RED			"\033[31m"
-# define GREEN			"\033[32m"
-# define YELLOW			"\033[33m"
-# define BLUE			"\033[34m"
-# define MAGENTA		"\033[35m"
-# define CYAN			"\033[36m"
-# define RESET			"\033[0m"
-# define GREY			"\033[38;5;240m"
-# define LIGHT_GREY		"\033[38;5;250m"
-# define BLU_GRY		"\033[38;5;146m"
-# define PALE_ROSE		"\033[38;5;217m"
-# define PRP_LAV	"\033[38;5;183m"
-# define MENTHA_GREEN	"\033[38;5;121m"
-# define PASTEL_BLUE	"\033[38;5;110m"
-
-# define DR0  "\033[38;5;255m"  // Blanc cassé
-# define DR1  "\033[38;5;252m"  // Gris très clair
-# define DR2  "\033[38;5;250m"  // Gris clair
-# define DR3  "\033[38;5;247m"  // Gris moyen-clair
-# define DR4  "\033[38;5;244m"  // Gris moyen
-# define DR5  "\033[38;5;240m"  // Gris moyen-foncé
-# define DR6  "\033[38;5;237m"  // Gris foncé
-# define DR7  "\033[38;5;235m"  // Gris très foncé
-# define DR8  "\033[38;5;233m"  // Presque noir
-
-# define DR9  "\033[38;5;130m"  // Brun/Orange foncé
-# define DR10 "\033[38;5;136m"  // Orange foncé
-# define DR11 "\033[38;5;172m"  // Orange
-# define DR12 "\033[38;5;208m"  // Orange vif
-# define DR13 "\033[38;5;214m"  // Orange clair
-# define DR14 "\033[38;5;220m"  // Jaune-orangé
-# define DR15 "\033[38;5;226m"  // Jaune vif
-# define DR16 "\033[38;5;196m"  // Rouge intense
-
-# define DB0  "\033[38;5;32m"   // Bleu foncé
-# define DB1  "\033[38;5;33m"   // Bleu profond
-# define DB2  "\033[38;5;39m"   // Bleu moyen
-# define DB3  "\033[38;5;45m"   // Bleu ciel
-# define DB4  "\033[38;5;51m"   // Bleu léger
-# define DB5  "\033[38;5;57m"   // Bleu clair
-# define DB6  "\033[38;5;63m"   // Bleu très clair
-# define DB7  "\033[38;5;69m"   // Bleu pastel
-# define DB8  "\033[38;5;75m"   // Bleu azur
-# define DB9  "\033[38;5;81m"   // Bleu électrique
-# define DB10 "\033[38;5;87m"   // Bleu vif
-# define DB11 "\033[38;5;93m"   // Bleu cobalt
-# define DB12 "\033[38;5;99m"   // Bleu turquoise
-# define DB13 "\033[38;5;105m"  // Bleu pervenche
-# define DB14 "\033[38;5;111m"  // Bleu très clair
-# define DB15 "\033[38;5;117m"  // Bleu lavande
-# define DB16 "\033[38;5;123m"  // Bleu clair pur
-
-# define PRM_SEGLEN 50
-# define PRM_LOG	PRP_LAV
-# define PRM_CWD	GREEN
-# define PRM_HEAD	PRP_LAV
-# define PRM_CMB	MENTHA_GREEN
 
 # define CMD_NOT_FOUND	127
 # define FCT_SUCCESS	0
@@ -127,6 +68,7 @@ typedef struct s_token
 	struct s_token	*prv;
 	struct s_token	*next;
 	struct s_token	*pipe_out;
+	struct s_token	*subsh_out;
 	struct s_token	*redir;
 	struct s_token	*red_arg;
 	struct s_token	*nxt_eval;
@@ -147,11 +89,11 @@ typedef struct s_data
 	char			*cwd;
 	char			*prev_cwd;
 	char			*man_wd;
-	char			*start_wd;
 	char			*history_wd;
 	char			*heredoc_wd;
 	char			*home_wd;
 	char			*logname;
+	int				subsh_fd;
 	char			*prv_input;
 	int				base_stdin;
 	int				base_stdout;
@@ -255,8 +197,6 @@ int			validate_input(t_data *d, char **input);
 //		input/input_execute.c
 int			handle_direct_exec(t_data *d, char *cmd, char *arg, char **flg);
 int			execute_command(t_data *d, char *cmd_name, char *arg, char **flags);
-t_token		*handle_logical_token(t_data *d, t_token *node);
-t_token		*handle_token(t_data *d, t_token *node);
 int			exec_input(t_data *d, char *input);
 
 //		input/input_split.c
@@ -337,11 +277,11 @@ t_tktype	get_token_type(t_token *prv_cmd, char *str);
 t_token		*tokenize_string(t_data *d, char *prompt);
 
 //		tokens/token_execute.c
+t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
 t_token		*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flg);
 t_token		*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags);
 t_token		*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flg);
 int			validate_redir(t_data *d, t_token *redir);
-t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
 
 //		tokens/utils_tokens.c
 t_token		*get_next_token(t_token *token, t_tktype type, int stops_at_same);
@@ -369,5 +309,13 @@ void		set_nonblocking_mode(int enable, struct termios *saved);
 char		*get_cmd_subst(t_data *d, char *str, int *i, char *ret_cmd);
 void		set_parenthesis_redirections(t_token *tok);
 t_token		*get_last_arg(t_token *cmd);
+
+t_token		*get_next_redir(t_token *d);
+void		set_redir_args(t_token *tok);
+
+//		subshell.c
+void		set_subshells(t_data *d, t_token *tokens);
+void		iterate_tokens(t_data *d, t_token *node);
+t_token		*solve_subshell(t_data *d, t_token *start);
 
 #endif

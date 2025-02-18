@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/16 15:12:06 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 00:30:50 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header.h"
+#include "../../../msh.h"
 
 int	is_builtin_cmd(t_data *d, char *str)
 {
@@ -47,21 +47,48 @@ int	get_char_index(char *str, char c)
 	return (-1);
 }
 
+void	*ms_realloc(t_data *d, void *ptr, size_t new_size)
+{
+	void	*new_ptr;
+
+	if (!ptr)
+		return (ms_malloc(d, new_size));
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	new_ptr = ms_malloc(d, new_size);
+	if (!new_ptr)
+		return (NULL);
+	ft_memcpy(new_ptr, ptr, new_size);
+	free(ptr);
+	return (new_ptr);
+}
+
 char	*get_fd_content(t_data *d, int fd)
 {
-	char	*line;
-	char	*full;
+	char	*full_content;
+	char	buffer[99999];
 	char	*tmp;
+	ssize_t	bytes_read;
+	size_t	total_length;
 
-	full = ms_strdup(d, "");
-	line = get_next_line(fd);
-	while (line)
+	total_length = 0;
+	full_content = ms_strdup(d, "");
+	bytes_read = read(fd, buffer, 99999);
+	while (bytes_read > 0)
 	{
-		tmp = ft_strjoin(full, line);
-		free(full);
-		full = tmp;
-		free(line);
-		line = get_next_line(fd);
+		tmp = ms_realloc(d, full_content, total_length + bytes_read + 1);
+		if (!tmp)
+			return (free(full_content), NULL);
+		full_content = tmp;
+		ft_memcpy(full_content + total_length, buffer, bytes_read);
+		total_length += bytes_read;
+		full_content[total_length] = '\0';
+		bytes_read = read(fd, buffer, 99999);
 	}
-	return (full);
+	if (bytes_read == -1)
+		return (free(full_content), NULL);
+	return (full_content);
 }

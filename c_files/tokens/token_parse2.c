@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 17:40:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 01:10:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 int	requires_arg(t_token *node)
 {
@@ -54,4 +54,47 @@ int	is_valid_identifier(char *arg)
 			return (0);
 	}
 	return (1);
+}
+
+t_token	*get_next_redir(t_token *d)
+{
+	t_token	*node;
+
+	if (!d)
+		return (NULL);
+	node = d->next;
+	while (node)
+	{
+		if (node->type != tk_argument)
+			break ;
+		node = node->next;
+	}
+	if (node && node->is_redir)
+		return (node);
+	return (NULL);
+}
+
+void	set_redir_args(t_token *tok)
+{
+	t_token	*next_redir;
+
+	while (tok)
+	{
+		tok->redir = NULL;
+		if (tok->type == tk_command)
+		{
+			next_redir = get_next_redir(tok);
+			if (!next_redir || next_redir->par != tok->par)
+			{
+				tok = tok->next;
+				continue ;
+			}
+			tok->redir = next_redir;
+			if (tok->redir->type != tk_red_in)
+				tok->red_arg = tok->redir->next;
+			else
+				tok->red_arg = get_last_arg(tok);
+		}
+		tok = tok->next;
+	}
 }

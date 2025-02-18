@@ -6,11 +6,11 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/14 04:23:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/17 23:45:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header.h"
+#include "../../../msh.h"
 
 int	safe_free(void *item)
 {
@@ -58,7 +58,6 @@ int	free_data(t_data *data)
 	free_count += free_void_array((void ***)&data->environ);
 	free_count += safe_free(data->cwd);
 	free_count += safe_free(data->prev_cwd);
-	free_count += safe_free(data->start_wd);
 	free_count += safe_free(data->man_wd);
 	free_count += safe_free(data->history_wd);
 	free_count += safe_free(data->logname);

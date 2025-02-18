@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header.h"
+#include "../../msh.h"
 
 int	handle_direct_exec(t_data *d, char *cmd_name, char *arg, char **flags)
 {
@@ -63,77 +63,20 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 	return (handle_direct_exec(d, cmd_name, arg, flags));
 }
 
-t_token	*handle_logical_token(t_data *d, t_token *node)
-{
-	int			min_par;
-
-	if ((same_str(node->name, "||") && d->last_exit_st == FCT_SUCCESS) || \
-	(same_str(node->name, "&&") && d->last_exit_st > 0))
-	{
-		min_par = node->par;
-		node = node->next;
-		if (node && node->next)
-			node = node->next;
-		while (node && (((node->type == tk_argument || node->is_redir) \
-			|| node->par > min_par)))
-		{
-			if (d->debug_mode)
-				printf("%sskipped %s%s\n", GREY, node->name, RESET);
-			node = node->next;
-		}
-		if (node && node->is_redir)
-			return (node->next);
-		return (node);
-	}
-	return (node->next);
-}
-
-t_token	*handle_token(t_data *d, t_token *node)
-{
-	t_tktype	type;
-
-	type = node->type;
-	if (type == tk_hered)
-	{
-		handle_redir_heredoc(d, node->next);
-		return (node->next->next);
-	}
-	if (type == tk_logical)
-		return (handle_logical_token(d, node));
-	else if (type == tk_command)
-	{
-		if (node->pipe_out)
-			return (pipe_handler(d, node));
-		return (handle_command_token(d, node, 1));
-	}
-	if (type == tk_argument && chr_amnt(node->name, '=') == 1)
-		export(d, node->name, NULL, 1);
-	return (node->next);
-}
-
 int	exec_input(t_data *d, char *input)
 {
-	t_token	*tokens;
-	t_token	*node;
+	t_token		*tokens;
+	t_token		*start;
 
 	tokens = tokenize_string(d, input);
 	if (!tokens)
 		return (FCT_FAIL);
-	node = token_first(tokens);
-	while (node)
-	{
-		update_node_expansion(d, node);
-		if (!validate_token(d, node))
-			break ;
-		if (d->debug_mode)
-			show_cmd_status(d, node);
-		node = handle_token(d, node);
-	}
+	start = token_first(tokens);
+	iterate_tokens(d, start);
 	if (d->heredocfd != -1)
 		consumate_heredoc(d, NULL, NULL, NULL);
-	tokens = token_first(tokens);
 	if (d->debug_mode)
-		show_tokens_info(d, tokens, "aftr ", "");
-	clear_tokens(tokens);
+		show_tokens_info(d, start, "aftr ", "");
+	clear_tokens(start);
 	return (FCT_SUCCESS);
 }
