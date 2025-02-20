@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 01:28:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 02:11:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	valid_exec(const char *file, int *fct_ret, int exec, int prnt, int loc)
 	{
 		if (prnt)
 			print_exec_error(file, ERR_IS_DIR, exec, loc);
-		return (*fct_ret = ERR_IS_DIR, 0);
+		return (*fct_ret = CMD_IS_DIR, 0);
 	}
 	fd = open(file, O_RDONLY);
 	if (fd == -1 || access(file, F_OK) == -1)

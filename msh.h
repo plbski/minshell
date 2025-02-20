@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/20 02:08:47 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 02:10:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@
 # include <readline/history.h>
 # include <termios.h>
 # include <sys/ioctl.h>
+
+
+# define ERR_NOT_FOUND 	2
+# define ERR_NOT_EXEC 	1
+# define ERR_IS_DIR		0
 
 # define CMD_NOT_FOUND	127
 # define CMD_NOT_EXEC	126

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 01:37:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 02:16:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,32 +95,34 @@ int	increment_shlvl(t_data *d)
 
 void	print_exec_error(const char *arg, int status, int is_exec, int is_local)
 {
-	printf("[error called: %s %d %d %d]\n\n", arg, status, is_exec, is_local);
-	if (status == CMD_NOT_EXEC)
+	exit(0);
+	const char	*exec_local_call_msg[] = {"is a directory", "Permission denied", "No such file or directory"};
+	const char	*exec_local_secondary[] = {"cannot execute", "cannot execute", "cannot execute"};
+	const char	*exec_call_msg[] = {"not found", "Permission denied", "not found"};
+	const char	*exec_call_secondary[] = {NULL, "cannot execute", NULL};
+	const char	*no_exec_local_msg[] = {"is a directory", "Permission denied", "No such file or directory"};
+	const char	*no_exec_msg[] = {"command not found", "Permission denied", "command not found"};
+
+	if (status > 2)
+		status -= 125;
+	if (is_exec)
 	{
-		ft_dprintf(2, "msh: %s: Permission denied\n", arg);
-		if (is_exec)
-			ft_dprintf(2, "msh: exec: %s: cannot execute: \
-Undefined error: 0\n", arg);
-		return ;
+		if (is_local)
+		{
+			ft_dprintf(2, "msh: exec: %s%s", arg, exec_local_call_msg[status]);
+			ft_dprintf(2, "msh: exec: %s%s", arg, exec_local_secondary[status]);
+		}
+		else
+		{
+			ft_dprintf(2, "msh: exec: %s%s", arg, exec_call_msg[status]);
+			ft_dprintf(2, "msh: exec: %s%s", arg, exec_call_secondary[status]);
+		}
 	}
-	if (status == CMD_NOT_FOUND && is_local)
-		ft_dprintf(2, "msh: %s: No such file or directory\n", arg);
-	if (status == CMD_NOT_FOUND && is_exec && is_local)
-		ft_dprintf(2, "msh: exec: %s: cannot execute: \
-No such file or directory\n", arg);
-	if (status == ERR_IS_DIR)
+	else
 	{
-		if (is_exec && !is_local)
-			ft_dprintf(2, "msh: exec: command not found\n");
-		if (!is_exec)
-			ft_dprintf(2, "msh: %s: is a directory\n", arg);
-		if (is_exec && is_local)
-			ft_dprintf(2, "msh: exec: %s: \
-cannot execute: Undefined error: 0\n", arg);
-	}
-	if (!is_local && is_exec)
-		ft_dprintf(2, "msh: exec %s: command not found\n", arg);
-	else if (!is_local)
-		ft_dprintf(2, "msh: %s: command not found\n", arg);
+		if (is_local)
+			ft_dprintf(2, "msh: %s%s", arg, no_exec_local_msg[status]);
+		else
+			ft_dprintf(2, "msh: %s%s", arg, no_exec_msg[status]);
+	}	
 }

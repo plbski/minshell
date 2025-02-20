@@ -1545,3 +1545,16 @@ exec c_files
 ./c_files
 exec c_files
 exec ./c_files
+clear
+olapo
+./olapo
+./olapo.sh
+clear
+c_files
+clear
+ls
+clear
+c_files
+eqwv
+sdkv
+eqwv
