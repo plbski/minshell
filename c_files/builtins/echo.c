@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 15:09:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	echo(t_data *d, char *arg, char **flags, int status)
 	(void)d;
 	(void)status;
 	if (!arg && (!flags || !flags[0]))
-		return (write(1, "\n", 1), FCT_SUCCESS);
+		return (write(1, "\n", 1), FCT_OK);
 	n_flag = 0;
 	if (arg)
 	{
@@ -43,5 +43,5 @@ int	echo(t_data *d, char *arg, char **flags, int status)
 		exec_echo(flags[i], flags[i + 1]);
 	if (!n_flag)
 		write(1, "\n", 1);
-	return (FCT_SUCCESS);
+	return (FCT_OK);
 }

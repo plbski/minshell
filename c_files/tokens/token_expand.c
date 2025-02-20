@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:37:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 22:41:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 	else if (split[*i + 1] == '$')
 		str = ft_itoa(getpid());
 	else if (split[*i + 1] == '?')
-		str = ft_itoa(d->last_exit_st);
+		str = ft_itoa(d->last_exit);
 	else if (split[*i + 1] == '0')
-		str = ms_strjoin(d, d->home_wd, "/minishell");
+		str = ms_strjoin(d, d->msh_wd, "/minishell");
 	else
 		return (NULL);
 	if (!str)
@@ -47,7 +47,7 @@ char	*expand_segment(t_data *d, char *split, int *i)
 	start = *i;
 	while (split[*i] && (ft_isalnum(split[*i]) || split[*i] == '_'))
 		(*i)++;
-	var_name = copy_until_char(d, split, &start, "$?'\"");
+	var_name = copy_until_char(d, split, &start, "$?'\"./");
 	value = get_env_value(d, d->env_list, var_name);
 	if (!value)
 		value = get_env_value(d, d->tmp_list, var_name);
@@ -56,9 +56,8 @@ char	*expand_segment(t_data *d, char *split, int *i)
 	free(var_name);
 	(*i)--;
 	if (!value)
-		return (NULL);
-	str = ms_strdup(d, value);
-	return (str);
+		return (ms_strdup(d, ""));
+	return (value);
 }
 
 char	*expand_split(t_data *d, char *split, int len, int i)
@@ -71,7 +70,7 @@ char	*expand_split(t_data *d, char *split, int len, int i)
 	spl_values = ms_malloc(d, sizeof(char *) * len);
 	while (i < len && split[i])
 	{
-		if (split[i] == '$' && is_in_quote(split, i) != 1)
+		if (split[i] == '$' && in_quote(split, i) != 1)
 		{
 			new_str = expand_segment(d, split, &i);
 			if (new_str)
@@ -115,12 +114,21 @@ void	expand_splits(t_data *d, char **splits)
 
 void	update_node_expansion(t_data *d, t_token *node)
 {
+	char	*new_name;
+
+	if (!node->name)
+		node->name = ms_strdup(d, "");
+	if (!node->name[0])
+		return ;
 	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/'))
 		replace_strstr(d, &node->name, "~", d->home_wd);
 	if (chr_amnt(node->name, '$'))
 	{
-		setstr(d, &node->name, \
-				expand_split(d, node->name, ft_strlen(node->name), 0));
+		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);
+		if (new_name)
+			setstr(d, &node->name, new_name);
+		else
+			setstr(d, &node->name, ms_strdup(d, ""));
 	}
 	remove_quotes(d, &node->name);
 }

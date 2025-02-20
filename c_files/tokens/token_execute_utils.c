@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 00:52:34 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 18:43:56 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 
 	list = NULL;
 	node = arg_token->next;
-	while (node && (node->type == tk_argument || \
+	while (node && (node->type == tk_arg || \
 		(cmd->redir && cmd->redir == node)))
 	{
-		if (!node->is_redir && !(cmd->red_arg && cmd->red_arg == node))
+		if (!node->is_redir && (!cmd->red_arg || cmd->red_arg != node))
 		{
 			update_node_expansion(d, node);
+			if (!node->name)
+				node->name = ms_strdup(d, "");
 			dblst_add_back(&list, dblst_new(ms_strdup(d, node->name)));
 		}
 		node = node->next;
@@ -44,13 +46,17 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 {
 	t_token	*arg_token;
 
-	if (!cmd->next)
-		return (NULL);
-	if (cmd->next->type != tk_argument)
-		return (cmd->next);
 	arg_token = cmd->next;
+	if (arg_token && arg_token->is_redir)
+		arg_token = arg_token->next->next;
+	if (!arg_token)
+		return (NULL);
+	if (arg_token->type != tk_arg)
+		return (arg_token);
 	update_node_expansion(d, arg_token);
 	*arg = arg_token->name;
+	if (!*arg)
+		*arg = ft_strdup("");
 	if (!arg_token->next)
 	{
 		*flags = NULL;
@@ -73,7 +79,7 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 	}
 	save_stds(d);
 	dup2(d->heredocfd, STDIN_FILENO);
-	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 	d->heredocfd = -1;
 	close(d->heredocfd);
@@ -90,7 +96,7 @@ int	validate_redir(t_data *d, t_token *redir)
 		return (printf("syntax error near \
 unexpected token `newline'\n"), 0);
 	else if (redir->type == tk_red_in && access(redir->next->name, F_OK) == -1)
-		return (printf("mash: %s: No such file or directory\n", \
+		return (ft_dprintf(2, "msh: %s: No such file or directory\n", \
 			redir->next->name), 0);
 	return (1);
 }

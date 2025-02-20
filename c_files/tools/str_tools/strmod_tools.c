@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 14:45:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ char	*ft_megajoin(const char *a, const char *b, \
 	char	*abc;
 	char	*abcd;
 
-	if (a == NULL || b == NULL)
+	if (!a || !b)
 		return (NULL);
 	ab = ft_strjoin(a, b);
 	if (!ab)
 		return (NULL);
-	if (c == NULL)
+	if (!c)
 		return (ab);
 	abc = ft_strjoin(ab, c);
 	free(ab);

@@ -6,16 +6,19 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 01:14:40 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 17:26:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-static void	cleanup(int or_stdin, int **fds, int *pids, int pipes_count)
+static int	cleanup(int or_std, int **fds, int *pids, int pipes_count)
 {
 	int	i;
+	int	status;
+	int	exit_st;
 
+	exit_st = 0;
 	setup_signal(1, 0);
 	i = -1;
 	while (++i < pipes_count)
@@ -26,16 +29,24 @@ static void	cleanup(int or_stdin, int **fds, int *pids, int pipes_count)
 	free(fds);
 	i = -1;
 	while (++i <= pipes_count)
-		waitpid(pids[i], NULL, 0);
+	{
+		if (waitpid(pids[i], &status, 0) != -1)
+		{
+			if (WIFEXITED(status))
+				exit_st = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				exit_st = 128 + WTERMSIG(status);
+		}
+	}
 	setup_signal(0, 0);
-	dup2(or_stdin, STDIN_FILENO);
-	close(or_stdin);
+	return (close(or_std), dup2(or_std, STDIN_FILENO), close(or_std), exit_st);
 }
 
 static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 {
 	int	should_redir;
 
+	d->fork_child = 1;
 	update_node_expansion(d, cmd);
 	if (fd_in)
 	{
@@ -98,7 +109,7 @@ static void	init_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
 		}
 		strt_cmd = strt_cmd->pipe_out;
 	}
-	cleanup(base_stdin, pipe_fds, pids, pipes_len);
+	d->last_exit = cleanup(base_stdin, pipe_fds, pids, pipes_len);
 }
 
 t_token	*pipe_handler(t_data *d, t_token *cmd_in)
@@ -114,10 +125,10 @@ t_token	*pipe_handler(t_data *d, t_token *cmd_in)
 		node = node->pipe_out;
 	}
 	if (d->debug_mode)
-		printf("starting pipe chain at %s\n", cmd_in->name);
+		printf("%spipe chain started at %s%s\n", PRP_LAV, cmd_in->name, RESET);
 	init_pipes(d, cmd_in, pipes_count, -1);
 	if (d->debug_mode)
-		printf("pipe chain ended at %s\n", node->name);
+		printf("%spipe chain ended at %s\n%s", PRP_LAV, node->name, RESET);
 	node = get_next_token(node, tk_logical, 0);
 	if (node && d->debug_mode)
 		show_cmd_status(d, node->next);

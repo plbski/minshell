@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:50:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 23:49:32 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ int	is_directory(const char *path)
 
 void	setstr(t_data *d, char **str, char *new)
 {
+	(void)d;
 	safe_free(*str);
-	if (!new)
-	{
-		ft_dprintf(2, "error: nothing to replace %s\n", *str);
-		custom_exit(d, NULL, NULL, EXIT_FAILURE);
-	}
 	*str = new;
 }
 

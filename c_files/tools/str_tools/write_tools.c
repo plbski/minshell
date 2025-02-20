@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 00:30:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 11:18:34 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,6 @@ int	get_char_index(char *str, char c)
 		if (str[i] == c)
 			return (i);
 	return (-1);
-}
-
-void	*ms_realloc(t_data *d, void *ptr, size_t new_size)
-{
-	void	*new_ptr;
-
-	if (!ptr)
-		return (ms_malloc(d, new_size));
-	if (new_size == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	new_ptr = ms_malloc(d, new_size);
-	if (!new_ptr)
-		return (NULL);
-	ft_memcpy(new_ptr, ptr, new_size);
-	free(ptr);
-	return (new_ptr);
 }
 
 char	*get_fd_content(t_data *d, int fd)

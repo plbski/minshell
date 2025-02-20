@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:09:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 21:20:54 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:50:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_dblist	*dblst_last(t_dblist *lst)
 t_dblist	*get_dblst_at_key(t_dblist *lst, char *key)
 {
 	t_dblist	*start;
-	char		*content;
+	char		*str;
 	int			j;
 
 	if (!lst || !key)
@@ -55,13 +55,13 @@ t_dblist	*get_dblst_at_key(t_dblist *lst, char *key)
 	start = lst;
 	while (lst)
 	{
-		content = (char *)lst->content;
-		if (content)
+		str = (char *)lst->content;
+		if (str)
 		{
 			j = 0;
-			while (key[j] && content[j] && content[j] == key[j])
+			while (key[j] && str[j] && str[j] == key[j])
 				j++;
-			if (content[j] == '=' && key[j] == '\0')
+			if ((str[j] == '=' && key[j] == '\0') || (!key[j] && !str[j]))
 				return (lst);
 		}
 		lst = lst->next;

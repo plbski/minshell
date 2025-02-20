@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 01:07:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 18:44:02 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ t_tktype	get_token_type(t_token *prv_eval, char *str)
 		return (tk_logical);
 	if (same_str(str, "*"))
 		return (tk_wildcard);
-	if (prv_eval && prv_eval->type == tk_command)
-		return (tk_argument);
-	return (tk_command);
+	if (prv_eval && prv_eval->type == tk_cmd)
+		return (tk_arg);
+	return (tk_cmd);
 }
 
 static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
@@ -47,7 +47,7 @@ static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
 	{
 		arg_name = ms_strdup(d, entry->d_name);
 		if (arg_name[0] != '.')
-			start = new_token(ms_strdup(d, arg_name), start, tk_argument, brk);
+			start = new_token(ms_strdup(d, arg_name), start, tk_arg, brk);
 		free(arg_name);
 		entry = readdir(directory);
 	}
@@ -85,13 +85,13 @@ static t_token	*get_split_tokens(t_data *d, char **splits, t_token *lst)
 			continue ;
 		}
 		lst = set_tok(d, lst, splits[i], prv_eval);
-		if (lst->type != tk_argument && !lst->is_redir)
+		if (lst->type != tk_arg && !lst->is_redir)
 		{
 			if (prv_eval)
 				prv_eval->nxt_eval = lst;
 			prv_eval = lst;
 		}
-		else if (lst->type && prv_eval && prv_eval->type == tk_command)
+		else if (lst->type && prv_eval && prv_eval->type == tk_cmd)
 			prv_eval->redir = lst;
 	}
 	return (lst);
@@ -110,6 +110,6 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	set_redir_args(token);
 	set_subshells(d, token);
 	if (d->debug_mode)
-		show_tokens_info(d, token, "init", "");
+		show_tokens_info(d, token, "Init");
 	return (token);
 }

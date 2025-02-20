@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:14:04 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 15:09:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	execute_doc(t_data *d, char *path)
 		return (FCT_FAIL);
 	}
 	open_doc_content(path);
-	return (FCT_SUCCESS);
+	return (FCT_OK);
 }
 
 int	doc(t_data *d, char *arg, char **flags, int status)
@@ -54,7 +54,7 @@ int	doc(t_data *d, char *arg, char **flags, int status)
 	if (!arg)
 	{
 		ft_dprintf(2, "What minishell page do you want?\n");
-		return (FCT_SUCCESS);
+		return (FCT_OK);
 	}
 	path = ft_megajoin(d->man_wd, arg, ".txt", NULL);
 	if (!path)

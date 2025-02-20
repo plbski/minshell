@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:37:20 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 18:43:56 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token	*redirect_pipe(t_data *d, t_token *nxt, int pipefd[2], int redir)
 			printf("no output found for redir\n");
 		return (nxt);
 	}
-	while (nxt && nxt->type == tk_argument)
+	while (nxt && nxt->type == tk_arg)
 	{
 		fd = get_fd(d, nxt->name, redir);
 		if (fd >= 0)

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/18 01:42:35 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 02:08:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@
 # include <sys/ioctl.h>
 
 # define CMD_NOT_FOUND	127
-# define FCT_SUCCESS	0
+# define CMD_NOT_EXEC	126
+# define CMD_IS_DIR		126
+
+# define EMPTY_FILE		5
+# define FCT_OK	0
 # define FCT_FAIL		1
 # define EXIT_CHILD		-1
 
 typedef enum e_token_type
 {
-	tk_command,
-	tk_argument,
+	tk_cmd,
+	tk_arg,
 	tk_red_in,
 	tk_red_out,
 	tk_red_app,
@@ -92,6 +96,8 @@ typedef struct s_data
 	char			*history_wd;
 	char			*heredoc_wd;
 	char			*home_wd;
+	char			*start_wd;
+	char			*msh_wd;
 	char			*logname;
 	int				subsh_fd;
 	char			*prv_input;
@@ -102,8 +108,9 @@ typedef struct s_data
 	int				debug_mode;
 	int				shlvl;
 	int				heredocfd;
-	int				last_exit_st;
+	int				last_exit;
 	int				brackets;
+	int				fork_child;
 	int				(*blt_fct[10])(struct s_data *d, char *a, char **f, int s);
 }	t_data;
 
@@ -112,7 +119,7 @@ extern int	g_quit_in_heredoc;
 //		init/init.c
 char		*custom_get_cwd(t_data *d);
 int			update_cwd(t_data *data);
-void		init_data(t_data *data, char **env);
+void		init_data(t_data *data, char *path, char **env);
 
 //		init/init_bltn.c
 void		export_usefull_var(t_data *d);
@@ -128,14 +135,19 @@ char		*get_fd_content(t_data *d, int fd);
 char		*ms_strjoin(t_data *d, char const *s1, char const *s2);
 char		*ms_strdup(t_data *d, const char *s1);
 void		*ms_malloc(t_data *d, ssize_t size);
+void		*ms_realloc(t_data *d, void *ptr, size_t new_size);
 char		*char_join(char a, char b, char c, char d);
-void		replace_strstr(t_data *d, char **str, \
-		const char *remove, const char *replace);
 
 //		tools/str_tools/splitstr_tools.c
 char		*ft_strstr(const char *str, const char *to_find);
 char		**ft_split_str(t_data *d, char *str, char *sep);
 char		*contract_str(t_data *d, char **strs);
+
+//		tools/strinsert.c
+char		*str_insert(const char *str, int rmv_start, \
+	int rmv_end, const char *new_str);
+void		replace_strstr(t_data *d, char **str, \
+		const char *remove, const char *replace);
 
 //		tools/str_tools/strcmp_tools.c
 int			same_str(const char *a, const char *b);
@@ -162,7 +174,7 @@ int			set_key_value(t_data *d, t_dblist *list, char *key, char *value);
 //		tools/var/quote_tools.c
 int			is_only_quotes(char *str);
 void		remove_quotes(t_data *d, char **str);
-int			is_in_quote(char *str, int index);
+int			in_quote(char *str, int index);
 
 //		tools/var/var_tools.c
 void		reset_readline(void);
@@ -184,9 +196,10 @@ void		reorder_dblst(t_dblist *list);
 
 //		tools/debug.c
 void		show_exec_info(t_data *d, t_token *node, char *arg, char **flg);
-void		show_token_info(t_data *d, t_token *node, char *prefix, char *sufx);
-void		show_tokens_info(t_data *d, t_token *node, char *prfx, char *sufx);
+void		show_token_info(t_data *d, t_token *node, char *prx, int spacing);
+void		show_tokens_info(t_data *d, t_token *node, char *prfx);
 void		show_cmd_status(t_data *d, t_token *node);
+void		show_char_array(char *arr_name, char **arr);
 
 //		tools/signal.c
 void		setup_signal(int is_waiting, int is_heredoc);
@@ -259,22 +272,25 @@ int			doc(t_data *d, char *arg, char **flags, int status);
 
 //		builtins/exec_utils.c
 char		**set_argv(t_data *d, char *prog_name, char **args, int args_len);
-char		*get_dir_in_path(t_data *d, char *cmd_name);
-char		*handle_path_in_dir(t_data *d, char *prg, int is_indirect);
-int			is_valid_exec_file(const char *file, int *fct_ret, int is_direct);
+char		*fetch_path(t_data *d, char *cmd_name);
+char		*get_path_in_env(t_data *d, char *prg, int is_exec, int *fct_ret);
+int			valid_exec(const char *file, int *ret, int exc, int pr, int loc);
 int			increment_shlvl(t_data *d);
+void		print_exec_error(const char *arg, int st, int exec, int local);
 
 //		builtins/echo.c
 int			echo(t_data *d, char *arg, char **flags, int status);
 
 //		tokens/token_parse2.c
 int			requires_arg(t_token *node);
-int			validate_token(t_data *d, t_token *node);
+int			validate_token(t_data *d, t_token **node);
 int			is_valid_identifier(char *arg);
 
 //		tokens/token_parse.c
 t_tktype	get_token_type(t_token *prv_cmd, char *str);
 t_token		*tokenize_string(t_data *d, char *prompt);
+t_token		*get_next_redir(t_token *d);
+void		set_redir_args(t_token *tok);
 
 //		tokens/token_execute.c
 t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
@@ -306,16 +322,18 @@ char		*get_last_line(t_data *d, const char *filename);
 
 char		*get_next_line(int fd);
 void		set_nonblocking_mode(int enable, struct termios *saved);
-char		*get_cmd_subst(t_data *d, char *str, int *i, char *ret_cmd);
 void		set_parenthesis_redirections(t_token *tok);
 t_token		*get_last_arg(t_token *cmd);
 
-t_token		*get_next_redir(t_token *d);
-void		set_redir_args(t_token *tok);
+//		subst.c
+char		*get_cmd_subst(t_data *d, char *str, int *i, char *ret_cmd);
+void		solve_cmd_substitutes(t_data *d, char ***spl);
 
 //		subshell.c
 void		set_subshells(t_data *d, t_token *tokens);
 void		iterate_tokens(t_data *d, t_token *node);
 t_token		*solve_subshell(t_data *d, t_token *start);
+char		*ms_strndup(t_data *d, const char	*s1, ssize_t n);
+char		*ft_strndup(const char	*s1, ssize_t n);
 
 #endif

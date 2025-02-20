@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 01:37:08 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**set_argv(t_data *d, char *prog_name, char **args, int args_len)
 	return (new_argv);
 }
 
-char	*get_dir_in_path(t_data *d, char *cmd_name)
+char	*fetch_path(t_data *d, char *cmd_name)
 {
 	char	*path_env;
 	char	**splitted_path;
@@ -35,7 +35,7 @@ char	*get_dir_in_path(t_data *d, char *cmd_name)
 
 	path_env = get_env_value(d, d->env_list, "PATH");
 	if (!path_env)
-		return (NULL);
+		return (ft_megajoin(d->cwd, "/", cmd_name, NULL));
 	splitted_path = ft_split(path_env, ':');
 	free(path_env);
 	if (!splitted_path)
@@ -45,7 +45,7 @@ char	*get_dir_in_path(t_data *d, char *cmd_name)
 	while (splitted_path[++i])
 	{
 		cmd_path = ft_megajoin(splitted_path[i], "/", cmd_name, NULL);
-		if (access(cmd_path, X_OK) == 0)
+		if (access(cmd_path, F_OK) == 0 && !is_directory(cmd_path))
 			break ;
 		free(cmd_path);
 		cmd_path = NULL;
@@ -54,52 +54,25 @@ char	*get_dir_in_path(t_data *d, char *cmd_name)
 	return (cmd_path);
 }
 
-char	*handle_path_in_dir(t_data *d, char *prg, int is_indirect)
+char	*get_path_in_env(t_data *d, char *prg, int is_exec, int *fct_ret)
 {
 	char		*path_dir;
 
-	path_dir = get_dir_in_path(d, prg);
-	if (path_dir && is_valid_exec_file(path_dir, &is_indirect, is_indirect))
+	path_dir = fetch_path(d, prg);
+	if (!path_dir)
+	{
+		print_exec_error(prg, CMD_NOT_FOUND, is_exec, 0);
+		return (NULL);
+	}
+	if (valid_exec(path_dir, fct_ret, is_exec, 0, 0))
 		return (path_dir);
-	safe_free(path_dir);
-	if (is_directory(prg))
-	{
-		if (!is_indirect)
-			ft_dprintf(2, "msh: exec: %s: \
-cannot execute: Is a directory\n", prg);
-		else
-			ft_dprintf(2, "msh: %s: command not found\n", prg);
-	}
-	else if (access(prg, X_OK) == -1 && prg[0] == '.' && prg[1] == '/')
-		ft_dprintf(2, "msh: %s: Permission denied\n", prg);
-	else if (access(prg, F_OK) == -1)
-	{
-		if (!is_indirect)
-			ft_dprintf(2, "msh: exec: %s: not found\n", prg);
-		else
-			ft_dprintf(2, "msh: %s: command not found\n", prg);
-	}
+	valid_exec(prg, fct_ret, is_exec, 0, 0);
+	printf("FCT RET %d %s\n", *fct_ret, prg);
+	if (!ft_strncmp(prg, "./", 2) || prg[0] == '/')
+		print_exec_error(prg, *fct_ret, is_exec, 1);
+	else
+		print_exec_error(prg, *fct_ret, is_exec, 0);
 	return (NULL);
-}
-
-int	is_valid_exec_file(const char *file, int *fct_ret, int is_direct)
-{
-	struct stat	st;
-	int			fd;
-	char		buf[4];
-
-	(void)is_direct;
-	if (is_directory(file))
-		return (*fct_ret = 126, 0);
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (*fct_ret = 127, 0);
-	if (fstat(fd, &st) == -1 || !S_ISREG(st.st_mode) || !(st.st_mode & S_IXUSR))
-		return (*fct_ret = 126, close(fd), 0);
-	if (read(fd, buf, 4) != 4)
-		return (*fct_ret = 127, close(fd), 0);
-	close(fd);
-	return (1);
 }
 
 int	increment_shlvl(t_data *d)
@@ -118,4 +91,36 @@ int	increment_shlvl(t_data *d)
 	free(new_lvl);
 	setstr(d, (char **)&element->content, new_content);
 	return (1);
+}
+
+void	print_exec_error(const char *arg, int status, int is_exec, int is_local)
+{
+	printf("[error called: %s %d %d %d]\n\n", arg, status, is_exec, is_local);
+	if (status == CMD_NOT_EXEC)
+	{
+		ft_dprintf(2, "msh: %s: Permission denied\n", arg);
+		if (is_exec)
+			ft_dprintf(2, "msh: exec: %s: cannot execute: \
+Undefined error: 0\n", arg);
+		return ;
+	}
+	if (status == CMD_NOT_FOUND && is_local)
+		ft_dprintf(2, "msh: %s: No such file or directory\n", arg);
+	if (status == CMD_NOT_FOUND && is_exec && is_local)
+		ft_dprintf(2, "msh: exec: %s: cannot execute: \
+No such file or directory\n", arg);
+	if (status == ERR_IS_DIR)
+	{
+		if (is_exec && !is_local)
+			ft_dprintf(2, "msh: exec: command not found\n");
+		if (!is_exec)
+			ft_dprintf(2, "msh: %s: is a directory\n", arg);
+		if (is_exec && is_local)
+			ft_dprintf(2, "msh: exec: %s: \
+cannot execute: Undefined error: 0\n", arg);
+	}
+	if (!is_local && is_exec)
+		ft_dprintf(2, "msh: exec %s: command not found\n", arg);
+	else if (!is_local)
+		ft_dprintf(2, "msh: %s: command not found\n", arg);
 }

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:03:05 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 11:30:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,25 @@ void	*ms_malloc(t_data *d, ssize_t size)
 	return (content);
 }
 
+void	*ms_realloc(t_data *d, void *ptr, size_t new_size)
+{
+	void	*new_ptr;
+
+	if (!ptr)
+		return (ms_malloc(d, new_size));
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	new_ptr = ms_malloc(d, new_size);
+	if (!new_ptr)
+		return (NULL);
+	ft_memcpy(new_ptr, ptr, new_size);
+	free(ptr);
+	return (new_ptr);
+}
+
 char	*char_join(char a, char b, char c, char d)
 {
 	const char	chars[] = {a, b, c, d};
@@ -95,29 +114,4 @@ char	*char_join(char a, char b, char c, char d)
 			str[len++] = chars[i];
 	str[len] = '\0';
 	return (str);
-}
-
-void	replace_strstr(t_data *d, char **str, \
-		const char *remove, const char *replace)
-{
-	char	*new_str;
-	int		i;
-	int		j;
-
-	if (!str || !*str || !(*str)[0] || !remove || !ft_strstr(*str, remove))
-		return ;
-	i = -1;
-	while ((*str)[++i])
-	{
-		j = 0;
-		while (remove[j] && remove[j] == (*str)[i + j])
-			j++;
-		if (remove[j])
-			continue ;
-		new_str = ms_strdup(d, (*str) + i + j);
-		setstr(d, str, ms_strjoin(d, replace, new_str));
-		free(new_str);
-		return ;
-	}
-	return ;
 }

@@ -201,3 +201,1347 @@ bash
 (echo "Command 1"; echo "Command 2") && echo "Both commands in subshell executed"
 clear
 $((2 * 12))
+echo(pwd)
+echo$(pwd)
+bash
+echo $(pwd)
+echo
+echo&&cd ..
+cd ..
+cd ~
+clear
+lw
+ls
+cat output.txt 
+$?
+bash
+clear
+echo $(pwd)
+deb=1
+echo $(pwd)
+deb=1
+echo $(pwd)
+echo $(pwd) >> output.txt 
+echo $(pwd
+echo $(pwd)
+deb=1
+echo $(pwd)
+echo $(pwd && echo cool) >> output.txt 
+bash
+deb=1
+echo "Le nombre est: $(cat < input.txt)"
+echo$(pwd)
+clear
+pwd
+echo $(pwd)
+echo "Le nombre est: $(cat < input.txt)"
+echo "Le nombre est: $(cat < qwf.txt)"
+bash
+clear
+echo "Le nombre est: $(cat < qwf.txt)"
+echo "Le nombre est: $(cat < input.txt)"
+echo 'Le nombre est: $(cat < input.txt)'
+echo "Le nombre est: $(cat < input.txt)"
+echo "Le nombre est: $(cat < input.txt && echo coool)"
+echo "Le nombre est: $(cat < input.txt && "echo coool)""
+echo ""cool""
+echo $(pwd = "cool")
+bash
+echo $(pwd && echo "c"o"ol")
+echo "$(pwd)"
+echo "pwd is $(pwd)"
+echo "pwd is $("pwd")"
+echo "pwd is $(pwd)" && echo bien
+echo "pwd is $(pwd)" && echo "*bien"
+echo "pwd is $(pwd)" && echo "bien"
+echo "pwd is $("pwd")"
+echo $(pwd = "cool")
+echo "pwd is $("pwd")"
+echo $(pwd)
+echo $(pwd - trop)
+echo $(pwd >> trop)
+bash
+echo $(pwd >> trop | cat)
+bash
+echo $(ls | cat)
+echo $(command is "ls | cat")
+echo "commans is $("ls | cat")
+echo "commans is $("ls | cat")"
+echo "command is $("ls | cat")"
+bash
+deb=1
+echo "command is $("ls | cat")"
+deb=1
+echo "command is $("ls | cat")"
+echo $(pwd)
+echo "command is $("ls | cat")"
+echo "command is $(olapola)
+echo "command is $(olapola)"
+echo "command is $("olapola")"
+echo "command is $("ls")"
+bash
+echo "command is $("ls | cat")"
+echo "command is $(ls | cat)"
+echo "command is $("ls | cat")"
+echo "command is $("lscat")"
+echo "command is $("lsca t")"
+deb=1
+echo "command is $("lsca t")"
+deb=1
+echo "command is $("lsca t")"
+deb=1
+echo "command is $("lsca t")"
+deb=1
+echo "command is $("lsca t")"
+deb=1
+echo "command is $("lsca t")"
+deb=1
+echo "command is $("lsca t")"
+deb=1
+echo "command is $("lsca t")"
+echo "command is $("lsca t")" olapefkgwèeojgbwèeojb
+ls ls ls
+echo "command is $("lsca t")" olapefkgwèeojgbwèeojb
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+deb=1
+ls ls ls
+ls ls ls >> ls
+ls ls ls
+deb=1
+ls ls ls >> ls
+deb=1
+ls ls ls >> ls
+deb=1
+ls ls ls >> ls
+deb=1
+ls ls ls >> ls
+deb=1
+ls ls ls >> ls
+deb=1
+ls ls ls >> ls
+olapoqwfqwkfoqwf
+deb=1
+olapoqwfqwkfoqwf
+deb=1
+olapoqwfqwkfoqwf
+echo $(pwd && echo cool) >> output
+deb=1
+echo $(pwd && echo cool) >> output
+deb=1
+echo $(pwd && echo cool) >> output
+deb=1
+echo $(pwd && echo cool) >> output
+deb=1
+echo $(pwd && echo cool) >> output
+deb=1
+echo $(pwd && echo cool) >> output
+clear
+echo $(ls)
+ls && pwd
+ls | pwd
+pwd | ls
+pwd | cat
+pwd | grep Users
+pwd | grep ola
+echo $(pwd | grep ola)
+echo $(pwd | grep Users)
+echo bonjour ; |
+clear
+echo -n -n -nnnn -nnnnm
+echo >
+echo "\s" & echo "\s"
+cd $HOME/Documents
+env | grep $HOME
+cs $HOME
+cd $HOME
+deb=1
+cd $HOME/Documents
+echo $HOME
+deb=0
+echo $HOME
+echo $HOME/documents
+env | grep HOME
+env | grep HOME/Documents
+echo bonjour | |
+echo bonjour ; |
+cat /dev/random | head -n 1 | cat -e
+clear
+ls | cat -e
+clear
+unset vstola
+cat < ola
+echo bonjour >>> test
+clear
+git clone https://github.com/t0mm4rx/minishell_tests.git testfile
+clear
+echo bonjour ;|
+echo bonjour | |
+|
+echo bonjour;
+clear
+echo bonjour |;
+echo bonjour |;
+|
+echo bonjour \; ls
+ echo bonjour > test\ 1
+cd $HOME/Documents
+cd -
+echo "\s" & echo "\\s"
+echo \>
+export ""
+export ""
+export "."
+export "o"
+deb=1
+export ""
+clear
+echo $(pwd)
+echo "ola $(pwd)"
+deb=1
+echo "ola $(pwd)"
+clear
+export ""
+clear
+deb=1
+export ""
+clear
+export ""
+echo $(pwd)
+export " "
+clear
+export ""
+export " "
+export ""
+deb=1
+export ""
+clear
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=
+deb=1
+clear
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+echo ""
+deb=0
+clear
+echo ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+deb=1
+export ""
+export "" ola cool
+export ""
+deb=1
+export "" ola cool
+deb=1
+export "" ola cool
+deb=1
+export "" ola cool
+deb=1
+export "" ola cool
+deb=1
+export "" ola cool
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+export "sup" ola cool && echo cool
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+deb=1
+export "sup" ola cool
+export "sup" ola cool && echo cool >> output.txt
+deb=§1
+deb=1
+echo ola || echo cool
+clear
+echo ola || echo cool
+deb=1
+echo ola || echo cool
+echo ola || (echo top && echo cool)
+make re
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+make re
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+oakeflknqwpgofjqegn
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+deb=1
+echo ola || (echo top && echo cool)
+cleaer
+clear
+pwd
+clear
+deb=1
+clear
+pwd
+clear
+deb=1
+clear
+ls && echo cool
+deb=1
+ls && echo cool
+ls && echo cool | cat
+deb=1
+ls && echo cool | cat
+deb=1
+ls && echo cool | cat
+deb=1
+ls && echo cool | cat
+clear
+deb=1
+ls && echo cool | cat
+ls | cat
+deb=1
+ls | cat
+exit
+deb=1
+exit
+deb=1
+ls | cat
+exit
+deb=1
+exit 4
+exit 4
+deb=1
+exit 5
+deb=1
+exit 5
+deb=1
+exit 5
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+deb=1
+exit 54
+ls | cat
+deb=1
+ls | cat
+deb=1
+ls | cat
+deb=1
+ls | cat
+$?
+clear
+deb=0
+clear
+cd noFIle
+cd a b c d
+pwd a
+pwd a b cd
+bash
+export LOL=lala ROR=rara
+export
+echo $lol
+export LOL=lala
+export
+echo $lol
+echo $LOL
+export
+export | grep "LALA"
+export | grep "OL"
+export | grep "LOL"
+export | grep "LALA"
+export LOL=lala ROR=rara export | grep "lala"
+export | grep "lala"
+export | grep "LOL"
+export LOL=lala
+export | grep "lala"
+export LOL=lala ROR=rara export
+export | grep "ROR"
+export LOL=lala ROR=rara export | grep "lala"
+export | grep "lala"
+export | grep "LOL"
+echo $LOL
+export LOL=lala ROR=rara export
+echo $LOL
+deb=1
+export LOL=lala ROR=rara export | grep "lala"
+export LOL=lala ROR=rara export
+echo a b c
+export LOL=lala ROR=rara
+export LOL=lala ROR=rara && export | grep "lala" "rara"
+export LOL=lala ROR=rara && export | grep "lala"
+export LOL=lala ROR=rara && export | (grep "lala" && grep "roro")
+bash
+export LOL=lala ROR=rara && export | (grep "lala")
+export LOL=lala ROR=rara && export | (grep "roro")
+export LOL=lala ROR=rara && export | (grep "rara")
+echo $ROR
+export LOL=lala ROR=rara && export | (grep "rara")
+export LOL=lol ROR=ror && echo $LOL && echo $ROR
+echo $ROR $LOL
+bash
+clear
+echo ""
+export ""
+deb=1
+export ""
+make re
+export ""
+export
+bash
+make re
+export ""
+export a b c && echo $a $b $c
+echo $a $b $c
+export
+export "HI = hi"
+export "HI =hi"
+bash
+/bin/ls
+echo ctrl+c
+bash
+echo "^C"
+echo ^C
+bash
+l^Ds
+bash
+echo |
+bash
+| echo
+sort | lés
+sort | ls
+bash
+cat < >
+cat < <
+cat > >
+bash
+> >
+cat > >
+> a ls > b < Makefile
+bash
+> a ls > b < Makefile
+> a echo Hello World!
+bash
+exit 0 | exit 1
+cd /
+cd -
+echo '\'
+echo -n simple
+echo
+bash
+echo hudifg d | | hugdfihd
+echo "$HOME"
+bash
+echo '$HOME'
+bash
+minishell
+"exit retour a la ligne"
+bash
+sleep 5 | exit
+echo cool | exit
+bash
+$LESS$VAR
+/bin/echo bonjour
+$
+bash
+.
+echo test > file test1
+bash
+clear
+exit -10e
+echo hudifg d | | hugdfihd
+clear
+ls
+cd gnl
+ls
+open
+cleaqr
+open .
+cleqr
+clear
+echo bonjour
+echo bonjour >> output
+deb=1
+echo bonjour >> output
+clear
+deb=0
+clear
+echo cool > output.txt
+echo bonjour >> output
+echo cool >> output
+deb=1
+echo cool >> output
+clear
+> log echo coucou
+bash
+clear
+deb=0
+clear
+echo \$HOME
+bash
+exit +10
+cat diufosgid
+$?
+bash
+exit
+clear
+cat ql3nfn
+$?
+exit ""
+olqeg
+$?
+exit
+cd oqwféq
+$?
+exit
+var=at
+c$var Makefile
+export "test=ici"=coucou
+bash
+export "test=ici"=coucou
+export ola=3=4
+echo $ola
+export | grep ola
+unset ola
+export ola=3=4
+export | grep ola
+export "test=ici"=coucou
+export | grep "test=ici"
+export
+export ""
+export bonjour-=3
+bash
+export a=b
+export
+clear
+export a=""
+export
+clear
+export +"
+export ""
+export a+=c
+bash
+export ac=3
+export ac+=3
+export | grep ac
+export a+c=3
+export ac+=333+c
+export | grep ac
+unset ac && echo $ac
+export a c d && echo $a $c $d
+bash
+clear
+export a
+a+=bcdef
+echo $a
+bash
+export a
+export a+=bcdef
+echo $a
+export | grep a
+export ole
+ole+=abc
+export | grep ole
+export a
+a+=bcdef
+echo $a
+export | grep a
+export a
+export a+=bcdef
+echo $a
+export a
+export a+=bcdef
+export | grep a
+export a+=bcde
+echo $a
+export | grep a
+a+=bcdef
+echo $a
+export a+=bcde
+export | grep a
+a+=bceef
+echo $a
+export b+=3
+echo $b
+export | grep b
+bash
+cat < test
+export var; export var=test
+echo $var
+bash
+echo bonjour > $test
+export file=bonjour
+echo cool > $file
+echo ~ > file
+bash
+echo ~ > file
+echo ~ > file super bonjour
+export file=bonjour echo cool > $file
+export file=bonjour && echo cool > $file
+echo $file
+echo cool > bonjour
+echo top > $file
+deb=1
+echo top > $file
+top=bonjour
+echo top > $top
+deb=1
+echo top > $top
+clear
+deb=0
+clear
+export
+clear
+bash
+export file=output.txt msg="message" cmd=echo
+$cmd >> $file $msg
+$cmd $msg >> $file
+echo >> output.txt cool
+deb=1
+echo >> output.txt cool
+export file=output.txt msg="message" cmd=echo
+$cmd >> $file $msg
+$cmd >> $file $msg ool super
+$cmd >> $file bonjour
+$cmd >> $file sa va bonjour
+$cmd >> $file $msg
+$cmd >> $file $msg $msg $msg $msg
+deb=1
+$cmd >> $file $msg $msg $msg $msg
+hered=cool
+deb=0
+<< $hered
+deb=1
+echo $a $b $c $d
+export a=b b=c c=d
+echo >> output.txt $a $b $c $e
+echo >> output.txt cool
+echo >> output.txt cool top genial
+export "test=ici"=coucou
+export | grep "test=ici"
+export | grep test
+export "test=ici"=coucou
+export | grep coucou
+export | grep test
+bash
+echo bonjour > $test
+echo bonjour > $tatota
+clear
+echo "bip | bip ; coyotte > < \" "
+clear
+output.txt 
+bash
+output
+output.txt 
+output.txt
+deb=1
+output.txt
+output.txt 
+./output.txt 
+bash
+./output.txt 
+output.txt 
+$?
+minishell
+./minishell
+exec minishell
+clear
+./minishell
+minishell
+./clear
+bash
+./clear
+clear
+pwd
+minishell
+./minishell
+/ls
+/bin/ls
+./c_files
+./olapo
+./olapo.sh
+/bin/ls
+/ls
+l
+ls
+clear
+/bin/ls
+exec c_files
+exec /bin/ls
+/bin/ls
+/.ls
+minishell
+./minishell
+/bin/ls
+clear
+/bin/qwf
+olapo.sh
+./olapo.sh 
+./olapo.sh 1 2 3
+chmod u=wr olapo.sh 
+./olapo.sh 1 2 3
+chmod u=wrx olapo.sh
+./olapo.sh 1 2 3
+./c_files
+chmod u=wrx c_files/
+./c_files
+./olspo
+./olapo
+./olapo.sh
+./olapo.sh 1 2 3
+clear
+pwd
+ls
+clear
+./olapo
+./olapo 1 2 3
+./olapo.sh 1 2 3
+clear
+./minishell
+minishell
+env | grep PATH
+env | grep PATH | grep local | cat
+env | grep PATH | cat
+env 7
+exit 0 | exit 1
+ls | exit 3
+deb=1
+ls | exit 3
+exit | exit
+exit 3 | exit 0
+exit 3 | exit 5
+$?
+exit oianwg
+cd .. | cat pjweqqoje
+$?
+exit 1 | exit 5
+$?
+exit 10
+exit 10 | exit 20
+$?
+exit 10 | exit 20
+deb=1
+exit 10 | exit 20
+exit 5
+deb=1
+exit 5
+deb=1
+exit 10 | exit 20
+deb=1
+exit 10 | exit 20
+deb=1
+exit 10 | exit 20
+deb=1
+exit 10 | exit 20
+deb=1
+clear
+exit 10 | exit 20
+exit 450
+exit 40
+exit ""
+exit +23
+exit -23
+deb=1
+exit -23
+exit 5 | exit 10
+$?
+exit 3 && exit 5
+exit 0 | exit 1
+$?
+exit 1 | exit 0
+$?
+exit olapo
+echo bonjour > $test
+cd ../../../../../.. ; pwd
+cd ../../../../../..
+sleep 10
+sleep10
+sleep 10
+echo cool | sleep 10
+export var ="cat Makefile | grep >"
+export var="cat Makefile | grep >"
+$var
+echo $var
+export var=c_files
+ls $var
+$bla
+cat | cat 7 cat | ls
+cat | cat | cat | ls
+clear
+not_cmd bonjour > salut
+env
+export
+env
+exportt
+export
+env
+export a b c d e f
+env
+export
+clear
+export "" unset ""
+unset var1
+cat /dev/random | head -n 1 | cat -e
+|
+echo bonjour |;
+echo bonjour > $test w/ t
+clear
+$?
+ewmfq
+$?
+qwmflkn
+exit
+;
+$?
+echo ;;
+ > a ls > b < Makefile
+> a ls > b < Makefile
+> a ls > b < Makefile
+<< cool
+> a ola
+deb=1
+> a ola
+>> a ola
+>>
+>
+> a
+clear
+> a
+>
+> a
+< ola
+deb=1
+< ola
+&& cool
+echo -n
+echo -n >> output.txt 
+> ola
+> alo
+< cool
+< olapo.sh
+deb=1
+< olapo.sh
+> top tip tap
+deb=0
+clear
+> top tip tap
+> top
+$?
+> top tip tao
+deb=1
+clear
+> a
+< o
+> a b c d
+deb=1
+> a b c d
+ola &&
+ola && | top
+> a b c d e
+deb=1
+> a b c d e
+deb=1
+> a b c d e
+>
+> a
+> a b c d
+deb=1
+> a b c d
+deb=1
+> a b c d
+deb=1
+> a b c d
+> a b c d && echo cool
+> a b c d
+deb=1
+> a b c d
+deb=1
+> a b c d
+deb=1
+> a b c d
+deb=0
+> a b c d
+pwd
+ls
+clear
+echo "Hello World"
+echo "hello world"
+(export top && env | grep "top" >> output.txt && unset top) || echo "command failed"
+(export top && (env | grep "top") >> output.txt && unset top) || echo "command failed"
+clea
+(export top && (env | grep "top") >> output.txt && unset top) || echo "command failed"
+cleaer
+clear
+./~/Desktop/
+cd ~
+cd -
+exec ~/Desktop/42/42_Projects_GIT/core_3/minishell/minishell
+~/Desktop/42/42_Projects_GIT/core_3/minishell$ exec ~/Desktop/42/42_Projects_GIT/core_3/minishell/minishell
+clear
+bash
+$0
+echo $0
+bash
+echo $0
+minishell
+$0
+$0 1 2 3
+bash
+$0 
+ls
+env
+clear
+$0 olapo.sh 1 2 3
+$0
+clear
+pwd
+env
+export
+clear
+$0
+clear
+export
+env
+clear
+echo alo >> output.txt 
+unset alo
+export alo+=3 && echo $alo
+exit 40 | exit 5
+env
+export
+echo alo >> output.txt 
+cat output.txt 
+unset alo
+export alo+=3 && echo $alo
+<< cool
+exit 13ola
+export alo+=3 && echo $alo
+exit 13ola
+unset alo
+export alo+=3 && echo $alo
+<< cool
+cat output.txt 
+echo alo >> output.txt 
+export
+env
+exit 13alo
+export
+env
+exit 13a
+echo alo >> output.txt 
+cat output.txt 
+exit 12a
+echo ola >> output.txt 
+cat output.txt 
+exit 13a
+echo c >> output.txt 
+cat output.txt 
+exit 13a
+exec olapo.sh
+exit
+export
+exit
+env
+exit
+export
+env
+exit
+cat < output.txt 
+exit
+echo ola > output.txt
+cat < output.txt 
+clear
+make re
+cat < output.txt 
+exit 4
+ls
+env
+export a+=3
+unset a
+clear
+cat < output.txt 
+echo ola >> output.txt 
+env -i
+qwfn
+doc
+doc git_init
+echo cool | cat
+doc git_init
+echo cool | cat
+doc git_init
+qwfne
+env -i
+echo ola >> output.txt 
+export a+=3
+unset a
+ls *
+pwd
+cd -
+cd ~
+cd -
+exec olapo.sh
+./olapo.sh 12 3
+exit 123
+exec olapo
+exec c_files
+exec ./wapapa
+clear
+./ola
+./olapo.sh
+./olapo.sh 1 2 3
+exec ./olapo.sh
+exec ./olapo.sh 1 2 3
+./olapo
+clear
+./olapo.sh
+./olapo.sh 1 2 3
+./c_files
+cd ..
+$0
+cd ..
+$0
+doc git_init
+clear
+doc git_init
+cd ..
+doc git_init
+cd -
+clear
+$0
+cd ..
+$0
+cd -
+$0
+export | grep "PWD"
+env | grep "PWD"
+cd ..
+env | grep "PWD"
+cd ..
+export | grep "PWD"
+env | grep "PWD"
+echo $PWD
+export | grep PWD
+cd ..
+export | grep PWD
+cd ~
+cd -
+$0
+cd ..
+$0
+export | grep "MSH
+export | grep "MSH"
+env | grep "MSH"
+echo $MSH
+export | grep MSH
+pwd
+clear
+pwd
+cd ..
+pwd
+cd -
+$0
+clear
+cd ..
+$0
+cd -
+doc git_init
+clear
+$MSH
+$0
+clear
+echo $PWD
+$MSH
+echo $(MSH)
+echo $($MSH)
+echo $(pwd)
+$0
+doc git_init
+clear
+cd -
+mshell
+clear
+ls
+pwd
+clear
+mshe
+mshell
+cd ..
+cd Users/
+$0
+cd ..
+./minishell
+cd ..
+./minishell
+./minishell/minishell
+./Desktop/42/42_Projects_GIT/core_3/minishell/minishell
+exec Desktop/42/42_Projects_GIT/core_3/minishell/minishell
+exec /Desktop/42/42_Projects_GIT/core_3/minishell/minishell
+exec ./minishell
+bash
+clear
+exec ./minishell
+clear
+./minish
+exec ./minish
+exec ./c_files
+./c_files/
+./c_files
+cd ~
+exec ./Desktop/42/42_Projects_GIT/core_3/minishell/minishell
+clear
+pwd
+echo
+$pwd
+$0
+cd --
+cd -
+cd --
+cd -
+bash
+cd --
+cd -
+cd --
+cd -
+cd ..
+cd .
+cd -
+cd minishell
+cd ..-
+cd ---
+bash
+echo bonjour > $TESA
+output.txt 
+bash
+output.txt 
+bash
+clear
+make re
+clear
+make re
+clwr
+clear
+clwr
+bash
+bash
+cle
+bash
+clear
+clea
+cla
+clo
+olapo.txt
+clea
+output.txt 
+clea
+output.txt 
+outp
+exec olapo
+exec olapo.sh
+exec olapo.shqwfq
+exec c_files
+exec output.txt 
+esélgnw
+./qéeg
+bash
+exec ./welkfnq
+./exec c_files
+bash
+./c_files
+./c_filesweq
+./c_files
+bash
+./c_files
+c_files
+bash
+clear
+c_files
+bash
+c_files
+./c_files
+c_files
+bash
+clear
+c_files
+bash
+c_files
+c_files
+bash
+clear
+c_files
+./c_files
+olapo.sh
+clear
+c_file
+c_files
+./c_files
+c_files
+./c_files
+c_files
+./c_files
+clear
+./c_files
+exec c_files
+.
+./c_files
+exec c_files
+exec ./c_files

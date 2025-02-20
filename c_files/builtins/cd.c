@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 23:40:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,17 @@
 
 static char	*get_cd_path(t_data *d, char *arg)
 {
-	char	*path;
 
-	if (!arg)
-		arg = d->home_wd;
-	path = NULL;
-	if (!ft_strncmp(arg, "-", 2))
+	if (!arg || same_str(arg, "--"))
+		return (ms_strdup(d, d->home_wd));
+	if (same_str(arg, "-"))
 	{
 		if (!d->prev_cwd)
 			return (printf("msh cd: OLDPWD not set\n"), NULL);
-		path = ms_strdup(d, d->prev_cwd);
-		printf("%s\n", path);
+		printf("%s\n", d->prev_cwd);
+		return (ms_strdup(d, d->prev_cwd));
 	}
-	else
-		path = ms_strdup(d, arg);
-	if (!path)
-		custom_exit(d, "cd path alloc fail", NULL, EXIT_FAILURE);
-	return (path);
+	return (ms_strdup(d, arg));
 }
 
 int	cd(t_data *d, char *arg, char **flags, int status)
@@ -51,5 +45,5 @@ int	cd(t_data *d, char *arg, char **flags, int status)
 	}
 	update_cwd(d);
 	free(path);
-	return (FCT_SUCCESS);
+	return (FCT_OK);
 }

@@ -6,40 +6,41 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 18:08:45 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-static int	is_valid_key(char *key)
+static char	*get_valid_key(t_data *d, char *arg)
 {
-	int	i;
+	int		i;
+	int		break_index;
 
-	if (!key)
-		return (0);
+	break_index = -1;
 	i = -1;
-	while (key[++i])
+	while (arg && arg[++i])
 	{
-		if (i == 0)
-		{
-			if (key[i] != '_' && !ft_isalpha(key[i]))
-			{
-				printf("msh: export: \'%s\': not a valid identifier\n", key);
-				return (0);
-			}
-			continue ;
-		}
-		if (!ft_isdigit(key[i]) && !ft_isalpha(key[i]) && key[i] != '_')
-		{
-			printf("msh: export: \'%s\': not a valid identifier\n", key);
-			return (0);
-		}
+		if (i == 0 && !ft_isalpha(arg[i]) && !char_in_str(arg[i], "_\'\""))
+			break ;
+		else if (i > 0 && break_index == -1 && \
+!ft_isdigit(arg[i]) && !ft_isalpha(arg[i]) && !char_in_str(arg[i], "+=_\'\""))
+			break ;
+		else if (arg[i] == '=' && break_index == -1)
+			break_index = i;
+		if (arg[i] == '+' && arg[i + 1] != '=' && break_index == -1)
+			break ;
 	}
-	return (1);
+	if (arg && i > 0 && !arg[i])
+	{
+		if (break_index != -1)
+			return (ms_strndup(d, arg, break_index));
+		return (ms_strdup(d, arg));
+	}
+	return (printf("msh: export: \'%s\': not a valid identifier\n", arg), NULL);
 }
 
-static void	handle_joined_arg(t_data *d, char *key, char *value)
+static void	handle_joined_arg(t_data *d, char *key, char *value, int tmp_mem)
 {
 	char		*new_value;
 	t_dblist	*node;
@@ -51,45 +52,47 @@ static void	handle_joined_arg(t_data *d, char *key, char *value)
 	if (!node)
 		node = get_dblst_at_key(d->var_list, key);
 	if (!node)
-		return ;
+	{
+		node = dblst_new(NULL);
+		if (tmp_mem)
+			dblst_add_back(&d->var_list, node);
+		else
+			dblst_add_back(&d->env_list, node);
+	}
 	if (node->content)
 		new_value = ft_strjoin(node->content, value);
 	else
 		new_value = ft_megajoin(key, "=", value, NULL);
 	if (!new_value)
 		custom_exit(d, "alloc for joined export arg", NULL, EXIT_FAILURE);
-	if (node->content)
-		safe_free(node->content);
-	node->content = new_value;
+	setstr(d, (char **)&node->content, new_value);
 }
 
-static int	handle_no_value_export(t_data *d, char *arg, int tmp_mem)
+static int	handle_no_value_export(t_data *d, char *key, int tmp_mem)
 {
 	t_dblist	*var_node;
 	char		*new_content;
 
-	if (!is_valid_key(arg))
-		return (127);
-	if (get_dblst_node(d->env_list, arg))
-		return (FCT_SUCCESS);
+	if (get_dblst_node(d->env_list, key))
+		return (FCT_OK);
 	if (!tmp_mem)
 	{
-		var_node = get_dblst_at_key(d->var_list, arg);
+		var_node = get_dblst_at_key(d->var_list, key);
 		if (var_node)
 			new_content = ms_strdup(d, var_node->content);
 		else
-			new_content = ms_strdup(d, arg);
+			new_content = ms_strdup(d, key);
 		if (get_dblst_node(d->env_list, new_content))
 		{
 			free(new_content);
-			return (FCT_SUCCESS);
+			return (FCT_OK);
 		}
 		dblst_add_back(&d->env_list, dblst_new(new_content));
 		update_environ(d);
 	}
-	else if (!get_dblst_node(d->var_list, arg))
-		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, arg)));
-	return (FCT_SUCCESS);
+	else if (!get_dblst_node(d->var_list, key))
+		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, key)));
+	return (FCT_OK);
 }
 
 static int	exec_export(t_data *d, char *arg, int tmp_mem)
@@ -98,51 +101,48 @@ static int	exec_export(t_data *d, char *arg, int tmp_mem)
 	char		*value;
 	t_dblist	*new_node;
 
+	key = get_valid_key(d, arg);
+	if (!key)
+		return (CMD_NOT_FOUND);
 	if (!chr_amnt(arg, '='))
-		return (handle_no_value_export(d, arg, tmp_mem));
-	key = truncate_at_end(arg, '=');
-	if (!is_valid_key(key))
-		return (safe_free(key), 127);
+		return (handle_no_value_export(d, key, tmp_mem));
 	value = ft_strchr(arg, '=') + 1;
 	if (key[ft_strlen(key) - 1] == '+')
-		handle_joined_arg(d, key, value);
+		handle_joined_arg(d, key, value, tmp_mem);
 	else if (!set_key_value(d, d->env_list, key, value))
 	{
 		new_node = dblst_new(ft_megajoin(key, "=", value, NULL));
 		if (!new_node->content)
-			custom_exit(d, "N for node", NULL, 1);
+			custom_exit(d, "content for node", NULL, EXIT_FAILURE);
 		if (!tmp_mem)
 			dblst_add_back(&d->env_list, new_node);
 		else if (!set_key_value(d, d->var_list, key, value))
 			dblst_add_back(&d->var_list, new_node);
 	}
-	return (safe_free(key), update_environ(d), FCT_SUCCESS);
+	return (safe_free(key), update_environ(d), FCT_OK);
 }
 
 int	export(t_data *d, char *arg, char **flags, int tmp_mem)
 {
 	int			i;
-	t_dblist	*env_copy;
 	int			ret_value;
 	int			env_value;
 
-	env_value = FCT_SUCCESS;
+	env_value = FCT_OK;
 	if (!arg)
 	{
-		env_copy = arr_to_dblst((void **)d->environ);
-		reorder_dblst(dblst_first(env_copy));
-		dblst_print_list(env_copy, 1);
-		return (dblst_clear(&env_copy, free), FCT_SUCCESS);
+		reorder_dblst(dblst_first(d->env_list));
+		dblst_print_list(d->env_list, 1);
+		return (FCT_OK);
 	}
 	ret_value = exec_export(d, arg, tmp_mem);
-	if (ret_value != FCT_SUCCESS)
+	if (ret_value != FCT_OK)
 		env_value = ret_value;
 	i = -1;
 	while (flags && flags[++i])
 	{
-		ret_value = exec_export(d, flags[i], tmp_mem);
-		if (ret_value != FCT_SUCCESS)
-			env_value = ret_value;
+		if (exec_export(d, flags[i], tmp_mem) != FCT_OK)
+			env_value = CMD_NOT_FOUND;
 	}
 	return (env_value);
 }

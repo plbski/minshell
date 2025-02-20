@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 15:09:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	execute_ls(t_data *d, char *arg, int print_arg, int error_if_dir)
 	}
 	if (len != 0)
 		printf("\n");
-	return (closedir(directory), FCT_SUCCESS);
+	return (closedir(directory), FCT_OK);
 }
 
 int	ls(t_data *d, char *arg, char **flags, int status)
@@ -97,9 +97,9 @@ int	ls(t_data *d, char *arg, char **flags, int status)
 	i = -1;
 	while (flags[++i])
 	{
-		if (execute_ls(d, flags[i], 1, 1) == FCT_SUCCESS)
+		if (execute_ls(d, flags[i], 1, 1) == FCT_OK)
 		{
-			fct_ret = FCT_SUCCESS;
+			fct_ret = FCT_OK;
 			if (flags[i + 1] && is_directory(flags[i + 1]))
 				printf("\n");
 		}

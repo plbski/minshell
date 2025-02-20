@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 01:10:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 19:14:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,31 @@ int	requires_arg(t_token *node)
 	node->type == tk_logical || node->type == tk_hered);
 }
 
-int	validate_token(t_data *d, t_token *node)
+int	validate_token(t_data *d, t_token **token)
 {
 	t_tktype	typ;
+	t_token		*node;
 
+	node = *token;
 	typ = node->type;
-	if (!node->prv && (typ != tk_command && \
-	typ != tk_hered && !chr_amnt(node->name, '=')))
+	if (!node->prv && (typ != tk_cmd && \
+			!node->is_redir && !chr_amnt(node->name, '=')))
 	{
 		printf("%d\n", node->type);
 		ft_dprintf(2, "msh: command not found: %s\n", node->name);
-		d->last_exit_st = CMD_NOT_FOUND;
+		d->last_exit = CMD_NOT_FOUND;
 		return (0);
 	}
-	if (requires_arg(node) && !node->next)
+	if (!node->prv && node->is_redir)
 	{
-		ft_dprintf(2, "msh: parse error near \'%s\'\n", node->name);
-		d->last_exit_st = FCT_FAIL;
-		return (0);
+		node = *token;
+		*token = new_token(ms_strdup(d, "null"), NULL, tk_cmd, (*token)->par);
+		(*token)->redir = node;
+		(*token)->red_arg = (*token)->redir->next;
+		(*token)->next = node;
+		if (node->next->next && node->next->next->type == tk_arg)
+			node->next->next->type = tk_cmd;
+		node->prv = (*token);
 	}
 	return (1);
 }
@@ -65,7 +72,7 @@ t_token	*get_next_redir(t_token *d)
 	node = d->next;
 	while (node)
 	{
-		if (node->type != tk_argument)
+		if (node->type != tk_arg)
 			break ;
 		node = node->next;
 	}
@@ -81,7 +88,7 @@ void	set_redir_args(t_token *tok)
 	while (tok)
 	{
 		tok->redir = NULL;
-		if (tok->type == tk_command)
+		if (tok->type == tk_cmd)
 		{
 			next_redir = get_next_redir(tok);
 			if (!next_redir || next_redir->par != tok->par)

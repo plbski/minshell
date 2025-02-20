@@ -39,8 +39,8 @@ static int	set_quotes(t_data *d, char **input)
 		qt_index = get_char_index(*input, '\'');
 	if (chr_amnt(*input, '\"') % 2 == 1)
 		dbqt_index = get_char_index(*input, '\"');
-	if ((qt_index == -1 || is_in_quote(*input, qt_index)) && \
-		(dbqt_index == -1 || is_in_quote(*input, dbqt_index)))
+	if ((qt_index == -1 || in_quote(*input, qt_index)) && \
+		(dbqt_index == -1 || in_quote(*input, dbqt_index)))
 		return (1);
 	if ((qt_index > 0 && qt_index < dbqt_index) || dbqt_index == -1)
 		quote_end = get_quote_end(d, "\'", "quote> ");
@@ -82,13 +82,13 @@ static int	set_par(t_data *d, char **input, int i)
 
 static int	find_unvalid_patterns(char *input)
 {
-	const char	patterns[12][4] = {"| |", "& &", "& |", "| &", \
-		"&|", "|&", ">|", "<|", "|>", "|<", "< <", "$)"};
+	const char	patterns[13][4] = {"| |", "& &", "& |", "| &", \
+		"&|", "|&", ">|", "<|", "|>", "|<", "< <", "$)", "> >"};
 	char		*pattern;
 	int			i;
 
 	i = -1;
-	while (++i < 12)
+	while (++i < 13)
 	{
 		pattern = ft_strstr(input, patterns[i]);
 		if (pattern)
@@ -114,7 +114,7 @@ int	validate_input(t_data *d, char **input)
 	str = *input;
 	i = -1;
 	while (str[++i])
-		if ((str[i] == '<' || str[i] == '>') && !is_in_quote(str, i))
+		if ((str[i] == '<' || str[i] == '>') && !in_quote(str, i))
 			has_redir = 1;
 	if (!has_redir)
 		return (1);

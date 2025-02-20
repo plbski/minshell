@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 01:28:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	handle_child(t_data *d, char *prg, char **argv)
 {
 	char	**new_args;
 
+	d->fork_child = 1;
 	if (ft_strstr(prg, ".sh") && argv[0] && !same_str(argv[0], prg))
 	{
 		new_args = set_argv(d, prg, argv, get_arr_len((void **)argv));
@@ -46,11 +47,14 @@ static int	handle_parent(t_data *d, pid_t child_pid)
 	if (WIFEXITED(wait_status))
 		return (WEXITSTATUS(wait_status));
 	else if (WIFSIGNALED(wait_status))
+	{
+		printf("\n");
 		return (128 + WTERMSIG(wait_status));
+	}
 	return (-1);
 }
 
-static char	*validate_exec(t_data *d, char *prg, int is_indirect, int *ret_val)
+static char	*validate_exec(t_data *d, char *prg, int is_direct, int *ret_val)
 {
 	char	*new_path;
 
@@ -59,47 +63,67 @@ static char	*validate_exec(t_data *d, char *prg, int is_indirect, int *ret_val)
 		ft_dprintf(2, ".: usage: . filename [arguments]\n");
 		return (NULL);
 	}
-	if (prg[0] == '.' && prg[1] == '/')
-	{
-		if (is_directory(prg))
-			ft_dprintf(2, "msh: %s: Is a directory\n", prg);
-		else if (access(prg, F_OK) == -1)
-			ft_dprintf(2, "msh: %s: no such file or directory\n", prg);
-		else
-			ft_dprintf(2, "msh: %s: Permission denied\n", prg);
-		return (NULL);
-	}
-	new_path = handle_path_in_dir(d, prg, is_indirect);
-	if (!new_path && is_indirect)
-		*ret_val = 127;
+	new_path = get_path_in_env(d, prg, !is_direct, ret_val);
+	if (!new_path && is_direct)
+		*ret_val = CMD_NOT_FOUND;
 	else if (!new_path)
-		*ret_val = 126;
+		*ret_val = CMD_NOT_EXEC;
 	return (new_path);
 }
 
-int	exec(t_data *d, char *prg, char **argv, int is_indirect)
+int	valid_exec(const char *file, int *fct_ret, int exec, int prnt, int loc)
+{
+	int			fd;
+	struct stat	st;
+	char		buff[4];
+
+	*fct_ret = FCT_OK;
+	if (is_directory(file))
+	{
+		if (prnt)
+			print_exec_error(file, ERR_IS_DIR, exec, loc);
+		return (*fct_ret = ERR_IS_DIR, 0);
+	}
+	fd = open(file, O_RDONLY);
+	if (fd == -1 || access(file, F_OK) == -1)
+		*fct_ret = CMD_NOT_FOUND;
+	else if (fstat(fd, &st) == -1 || \
+		!S_ISREG(st.st_mode) || !(st.st_mode & S_IXUSR))
+		*fct_ret = CMD_NOT_EXEC;
+	if (*fct_ret == FCT_OK && read(fd, buff, 4) < 4)
+		return (close(fd), 0);
+	close(fd);
+	if (*fct_ret == FCT_OK)
+		return (1);
+	if (prnt)
+		print_exec_error(file, *fct_ret, exec, loc);
+	return (0);
+}
+
+int	exec(t_data *d, char *prg, char **argv, int is_direct)
 {
 	pid_t		child_pid;
-	char		*new_prg;
-	int			ret_val;
+	char		*prg_path;
+	int			st;
 
-	if (same_str(prg, "exec") || !prg)
-		return (FCT_SUCCESS);
-	if (!is_valid_exec_file(prg, &ret_val, is_indirect))
-		new_prg = validate_exec(d, prg, is_indirect, &ret_val);
-	else
-		new_prg = ms_strdup(d, prg);
-	if (!new_prg)
-		return (ret_val);
+	if (!prg || same_str(prg, "exec"))
+		return (FCT_OK);
+	prg_path = NULL;
+	if ((prg[0] == '/' || !ft_strncmp(prg, "./", 2)) && valid_exec(prg, &st, !is_direct, 1, 1))
+		prg_path = ms_strdup(d, prg);
+	else if (prg[0] != '/' && ft_strncmp(prg, "./", 2))
+		prg_path = validate_exec(d, prg, is_direct, &st);
+	if (!prg_path)
+		return (st);
 	if (!argv || !argv[0])
 	{
 		free_void_array((void ***)&argv);
-		argv = set_argv(d, new_prg, NULL, 0);
+		argv = set_argv(d, prg_path, NULL, 0);
 	}
 	child_pid = fork();
 	if (child_pid == -1)
 		return (perror("fork"), -1);
 	if (child_pid == 0)
-		return (handle_child(d, new_prg, argv));
-	return (free(new_prg), handle_parent(d, child_pid));
+		return (handle_child(d, prg_path, argv));
+	return (free(prg_path), handle_parent(d, child_pid));
 }

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/18 02:05:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 18:15:41 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static void	split_seglen(t_data *d, char **str, char *headcol)
 	char		**splits;
 	int			i;
 	int			arr_len;
-	int			seg_len;
 
 	splits = ms_split(d, *str, '/');
 	arr_len = get_arr_len((void **)splits);
@@ -131,6 +130,7 @@ int	process_input(t_data *d, int start)
 		return (free(user_input), rl_replace_line("", 0), rl_on_new_line(), 1);
 	if (!d->prv_input || !same_str(d->prv_input, user_input))
 		add_history(user_input);
+	remove_chars(d, &user_input, ";\\");
 	if (validate_input(d, &user_input))
 	{
 		exec_input(d, user_input);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 00:14:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 15:09:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int	env(t_data *d, char *arg, char **flags, int has_prefix)
 	if (!d->tmp_list)
 		printf("msh: env: No such file or directory\n");
 	dblst_print_list(d->tmp_list, has_prefix);
-	return (FCT_SUCCESS);
+	return (FCT_OK);
 }

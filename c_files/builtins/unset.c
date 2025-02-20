@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 15:09:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	exec_unset(t_data *d, char *arg)
 	has_unset += remove_element(&d->var_list, arg);
 	if (!has_unset)
 		return (FCT_FAIL);
-	return (FCT_SUCCESS);
+	return (FCT_OK);
 }
 
 int	unset(t_data *d, char *arg, char **flags, int status)
@@ -57,7 +57,7 @@ int	unset(t_data *d, char *arg, char **flags, int status)
 	i = -1;
 	while (flags && flags[++i])
 	{
-		if (exec_unset(d, flags[i]) != FCT_SUCCESS)
+		if (exec_unset(d, flags[i]) != FCT_OK)
 			ret_val = FCT_FAIL;
 	}
 	update_environ(d);

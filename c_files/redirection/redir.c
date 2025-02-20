@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 01:23:18 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 14:21:44 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		custom_exit(d, "dup2 fail handle_redout", NULL, EXIT_FAILURE);
 	close(fd);
-	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
 
@@ -44,6 +44,7 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 
 	if (!cmd || !cmd->red_arg || !cmd->red_arg->name)
 		custom_exit(d, "error in redir in", NULL, EXIT_FAILURE);
+	update_node_expansion(d, cmd->red_arg);
 	file_name = cmd->red_arg->name;
 	save_stds(d);
 	path = ft_megajoin(d->cwd, "/", file_name, NULL);
@@ -56,7 +57,7 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		custom_exit(d, "dup2 fail handle_redapp", NULL, EXIT_FAILURE);
 	close(fd);
-	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
 
@@ -71,7 +72,7 @@ void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (access(file_name, F_OK) == -1)
 	{
 		printf("msh: %s: No such file or directory\n", file_name);
-		d->last_exit_st = FCT_FAIL;
+		d->last_exit = FCT_FAIL;
 		return ;
 	}
 	save_stds(d);
@@ -80,7 +81,7 @@ void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 		return ;
 	if (dup2(fd, STDIN_FILENO) == -1)
 		custom_exit(d, "dup2 fail handle_redin", NULL, EXIT_FAILURE);
-	d->last_exit_st = execute_command(d, cmd->name, arg, flags);
+	d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
 
@@ -101,16 +102,28 @@ t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	t_tktype	red_type;
 	t_token		*last_node;
+	char		*prv_arg_name;
 
 	red_type = cmd->redir->type;
-	if (red_type == tk_hered)
-		handle_redir_heredoc(d, cmd->redir->next);
-	else if (red_type == tk_red_app)
-		handle_redir_app(d, cmd, arg, flags);
-	else if (red_type == tk_red_out)
-		handle_redir_out(d, cmd, arg, flags);
-	else if (red_type == tk_red_in)
-		handle_redir_in(d, cmd, arg, flags);
+	if (red_type != tk_hered)
+	{
+		prv_arg_name = ms_strdup(d, cmd->red_arg->name);
+		update_node_expansion(d, cmd->red_arg);
+		if (!cmd->red_arg->name)
+			printf("msh: %s: ambiguous redirect\n", prv_arg_name);
+		safe_free(prv_arg_name);
+	}
+	if (cmd->red_arg->name)
+	{
+		if (red_type == tk_hered)
+			handle_redir_heredoc(d, cmd->redir->next);
+		else if (red_type == tk_red_app)
+			handle_redir_app(d, cmd, arg, flags);
+		else if (red_type == tk_red_out)
+			handle_redir_out(d, cmd, arg, flags);
+		else if (red_type == tk_red_in)
+			handle_redir_in(d, cmd, arg, flags);
+	}
 	last_node = get_last_arg(cmd);
 	if (last_node)
 		return (last_node->next);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:31:30 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/18 15:09:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int	pwd(t_data *d, char *arg, char **flags, int status)
 	(void)flags;
 	(void)arg;
 	if (printf("%s\n", d->cwd) != -1)
-		return (FCT_SUCCESS);
+		return (FCT_OK);
 	return (FCT_FAIL);
 }

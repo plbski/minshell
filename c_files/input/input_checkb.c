@@ -63,7 +63,7 @@ int	set_pipe(t_data *d, char **input)
 	str = *input;
 	while (str[++i])
 	{
-		if (char_in_str(str[i], "|&") && !is_in_quote(str, i))
+		if (char_in_str(str[i], "|&") && !in_quote(str, i))
 		{
 			if (!no_space_found)
 			{
@@ -118,9 +118,5 @@ int	check_redir_validity(char *input)
 unexpected token `%c'\n", invalid_token);
 		return (0);
 	}
-	if (input[0] == '<' && input[1] != '<')
-		return (0);
-	if (input[0] == '>')
-		return (0);
 	return (1);
 }

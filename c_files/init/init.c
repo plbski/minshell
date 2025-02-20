@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/18 02:06:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/19 22:47:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ char	*custom_get_cwd(t_data *d)
 	return (working_dir_buff);
 }
 
+char	*init_cwd(t_data *d)
+{
+	char	*pwd_export;
+
+	pwd_export = get_env_value(d, d->env_list, "PWD");
+	if (!pwd_export)
+		pwd_export = custom_get_cwd(d);
+	set_key_value(d, d->env_list, "PWD", pwd_export);
+	return (pwd_export);
+}
+
 int	update_cwd(t_data *data)
 {
 	char	*working_dir_buff;
@@ -40,18 +51,28 @@ int	update_cwd(t_data *data)
 		free(data->cwd);
 	}
 	set_key_value(data, data->env_list, "OLDPWD", data->prev_cwd);
+	set_key_value(data, data->env_list, "PWD", working_dir_buff);
 	data->cwd = working_dir_buff;
 	return (1);
 }
 
-static int	init_data_directories(t_data *d)
+static int	init_data_directories(t_data *d, char *path)
 {
-	char	*cwd;
+	char	*truncated_path;
 
-	cwd = custom_get_cwd(d);
-	d->man_wd = ms_strjoin(d, cwd, "/doc/");
-	d->heredoc_wd = ms_strjoin(d, cwd, "/ressources/.heredoc.txt");
-	d->history_wd = ms_strjoin(d, cwd, "/ressources/.history.txt");
+	d->start_wd = init_cwd(d);
+	truncated_path = get_env_value(d, d->env_list, "MSH");
+	if (truncated_path)
+		d->msh_wd = ms_strdup(d, truncated_path);
+	else
+	{
+		truncated_path = truncate_at_end(path + 1, '/');
+		d->msh_wd = ms_strjoin(d, d->start_wd, truncated_path);
+	}
+	safe_free(truncated_path);
+	d->man_wd = ms_strjoin(d, d->msh_wd, "/doc/");
+	d->heredoc_wd = ms_strjoin(d, d->msh_wd, "/ressources/.heredoc.txt");
+	d->history_wd = ms_strjoin(d, d->msh_wd, "/ressources/.history.txt");
 	read_history(d->history_wd);
 	return (1);
 }
@@ -67,7 +88,7 @@ void	init_base_stds(t_data *data)
 		custom_exit(data, "failed to save stds", NULL, EXIT_FAILURE);
 }
 
-void	init_data(t_data *data, char **env)
+void	init_data(t_data *data, char *path, char **env)
 {
 	init_base_stds(data);
 	data->cwd = NULL;
@@ -75,18 +96,21 @@ void	init_data(t_data *data, char **env)
 	data->home_wd = NULL;
 	data->logname = NULL;
 	data->man_wd = NULL;
+	data->msh_wd = NULL;
+	data->start_wd = NULL;
 	data->environ = NULL;
 	data->env_list = NULL;
 	data->tmp_list = NULL;
 	data->var_list = NULL;
 	data->prv_input = NULL;
 	data->brackets = 0;
+	data->fork_child = 0;
+	data->last_exit = 0;
 	g_quit_in_heredoc = 0;
-	data->last_exit_st = 0;
 	init_env_list(data, env);
 	data->environ = dblst_to_arr(data->env_list);
 	update_env_variables(data);
-	init_data_directories(data);
+	init_data_directories(data, path);
 	update_cwd(data);
 	init_builtins_data(data);
 	export_usefull_var(data);

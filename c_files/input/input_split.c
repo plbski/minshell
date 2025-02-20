@@ -50,7 +50,7 @@ char	*get_new_split(t_data *d, char *str, int *i)
 		return (new_split);
 	len = *i;
 	while (str[len] && !(str[len] == '$' && str[len + 1] == ')') \
-		&& (!char_in_str(str[len], "()<>&| ") || is_in_quote(str, len)))
+		&& (!char_in_str(str[len], "()<>&| ") || in_quote(str, len)))
 		len++;
 	size = (len - *i + 1);
 	new_split = ms_malloc(d, size);
@@ -67,6 +67,7 @@ char	**split_input(t_data *d, char *input)
 	int			i;
 	int			input_len;
 	char		**splits;
+	char		*split;
 
 	list = NULL;
 	input_len = ft_strlen(input);
@@ -77,10 +78,15 @@ char	**split_input(t_data *d, char *input)
 			i++;
 		if (!input[i])
 			break ;
-		dblst_add_back(&list, dblst_new((void *)get_new_split(d, input, &i)));
+		split = get_new_split(d, input, &i);
+		if (split)
+			dblst_add_back(&list, dblst_new((void *)split));
 	}
 	splits = dblst_to_arr(list);
+	if (d->debug_mode)
+		show_char_array("splits", splits);
 	dblst_clear(&list, free);
+	solve_cmd_substitutes(d, &splits);
 	return (splits);
 }
 
