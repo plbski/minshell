@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 01:39:10 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 18:44:02 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 00:47:51 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	handle_sbsh_in_child(t_data *d, int fd, t_token *start)
 {
-	d->fork_child = 1;
+	d->fork_child++;
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	iterate_tokens(d, start);
@@ -62,7 +62,7 @@ static char	*get_subsh_output(t_data *d, t_token *start)
 		custom_exit(d, "fork in subshell", NULL, EXIT_FAILURE);
 	if (pid == 0)
 	{
-		d->fork_child = 1;
+		d->fork_child++;
 		close(pipefd[0]);
 		dup2(STDOUT_FILENO, pipefd[1]);
 		close(pipefd[1]);
@@ -84,7 +84,7 @@ static t_token	*get_subsh_out(t_data *d, t_token *start, t_token *redir)
 
 	node = start;
 	if (d->debug_mode)
-		show_tokens_info(d, node, "subsh");
+		show_tokens_info(d, node, "subsh", -1);
 	output = get_subsh_output(d, start);
 	cmd = new_token(ft_strdup("echo"), NULL, tk_cmd, redir->par);
 	cmd->prv = start;

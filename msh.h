@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/20 02:10:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 00:48:43 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <readline/history.h>
 # include <termios.h>
 # include <sys/ioctl.h>
-
 
 # define ERR_NOT_FOUND 	2
 # define ERR_NOT_EXEC 	1
@@ -116,6 +115,7 @@ typedef struct s_data
 	int				last_exit;
 	int				brackets;
 	int				fork_child;
+	int				var;
 	int				(*blt_fct[10])(struct s_data *d, char *a, char **f, int s);
 }	t_data;
 
@@ -124,7 +124,7 @@ extern int	g_quit_in_heredoc;
 //		init/init.c
 char		*custom_get_cwd(t_data *d);
 int			update_cwd(t_data *data);
-void		init_data(t_data *data, char *path, char **env);
+void		init_msh_data(t_data *data, char *path, char **env);
 
 //		init/init_bltn.c
 void		export_usefull_var(t_data *d);
@@ -162,7 +162,7 @@ int			get_arr_len(void **arr);
 int			ft_strcmp(const char *s1, const char *s2);
 
 //		tools/str_tools/strmod_tools.c
-char		*ft_remove_prefix(t_data *d, const char *str, char *prefix);
+char		*ms_rem_prefix(t_data *d, char **str, const char *prfx, int alloc);
 char		*truncate_at_end(const char *str, char cut_letter);
 char		*ft_megajoin(const char *a, const char *b, \
 		const char *c, const char *d);
@@ -201,8 +201,8 @@ void		reorder_dblst(t_dblist *list);
 
 //		tools/debug.c
 void		show_exec_info(t_data *d, t_token *node, char *arg, char **flg);
-void		show_token_info(t_data *d, t_token *node, char *prx, int spacing);
-void		show_tokens_info(t_data *d, t_token *node, char *prfx);
+t_token		*show_token_info(t_data *d, t_token *node, char *prx, int spacing);
+void		show_tokens_info(t_data *d, t_token *start, char *prfx, int i);
 void		show_cmd_status(t_data *d, t_token *node);
 void		show_char_array(char *arr_name, char **arr);
 
@@ -279,9 +279,8 @@ int			doc(t_data *d, char *arg, char **flags, int status);
 char		**set_argv(t_data *d, char *prog_name, char **args, int args_len);
 char		*fetch_path(t_data *d, char *cmd_name);
 char		*get_path_in_env(t_data *d, char *prg, int is_exec, int *fct_ret);
-int			valid_exec(const char *file, int *ret, int exc, int pr, int loc);
-int			increment_shlvl(t_data *d);
-void		print_exec_error(const char *arg, int st, int exec, int local);
+int			valid_exec(const char *file, int *ret, int exc, int pr);
+void		print_exec_error(const char *arg, int st, int exex);
 
 //		builtins/echo.c
 int			echo(t_data *d, char *arg, char **flags, int status);

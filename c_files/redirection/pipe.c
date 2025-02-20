@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 17:26:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 23:52:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,30 @@ static int	cleanup(int or_std, int **fds, int *pids, int pipes_count)
 	int	exit_st;
 
 	exit_st = 0;
-	setup_signal(1, 0);
 	i = -1;
 	while (++i < pipes_count)
 	{
 		close(fds[i][0]);
 		close(fds[i][1]);
+		free(fds[i]);
 	}
 	free(fds);
 	i = -1;
 	while (++i <= pipes_count)
+		waitpid(pids[i], NULL, 0);
+	if (waitpid(pids[i], &status, 0) != -1)
 	{
-		if (waitpid(pids[i], &status, 0) != -1)
-		{
-			if (WIFEXITED(status))
-				exit_st = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				exit_st = 128 + WTERMSIG(status);
-		}
+		if (WIFEXITED(status))
+			exit_st = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			exit_st = 128 + WTERMSIG(status);
 	}
-	setup_signal(0, 0);
 	return (close(or_std), dup2(or_std, STDIN_FILENO), close(or_std), exit_st);
 }
 
 static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 {
-	int	should_redir;
-
-	d->fork_child = 1;
-	update_node_expansion(d, cmd);
+	d->fork_child++;
 	if (fd_in)
 	{
 		dup2(fd_in[0], STDIN_FILENO);
@@ -60,38 +55,16 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 		close(fd_out[0]);
 		close(fd_out[1]);
 	}
-	if (cmd->redir)
-		restore_fds(d);
-	should_redir = 1;
-	handle_command_token(d, cmd, should_redir);
-	custom_exit(d, NULL, NULL, EXIT_CHILD);
+	update_node_expansion(d, cmd);
+	handle_command_token(d, cmd, 1);
 }
 
-static int	**init_fds(t_data *d, int pipes_amount)
+static void	iterate_pipes(t_data *d, t_token *strt_cmd, int **pfds, int *pids)
 {
 	int	i;
-	int	**pipe_fds;
+	int	pipes_len;
 
-	pipe_fds = ms_malloc(d, sizeof(int *) * (pipes_amount));
-	i = -1;
-	while (++i < pipes_amount)
-	{
-		pipe_fds[i] = malloc(sizeof(int) * 2);
-		if (pipe(pipe_fds[i]) == -1)
-			custom_exit(d, "error in pipe_fd", NULL, EXIT_FAILURE);
-	}
-	return (pipe_fds);
-}
-
-static void	init_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
-{
-	int		base_stdin;
-	int		**pipe_fds;
-	pid_t	*pids;
-
-	pipe_fds = init_fds(d, pipes_len);
-	pids = ms_malloc(d, sizeof(pid_t) * (pipes_len + 1));
-	base_stdin = dup(STDIN_FILENO);
+	pipes_len = d->var;
 	i = -1;
 	while (++i <= pipes_len)
 	{
@@ -101,15 +74,41 @@ static void	init_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
 		if (pids[i] == 0)
 		{
 			if (i == 0)
-				execute_cmd(d, strt_cmd, NULL, pipe_fds[i]);
+				execute_cmd(d, strt_cmd, NULL, pfds[i]);
 			else if (i == pipes_len)
-				execute_cmd(d, strt_cmd, pipe_fds[i - 1], NULL);
+				execute_cmd(d, strt_cmd, pfds[i - 1], NULL);
 			else
-				execute_cmd(d, strt_cmd, pipe_fds[i - 1], pipe_fds[i]);
+				execute_cmd(d, strt_cmd, pfds[i - 1], pfds[i]);
+			custom_exit(d, NULL, NULL, d->last_exit);
 		}
+		close(pfds[i][1]);
+		if (i > 0)
+			close(pfds[i - 1][0]);
 		strt_cmd = strt_cmd->pipe_out;
 	}
+}
+
+static void	init_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
+{
+	int		base_stdin;
+	int		**pipe_fds;
+	pid_t	*pids;
+
+	pipe_fds = ms_malloc(d, sizeof(int *) * (pipes_len + 1));
+	i = -1;
+	while (++i < pipes_len + 1)
+	{
+		pipe_fds[i] = malloc(sizeof(int) * 2);
+		if (pipe(pipe_fds[i]) == -1)
+			custom_exit(d, "error in pipe_fd", NULL, EXIT_FAILURE);
+	}
+	pids = ms_malloc(d, sizeof(pid_t) * (pipes_len + 1));
+	base_stdin = dup(STDIN_FILENO);
+	d->var = pipes_len;
+	iterate_pipes(d, strt_cmd, pipe_fds, pids);
+	setup_signal(1, 0);
 	d->last_exit = cleanup(base_stdin, pipe_fds, pids, pipes_len);
+	setup_signal(0, 0);
 }
 
 t_token	*pipe_handler(t_data *d, t_token *cmd_in)
@@ -130,9 +129,7 @@ t_token	*pipe_handler(t_data *d, t_token *cmd_in)
 	if (d->debug_mode)
 		printf("%spipe chain ended at %s\n%s", PRP_LAV, node->name, RESET);
 	node = get_next_token(node, tk_logical, 0);
-	if (node && d->debug_mode)
+	if (d->debug_mode && node)
 		show_cmd_status(d, node->next);
-	else if (d->debug_mode)
-		printf("no more tokens.\n");
 	return (node);
 }

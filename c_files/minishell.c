@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/19 22:47:17 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 23:24:59 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	handle_args(t_data *d, char *argv[])
 static void	init_msh(t_data *d, char *path, char **env)
 {
 	setup_signal(0, 0);
-	init_data(d, path, env);
+	init_msh_data(d, path, env);
 	d->prv_input = get_last_line(d, d->history_wd);
 	if (d->prv_input)
 		d->prv_input[ft_strlen(d->prv_input) - 1] = '\0';

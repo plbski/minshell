@@ -6,17 +6,17 @@ These tests are not all mines. Credits to vgoldman, mashar, and jecaudal.
 tmarx
 # Tests
 
-- [?] echo bonjour ; |
+- [OK] echo bonjour ; |
 - [OK] echo bonjour | |
 - [OK] |
-- [1] echo bonjour |;
-- [ ] echo bonjour \; ls
-- [ ] echo bonjour > test\ 1
+- [OK] echo bonjour |;
+- [OK] echo bonjour \; ls
+- [OK] echo bonjour > test\ 1
 - [OK] cd $HOME/Documents
-- [ ] echo "\s" & echo "\\s"
-- [ ] echo \>
-- [1] echo -n -n -nnnn -nnnnm
-- [?] cat /dev/random | head -n 1 | cat -e
+- [OK] echo "\s" & echo "\\s"
+- [OK] echo \>
+- [OK] echo -n -n -nnnn -nnnnm
+- [X] cat /dev/random | head -n 1 | cat -e
 - [OK] unset var1 # with undefined var1
 - [OK] export "" et unset ""
 - [OK] echo test > file test1

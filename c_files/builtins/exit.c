@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 22:41:18 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 17:57:22 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 21:05:50 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	free_and_quit(t_data *d, int status)
 	if (d->debug_mode)
 	{
 		if (d->fork_child)
-			ft_dprintf(2, "%sfork child ", MAGENTA);
+			ft_dprintf(2, "%s[%d]fork child ", d->fork_child, MAGENTA);
 		ft_dprintf(2, "[freed %d] exit with code %d\n", freed_len, status);
 		if (d->fork_child)
 			ft_dprintf(2, "%s", RESET);

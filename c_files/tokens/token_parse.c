@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 18:44:02 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 00:47:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	set_redir_args(token);
 	set_subshells(d, token);
 	if (d->debug_mode)
-		show_tokens_info(d, token, "Init");
+		show_tokens_info(d, token, "Init", -1);
 	return (token);
 }

@@ -6,22 +6,35 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 14:45:37 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 23:30:21 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../msh.h"
 
-char	*ft_remove_prefix(t_data *d, const char *str, char *prefix)
+char	*ms_rem_prefix(t_data *d, char **str, const char *prefix, int alloc)
 {
-	size_t	prefix_len;
+	char	*removed;
+	int		prfx_len;
+	int		str_len;
+	int		new_len;
 
-	if (!str || !prefix)
+	if (!*str || !prefix || same_str(*str, prefix))
 		return (NULL);
-	prefix_len = ft_strlen(prefix);
-	if (ft_strncmp(str, prefix, prefix_len) == 0)
-		return (ms_strdup(d, str + prefix_len));
-	return (ms_strdup(d, str));
+	str_len = ft_strlen(*str);
+	prfx_len = ft_strlen(prefix);
+	if (prfx_len > str_len)
+		return (NULL);
+	new_len = 0;
+	while (new_len < prfx_len && (*str)[new_len] == prefix[new_len])
+		new_len++;
+	if (new_len != prfx_len)
+		return (NULL);
+	removed = ms_strdup(d, *str + new_len);
+	if (alloc)
+		return (removed);
+	setstr(d, str, removed);
+	return (*str);
 }
 
 char	*truncate_at_end(const char *str, char cut_letter)

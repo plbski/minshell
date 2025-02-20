@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 16:29:11 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 00:55:34 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 	const char	*msg[] = {RED "FAIL", GREEN "OK"};
 	int			i;
 
+	if (d->fork_child)
+		printf("fork[%d] ", d->fork_child);
 	printf("\'%s%s%s\' execution was: %s", \
 			YELLOW, node->name, RESET, msg[d->last_exit == FCT_OK]);
 	printf("[%d] %s - ", d->last_exit, RESET);
@@ -34,7 +36,7 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 	printf("\n");
 }
 
-void	show_token_info(t_data *d, t_token *node, char *prx, int spacing)
+t_token	*show_token_info(t_data *d, t_token *node, char *prx, int spacing)
 {
 	const char	*args[9] = {prx, node->name, "", "", "", "", "", "", ""};
 	const char	*arg_cols[] = {RED, GREY, DR0, DR1, DR2, CYAN, BLUE, YELLOW};
@@ -60,37 +62,34 @@ void	show_token_info(t_data *d, t_token *node, char *prx, int spacing)
 	while (++i < 9)
 		printf("%-7.6s %s", args[i], RESET);
 	free(par);
+	return (node->next);
 }
 
-void	show_tokens_info(t_data *d, t_token *start, char *prfx)
+void	show_tokens_info(t_data *d, t_token *start, char *prfx, int i)
 {
-	const char	*rg[8] = {"name", "type", "par", "pipe", \
-			"redir", "rd_arg", "eval", "subs"};
-	int			i;
-	int			max_len;
+	const char	*rg[8] = {"name", "type", "(", \
+"pipe", ">", ">_arg", "eval", "sub"};
+	int			len;
 	t_token		*node;
 
-	max_len = 7;
+	len = 7;
 	node = token_first(start);
 	while (node)
 	{
-		if (node->name && ft_strlen(node->name) + 2 > max_len)
-			max_len = ft_strlen(node->name) + 2;
+		if (node->name && ft_strlen(node->name) + 2 > len)
+			len = ft_strlen(node->name) + 2;
 		node = node->next;
 	}
-	if (max_len > 15)
-		max_len = 15;
-	printf("        %s%*s", GREY, -max_len, rg[0]);
-	i = 0;
+	len = (len < 7) * 7 + (len >= 7 && len <= 15) * len + (len > 15) * 15;
+	printf("        %s%*s", GREY, -len, rg[0]);
 	while (++i < 8)
 		printf("%-7s ", rg[i]);
 	printf("%s\n", RESET);
 	node = token_first(start);
 	while (node)
 	{
-		show_token_info(d, node, prfx, max_len);
+		node = show_token_info(d, node, prfx, len);
 		printf("\n");
-		node = node->next;
 	}
 	printf("\n");
 }
@@ -109,6 +108,8 @@ void	show_cmd_status(t_data *d, t_token *node)
 		printf("exit status: \033[31mFAIL\033[0m)");
 	else
 		printf("exit status: \033[32mSUCCESS\033[0m)");
+	if (d->fork_child)
+		printf("fork process index[%d]", d->fork_child);
 	printf("\n");
 }
 

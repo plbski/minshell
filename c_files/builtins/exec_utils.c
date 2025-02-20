@@ -6,11 +6,60 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 02:16:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 22:46:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
+
+void	print_exec_error_2(const char *arg, int st, int loca)
+{
+	const char	*exc_lc[3] = {"is a directory", "Permission denied", \
+		"No such file or directory"};
+	const char	*exc_lc2[3] = {"cannot execute: Undefined error: 0", \
+		"cannot execute", exc_lc2[0]};
+	const char	*exc_call[3] = {"not found", "Permission denied", "not found"};
+	const char	*exc_cl2[3] = {NULL, exc_lc2[1], NULL};
+
+	ft_dprintf(2, "msh: exec: %s: ", arg);
+	if (loca)
+	{
+		ft_dprintf(2, "%s\n", exc_lc[st]);
+		ft_dprintf(2, "msh: exec: %s :", arg);
+		ft_dprintf(2, "%s\n", exc_lc2[st]);
+	}
+	else
+	{
+		ft_dprintf(2, "%s\n", exc_call[st]);
+		if (exc_cl2[st])
+		{
+			ft_dprintf(2, "msh: exec: %s :", arg);
+			ft_dprintf(2, "%s\n", exc_cl2[st]);
+		}
+	}
+}
+
+void	print_exec_error(const char *arg, int status, int is_exec)
+{
+	const char	*no_exc_lc[3] = {"is a directory", "Permission denied", \
+		"No such file or directory"};
+	const char	*no_exc[3] = {"command not found", no_exc_lc[1], no_exc[0]};
+	int			is_local;
+
+	is_local = (arg[0] == '/' || !ft_strncmp(arg, "./", 2));
+	if (status > 2)
+		status -= 125;
+	if (!is_exec)
+	{
+		ft_dprintf(2, "msh: %s ", arg);
+		if (is_local)
+			ft_dprintf(2, "%s\n", no_exc_lc[status]);
+		else
+			ft_dprintf(2, "%s\n", no_exc[status]);
+	}
+	else
+		print_exec_error_2(arg, status, is_local);
+}
 
 char	**set_argv(t_data *d, char *prog_name, char **args, int args_len)
 {
@@ -61,68 +110,12 @@ char	*get_path_in_env(t_data *d, char *prg, int is_exec, int *fct_ret)
 	path_dir = fetch_path(d, prg);
 	if (!path_dir)
 	{
-		print_exec_error(prg, CMD_NOT_FOUND, is_exec, 0);
+		print_exec_error(prg, CMD_NOT_FOUND, is_exec);
 		return (NULL);
 	}
-	if (valid_exec(path_dir, fct_ret, is_exec, 0, 0))
+	if (valid_exec(path_dir, fct_ret, is_exec, 0))
 		return (path_dir);
-	valid_exec(prg, fct_ret, is_exec, 0, 0);
-	printf("FCT RET %d %s\n", *fct_ret, prg);
-	if (!ft_strncmp(prg, "./", 2) || prg[0] == '/')
-		print_exec_error(prg, *fct_ret, is_exec, 1);
-	else
-		print_exec_error(prg, *fct_ret, is_exec, 0);
+	valid_exec(prg, fct_ret, is_exec, 0);
+	print_exec_error(prg, *fct_ret, is_exec);
 	return (NULL);
-}
-
-int	increment_shlvl(t_data *d)
-{
-	t_dblist	*element;
-	char		*new_lvl;
-	char		*new_content;
-
-	element = get_dblst_at_key(d->env_list, "SHLVL");
-	if (!element)
-		return (0);
-	new_lvl = ft_itoa(d->shlvl);
-	if (!new_lvl)
-		return (custom_exit(d, "SHLVL alloc failed", NULL, EXIT_FAILURE));
-	new_content = ft_megajoin("SHLVL", "=", new_lvl, NULL);
-	free(new_lvl);
-	setstr(d, (char **)&element->content, new_content);
-	return (1);
-}
-
-void	print_exec_error(const char *arg, int status, int is_exec, int is_local)
-{
-	exit(0);
-	const char	*exec_local_call_msg[] = {"is a directory", "Permission denied", "No such file or directory"};
-	const char	*exec_local_secondary[] = {"cannot execute", "cannot execute", "cannot execute"};
-	const char	*exec_call_msg[] = {"not found", "Permission denied", "not found"};
-	const char	*exec_call_secondary[] = {NULL, "cannot execute", NULL};
-	const char	*no_exec_local_msg[] = {"is a directory", "Permission denied", "No such file or directory"};
-	const char	*no_exec_msg[] = {"command not found", "Permission denied", "command not found"};
-
-	if (status > 2)
-		status -= 125;
-	if (is_exec)
-	{
-		if (is_local)
-		{
-			ft_dprintf(2, "msh: exec: %s%s", arg, exec_local_call_msg[status]);
-			ft_dprintf(2, "msh: exec: %s%s", arg, exec_local_secondary[status]);
-		}
-		else
-		{
-			ft_dprintf(2, "msh: exec: %s%s", arg, exec_call_msg[status]);
-			ft_dprintf(2, "msh: exec: %s%s", arg, exec_call_secondary[status]);
-		}
-	}
-	else
-	{
-		if (is_local)
-			ft_dprintf(2, "msh: %s%s", arg, no_exec_local_msg[status]);
-		else
-			ft_dprintf(2, "msh: %s%s", arg, no_exec_msg[status]);
-	}	
 }

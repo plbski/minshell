@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 22:46:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 00:51:21 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	export_usefull_var(t_data *d)
 	char	*shlvl;
 
 	if (!get_dblst_at_key(d->env_list, "MSH"))
-		dblst_add_back(&d->env_list, dblst_new(ms_strjoin(d, "MSH=", d->msh_wd)));
+		dblst_add_back(&d->env_list, \
+dblst_new(ms_strjoin(d, "MSH=", d->msh_wd)));
 	if (d->debug_mode)
 		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, "deb=1")));
 	else

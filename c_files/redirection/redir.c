@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 14:21:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 00:08:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,32 +100,28 @@ void	handle_redir_heredoc(t_data *d, t_token *hered_arg)
 
 t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 {
-	t_tktype	red_type;
-	t_token		*last_node;
-	char		*prv_arg_name;
+	t_token		*next;
+	char		name[999];
 
-	red_type = cmd->redir->type;
-	if (red_type != tk_hered)
+	next = get_last_arg(cmd);
+	if (next)
+		next = next->next;
+	if (!cmd->red_arg->name)
+		return (next);
+	if (cmd->redir->type != tk_hered)
 	{
-		prv_arg_name = ms_strdup(d, cmd->red_arg->name);
+		ft_strlcpy(name, cmd->red_arg->name, 999);
 		update_node_expansion(d, cmd->red_arg);
 		if (!cmd->red_arg->name)
-			printf("msh: %s: ambiguous redirect\n", prv_arg_name);
-		safe_free(prv_arg_name);
+			return (ft_dprintf(2, "msh: %s: ambiguous redirect\n", name), next);
 	}
-	if (cmd->red_arg->name)
-	{
-		if (red_type == tk_hered)
-			handle_redir_heredoc(d, cmd->redir->next);
-		else if (red_type == tk_red_app)
-			handle_redir_app(d, cmd, arg, flags);
-		else if (red_type == tk_red_out)
-			handle_redir_out(d, cmd, arg, flags);
-		else if (red_type == tk_red_in)
-			handle_redir_in(d, cmd, arg, flags);
-	}
-	last_node = get_last_arg(cmd);
-	if (last_node)
-		return (last_node->next);
-	return (last_node);
+	if (cmd->redir->type == tk_hered)
+		handle_redir_heredoc(d, cmd->redir->next);
+	else if (cmd->redir->type == tk_red_app)
+		handle_redir_app(d, cmd, arg, flags);
+	else if (cmd->redir->type == tk_red_out)
+		handle_redir_out(d, cmd, arg, flags);
+	else if (cmd->redir->type == tk_red_in)
+		handle_redir_in(d, cmd, arg, flags);
+	return (next);
 }

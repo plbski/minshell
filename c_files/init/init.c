@@ -6,28 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/19 22:47:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 23:25:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-char	*custom_get_cwd(t_data *d)
-{
-	char	*working_dir_buff;
-
-	working_dir_buff = malloc(999);
-	if (!working_dir_buff)
-		custom_exit(d, "alloc for cwd", NULL, EXIT_FAILURE);
-	if (!getcwd(working_dir_buff, 999))
-	{
-		free(working_dir_buff);
-		custom_exit(d, "alloc for cwd", NULL, EXIT_FAILURE);
-	}
-	return (working_dir_buff);
-}
-
-char	*init_cwd(t_data *d)
+void	init_cwd(t_data *d)
 {
 	char	*pwd_export;
 
@@ -35,32 +20,13 @@ char	*init_cwd(t_data *d)
 	if (!pwd_export)
 		pwd_export = custom_get_cwd(d);
 	set_key_value(d, d->env_list, "PWD", pwd_export);
-	return (pwd_export);
+	d->start_wd = pwd_export;
 }
 
-int	update_cwd(t_data *data)
-{
-	char	*working_dir_buff;
-
-	working_dir_buff = custom_get_cwd(data);
-	if (data->cwd)
-	{
-		if (data->prev_cwd)
-			free(data->prev_cwd);
-		data->prev_cwd = ms_strdup(data, data->cwd);
-		free(data->cwd);
-	}
-	set_key_value(data, data->env_list, "OLDPWD", data->prev_cwd);
-	set_key_value(data, data->env_list, "PWD", working_dir_buff);
-	data->cwd = working_dir_buff;
-	return (1);
-}
-
-static int	init_data_directories(t_data *d, char *path)
+static int	init_msh_directories(t_data *d, char *path)
 {
 	char	*truncated_path;
 
-	d->start_wd = init_cwd(d);
 	truncated_path = get_env_value(d, d->env_list, "MSH");
 	if (truncated_path)
 		d->msh_wd = ms_strdup(d, truncated_path);
@@ -88,29 +54,35 @@ void	init_base_stds(t_data *data)
 		custom_exit(data, "failed to save stds", NULL, EXIT_FAILURE);
 }
 
-void	init_data(t_data *data, char *path, char **env)
+void	init_data_var(t_data *d)
 {
-	init_base_stds(data);
-	data->cwd = NULL;
-	data->prev_cwd = NULL;
-	data->home_wd = NULL;
-	data->logname = NULL;
-	data->man_wd = NULL;
-	data->msh_wd = NULL;
-	data->start_wd = NULL;
-	data->environ = NULL;
-	data->env_list = NULL;
-	data->tmp_list = NULL;
-	data->var_list = NULL;
-	data->prv_input = NULL;
-	data->brackets = 0;
-	data->fork_child = 0;
-	data->last_exit = 0;
+	d->cwd = NULL;
+	d->prev_cwd = NULL;
+	d->home_wd = NULL;
+	d->logname = NULL;
+	d->man_wd = NULL;
+	d->msh_wd = NULL;
+	d->start_wd = NULL;
+	d->environ = NULL;
+	d->env_list = NULL;
+	d->tmp_list = NULL;
+	d->var_list = NULL;
+	d->prv_input = NULL;
+	d->brackets = 0;
+	d->fork_child = 0;
+	d->last_exit = 0;
+}
+
+void	init_msh_data(t_data *data, char *path, char **env)
+{
 	g_quit_in_heredoc = 0;
+	init_data_var(data);
+	init_base_stds(data);
 	init_env_list(data, env);
 	data->environ = dblst_to_arr(data->env_list);
 	update_env_variables(data);
-	init_data_directories(data, path);
+	init_cwd(data);
+	init_msh_directories(data, path);
 	update_cwd(data);
 	init_builtins_data(data);
 	export_usefull_var(data);

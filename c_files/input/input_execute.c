@@ -94,7 +94,7 @@ int	exec_input(t_data *d, char *input)
 	if (d->heredocfd != -1)
 		consumate_heredoc(d, NULL, NULL, NULL);
 	if (d->debug_mode)
-		show_tokens_info(d, start, "End ");
+		show_tokens_info(d, start, "End ", -1);
 	clear_tokens(start);
 	return (FCT_OK);
 }

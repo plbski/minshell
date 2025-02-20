@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 18:43:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 23:54:39 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 
 	list = NULL;
 	node = arg_token->next;
-	while (node && (node->type == tk_arg || \
-		(cmd->redir && cmd->redir == node)))
+	while (node && (node->type == tk_arg || (cmd->redir && cmd->redir == node)))
 	{
 		if (!node->is_redir && (!cmd->red_arg || cmd->red_arg != node))
 		{

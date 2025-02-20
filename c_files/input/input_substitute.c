@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:44:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 16:57:07 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/20 21:06:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_child(t_data *d, char *value, int *pipefd)
 {
-	d->fork_child = 1;
+	d->fork_child++;
 	close(pipefd[0]);
 	dup2(pipefd[1], STDOUT_FILENO);
 	close(pipefd[1]);

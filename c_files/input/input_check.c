@@ -114,8 +114,13 @@ int	validate_input(t_data *d, char **input)
 	str = *input;
 	i = -1;
 	while (str[++i])
+	{
+		if ((str[i] == ';' || str[i] == '\\') && !in_quote(str, i))
+			return (ft_dprintf(2, "msh: syntax error near \
+unexpected token `%c'\n", str[i]), 0);
 		if ((str[i] == '<' || str[i] == '>') && !in_quote(str, i))
 			has_redir = 1;
+	}
 	if (!has_redir)
 		return (1);
 	return (check_redir_validity(*input));

@@ -1558,3 +1558,212 @@ c_files
 eqwv
 sdkv
 eqwv
+asfj
+c_files
+asc
+aslkfna
+./asf
+./c_files
+bash
+exec ./c_files
+bash
+exec ./c_files
+bash
+./minishel
+bash
+exec ./minishe
+c_files
+./c_files
+exec c_files
+exec ./c_files
+echo '\'
+bash
+$$
+$0
+ola ;
+ola |
+ola \
+echo ";"
+echo "\"
+bash
+cat Makefile | grep pr | head -n 5 | cd test
+cat Makefile
+cat Makefile | grep head
+cat Makefile | grep pr
+cat Makefile | grep pr | head -5
+cat Makefile | grep pr | head -n -5
+cat Makefile | grep pr | head -n 5
+bash
+cat Makefile | echo
+cat Makefile | cat
+cat Makefile | grep
+cat Makefile | grep pr
+cat Makefile | grep pr | head -5
+cat Makefile | grep pr | cat
+echo bonjour\; ls
+echo bonjour > test\ 1
+cat /dev/random | head -n 1 | cat -e
+echo bonjour > test\ 1
+clear
+cat Makefile | grep pr | head -n 5 | cd test
+$?
+bash
+cat Makefile | grep pr | head -n 5
+cat Makefile
+clea
+clear
+cat Makefile | grep pr
+cat Makefile | grep pr | grep pr
+cat Makefile | grep pr | echo cool
+cat Makefile | grep pr | cat
+echo cool | cat
+echo cool | cat | cat
+bash
+deb=1
+echo cool | cat | cat
+deb=1
+ls
+deb=1
+deb=1
+ls | cat
+deb=1
+ls | cat
+deb=0
+ls | cat
+deb=1
+ls | cat
+ls | cat waqpofjq
+ls | cat waqpofjq | cat
+ls | cat waqpofjq | cat | cat
+deb=1
+ls | cat waqpofjq | cat | cat
+ls | cat | cat
+bash
+deb=1
+ls | cat | cat
+ls | cat
+ls | cat | cat
+bash
+ls | cat
+deb=1
+ls | cat | cat
+ls | cat | cat | cat
+deb=1
+ls | cat | cat | cat
+ls | cat
+deb=0
+ls | cat
+ls | cat | cat
+ls | cat | cat >> output.txt 
+ls | cat | grep output.txt 
+ls | cat | cat | cat | grep output.txt 
+ls | cat | cat | cat | grep c_files
+ls | cat | cat
+ls | cat | cat >> output.txt | grep cool
+ls | grep cool
+ls | cat | cat >> output.txt | grep cool
+ls | cat | cat >> output.txt
+ls | cat >> output.txt | cat
+ls | cat >> output.txt | ls
+ls | cat >> output.txt | cat
+ls | cat >> output.txt | ls
+ls | cat | cat | cat
+ls | cat | cat | grep res
+$?
+bash
+ls | cat | cat | grep res
+$?
+ls | cat | cat | grep res
+$?
+ls | cat | cat | grep res
+$?
+deb=1
+ls | cat | cat | grep res
+$?
+ls | cat | cat | grep res
+deb=1
+ls | cat | cat | grep res
+exit | exit 15
+$?
+exit
+exit 20 && echo ola
+exit 20 | echo $?
+bash
+exit 20
+exit 20 | exit 10
+$?
+bash
+exit 20 | exit 10
+$?
+exit 20 | exit 10
+$?
+echo cat | grep ca
+echo cat | echo cool
+bash
+echo cool | cat
+ls | cat
+$?
+ls | cat >> output.txt | cat
+grep
+$?
+grep ola
+$?
+bash
+ls | echo cool | echo top
+$?
+deb=1
+ls | echo cool | echo top
+clear
+ls | echo cool | echo top
+$
+$?
+ls | echo cool | echo top
+$?
+ls | cat | grep cool
+$?
+ls | cat | grep res
+$?
+bash
+./minishell
+clear
+$0
+clea
+clear
+pwd
+export a=b
+echo $a
+export a+=c
+echo $a
+ls | cat
+ls | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat
+ls | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | echo ola | cat | cat
+ls | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat >> output.txt | echo ola | cat | cat
+ls | cat | cat | cat >> output.txt | echo ola | cat
+ls | cat | cat | cat >> output.txt | echo ola | cat$
+clear
+echo ola >> output.txt 
+$?
+echo ola >> output.txt 
+ls | cat | cat | cat >> output.txt | echo ola | cat
+deb=1
+ls && echo ola
+clear
+deb=1
+var
+ls
+deb=1
+ls
+deb=1
+ls
+clear
+deb=1
+ls
+deb=1
+ls
+deb=1
+ls
+clear
+deb=1
+ls
+deb=1
+ls
