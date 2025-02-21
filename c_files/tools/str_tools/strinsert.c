@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:19:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 21:21:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 15:03:23 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,10 @@ int rmv_end, const char *new_str)
 	if (!result)
 		return (ft_dprintf(2, "alloc fail str_insert"), NULL);
 	return (result);
+}
+
+void	set_strarr(char ***to_replace, char **new_arr)
+{
+	free_void_array((void ***)to_replace);
+	*to_replace = new_arr;
 }

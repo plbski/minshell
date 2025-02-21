@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 00:47:47 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 18:58:26 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static t_token	*get_split_tokens(t_data *d, char **splits, t_token *lst)
 			continue ;
 		}
 		lst = set_tok(d, lst, splits[i], prv_eval);
-		if (lst->type != tk_arg && !lst->is_redir)
+		if (lst->type != tk_arg && !lst->is_rd)
 		{
 			if (prv_eval)
 				prv_eval->nxt_eval = lst;
@@ -106,6 +106,7 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	token = get_split_tokens(d, splits, NULL);
 	free_void_array((void ***)&splits);
 	token = token_first(token);
+	//reorder_misplaced_redirs(d, token);
 	link_token_pipes(token);
 	set_redir_args(token);
 	set_subshells(d, token);

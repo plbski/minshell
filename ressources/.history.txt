@@ -1767,3 +1767,566 @@ deb=1
 ls
 deb=1
 ls
+clear
+pwd
+ls && ls
+rm salut
+rm top
+$?
+git add .
+git commit -m done
+git push
+clear
+pwd
+echo $PWD
+cd ..
+echo $PWD
+$0
+ls pwd
+ls && pwd
+clear
+env
+export
+a+=b
+a=b
+unset a
+ls | cat | cat | cat >> output.txt | echo ola | cat
+ls | cat
+echo top >> output.txt 
+echo top >> output.txt && echo < output.txt 
+echo < output.txt 
+bash
+echo ola > output.txt | cat output.txt 
+cat Makefile | grep pr | head -n 5 | cd test
+$?
+cat Makefile | grep pr | head -n 5 | cd test
+$?
+deb=1
+cat Makefile | grep pr | head -n 5 | cd test
+$?
+shell
+bash
+cat Makefile | grep pr | head -n 5
+cat Makefile | grep pr | head -n 5 | cd test (mybin)
+$?
+cd a b
+$?
+bash
+cd a b
+$?
+cd a b
+$?
+cd a
+cd ..
+$?
+cd -
+cat Makefile | grep pr | head -n 5 | cat test
+$?
+bash
+cat Makefile | grep pr | head -n 5 | hello
+$?
+bash
+cat /dev/random | head -n 1 | cat -e
+bash
+cat >
+env | grep PATH | cat
+env | grep PATH | cat pwd
+env | grep cat | cat
+env | grep pwd | cat
+env | grep valente | cat
+env | grep PWD | cat
+(export var=my_var && echo var_set | export | grep var_set | cat var_set
+(export var=my_var && echo var_set | export | grep var_set | cat var_set)
+(export var=my_var && echo var_set | export | grep var_set | cat)
+(export var=my_var && echo var_set | export | grep var | cat)
+(export var=my_var && echo var_set | export | grep my_var | cat)
+bash
+export var=my_var && echo var_set | export | (grep my_var && echo $my_var was received) || echo no_var
+bash
+export var=my_var && echo var_set | export | (grep my_var && echo "$my_var was received") || echo no_var
+echo $(grep my_var)
+bash
+cho $(export | grep my_var | cat)
+echo $(export | grep my_var | cat)
+bash
+export var+=my_var && echo $(export | grep my_var | cat)
+bash
+export var+=my_var && echo $(export | grep my_var | cat)
+export var+=my_var && echo $var
+export var+=my_var && echo $(export | grep var | cat)
+export var=my_var && echo $(export | grep var | cat)
+export var=my_var && echo $(export | grep my_var | cat)
+cd .. || echo no_cd
+cd -
+bash
+cd .. || echo no_cd | cat
+bash
+deb=1
+cd .. | cat
+deb=0
+clear
+cd .. | cat
+pwd
+cd -
+cd .. | cat
+bash
+cd wefj || echo no_cd | cat
+cd .. || echo no_cd | cat
+cd werf || (echo no_werf)
+cd werf || (echo no_werf && echo cool)
+cd werf || echo a || echo b || echo c
+cd werf || cd warf || cd worf || cd wourf && echo cd_found
+cd werf || cd warf || cd worf || cd wourf || cd .. && echo cd_found
+cd .. || echo no_cd | cat
+cd .. | cat
+cd .. || (echo no_cd | cat)
+cd qwfn || (echo no_cd | cat)
+bash
+env | grep PATH | cat
+> a ls > b < Makefile
+bash
+> a ls > b < Makefile
+> log echo coucou
+echo '$HOME'
+bash
+exit -10
+"exit retour a la ligne"
+bash
+exit \n
+olapo
+olapo.sh
+chmod u=wrx olapo.sh
+olapo.sh
+olapo
+minishell
+cd ../../../../../..
+cd -
+cd --
+cd -
+cd -
+cd ../../../../../.. | echo $PWD
+bash
+export var ="cat Makefile | grep >"
+export var="cat Makefile | grep >"
+$var
+echo "Hello, world!" > file.txt && cat < file.txt | wc -c >> result.txt
+export VAR="42" && echo "$VAR" | rev | tr '24' 'XD' | tee output.txt
+bash
+export VAR="42" && echo "$VAR" | rev | tr '24' 'XD' | tee output.txt
+(echo "Inside subshell" && ls -l) > sub_output.txt
+mkdir testdir && chmod 000 testdir && ls testdir > testdir/out.txt 2> error.log
+bash
+mkdir testdir
+bash
+rmdir testdir
+mkdir testdir && chmod 000 testdir && ls testdir > testdir/out.txt 2> error.log
+mkdir testdir && chmod 000 testdir && ls testdir > testdir/out.txt > error.log
+rmdir testdir
+mkdir testdir && chmod 000 testdir && ls testdir > testdir/out.txt > error.log
+rmdir testdir
+mkdir testdir && chmod 000 testdir && ls testdir > testdir/out.txt > error.log
+var
+export
+trunc_input=10
+trunc_input=2
+source output.txt
+pwd
+ls
+export | grep deb
+ls
+clear
+var
+clear
+ls
+pwd
+clear
+SEGLEN=100
+SEGLEN=5
+SEGLEN=unvalid
+SEGLEN=-1
+SEGLEN=-100000
+SEGLEN=-5
+SEGLEN=10
+SEGLEN=50
+SEGLEN=20000
+SEGLEN=50
+SEGLEN=1
+pwd
+clear
+SEGLEN=50
+var
+vim .zshrc
+vim .mshrc
+ls
+ls -la
+ls | grep "."
+ls | grep ".msh"
+ls -la | grep ".msh"
+vim .mshrc.txt
+source
+vim .mshrc.txt
+source
+vim .mshrc.txt
+source
+vim .mshrc
+source
+clear
+vaf
+var
+deb=0
+var
+deb=1
+var
+ls
+clea
+clear
+var
+export
+deb=1
+ls
+clear
+pwd
+clear
+bash
+(echo "Inside subshell" && ls -l) > sub_output.txt
+(echo cool && echo top) > sub_output.txt 
+deb=1
+(echo "Inside subshell" && ls -l) > sub_output.txt
+exec qwnql
+exec echo "Ce shell est remplacé !"
+$?
+exec echo "Ce shell est remplacé !"
+bash
+exec echo ola
+exec ls
+exec ls -la
+deb=21
+exec ls -la
+exec ls -la alo
+exec ls -la c_files
+ls -la
+ls -la c_files
+source eg
+source qpojfqè
+source qpojfqè qwf
+source aeghq
+source awéfa
+$?
+source .mshrc
+$?
+source lfqln alkfbnal
+SEG=1
+SEGLEN=1
+SEGLEN=100
+SEG=1
+SEGLEN=1
+(echo ola && echo cool) && echo top
+(echo ola && echo cool) >> output.txt 
+echo $(pwd)
+echo $(pwd | cat)
+echo $(pwd | cat)
+echo $(pwd | ls)
+echo $(pwd | cat)
+echo $(pwd | ls)
+exec pwd
+exec pwd cool
+pwd cool
+echo $(pwd | ls | echo)
+echo $(pwd | ls | echo cool)
+echo $(pwd | ls | cat)
+echo $(pwd | cat)
+echo $(pwd | ls)
+echo $(pwd | cat)
+echo $(pwd | cat)
+ echo $(pwd | cat)
+ echo $("pwd" | cat)
+ echo $("pwd" alo | cat)
+ echo $("pwd" alo cool | cat)
+ echo $(pwd alo cool | cat)
+ echo $(pwd alo cool -s| cat)
+ echo $(pwd alo cool -s | cat)
+echo $(ls -la | cat)
+clear
+> a
+> a "cool"
+deb=1
+> a "cool"
+bash
+ola=3 pwd && echo $ola
+deb==
+deb=0
+clear
+ola=3 pwd && echo $ola
+bash
+deb01
+> a
+deb=1
+> a
+bash
+> ls
+cd ola
+> a
+> a ls
+deb=1
+> a ls
+deb=1
+> a ls
+deb=1
+> a ls
+deb=1
+> a ls
+deb=1
+deb=1
+> a ls
+deb=1
+> a ls
+deb=1
+> a ls
+deb=1
+> a ls
+deb=1
+ls
+deb=1
+bash
+make re
+.
+./minishell
+deb=1
+> a ls
+> a
+deb=1
+> a
+deb=1
+> a
+< alo
+< testdir
+< cool
+< a
+bash
+< c_files
+>> c_files
+bash
+> allo
+> allo top
+bash
+> allo "bonjour"
+bash
+> allo ls
+ls > allo
+bash
+ls > allo
+bash
+> a b c ls
+bash
+> a ls && echo red_done
+bash
+> a ls | cat
+ls && echo cool
+> a ls | cat
+deb=1
+> a ls | cat
+echo cool >> a | cat
+deb=1
+> a ls | cat
+deb=1
+> a ls | cat
+deb=1
+> a ls | cat
+deb=1
+> a ls | cat
+deb=1
+> a ls | cat
+> a
+< a
+deb=0
+< a
+deb=0
+< a
+bash
+clear
+deb=1
+> a
+deb=1
+> a
+deb=1
+> a ls | a
+clear
+> a ls | a
+> a ls
+deb=1
+> a ls
+deb=1
+> a ls
+clear
+> a ls
+$?
+deb=1
+> a ls
+deb=1
+> a ls
+> a ls | a
+deb=1
+> a ls | a
+deb=0
+clear
+> a ls | ls
+> a ls | cat
+> a ls | > b ls
+> a ls > b < Makefile
+> a ls
+deb=1
+> a ls
+deb=1
+> a ls
+> a ls ls
+> a ls | cat
+a > b
+bash
+a > b
+> a > b
+bash
+clear
+> a
+deb=1
+> a
+> a | > b
+> a | > b | > c
+bash
+> a | > b | > c
+deb=1
+> a | > b | > c
+> a ls > b < Makefile
+bash
+> a ls > b
+deb=1
+deb=1
+> a ls > b
+deb=1
+> a ls > b
+deb=1
+> a ls > b
+ls > b
+> a ls > b
+deb=1
+> a ls > b
+echo ola > a b
+bash
+> log echo coucou
+echo '$HOME'
+bash
+echo '$HOME'
+echo $PWD
+echo "$HOME"
+echo 'home'
+echo '$home'
+echo '$pwd'
+minishell
+olapo.sh
+bash
+cool -=3
+clear
+cd ..
+clear
+ls
+cd Philosophers
+ls
+a.out
+./a.out
+cd ..
+cd Philosophers
+clear
+./a.out
+clear
+cd ..
+ls
+cd Philosophers_git
+./philo
+./philo 5 300 300 300 300
+./philo 5 3900 300 300 300
+clear
+ls
+pwd
+touch file1.txt
+touch file1.txt && ls file1.txt
+touch file1.txt && rm file1.txt && ls file1.txt
+echo "pattern" > fil1.txt && grep "pattern" file1.txt
+echo ola > file && echo cool
+mkdir new_dir && cd new_dir && echo "Inside new_dir" && cd .. && rmdir new_dir
+rm -rf test_dir
+echo "pattern" > file.txt && grep "pattern" file.txt
+echo "cool" > file.txt
+echo "cool" > file.txt && cat file.txt
+rm file.txt
+echo "cool" > file.txt && cat file.txt
+echo "cool" > file.txt && grep "cool" file.txt
+echo "pattern" > file.txt && grep "pattern" file.txt
+mkdir test_dir && ls test_dir
+mkdir test_dir && ls test_dir
+rm -rf test_dir
+echo "Hello World" > test.txt && cat test.txt
+echo "argument" > test.txt && wc -l < test.txt
+cat < test.txt
+wc -l < test.txt
+wc -l < file.txt
+deb=1
+wc -l < file.txt
+echo file.txt cool
+echo > file.txt cool
+wc -l < file.txt
+echo coool > file.txt
+wc -l < file.txt
+deb=1
+wc -l < file.txt
+echo cool > file.txt
+wc -l < file.txt
+echo "This is a test" > test.txt && cat test.txt && rm test.txt
+echo cool >> output.txt | cat output.txt | cat | cat | cat | cat
+ls | cat | cat | cat | >> output.txt 
+bash
+s | cat | grep . >> output.txt 
+ls | cat | grep . >> output.txt 
+ls | cat | grep - >> output.txt 
+ls | cat | grep ola >> output.txt 
+cat < output.txt | grep ola >> output.txt 
+cat < output.txt | wc -l -5 >> output.txt 
+cat < output.txt | wc -l >> output.txt 
+<< cool
+<< ola
+<< alo
+ls
+<< alo
+<< ola
+<< alo
+<< alo | cool
+<< alo | cat
+<< alo | grep name
+<< alo | pwd
+<< alo | grep name
+cleaer
+clear
+pwd
+echo $(pwd)
+bash
+cat < Makefile
+bash
+echo $(cat < Makefile)
+echo $(cat < output)
+echo ls >> output
+echo $(cat < output)
+echo $(cat < makefile)
+echo ola > a > b > c
+bash
+deb=1
+echo ola > a > b > c
+echo cool > a > b > c
+deb=1
+echo cool > a > b > c
+deb=1
+echo cool > a > b > c
+echo cool >> a >> b >> c
+bash
+echo << a << b << c
+echo << cool
+cat << a << b << c
+bash
+echo cool > a > b > c > d

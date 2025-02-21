@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 01:39:10 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 00:47:51 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 17:21:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static t_token	*get_subsh_out(t_data *d, t_token *start, t_token *redir)
 	if (d->debug_mode)
 		show_tokens_info(d, node, "subsh", -1);
 	output = get_subsh_output(d, start);
+	exit(0);
 	cmd = new_token(ft_strdup("echo"), NULL, tk_cmd, redir->par);
 	cmd->prv = start;
 	start->next = cmd;
@@ -106,10 +107,10 @@ t_token	*solve_subshell(t_data *d, t_token *start)
 	t_token	*redir;
 
 	if (d->debug_mode)
-		printf("solving subshel at %s redir:%s arg:%s\n", \
+		printf("redirecting %s subsh; redir:%s arg:%s\n", \
 start->name, start->subsh_out->name, start->subsh_out->next->name);
 	redir = start->subsh_out;
-	if (!redir || (!redir->is_redir && redir->type != tk_pipe))
+	if (!redir || (!redir->is_rd && redir->type != tk_pipe))
 		return (NULL);
 	start->subsh_out->prv->next = NULL;
 	start->subsh_out = NULL;

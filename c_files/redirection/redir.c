@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 00:08:47 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 20:05:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
+static void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	char	*file_name;
 	char	*path;
@@ -32,11 +32,12 @@ void	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		custom_exit(d, "dup2 fail handle_redout", NULL, EXIT_FAILURE);
 	close(fd);
-	d->last_exit = execute_command(d, cmd->name, arg, flags);
+	if (!cmd->redir->redir)
+		d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
 
-void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
+static void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	char	*file_name;
 	char	*path;
@@ -57,11 +58,12 @@ void	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		custom_exit(d, "dup2 fail handle_redapp", NULL, EXIT_FAILURE);
 	close(fd);
-	d->last_exit = execute_command(d, cmd->name, arg, flags);
+	if (!cmd->redir->redir)
+		d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
 
-void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
+static void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	char	*file_name;
 	int		fd;
@@ -81,16 +83,17 @@ void	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 		return ;
 	if (dup2(fd, STDIN_FILENO) == -1)
 		custom_exit(d, "dup2 fail handle_redin", NULL, EXIT_FAILURE);
-	d->last_exit = execute_command(d, cmd->name, arg, flags);
+	if (!cmd->redir->redir)
+		d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 }
 
-void	handle_redir_heredoc(t_data *d, t_token *hered_arg)
+void	handle_hered_redir(t_data *d, t_token *hered_arg)
 {
 	if (d->heredocfd != -1)
 	{
-		printf("msh: write error: Broken pipe");
 		close(d->heredocfd);
+		d->heredocfd = -1;
 	}
 	if (!hered_arg)
 		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
@@ -116,7 +119,7 @@ t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 			return (ft_dprintf(2, "msh: %s: ambiguous redirect\n", name), next);
 	}
 	if (cmd->redir->type == tk_hered)
-		handle_redir_heredoc(d, cmd->redir->next);
+		handle_hered_redir(d, cmd->redir->next);
 	else if (cmd->redir->type == tk_red_app)
 		handle_redir_app(d, cmd, arg, flags);
 	else if (cmd->redir->type == tk_red_out)

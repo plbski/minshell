@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 22:41:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 18:34:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,10 @@ char	*expand_split(t_data *d, char *split, int len, int i)
 			if (new_str)
 				spl_values[spl_index++] = new_str;
 		}
+		else if (split[i] == '$')
+			spl_values[spl_index++] = copy_until_char(d, split, &i, "\'");
 		else
-		{
-			if (split[i] == '$')
-				i++;
 			spl_values[spl_index++] = copy_until_char(d, split, &i, "$");
-		}
 		i++;
 	}
 	spl_values[spl_index] = NULL;

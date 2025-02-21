@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 00:51:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 11:23:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ static void	init_builtins_pointers(t_data *data)
 	data->blt_fct[e_doc] = doc;
 	data->blt_fct[e_pwd] = pwd;
 	data->blt_fct[e_unset] = unset;
+	data->blt_fct[e_source] = source;
 }
 
 static void	init_builtins_names(t_data *data)
 {
-	data->bltin_names = ms_malloc(data, 11 * sizeof(char *));
+	data->bltin_names = ms_malloc(data, 12 * sizeof(char *));
 	data->bltin_names[e_cd] = ms_strdup(data, "cd");
 	data->bltin_names[e_echo] = ms_strdup(data, "echo");
 	data->bltin_names[e_ls] = ms_strdup(data, "mls");
@@ -54,7 +55,8 @@ static void	init_builtins_names(t_data *data)
 	data->bltin_names[e_doc] = ms_strdup(data, "doc");
 	data->bltin_names[e_pwd] = ms_strdup(data, "pwd");
 	data->bltin_names[e_unset] = ms_strdup(data, "unset");
-	data->bltin_names[10] = NULL;
+	data->bltin_names[e_source] = ms_strdup(data, "source");
+	data->bltin_names[11] = NULL;
 }
 
 void	export_usefull_var(t_data *d)
@@ -64,10 +66,6 @@ void	export_usefull_var(t_data *d)
 	if (!get_dblst_at_key(d->env_list, "MSH"))
 		dblst_add_back(&d->env_list, \
 dblst_new(ms_strjoin(d, "MSH=", d->msh_wd)));
-	if (d->debug_mode)
-		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, "deb=1")));
-	else
-		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, "deb=0")));
 	if (!get_dblst_at_key(d->env_list, "SHLVL"))
 		export(d, ms_strdup(d, "SHLVL=1"), NULL, 0);
 	shlvl = get_env_value(d, d->env_list, "SHLVL");
@@ -84,4 +82,5 @@ void	init_builtins_data(t_data *d)
 	init_builtins_names(d);
 	init_builtins_pointers(d);
 	init_types_names(d);
+	source(d, NULL, NULL, 0);
 }

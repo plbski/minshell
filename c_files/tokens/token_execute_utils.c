@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 23:54:39 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 18:46:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
+static t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 {
 	t_dblist	*list;
 	t_token		*node;
@@ -22,7 +22,7 @@ t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
 	node = arg_token->next;
 	while (node && (node->type == tk_arg || (cmd->redir && cmd->redir == node)))
 	{
-		if (!node->is_redir && (!cmd->red_arg || cmd->red_arg != node))
+		if (!node->is_rd && (!cmd->red_arg || cmd->red_arg != node))
 		{
 			update_node_expansion(d, node);
 			if (!node->name)
@@ -46,7 +46,7 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 	t_token	*arg_token;
 
 	arg_token = cmd->next;
-	if (arg_token && arg_token->is_redir)
+	if (arg_token && arg_token->is_rd)
 		arg_token = arg_token->next->next;
 	if (!arg_token)
 		return (NULL);
@@ -98,4 +98,30 @@ unexpected token `newline'\n"), 0);
 		return (ft_dprintf(2, "msh: %s: No such file or directory\n", \
 			redir->next->name), 0);
 	return (1);
+}
+
+void	swap_redir_cmd(t_data *d, t_token *node)
+{
+	t_token	*red_arg;
+	t_token	*cmd;
+
+	red_arg = node->next;
+	red_arg->type = tk_arg;
+	cmd = red_arg->next;
+	if (!cmd || ((((cmd->type == tk_cmd || cmd->type == tk_arg) && \
+		(cmd->next && cmd->next->is_rd)))))
+	{
+		cmd = new_token(ms_strdup(d, "null"), node->prv, tk_cmd, node->par);
+		if (node->prv)
+			node->prv->next = cmd;
+		node->prv = cmd;
+		cmd->next = node;
+	}
+	else
+	{
+		swap_tokens(node, cmd);
+		swap_tokens(cmd, red_arg);
+		cmd = node;
+	}
+	cmd->type = tk_cmd;
 }

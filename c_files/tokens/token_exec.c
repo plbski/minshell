@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 19:09:07 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 20:03:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
 	{
 		if (!validate_redir(d, node->redir))
 			return (NULL);
-		if (node->redir)
+		if (node->redir->redir)
+			nxt = handle_mult_redirs(d, node, arg, flags);
+		else
 			nxt = handle_redir_cmd(d, node, arg, flags);
 		if (d->heredocfd != -1)
 			nxt = consumate_heredoc(d, node, arg, flags);
@@ -39,7 +41,7 @@ t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
 	return (free_void_array((void ***)&flags), nxt);
 }
 
-t_token	*skip_nodes(t_data *d, t_token *node)
+static t_token	*skip_nodes(t_data *d, t_token *node)
 {
 	int		min_par;
 
@@ -53,8 +55,8 @@ t_token	*skip_nodes(t_data *d, t_token *node)
 			printf("'%s%s%s' ", YELLOW, node->name, RESET);
 		node = node->next;
 	}
-	while (node && (((node->type == tk_arg || node->is_redir) \
-		|| node->par > min_par)))
+	while (node && (node->par > min_par || \
+			(node->type != tk_cmd && node->type != tk_logical)))
 	{
 		if (d->debug_mode)
 			printf("'%s%s%s' ", YELLOW, node->name, RESET);
@@ -62,7 +64,7 @@ t_token	*skip_nodes(t_data *d, t_token *node)
 	}
 	if (d->debug_mode)
 		printf("\n");
-	if (node && node->is_redir)
+	if (node && (node->is_rd || node->type == tk_pipe))
 		return (node->next);
 	return (node);
 }
@@ -82,7 +84,7 @@ static t_token	*handle_token(t_data *d, t_token *node)
 	type = node->type;
 	if (type == tk_hered)
 	{
-		handle_redir_heredoc(d, node->next);
+		handle_hered_redir(d, node->next);
 		return (node->next->next);
 	}
 	if (type == tk_logical)
@@ -119,8 +121,6 @@ void	iterate_tokens(t_data *d, t_token *node)
 			}
 		}
 		update_node_expansion(d, node);
-		if (!validate_token(d, &node))
-			break ;
 		if (d->debug_mode)
 			show_cmd_status(d, node);
 		node = handle_token(d, node);

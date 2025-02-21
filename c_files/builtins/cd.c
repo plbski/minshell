@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/20 22:37:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 01:10:12 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cd(t_data *d, char *arg, char **flags, int status)
 
 	status = FCT_FAIL;
 	if (flags && flags[0])
-		return (ft_dprintf(2, "msh: cd: too many arguments\n"), 0);
+		return (ft_dprintf(2, "msh: cd: too many arguments\n"), status);
 	path = get_cd_path(d, arg);
 	if (!path)
 		return (status);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 00:55:34 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 16:30:50 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_token	*show_token_info(t_data *d, t_token *node, char *prx, int spacing)
 
 void	show_tokens_info(t_data *d, t_token *start, char *prfx, int i)
 {
-	const char	*rg[8] = {"name", "type", "(", \
+	const char	*rg[7] = {"type", "(", \
 "pipe", ">", ">_arg", "eval", "sub"};
 	int			len;
 	t_token		*node;
@@ -81,8 +81,8 @@ void	show_tokens_info(t_data *d, t_token *start, char *prfx, int i)
 		node = node->next;
 	}
 	len = (len < 7) * 7 + (len >= 7 && len <= 15) * len + (len > 15) * 15;
-	printf("        %s%*s", GREY, -len, rg[0]);
-	while (++i < 8)
+	printf("        %s%*s", GREY, -len, "name");
+	while (++i < 7)
 		printf("%-7s ", rg[i]);
 	printf("%s\n", RESET);
 	node = token_first(start);

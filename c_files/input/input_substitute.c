@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:44:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 21:06:09 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 11:30:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ char	*replace_split(t_data *d, char *split, int start)
 	new_str = str_insert(split, start, j - 1, subst);
 	if (d->debug_mode)
 		printf("subst: \"%s\" with \"%s\"\n", split, new_str);
-	if (new_str)
-		setstr(d, &split, new_str);
 	free(subst);
 	return (new_str);
 }
@@ -90,7 +88,10 @@ void	solve_cmd_substitutes(t_data *d, char ***spl)
 			{
 				new_str = replace_split(d, (*spl)[i], j);
 				if (new_str)
+				{
 					setstr(d, &(*spl)[i--], new_str);
+					break ;
+				}
 			}
 		}
 	}

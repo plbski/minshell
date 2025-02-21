@@ -1,7 +1,6 @@
 .SILENT:
 
 MINISHELL_NAME = minishell
-TEST_PRG_NAME = test
 
 MINISHELL_PRG_SRC = c_files/minishell.c
 MINISHELL_SRC = \
@@ -16,18 +15,19 @@ c_files/builtins/exit.c c_files/builtins/unset.c c_files/builtins/env.c c_files/
 c_files/builtins/cd.c c_files/builtins/doc.c c_files/builtins/exec_utils.c c_files/builtins/echo.c c_files/tokens/token_parse2.c \
 c_files/tokens/token_parse.c c_files/tokens/token_exec.c c_files/tokens/utils_tokens.c c_files/tokens/token_expand.c \
 c_files/tokens/tokens.c c_files/input/input_substitute.c c_files/input/subshell.c c_files/tokens/token_execute_utils.c \
-c_files/input/subshell_solve.c c_files/tools/str_tools/strinsert.c c_files/tools/cwd.c
+c_files/input/subshell_solve.c c_files/tools/str_tools/strinsert.c c_files/tools/cwd.c c_files/builtins/source.c
 
 LIBFT_DIR = libft/
-DPRINTF_DIR = dprintf/
-GNL_DIR = gnl/
-LISTS_DIR = lists/
-TEST_PRG_DIR = test_programs/
-
-GNL = $(GNL_DIR)get_next_line.a
-DPRINTF = $(DPRINTF_DIR)printf.a
-LISTS = $(LISTS_DIR)lists.a
 LIBFT = $(LIBFT_DIR)libft.a
+
+DPRINTF_DIR = dprintf/
+DPRINTF = $(DPRINTF_DIR)printf.a
+
+GNL_DIR = gnl/
+GNL = $(GNL_DIR)get_next_line.a
+
+LISTS_DIR = lists/
+LISTS = $(LISTS_DIR)lists.a
 
 CC = cc
 
@@ -41,7 +41,6 @@ CYAN = 		\033[36m
 RESET = 	\033[0m
 
 $(MINISHELL_NAME): $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(GNL) $(DPRINTF) $(LISTS)
-	make -C $(TEST_PRG_DIR) --no-print-directory re
 	$(CC) $(CFLAGS) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -DNO_COLOR -o $(MINISHELL_NAME) $(LDFLAGS)
 	@echo "$(MAGENTA)$(MINISHELL_NAME) successfully built.$(RESET)"
 
@@ -60,7 +59,6 @@ $(LISTS):
 all: $(MINISHELL_NAME)
 
 debug: $(MINISHELL_NAME) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(DPRINTF) $(GNL) $(LISTS)
-	make -C $(TEST_PRG_DIR) --no-print-directory re
 	$(CC) $(CFLAGS) -fsanitize=address -g $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
 	@echo "$(MAGENTA)$(MINISHELL_NAME) -fsan successfully built.$(RESET)"
 
@@ -75,7 +73,6 @@ clean:
 	make -C $(DPRINTF_DIR) --no-print-directory clean
 	make -C $(LISTS_DIR) --no-print-directory clean
 	make -C $(GNL_DIR) --no-print-directory clean
-	make -C $(TEST_PRG_DIR) --no-print-directory clean
 	rm -f $(MINISHELL_NAME)
 
 fclean: clean

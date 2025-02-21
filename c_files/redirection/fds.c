@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 02:20:38 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/18 01:23:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 10:24:59 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_fd(t_data *d, char *file_path, t_tktype r_type)
 		fd = open(file_path, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("read on %s returned -1\n", file_path);
+		printf("msh: %s: Permission denied\n", file_path);
 		return (-1);
 	}
 	return (fd);

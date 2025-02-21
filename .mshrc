@@ -1,0 +1,33 @@
+export SEGLEN=20
+
+# touch file1.txt && ls file1.txt
+# touch file1.txt && rm file1.txt && ls file1.txt
+# echo "pattern" > file.txt && grep "pattern" file.txt
+# mkdir test_dir && ls test_dir
+# rm -rf test_dir
+# echo "Hello World" > test.txt && cat test.txt
+# echo "argument" > test.txt && wc -l < test.txt
+# touch file1.txt && cp file1.txt file2.txt && rm file1.txt && rm file2.txt
+# echo "content" > file.txt && mv file.txt moved_file.txt && cat moved_file.txt && rm moved_file.txt
+# echo "test" > file.txt && head -n 1 file.txt
+# mkdir new_dir && cd new_dir && echo "Inside new_dir" && cd .. && rmdir new_dir
+# echo "This is a test" > test.txt && cat test.txt && rm test.txt
+# tar -cvf archive.tar test.txt && tar -xvf archive.tar && rm archive.tar && rm test.txt
+# touch script.sh && chmod +x script.sh && ./script.sh && rm script.sh
+# mkdir temp_dir && cd temp_dir && touch file1.txt && cd .. && rm -rf temp_dir
+# touch temp_file && rm temp_file
+# echo "file_content" > test_file.txt && cat test_file.txt && rm test_file.txt
+# echo "file_content" > file.txt && tail -n 1 file.txt && rm file.txt
+# echo "content" > file.txt && chmod 644 file.txt && cat file.txt && rm file.txt
+
+
+# echo "Hello, world!" > file.txt && cat < file.txt | wc -c >> result.txt
+# export VAR="42" && echo "$VAR" | rev | tr '24' 'XD' | tee output.txt
+# (echo "Inside subshell" && ls -l) > sub_output.txt
+# mkdir testdir && chmod 000 testdir && ls testdir > testdir/out.txt 2> error.log
+# sleep 10 & echo "Process ID: $!" && kill $!
+# false && echo "Je ne dois pas s'afficher" || echo "Erreur détectée"
+# echo "Le kernel est : $(uname -r) et l'OS : `uname -s`"
+# echo -e "Nom:\nAge:" > form.txt && cat < form.txt | while read line; do echo "Champ: $line"; done
+# (echo "42" | cat -e) 2> error.log | tee out.txt | wc -l > count.txt
+# exec echo "Ce shell est remplacé !" && echo "Cette ligne ne doit pas apparaître"

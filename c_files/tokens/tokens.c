@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:33:06 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 17:46:55 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_token	*new_token(char *name, t_token *prv, t_tktype type, int parenth_order)
 	token->redir = NULL;
 	token->subsh_out = NULL;
 	token->nxt_eval = NULL;
-	token->is_redir = (type == tk_red_app || type == tk_red_in || \
+	token->is_rd = (type == tk_red_app || type == tk_red_in || \
 		type == tk_red_out || type == tk_hered);
 	return (token);
 }
@@ -83,15 +83,27 @@ void	clear_tokens(t_token *token)
 	}
 }
 
-void	remove_token(t_token *token)
+void	swap_tokens(t_token *a, t_token *b)
 {
-	if (!token)
+	t_token	tmp;
+
+	if (!a || !b || a == b)
 		return ;
-	if (token->prv)
-		token->prv->next = token->next;
-	if (token->next)
-		token->next->prv = token->prv;
-	if (token->name)
-		free(token->name);
-	free(token);
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+	tmp.next = a->next;
+	tmp.prv = a->prv;
+	a->next = b->next;
+	a->prv = b->prv;
+	b->next = tmp.next;
+	b->prv = tmp.prv;
+	if (a->next)
+		a->next->prv = a;
+	if (a->prv)
+		a->prv->next = a;
+	if (b->next)
+		b->next->prv = b;
+	if (b->prv)
+		b->prv->next = b;
 }

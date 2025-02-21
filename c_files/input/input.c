@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/20 21:01:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 15:14:48 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,28 +63,33 @@ static void	init_anim(t_data *d, char *prompt)
 	free(str);
 }
 
-static void	split_seglen(t_data *d, char **str, char *headcol)
+static void	split_prm(t_data *d, char **str, char *headcol, char *seg)
 {
 	const char	*cl[] = {D4, D3, D2, D1, D0};
-	char		**splits;
+	char		**spl;
 	int			i;
 	int			arr_len;
 
-	splits = ms_split(d, *str, '/');
-	arr_len = get_arr_len((void **)splits);
+	spl = ms_split(d, *str, '/');
+	arr_len = get_arr_len((void **)spl);
+	if (seg && ft_atoi(seg) / arr_len < 1)
+		setstr(d, &seg, ft_itoa(arr_len));
 	i = arr_len;
 	while (i-- > 1)
 	{
-		if (i == 1 && splits[i][0] != '~' && !splits[i + 1])
-			setstr(d, &splits[i], ms_strjoin(d, "/", splits[i]));
-		if (!splits[i + 1] || char_in_str('$', splits[i]))
-			setstr(d, &splits[i], ms_strjoin(d, headcol, splits[i]));
+		if (i == 1 && spl[i][0] != '~' && !spl[i + 1])
+			setstr(d, &spl[i], ms_strjoin(d, "/", spl[i]));
+		if (spl[i + 1] && seg && ft_strlen(spl[i]) > ft_atoi(seg) / arr_len)
+			spl[i][ft_atoi(seg) / arr_len] = '\0';
+		if (!spl[i + 1] || char_in_str('$', spl[i]))
+			setstr(d, &spl[i], ms_strjoin(d, headcol, spl[i]));
 		else
-			setstr(d, &splits[i], ft_megajoin(cl[(i * 5) / arr_len], \
-				splits[i], "/", DRESET));
+			setstr(d, &spl[i], ft_megajoin(cl[(i * 5) / arr_len], \
+				spl[i], "/", DRESET));
 	}
-	setstr(d, str, contract_str(d, splits));
-	free_void_array((void ***)&splits);
+	setstr(d, str, contract_str(d, spl));
+	free_void_array((void ***)&spl);
+	safe_free(seg);
 }
 
 char	*get_prompt_message(t_data *d)
@@ -92,7 +97,7 @@ char	*get_prompt_message(t_data *d)
 	char	*msh;
 	char	*cwd_part;
 	char	*cut_cwd;
-	char	*prompt_msg;
+	char	*prmpt;
 
 	msh = ft_megajoin("\001" PRM_START "\002", "msh ", DRESET, NULL);
 	if (!msh)
@@ -104,14 +109,14 @@ char	*get_prompt_message(t_data *d)
 	free(cut_cwd);
 	if (!cwd_part)
 		custom_exit(d, "alloc of cwd_part (prompt)\n", NULL, EXIT_FAILURE);
-	prompt_msg = ms_strjoin(d, msh, cwd_part);
-	if (char_in_str('/', prompt_msg) && PRM_SEGLEN > 0)
-		split_seglen(d, &prompt_msg, "\001" PRM_HEAD "\002");
-	if (!prompt_msg)
+	prmpt = ms_strjoin(d, msh, cwd_part);
+	if (char_in_str('/', prmpt) && PRM_SEGLEN > 0)
+		split_prm(d, &prmpt, PRM_HEAD, get_env_value(d, d->env_list, "SEGLEN"));
+	if (!prmpt)
 		custom_exit(d, "Prompt alloc failed", NULL, EXIT_FAILURE);
-	setstr(d, &prompt_msg, \
-			ft_megajoin(prompt_msg, "\001" PRM_CMB "\002", "$ ", DRESET));
-	return (free(cwd_part), free(msh), prompt_msg);
+	setstr(d, &prmpt, \
+			ft_megajoin(prmpt, "\001" PRM_CMB "\002", "$ ", DRESET));
+	return (free(cwd_part), free(msh), prmpt);
 }
 
 int	process_input(t_data *d, int start)

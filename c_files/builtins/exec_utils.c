@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 22:46:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 18:49:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-void	print_exec_error_2(const char *arg, int st, int loca)
+static void	print_exec_error_2(const char *arg, int st, int loca)
 {
 	const char	*exc_lc[3] = {"is a directory", "Permission denied", \
 		"No such file or directory"};
@@ -61,21 +61,7 @@ void	print_exec_error(const char *arg, int status, int is_exec)
 		print_exec_error_2(arg, status, is_local);
 }
 
-char	**set_argv(t_data *d, char *prog_name, char **args, int args_len)
-{
-	char	**new_argv;
-	int		i;
-
-	new_argv = ms_malloc(d, sizeof(char *) * (2 + args_len));
-	new_argv[0] = ms_strdup(d, prog_name);
-	i = -1;
-	while (++i < args_len && args && args[i])
-		new_argv[i + 1] = ms_strdup(d, args[i]);
-	new_argv[i + 1] = NULL;
-	return (new_argv);
-}
-
-char	*fetch_path(t_data *d, char *cmd_name)
+static char	*fetch_path(t_data *d, char *cmd_name)
 {
 	char	*path_env;
 	char	**splitted_path;
@@ -118,4 +104,18 @@ char	*get_path_in_env(t_data *d, char *prg, int is_exec, int *fct_ret)
 	valid_exec(prg, fct_ret, is_exec, 0);
 	print_exec_error(prg, *fct_ret, is_exec);
 	return (NULL);
+}
+
+char	**set_argv(t_data *d, char *prog_name, char **args, int args_len)
+{
+	char	**new_argv;
+	int		i;
+
+	new_argv = ms_malloc(d, sizeof(char *) * (2 + args_len));
+	new_argv[0] = ms_strdup(d, prog_name);
+	i = -1;
+	while (++i < args_len && args && args[i])
+		new_argv[i + 1] = ms_strdup(d, args[i]);
+	new_argv[i + 1] = NULL;
+	return (new_argv);
 }

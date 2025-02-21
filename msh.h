@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/21 00:48:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 20:03:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef enum e_builtins
 	e_doc,
 	e_pwd,
 	e_unset,
+	e_source,
 }	t_builtins_types;
 
 typedef struct s_token
@@ -81,7 +82,7 @@ typedef struct s_token
 	struct s_token	*red_arg;
 	struct s_token	*nxt_eval;
 	int				is_cmd_subst;
-	int				is_redir;
+	int				is_rd;
 	int				par;
 }	t_token;
 
@@ -105,6 +106,7 @@ typedef struct s_data
 	char			*logname;
 	int				subsh_fd;
 	char			*prv_input;
+	int				trunc_input;
 	int				base_stdin;
 	int				base_stdout;
 	int				saved_stdin;
@@ -116,7 +118,7 @@ typedef struct s_data
 	int				brackets;
 	int				fork_child;
 	int				var;
-	int				(*blt_fct[10])(struct s_data *d, char *a, char **f, int s);
+	int				(*blt_fct[11])(struct s_data *d, char *a, char **f, int s);
 }	t_data;
 
 extern int	g_quit_in_heredoc;
@@ -249,20 +251,15 @@ t_token		*skip_type(t_token *tok, t_tktype type_to_skip);
 t_token		*get_next_redir(t_token *d);
 
 //		redirection/redir.c
-void		handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags);
-void		handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags);
-void		handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags);
-void		handle_redir_heredoc(t_data *d, t_token *hered_arg);
+void		handle_hered_redir(t_data *d, t_token *hered_arg);
 t_token		*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags);
 
 //		redirection/heredoc.c
-void		exec_heredoc(char *nd, char *print, int heredoc_fd);
+int			exec_heredoc(char *nd, char *print, int heredoc_fd);
 int			ft_heredoc(char *end, t_data *d, char *print);
 
 //		builtins/ls.c
 DIR			*get_directory(t_data *d, char *arg);
-void		display_entry(struct dirent *entry, int *len);
-int			execute_ls(t_data *d, char *arg, int print_arg, int error_if_dir);
 int			ls(t_data *d, char *arg, char **flags, int status);
 
 //		builtins
@@ -274,31 +271,25 @@ int			pwd(t_data *d, char *arg, char **flags, int status);
 int			export(t_data *d, char *arg, char **flags, int tmp_mem);
 int			cd(t_data *d, char *arg, char **flags, int status);
 int			doc(t_data *d, char *arg, char **flags, int status);
+int			echo(t_data *d, char *arg, char **flags, int status);
+int			source(t_data *d, char *arg, char **flags, int status);
 
 //		builtins/exec_utils.c
 char		**set_argv(t_data *d, char *prog_name, char **args, int args_len);
-char		*fetch_path(t_data *d, char *cmd_name);
 char		*get_path_in_env(t_data *d, char *prg, int is_exec, int *fct_ret);
 int			valid_exec(const char *file, int *ret, int exc, int pr);
 void		print_exec_error(const char *arg, int st, int exex);
-
-//		builtins/echo.c
-int			echo(t_data *d, char *arg, char **flags, int status);
-
-//		tokens/token_parse2.c
-int			requires_arg(t_token *node);
-int			validate_token(t_data *d, t_token **node);
-int			is_valid_identifier(char *arg);
 
 //		tokens/token_parse.c
 t_tktype	get_token_type(t_token *prv_cmd, char *str);
 t_token		*tokenize_string(t_data *d, char *prompt);
 t_token		*get_next_redir(t_token *d);
 void		set_redir_args(t_token *tok);
+int			requires_arg(t_token *node);
+int			is_valid_identifier(char *arg);
 
 //		tokens/token_execute.c
 t_token		*handle_command_token(t_data *d, t_token *node, int should_redir);
-t_token		*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flg);
 t_token		*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags);
 t_token		*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flg);
 int			validate_redir(t_data *d, t_token *redir);
@@ -326,7 +317,7 @@ char		*get_last_line(t_data *d, const char *filename);
 
 char		*get_next_line(int fd);
 void		set_nonblocking_mode(int enable, struct termios *saved);
-void		set_parenthesis_redirections(t_token *tok);
+void		set_parenthesis_rdections(t_token *tok);
 t_token		*get_last_arg(t_token *cmd);
 
 //		subst.c
@@ -339,5 +330,12 @@ void		iterate_tokens(t_data *d, t_token *node);
 t_token		*solve_subshell(t_data *d, t_token *start);
 char		*ms_strndup(t_data *d, const char	*s1, ssize_t n);
 char		*ft_strndup(const char	*s1, ssize_t n);
+
+char		*get_rc_path(t_data *d);
+void		set_strarr(char ***to_replace, char **new_arr);
+void		swap_redir_cmd(t_data *d, t_token *node);
+void		swap_tokens(t_token *a, t_token *b);
+void		reorder_misplaced_redirs(t_data *d, t_token *start);
+t_token		*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, char **flags);
 
 #endif

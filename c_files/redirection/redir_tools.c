@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:37:20 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 18:43:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 20:01:46 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ t_token	*skip_type(t_token *tok, t_tktype type_to_skip)
 	while (tok && tok->type == type_to_skip)
 		tok = tok->next;
 	return (tok);
+}
+
+t_token	*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, char **flags)
+{
+	t_token	*last_red_arg;
+
+	while (cmd->redir)
+	{
+		cmd->red_arg = cmd->redir->next;
+		handle_redir_cmd(d, cmd, arg, flags);
+		last_red_arg = cmd->red_arg;
+		cmd->redir = cmd->redir->redir;
+	}
+	return (last_red_arg);
 }

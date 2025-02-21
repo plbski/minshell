@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 23:24:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 19:10:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,17 @@ int	exec(t_data *d, char *prg, char **argv, int is_direct)
 	if (!prg || same_str(prg, "exec"))
 		return (FCT_OK);
 	prg_path = NULL;
-	if ((prg[0] == '/' || !ft_strncmp(prg, "./", 2)) && \
-	valid_exec(prg, &st, !is_direct, 1))
+	if ((*prg == '/' || !ft_strncmp(prg, "./", 2)) && \
+		valid_exec(prg, &st, !is_direct, 1))
 		prg_path = ms_strdup(d, prg);
 	else if (prg[0] != '/' && ft_strncmp(prg, "./", 2))
 		prg_path = validate_exec(d, prg, is_direct, &st);
 	if (!prg_path)
 		return (st);
 	if (!argv || !argv[0])
-	{
-		free_void_array((void ***)&argv);
-		argv = set_argv(d, prg_path, NULL, 0);
-	}
+		set_strarr(&argv, set_argv(d, prg_path, NULL, 0));
+	else if (!is_direct)
+		argv = set_argv(d, prg_path, argv, get_arr_len((void **)argv));
 	child_pid = fork();
 	if (child_pid == -1)
 		return (perror("fork"), -1);

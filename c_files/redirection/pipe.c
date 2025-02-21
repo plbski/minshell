@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 23:52:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 01:08:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	cleanup(int or_std, int **fds, int *pids, int pipes_count)
 	}
 	free(fds);
 	i = -1;
-	while (++i <= pipes_count)
+	while (++i < pipes_count)
 		waitpid(pids[i], NULL, 0);
 	if (waitpid(pids[i], &status, 0) != -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 23:17:45 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 22:54:51 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 15:13:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@
 # define PRM_SEGLEN 2000
 # define PRM_START	DB12
 # define PRM_CWD	GREEN
-# define PRM_HEAD	DR0
+# define PRM_HEAD	"\001\033[38;5;255m\002"
 # define PRM_CMB	BLU_GRY
 
 #endif

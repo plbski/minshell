@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/18 15:09:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/21 18:51:58 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ DIR	*get_directory(t_data *d, char *arg)
 	return (directory);
 }
 
-void	display_entry(struct dirent *entry, int *len)
+static void	display_entry(struct dirent *entry, int *len)
 {
 	char	*color;
 
@@ -56,7 +56,7 @@ void	display_entry(struct dirent *entry, int *len)
 	}
 }
 
-int	execute_ls(t_data *d, char *arg, int print_arg, int error_if_dir)
+static int	execute_ls(t_data *d, char *arg, int print_arg, int error_if_dir)
 {
 	struct dirent	*entry;
 	DIR				*directory;
