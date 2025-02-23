@@ -6,11 +6,26 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 15:09:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 23:12:19 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
+
+static int	is_valid_identifier(char *arg)
+{
+	int	i;
+
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
+		return (0);
+	i = 0;
+	while (arg[++i])
+	{
+		if (!ft_isalpha(arg[i]) && !ft_isdigit(arg[i]) && arg[i] != '_')
+			return (0);
+	}
+	return (1);
+}
 
 static int	remove_element(t_dblist **list, char *arg)
 {
@@ -33,7 +48,7 @@ static int	exec_unset(t_data *d, char *arg)
 
 	if (!is_valid_identifier(arg))
 	{
-		printf("msh: unset: `%s': not a valid identifier\n", arg);
+		ft_dprintf(2, "msh: unset: `%s': not a valid identifier\n", arg);
 		return (CMD_NOT_FOUND);
 	}
 	if (!arg)

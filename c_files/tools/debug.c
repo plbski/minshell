@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 16:30:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 19:21:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,41 +38,40 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 
 t_token	*show_token_info(t_data *d, t_token *node, char *prx, int spacing)
 {
-	const char	*args[9] = {prx, node->name, "", "", "", "", "", "", ""};
+	const char	*args[8] = {prx, node->name, "", "", "", "", "", ""};
 	const char	*arg_cols[] = {RED, GREY, DR0, DR1, DR2, CYAN, BLUE, YELLOW};
 	int			i;
-	char		*par;
 
 	args[2] = d->types_names[node->type];
-	par = ft_itoa(node->par);
-	args[3] = par;
 	if (node->pipe_out)
-		args[4] = node->pipe_out->name;
+		args[3] = node->pipe_out->name;
 	if (node->redir)
-		args[5] = node->redir->name;
+		args[4] = node->redir->name;
 	if (node->red_arg)
-		args[6] = node->red_arg->name;
+		args[5] = node->red_arg->name;
 	if (node->nxt_eval)
-		args[7] = node->nxt_eval->name;
+		args[6] = node->nxt_eval->name;
 	if (node->subsh_out)
-		args[8] = node->subsh_out->name;
+		args[7] = node->subsh_out->name;
 	printf("%s%-7.6s %s", GREEN, args[0], RESET);
 	printf("%s%*.15s%s", arg_cols[node->type], -spacing, args[1], RESET);
+	printf("%-7d ", node->par);
 	i = 1;
-	while (++i < 9)
-		printf("%-7.6s %s", args[i], RESET);
-	free(par);
+	while (++i < 8)
+		printf("%-7.6s ", args[i]);
+	if (node->rd_fd != -1)
+		printf("rdfd: %d", node->rd_fd);
 	return (node->next);
 }
 
 void	show_tokens_info(t_data *d, t_token *start, char *prfx, int i)
 {
-	const char	*rg[7] = {"type", "(", \
+	const char	*rg[7] = {"(", "type", \
 "pipe", ">", ">_arg", "eval", "sub"};
 	int			len;
 	t_token		*node;
 
-	len = 7;
+	len = 15;
 	node = token_first(start);
 	while (node)
 	{
@@ -80,7 +79,6 @@ void	show_tokens_info(t_data *d, t_token *start, char *prfx, int i)
 			len = ft_strlen(node->name) + 2;
 		node = node->next;
 	}
-	len = (len < 7) * 7 + (len >= 7 && len <= 15) * len + (len > 15) * 15;
 	printf("        %s%*s", GREY, -len, "name");
 	while (++i < 7)
 		printf("%-7s ", rg[i]);
@@ -99,9 +97,7 @@ void	show_cmd_status(t_data *d, t_token *node)
 	int	len;
 
 	len = ft_strlen(node->name) + 2;
-	if (len < 7)
-		len = 7;
-	else if (len > 15)
+	if (len < 15)
 		len = 15;
 	show_token_info(d, node, "RUN", len);
 	if (d->last_exit == FCT_FAIL)

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 11:23:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 23:50:44 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_types_names(t_data *d)
 {
-	d->types_names = ms_malloc(d, sizeof(char *) * 10);
+	d->types_names = ms_malloc(d, sizeof(char *) * 11);
 	d->types_names[tk_cmd] = ms_strdup(d, "cmd");
 	d->types_names[tk_arg] = ms_strdup(d, "arg");
 	d->types_names[tk_red_in] = ms_strdup(d, "red_in");
@@ -24,7 +24,8 @@ static void	init_types_names(t_data *d)
 	d->types_names[tk_pipe] = ms_strdup(d, "pipe");
 	d->types_names[tk_logical] = ms_strdup(d, "logic");
 	d->types_names[tk_wildcard] = ms_strdup(d, "wildc");
-	d->types_names[9] = NULL;
+	d->types_names[tk_cmdsep] = ms_strdup(d, "sep");
+	d->types_names[10] = NULL;
 }
 
 static void	init_builtins_pointers(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/20 23:24:59 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 19:16:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	handle_args(t_data *d, char *argv[])
 	char		**args;
 	t_dblist	*args_list;
 
-	(void)env;
 	args = NULL;
 	script = ft_megajoin(d->cwd, "/", argv[1], NULL);
 	args_list = arr_to_dblst((void **)(argv + 2));

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 01:08:11 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 23:14:51 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 		close(fd_out[0]);
 		close(fd_out[1]);
 	}
-	update_node_expansion(d, cmd);
-	handle_command_token(d, cmd, 1);
+	cmd = update_node_expansion(d, cmd);
+	if (cmd)
+		handle_command_token(d, cmd, 1);
 }
 
 static void	iterate_pipes(t_data *d, t_token *strt_cmd, int **pfds, int *pids)

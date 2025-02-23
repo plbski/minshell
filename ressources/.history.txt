@@ -2330,3 +2330,683 @@ echo << cool
 cat << a << b << c
 bash
 echo cool > a > b > c > d
+echo cool > a < Makefile
+bash
+a < olapo,.sh
+a < olapo.sh
+clear
+> a ls > b < Makefile
+bash
+> a ls > b < Makefile
+export var ="cat Makefile | grep >"
+export var="cat Makefile | grep >"
+$var
+echo $var
+echo $($var)
+bash
+$var
+deb=1
+$var
+export var="cat Makefile | grep >"
+$var
+deb=1
+$var
+export var="cat Makefile | grep >"
+echo $var
+$var
+clear
+export var="cat Makefile | grep >"
+echo $var
+deb=1
+echo $var
+deb=0
+clear
+$var
+deb=1
+$var
+bash
+export var="cat Makefile | grep >"
+$var
+export var="cat Makefile | grep >"
+$var
+export var="cat Makefile | grep >"
+$var
+export var="cat Makefile | grep >"
+$var
+export var="cat Makefile | grep >"
+$var
+echo $var
+deb=1
+echo $var
+clear
+deb=1
+export var="cat Makefile | grep >"
+echo $var
+clear
+export var="cat Makefile | grep >"
+echo $var
+export var="cat Makefile | grep >"
+echo $var
+export var="cat Makefile | grep >"
+echo $var
+export var="cat Makefile | grep >"
+echo $var
+$var
+export var="cat Makefile | grep >"
+$var
+export var="cat Makefile | grep >"
+$var
+clear
+export var="cat Makefile | grep >"
+$var
+deb=0
+clear
+export var="cat Makefile | grep >"
+echo $var
+export var="cat Makefile | grep >"
+echo $var
+export var="cat Makefile | grep >"
+echo $var
+export var="cat Makefile | grep >"
+echo $var
+$var
+export var="cat Makefile"
+$var
+export var="cat Makefile && ls"
+deb=1
+export var="cat Makefile && ls"
+$var
+deb=0
+clear
+$var
+clear
+export var="cat Makefile && ls"
+$var
+export var="cat Makefile && ls"
+$var
+export var="cat Makefile && ls"
+$var
+export var="cat Makefile && ls"
+$var
+deb=0
+clear
+var=ls
+$var
+echo $var
+var=ls && echo cool | cat
+var="ls && echo cool | cat"
+$var
+var="ls && echo cool | cat"
+$var
+echo $var
+$var
+var=3 && echo $var
+$var
+echo $var
+var="ls && echo cool | cat"
+$var
+echo $var
+var="ls && echo cool | cat"
+echo $var
+$var
+var="ls && echo cool | cat"
+$var
+var="ls && echo cool | cat"
+echo $var
+var="ls && echo cool | cat"
+echo $var
+$var
+var="ls && echo cool | cat"
+echo $var
+var="ls && echo cool"
+$ls
+$var
+var="ls && echo cool"
+$var
+var="ls && echo cool"
+$var
+echo $var
+var="ls && echo cool"
+$var
+echo $var
+exit 5
+clear
+var="ls && echo cool | cat"
+$var
+var="ls | cat"
+$var
+$var | pwd
+> a
+> c
+deb=1
+> a
+deb=1
+> a
+deb=1
+> a
+> d
+bash
+> a > b > c > d
+ls > a > b > c > d
+ls > a > b > c
+deb=1
+ls > a > b > c
+deb=1
+ls > a > b > c
+bash
+ls > a > b > c
+> a > b > c > d
+deb=1
+> a > b > c > d
+> a > b > c
+deb=1
+> a > b > c
+ls > a > b > c
+deb=1
+> a > b > c
+deb=1
+> a > b > c
+deb=1
+> a > b > c
+deb=1
+> a > b > c
+deb=1
+> a > b > c
+make re
+> a > b > c
+clear
+clear
+deb=1
+deb=1
+> a > b > c
+deb=1
+> a > b > c
+>
+> a > b > c
+deb=1
+> a > b > c
+<< ola | cat
+<< ola >> output
+bash
+<< ola >> output
+bash
+<< ola >> output
+bash
+<< ola >> output
+deb=1
+<< ola >> output
+<< cool | echo
+<< cool | cat
+<< cool && cat
+bash
+(echo "Inside subshell" && ls -l) > sub_output.txt
+(echo "Inside subshell" && ls -l)
+deb=1
+(echo "Inside subshell" && ls -l)
+(echo "Inside subshell" && ls -l) > output
+deb=1
+deb=0
+(echo "Inside subshell" && ls -l) > output
+deb=1
+(echo "Inside subshell" && ls -l) > output
+(echo "Inside subshell") > output
+deb=0
+clear
+(echo "Inside subshell") > output
+(echo "Inside subshell" && ls -l) > output
+(echo "Inside subshell" && ls -l) > sub_output.txt
+(echo ls | cat) > sub_output.txt
+bash
+(echo ls | cat) > sub_output.txt
+(echo ls >> output.txt) > sub_output.txt
+bash
+(echo ls >> output.txt) > sub_output.txt
+deb=1
+(echo ls >> output.txt) > sub_output.txt
+(echo ls && ls >> output.txt) > sub_output.txt
+<< alo >> output.txt 
+echo cool >> outp
+deb=1
+echo cool >> outp
+deb=0
+clear
+echo cool >> outp
+echo ls >> output.txt
+echo $(ls) >> output.txt
+echo $((ls | cat) >> output) >> output.txt
+echo $(pwd) >> output.txt
+echo $((ls | cat) >> output) >> output.txt
+deb=1
+echo $((ls | cat) >> output) >> output.txt
+echo $((ls | cat) >> output && echo cool) >> output.txt
+echo $(pwd) >> output.txt
+echo $((ls | cat) >> output && echo cool) >> output.txt
+echo $USER
+bash
+echo hello$USERworld  
+cd -
+ls | grep minishell
+bash
+cat < file
+$?
+cat < file
+$?
+cat < eqgq
+$?
+clear
+cat < awkjfq || echo "no file"
+bash
+olpath=$path
+echo $oldpath
+olpath=$PATH
+echo $oldpath
+echo $PATH
+sleep 3
+var=3
+$var
+varos=$var
+echo $varos
+varos=$PATH
+echo $varos
+varos=$PATH && echo $varos
+clear
+export PATH=""
+ls
+clear
+prvp=$PATH && export PATH="" && ls || PATH=$prvp && ls
+echo $PATH
+prvp=$PATH && export PATH="" && echo fail || PATH=$prvp && echo success || echo fail
+prvp=$PATH && export PATH="" && echo fail || PATH=$prvp && echo success
+clear
+prvp=$PATH && export PATH="" && ls && echo fail || PATH=$prvp && ls && echo success
+prvp=$PATH && export PATH="" && ls && echo fail || PATH=$prvp && echo success
+PATH=""
+echo cool
+bash
+echo $LOGNAME
+bash
+ls | grep minishell
+echo cool && ls | grep minishell
+(ls | grep minishell)
+cd -
+ls | grep minishell
+(ls | grep minishell)
+pwd
+echo "exit" | ./minishell
+ls weifqoef || echo cool
+ls aenfwq
+$?
+echo top >> c_files
+$?
+echo a || echo b
+echo ola >> c_files || echo cool
+echo ola >> c_files && echo cool
+$?
+$?
+bash
+clear
+< alo
+< c_files
+bash
+echo ola >> c_files
+echo cool > c_files
+echo cool >> c_files
+$?
+echo cool >> c_files && echo yey
+echo cool >> c_files || echo yey
+echo cool || echo a
+echo cool >> c_files && echo yey
+ls weifqoef || echo cool
+ls oiqjwf
+$?
+echo cool >> c_files
+echo cool >> ola
+echo cool >> ~/Desktop/42/42_Projects_GIT
+echo cool >> ~/Desktop/42/42_Projects_GIT/ola.txt
+cd ..
+ls
+cd ..
+ls
+rm ola.txt 
+cat < awfq
+cat < c_files
+$?
+cd -
+pwd
+bash
+clear
+ls
+ls || echo cool
+ls (echo cool)
+bash
+ls (echo cool)
+ls (echo cool || echo top)
+ls $(echo cool || echo top)
+bash
+echo $(echo cool || echo top)
+bash
+echo $(pwd)
+echo $(pwd | cat)
+echo $(pwd | cat >> output)
+bash
+ls | echo cool
+ls | cat | cat | cat > output.txt | cat | cat
+env
+export
+echo -n cool
+echo ola
+cd .
+cd ~
+cd -
+pwd
+export
+env
+unset ola
+export ola=3
+unset ola
+exit 15
+ls *
+clear
+pwd *
+bash
+clear
+echo a >> output.txt && cat < output.txt 
+clear
+(echo a | cat) >> output.txt 
+clear
+<< alo
+clear
+<< alo
+<< cool
+> a > b > c
+ls > a > b > c
+(pwd && echo cool)
+(pwd && echo cool) >> a
+(pwd && echo cool) >> a > b > c
+(pwd && echo cool) > a > b > c
+echo wo &&  (pwd && echo cool) > a > b > c
+bash
+clear
+ls 2> output.txt 
+deb=1
+ls 2> output.txt 
+bash
+echo ola 2> cool
+$?
+echo ola 2> cool
+deb=1
+echo ola 2> cool
+clear
+echo ola 2> cool
+deb=1
+echo ola 2> cool
+deb=1
+echo ola 2> cool
+echo ola > cool
+echo ola 3> cool
+deb=1
+deb=1
+echo ola 3> cool
+deb=1
+echo ola 3> cool
+deb=1
+echo ola 3> cool
+echo ola 3134> cool
+echo ola -3134> cool
+echo ola 3134> cool
+echo ola > output.txt 
+ls welkmvq > output.txt 
+ls welkmvq 2> output.txt 
+ls welkmvq 2134> output.txt 
+clear
+ls welkmvq 2134> output.txt 
+ls welkmvq 2> output.txt
+ls welkmvq 10> output.txt
+ls welkmvq 3> output.txt
+ls welkmvq 2> output.txt
+ls welkmvq 3> output.txt
+ls welkmvq 1> output.txt
+deb=1
+ls welkmvq 1> output.txt
+clear
+ls welkmvq 1> output.txt
+ls welkmvq 2> output.txt
+ls welkmvq 10> output.txt
+bash
+ls welkmvq 10> output.txt
+ls welkmvq 2> output.txt
+echo cool 0> output.txt 
+echo cool 1> output.txt 
+bash
+echo cool 0> output.txt
+deb=1
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+clear
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+norm
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+deb=1
+echo cool 0> output.txt
+bash
+clear
+echo cool 0> output.txt
+echo cool -0> output.txt
+echo cool -10> output.txt
+deb=1
+echo cool -10> output.txt
+echo cool top super >> output.txt 
+clear
+echo cool top super >> output.txt 
+deb=1
+echo cool top super >> output.txt 
+bash
+cat 0< output.txt 
+cat 3< output.txt 
+echo >> output.txt cool super
+deb=1
+echo >> output.txt cool super
+echo cool top super >> output.txt 
+deb=1
+echo cool top super >> output.txt 
+deb=1
+echo cool top super >> output.txt 
+deb=0
+echo cool top super >> output.txt 
+clear
+echo cool top super >> output.txt 
+echo cool top 0> output.txt 
+echo cool top 1> output.txt 
+echo cool top 3> output.txt 
+echo cool top 2> output.txt 
+cat oqw 2> output.txt 
+ls
+pwd
+clear
+echo cool >> output.txt 
+ls | cat | cat | cat | cat
+clear
+<< ola > output.txt | cat > output.txt 
+<< ola > output.txt 
+<< ola 2> output.txt 
+clear
+pwda
+$?
+pawfj > output.txt 
+bash
+cat ouwef > output.txt 
+qwlefnj 2> output.txt 
+clear
+pwd
+ls
+echo cool 2>> output.txt 
+echo cool && cat alkmfl 2>> output.txt 
+(echo cool && cat alkmfl) 2>> output.txt
+(echo cool && cat alkmfl) 2> output.txt
+clear
+(echo cool && cat alkmfl) 2> output.txt
+(echo cool) 2> output.txt 
+(ls cool) 2> output.txt 
+cat qélwmfq 2> output.txt 
+(cat qélwmfq) 2> output.txt 
+(cat qélwmfq) 1> output.txt 
+(cat qélwmfq) 2> output.txt 
+cat qélwmfq)
+(cat qélwmfq) 30> output.txt 
+(cat qélwmfq) 2> output.txt 
+(cat qélwmfq) 1> output.txt 
+(cat qélwmfq) 0> output.txt 
+(echo cool && cat qélwmfq) 2> output.txt 
+clear
+pwd
+clear
+pwd
+clear
+deb=1
+ls
+clear
+pwd
+qeflq'
+cat asij || echo cool
+(cat asij || echo cool)
+deb=1
+(cat asij || echo cool)
+cat awlk
+ls
+cat aén
+$?
+cat lwkne
+ls
+cart lsaken
+(cat asij || echo cool)
+ls
+(cat asij || echo cool)
+echo cool && echo top
+(cat asij || echo cool)
+deb=2
+(cat asij || echo cool)
+deb=0
+clear
+(cat asij || echo cool)
+(cat asij && echo cool)
+(cat asij || echo cool) 2> output.txt 
+bash
+(cat asij || echo cool) 2> output.txt 
+clear
+pwd
+clear
+mak
+makos
+mac
+cd -
+clear
+echo -n "res = stderr redirected: error message > " && ls nonexistent 2> error.log && cat error.log && rm error.log  
+echo -n "res = stderr redirected: error message > " && ls nonexistent 2> error.log && cat error.log && rm error.log
+echo -n "res = stderr redirected: error message > " && ls nonexistent 2> error.log && cat error.log && rm error.log  
+touch ola.txt >> cool
+touch cool >> ola.txt
+echo cool >> ola.txt
+echo output >> ola
+cd -
+clear
+open google
+open qwk
+open https.//www.google.com
+open http.//www.google.com
+open http://www.google.com
+echo $OLDPWD
+cd ..
+echo $OLDPWD
+cd ..
+echo $OLDPWD
+echo cool ; echo top
+clear
+echo cool ; echo top
+echo cool echo top
+echo cool ; // echo top
+echo cool ; && echo top
+echo cool ; || echo top
+bash
+echo ola ; echo cool
+echo ola ; && echo cool
+clear
+echo ola ; && echo cool
+bash
+clear
+echo ola ; || echo top
+echo ola ; echo super && | echo cool
+echo ola ; echo super && || echo cool
+echo ola | || echo cool
+bash
+echo cool |
+bash
+clear
+bash
+clear
+pwd
+ls && echo cool
+ls && echo cool |
+echo cool'
+bash
+echo |=>
+bash
+clear
+bash
+bash
+deb=1
+ls
+echo |=>
+echo |>=
+bash
+deb=1
+echo |>=
+deb=0
+clear
+echo |>=
+bash
+echo | |
+echo | cat
+bash
+echo cool |
+bash
+echo < < < cool
+bash
+echo <> <
+echo | > pipe
+echo cool | > pipe
+bash
+echo cool | cat > pipe
+echo cool | cat > pipe |
+echo cool | 
+echo èarse
+echo èarse'
+echo |
+echo cool |
+cool '
+echo cool |

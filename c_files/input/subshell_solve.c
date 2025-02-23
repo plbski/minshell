@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 01:39:10 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 17:21:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 19:05:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static int	solve_subsh_in(t_data *d, t_token *start, t_token *rd)
 	if (rd->type == tk_red_in)
 	{
 		if (access(rd->next->name, F_OK) == -1)
-			return (printf("msh: %s: No file or dir\n", rd->next->name), 0);
+		{
+			ft_dprintf(2, "msh: %s: No file or dir\n", rd->next->name);
+			return (0);
+		}
 		fd = open(rd->next->name, O_RDONLY);
 	}
 	else
@@ -47,7 +50,7 @@ static int	solve_subsh_in(t_data *d, t_token *start, t_token *rd)
 	return (waitpid(pid, &status, 0), close(fd), 0);
 }
 
-static char	*get_subsh_output(t_data *d, t_token *start)
+static char	*get_subsh_output(t_data *d, t_token *start, int rd_fd)
 {
 	int		pipefd[2];
 	int		pid;
@@ -64,7 +67,7 @@ static char	*get_subsh_output(t_data *d, t_token *start)
 	{
 		d->fork_child++;
 		close(pipefd[0]);
-		dup2(STDOUT_FILENO, pipefd[1]);
+		dup2(pipefd[1], rd_fd);
 		close(pipefd[1]);
 		iterate_tokens(d, start);
 		custom_exit(d, NULL, NULL, EXIT_CHILD);
@@ -85,21 +88,23 @@ static t_token	*get_subsh_out(t_data *d, t_token *start, t_token *redir)
 	node = start;
 	if (d->debug_mode)
 		show_tokens_info(d, node, "subsh", -1);
-	output = get_subsh_output(d, start);
-	exit(0);
-	cmd = new_token(ft_strdup("echo"), NULL, tk_cmd, redir->par);
-	cmd->prv = start;
+	if (redir->rd_fd <= 0 || redir->rd_fd > 2)
+		output = get_subsh_output(d, start, 1);
+	else
+		output = get_subsh_output(d, start, redir->rd_fd);
+	if (!output)
+		output = ms_strdup(d, "");
+	cmd = new_token(ft_strdup("echo"), start, tk_cmd, redir->par);
 	start->next = cmd;
 	arg = new_token(output, cmd, tk_arg, redir->par);
+	redir->rd_fd = -1;
 	redir->prv = arg;
 	arg->next = redir;
-	cmd->next = arg;
 	if (redir->type == tk_pipe)
 		cmd->pipe_out = redir->next;
 	else
 		cmd->redir = redir;
-	cmd->red_arg = redir->next;
-	return (cmd);
+	return (cmd->next = arg, cmd->red_arg = redir->next, cmd);
 }
 
 t_token	*solve_subshell(t_data *d, t_token *start)

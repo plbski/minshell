@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 18:58:26 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 23:50:44 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_tktype	get_token_type(t_token *prv_eval, char *str)
 		return (tk_hered);
 	if (same_str(str, "|"))
 		return (tk_pipe);
+	if (same_str(str, ";"))
+		return (tk_cmdsep);
 	if (same_str(str, "&&") || same_str(str, "||"))
 		return (tk_logical);
 	if (same_str(str, "*"))
@@ -55,16 +57,31 @@ static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
 	return (start);
 }
 
-static	t_token	*set_tok(t_data *d, t_token *prv, char *splt, t_token *prv_eval)
+static	t_token	*set_tok(t_data *d, t_token *prv, char **sp, t_token *prv_evl)
 {
 	t_tktype	type;
 	t_token		*new_tok;
+	int			rd_fd;
+	char		nbr_buffer[999];
+	int			i;
 
-	type = get_token_type(prv_eval, splt);
+	rd_fd = -1;
+	i = -1;
+	while (ft_isdigit((*sp)[++i]))
+		nbr_buffer[i] = (*sp)[i];
+	nbr_buffer[i] = '\0';
+	if (i > 0 && (only_chars((*sp) + i, ">") || only_chars((*sp) + i, "<" )))
+	{
+		rd_fd = ft_atoi(nbr_buffer);
+		ms_rem_prefix(d, sp, nbr_buffer, 0);
+	}
+	type = get_token_type(prv_evl, *sp);
 	if (type == tk_wildcard)
 		new_tok = fill_wildcard(d, prv, d->brackets);
 	else
-		new_tok = new_token(ms_strdup(d, splt), prv, type, d->brackets);
+		new_tok = new_token(ms_strdup(d, *sp), prv, type, d->brackets);
+	if (rd_fd < 3)
+		new_tok->rd_fd = rd_fd;
 	return (new_tok);
 }
 
@@ -84,7 +101,7 @@ static t_token	*get_split_tokens(t_data *d, char **splits, t_token *lst)
 			d->brackets += 2 * (splits[i][0] == '(') - 1;
 			continue ;
 		}
-		lst = set_tok(d, lst, splits[i], prv_eval);
+		lst = set_tok(d, lst, &splits[i], prv_eval);
 		if (lst->type != tk_arg && !lst->is_rd)
 		{
 			if (prv_eval)
@@ -106,10 +123,11 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	token = get_split_tokens(d, splits, NULL);
 	free_void_array((void ***)&splits);
 	token = token_first(token);
-	//reorder_misplaced_redirs(d, token);
+	set_redir_redir(token);
 	link_token_pipes(token);
-	set_redir_args(token);
 	set_subshells(d, token);
+	if (!validate_token_sequence(d, token))
+		return (clear_tokens(token), NULL);
 	if (d->debug_mode)
 		show_tokens_info(d, token, "Init", -1);
 	return (token);

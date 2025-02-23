@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 20:03:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 23:15:46 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
 	if ((should_redir && node->redir) || d->heredocfd != -1)
 	{
 		if (!validate_redir(d, node->redir))
-			return (NULL);
-		if (node->redir->redir)
+			return (nxt);
+		if (node->redir && node->redir->redir)
 			nxt = handle_mult_redirs(d, node, arg, flags);
-		else
+		else if (node->redir)
 			nxt = handle_redir_cmd(d, node, arg, flags);
 		if (d->heredocfd != -1)
 			nxt = consumate_heredoc(d, node, arg, flags);
@@ -71,10 +71,10 @@ static t_token	*skip_nodes(t_data *d, t_token *node)
 
 static t_token	*handle_logical_token(t_data *d, t_token *node)
 {
-	if ((same_str(node->name, "||") && d->last_exit == FCT_OK) || \
-	(same_str(node->name, "&&") && d->last_exit > 0))
-		return (skip_nodes(d, node));
-	return (node->next);
+	if ((same_str(node->name, "||") && d->last_exit != FCT_OK) || \
+	(same_str(node->name, "&&") && d->last_exit == FCT_OK))
+		return (node->next);
+	return (skip_nodes(d, node));
 }
 
 static t_token	*handle_token(t_data *d, t_token *node)
@@ -106,6 +106,11 @@ void	iterate_tokens(t_data *d, t_token *node)
 
 	while (node)
 	{
+		node = update_node_expansion(d, node);
+		if (!node)
+			break ;
+		if (d->debug_mode)
+			show_cmd_status(d, node);
 		if (node->subsh_out)
 		{
 			solved_subshell = solve_subshell(d, node);
@@ -114,15 +119,11 @@ void	iterate_tokens(t_data *d, t_token *node)
 				node = solved_subshell;
 				if (d->debug_mode)
 				{
-					show_token_info(d, node, "sbh node", 7);
+					show_token_info(d, node, "subsh", -1);
 					printf("\n");
 				}
-				continue ;
 			}
 		}
-		update_node_expansion(d, node);
-		if (d->debug_mode)
-			show_cmd_status(d, node);
 		node = handle_token(d, node);
 	}
 }

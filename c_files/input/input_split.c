@@ -12,6 +12,30 @@
 
 #include "../../msh.h"
 
+int	get_directed_redir(t_data *d, char *str, int *i, char **joined)
+{
+	char	*split;
+	int		u;
+
+	*joined = NULL;
+	u = *i;
+	split = copy_until_char(d, str, &u, ">");
+	if (!split)
+		custom_exit(d, "alloc in input split", NULL, EXIT_FAILURE);
+	if (str[u + 1] == '>' && str[u + 2] == '>')
+	{
+		setstr(d, joined, ms_strjoin(d, split, ">>"));
+		*i = u + 3;
+	}
+	else if (str[u + 1] == '>')
+	{
+		setstr(d, joined, ms_strjoin(d, split, ">"));
+		*i = u + 2;
+	}
+	free(split);
+	return (*joined != NULL);
+}
+
 char	*get_token_in_split(t_data *d, char *str, int *i)
 {
 	char	first;
@@ -20,6 +44,8 @@ char	*get_token_in_split(t_data *d, char *str, int *i)
 	joined = NULL;
 	if (str[*i] == '$' && str[*i + 1] == '(')
 		return (get_cmd_subst(d, str, i, joined));
+	if (ft_isdigit(str[*i]) && get_directed_redir(d, str, i, &joined))
+		return (joined);
 	if (char_in_str(str[*i], "<>&|"))
 	{
 		first = str[(*i)++];

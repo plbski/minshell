@@ -9,10 +9,6 @@ tmarx
 - [X] > a ls > b < Makefile
 - [X] cd qwfn || (echo no_cd | cat)
 - [?] l^Ds
-- [OK] echo '$HOME'
-- [OK] > log echo coucou
-- [X] "exit retour a la ligne"
-- [X] minishell # binary not in path without "./" before
 - [ ] ctrl-C . 130 sur bin(ex : sleep 10)&line vide
 - [ ] ctrl-\ .131 sur bin
 - [ ] echo "bip | bip ; coyotte > < \" "
@@ -29,8 +25,10 @@ tmarx
 - [ ] echo ;;
 - [ ] echo hi";" hihi
 - [ ] echo hi "   ;   " hihi
-- [ ] (echo "Inside subshell" && ls -l) > sub_output.txt
 
+- [OK] (echo "Inside subshell" && ls -l) > sub_output.txt
+- [OK] minishell # binary not in path without "./" before
+- [OK] "exit retour a la ligne"
 - [OK] cd ../../../../../.. && echo $PWD
 - [OK] echo bonjour ; |
 - [OK] echo bonjour | |
@@ -85,6 +83,8 @@ tmarx
 - [OK] cd no_file
 - [OK] cd a b c d
 - [OK] pwd a
+- [OK] echo '$HOME'
+- [OK] > log echo coucou
 - [OK] pwd a b c d
 - [OK] export LOL=lala ROR=rara
 - [OK] unset LOL ROR

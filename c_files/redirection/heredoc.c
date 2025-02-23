@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 19:36:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 19:16:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,48 @@ int	exec_heredoc(char *nd, char *print, int heredoc_fd)
 		write(heredoc_fd, "\n", 1);
 		safe_free(line);
 	}
-	return (1);
+	return (setup_signal(0, 0), 1);
 }
 
 int	ft_heredoc(char *end, t_data *d, char *print)
 {
-	int	heredoc_fd;
-	int	heredoc_success;
+	int		heredoc_fd;
+	int		heredoc_success;
+	char	*here_name;
+	int		nbr;
 
+	nbr = 0;
+	here_name = d->heredoc_wd;
+	while (access(here_name, F_OK) != -1)
+	{
+		here_name = ft_itoa(nbr++);
+		if (!here_name)
+			custom_exit(d, "alloc in heredoc", NULL, EXIT_FAILURE);
+		setstr(d, &here_name, ms_strjoin(d, d->heredoc_wd, here_name));
+	}
+	if (here_name != d->heredoc_wd)
+		setstr(d, &d->heredoc_wd, here_name);
 	heredoc_fd = open(d->heredoc_wd, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (heredoc_fd == -1)
 		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
 	setup_signal(1, 1);
 	heredoc_success = exec_heredoc(end, print, heredoc_fd);
-	setup_signal(0, 0);
-	if (!heredoc_success)
+	if (heredoc_success)
+		return (heredoc_fd);
+	ft_dprintf(2, "msh: write error: Broken pipe\n");
+	return (close(heredoc_fd), -1);
+}
+
+int	handle_hered_redir(t_data *d, t_token *hered_arg)
+{
+	if (d->heredocfd != -1)
 	{
-		close(heredoc_fd);
-		printf("msh: write error: Broken pipe\n");
-		return (-1);
+		close(d->heredocfd);
+		d->heredocfd = -1;
 	}
-	return (heredoc_fd);
+	if (!hered_arg)
+		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
+	if (hered_arg)
+		d->heredocfd = ft_heredoc(hered_arg->name, d, "heredoc> ");
+	return (FCT_OK);
 }

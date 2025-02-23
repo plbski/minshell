@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/21 10:33:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 19:25:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ static int	init_msh_directories(t_data *d, char *path)
 
 void	init_base_stds(t_data *data)
 {
-	data->saved_stdin = -1;
-	data->saved_stdout = -1;
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		data->base_stds[i] = dup(i);
+		if (data->base_stds[i] == -1)
+			custom_exit(data, "failed to save stds", NULL, EXIT_FAILURE);
+		data->saved_stds[i] = -1;
+	}
 	data->heredocfd = -1;
-	data->base_stdin = dup(STDIN_FILENO);
-	data->base_stdout = dup(STDOUT_FILENO);
-	if (data->base_stdin == -1 || data->base_stdout == -1)
-		custom_exit(data, "failed to save stds", NULL, EXIT_FAILURE);
 }
 
 void	init_data_var(t_data *d)
@@ -68,9 +72,13 @@ void	init_data_var(t_data *d)
 	d->tmp_list = NULL;
 	d->var_list = NULL;
 	d->prv_input = NULL;
+	d->heredoc_wd = NULL;
+	d->heredocfd = -1;
+	d->var = 0;
+	d->shlvl = 0;
 	d->brackets = 0;
 	d->fork_child = 0;
-	d->last_exit = 0;
+	d->last_exit = FCT_OK;
 }
 
 void	init_msh_data(t_data *data, char *path, char **env)

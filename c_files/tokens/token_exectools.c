@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_execute_utils.c                              :+:      :+:    :+:   */
+/*   token_exectools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 18:46:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 19:16:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-static t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***flags)
+static t_token	*set_args(t_data *d, t_token *cmd, \
+		t_token *arg_token, char ***flags)
 {
 	t_dblist	*list;
 	t_token		*node;
@@ -24,7 +25,7 @@ static t_token	*set_args(t_data *d, t_token *cmd, t_token *arg_token, char ***fl
 	{
 		if (!node->is_rd && (!cmd->red_arg || cmd->red_arg != node))
 		{
-			update_node_expansion(d, node);
+			cmd = update_node_expansion(d, node);
 			if (!node->name)
 				node->name = ms_strdup(d, "");
 			dblst_add_back(&list, dblst_new(ms_strdup(d, node->name)));
@@ -46,13 +47,13 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 	t_token	*arg_token;
 
 	arg_token = cmd->next;
-	if (arg_token && arg_token->is_rd)
+	if (arg_token && arg_token->is_rd && arg_token->next)
 		arg_token = arg_token->next->next;
 	if (!arg_token)
 		return (NULL);
 	if (arg_token->type != tk_arg)
 		return (arg_token);
-	update_node_expansion(d, arg_token);
+	cmd = update_node_expansion(d, arg_token);
 	*arg = arg_token->name;
 	if (!*arg)
 		*arg = ft_strdup("");
@@ -66,7 +67,7 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 
 t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 {
-	char	*content;
+	char		*content;
 
 	d->heredocfd = open(d->heredoc_wd, O_RDONLY, 0644);
 	if (!cmd)
@@ -74,7 +75,8 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 		content = get_fd_content(d, d->heredocfd);
 		if (content)
 			printf("%s", content);
-		return (NULL);
+		execute_command(d, "rm", d->heredoc_wd, NULL);
+		return (safe_free(content), NULL);
 	}
 	save_stds(d);
 	dup2(d->heredocfd, STDIN_FILENO);
@@ -82,6 +84,7 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 	reset_redir(d);
 	d->heredocfd = -1;
 	close(d->heredocfd);
+	execute_command(d, "rm", d->heredoc_wd, NULL);
 	if (cmd->red_arg)
 		return (cmd->red_arg->next);
 	return (cmd->next);
@@ -96,32 +99,6 @@ int	validate_redir(t_data *d, t_token *redir)
 unexpected token `newline'\n"), 0);
 	else if (redir->type == tk_red_in && access(redir->next->name, F_OK) == -1)
 		return (ft_dprintf(2, "msh: %s: No such file or directory\n", \
-			redir->next->name), 0);
+redir->next->name), d->last_exit = FCT_FAIL, 0);
 	return (1);
-}
-
-void	swap_redir_cmd(t_data *d, t_token *node)
-{
-	t_token	*red_arg;
-	t_token	*cmd;
-
-	red_arg = node->next;
-	red_arg->type = tk_arg;
-	cmd = red_arg->next;
-	if (!cmd || ((((cmd->type == tk_cmd || cmd->type == tk_arg) && \
-		(cmd->next && cmd->next->is_rd)))))
-	{
-		cmd = new_token(ms_strdup(d, "null"), node->prv, tk_cmd, node->par);
-		if (node->prv)
-			node->prv->next = cmd;
-		node->prv = cmd;
-		cmd->next = node;
-	}
-	else
-	{
-		swap_tokens(node, cmd);
-		swap_tokens(cmd, red_arg);
-		cmd = node;
-	}
-	cmd->type = tk_cmd;
 }

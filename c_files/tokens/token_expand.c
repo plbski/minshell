@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 18:34:53 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 23:14:28 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 
 	str = NULL;
 	if (!split[*i + 1])
-		str = ms_strdup(d, "$");
+		str = ft_strdup("$");
 	else if (split[*i + 1] == '$')
 		str = ft_itoa(getpid());
 	else if (split[*i + 1] == '?')
 		str = ft_itoa(d->last_exit);
 	else if (split[*i + 1] == '0')
-		str = ms_strjoin(d, d->msh_wd, "/minishell");
+		str = ft_strjoin(d->msh_wd, "/minishell");
 	else
 		return (NULL);
 	if (!str)
@@ -48,6 +48,8 @@ char	*expand_segment(t_data *d, char *split, int *i)
 	while (split[*i] && (ft_isalnum(split[*i]) || split[*i] == '_'))
 		(*i)++;
 	var_name = copy_until_char(d, split, &start, "$?'\"./");
+	if (!var_name)
+		custom_exit(d, "Alloc in expand\n", NULL, -1);
 	value = get_env_value(d, d->env_list, var_name);
 	if (!value)
 		value = get_env_value(d, d->tmp_list, var_name);
@@ -110,23 +112,31 @@ void	expand_splits(t_data *d, char **splits)
 	}
 }
 
-void	update_node_expansion(t_data *d, t_token *node)
+t_token	*update_node_expansion(t_data *d, t_token *node)
 {
 	char	*new_name;
 
+	node = swap_redir_cmd(d, node);
+	if (node->type == tk_cmd)
+		set_redir_arg(node);
+	new_name = NULL;
 	if (!node->name)
 		node->name = ms_strdup(d, "");
 	if (!node->name[0])
-		return ;
+		return (node);
 	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/'))
 		replace_strstr(d, &node->name, "~", d->home_wd);
 	if (chr_amnt(node->name, '$'))
 	{
 		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);
-		if (new_name)
+		if (new_name && node->type == tk_cmd && chr_amnt(new_name, ' '))
+			node = insert_expanded_tokens(d, node, new_name);
+		else if (new_name)
 			setstr(d, &node->name, new_name);
 		else
 			setstr(d, &node->name, ms_strdup(d, ""));
 	}
-	remove_quotes(d, &node->name);
+	if (node)
+		remove_quotes(d, &node->name);
+	return (node);
 }

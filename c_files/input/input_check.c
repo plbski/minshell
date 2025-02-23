@@ -80,48 +80,9 @@ static int	set_par(t_data *d, char **input, int i)
 	return (free(input_end), free(*input), *input = new_input, 1);
 }
 
-static int	find_unvalid_patterns(char *input)
-{
-	const char	patterns[13][4] = {"| |", "& &", "& |", "| &", \
-		"&|", "|&", ">|", "<|", "|>", "|<", "< <", "$)", "> >"};
-	char		*pattern;
-	int			i;
-
-	i = -1;
-	while (++i < 13)
-	{
-		pattern = ft_strstr(input, patterns[i]);
-		if (pattern)
-			break ;
-	}
-	if (pattern)
-		return (printf("msh: syntax error near unexpected token `%c'\n", \
-				pattern[0]), 1);
-	return (0);
-}
-
 int	validate_input(t_data *d, char **input)
 {
-	int		i;
-	int		has_redir;
-	char	*str;
-
-	if (!*input || *input[0] == '\0' || find_unvalid_patterns(*input))
-		return (0);
 	if (!set_quotes(d, input) || !set_par(d, input, -1) || !set_pipe(d, input))
 		return (0);
-	has_redir = 0;
-	str = *input;
-	i = -1;
-	while (str[++i])
-	{
-		if ((str[i] == ';' || str[i] == '\\') && !in_quote(str, i))
-			return (ft_dprintf(2, "msh: syntax error near \
-unexpected token `%c'\n", str[i]), 0);
-		if ((str[i] == '<' || str[i] == '>') && !in_quote(str, i))
-			has_redir = 1;
-	}
-	if (!has_redir)
-		return (1);
-	return (check_redir_validity(*input));
+	return (1);
 }

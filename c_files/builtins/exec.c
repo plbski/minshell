@@ -6,13 +6,13 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 19:10:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 12:43:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-static int	handle_child(t_data *d, char *prg, char **argv)
+static int	exec_handle_child(t_data *d, char *prg, char **argv)
 {
 	char	**new_args;
 
@@ -33,7 +33,7 @@ static int	handle_child(t_data *d, char *prg, char **argv)
 	return (FCT_FAIL);
 }
 
-static int	handle_parent(pid_t child_pid)
+static int	exec_handle_parent(pid_t child_pid)
 {
 	int		wait_status;
 
@@ -118,6 +118,6 @@ int	exec(t_data *d, char *prg, char **argv, int is_direct)
 	if (child_pid == -1)
 		return (perror("fork"), -1);
 	if (child_pid == 0)
-		return (handle_child(d, prg_path, argv));
-	return (free(prg_path), handle_parent(child_pid));
+		return (exec_handle_child(d, prg_path, argv));
+	return (free(prg_path), exec_handle_parent(child_pid));
 }

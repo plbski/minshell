@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:29:00 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 17:21:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 17:20:02 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,20 @@ void	set_parenthesis_rdections(t_token *tok)
 	}
 	if (node && node->is_rd)
 		tok->redir = node;
+}
+
+int	only_chars(char *str, char *to_contain)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (str[++i])
+	{
+		j = -1;
+		while (to_contain[++j])
+			if (str[i] != to_contain[j])
+				return (0);
+	}
+	return (1);
 }

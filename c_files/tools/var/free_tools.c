@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/19 22:41:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 19:21:43 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ int	free_data(t_data *data)
 	free_count += safe_free(data->msh_wd);
 	free_count += safe_free(data->home_wd);
 	free_count += safe_free(data->prv_input);
+	if (data->heredocfd != -1)
+		close(data->heredocfd);
 	return (free_count);
 }

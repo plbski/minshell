@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/19 18:08:45 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/23 19:16:05 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static char	*get_valid_key(t_data *d, char *arg)
 			return (ms_strndup(d, arg, break_index));
 		return (ms_strdup(d, arg));
 	}
-	return (printf("msh: export: \'%s\': not a valid identifier\n", arg), NULL);
+	ft_dprintf(2, "msh: export: \'%s\': not a valid identifier\n", arg);
+	return (NULL);
 }
 
 static void	handle_joined_arg(t_data *d, char *key, char *value, int tmp_mem)
