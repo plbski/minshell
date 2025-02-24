@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/18 11:18:34 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 13:13:23 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int	get_char_index(char *str, char c)
 char	*get_fd_content(t_data *d, int fd)
 {
 	char	*full_content;
-	char	buffer[99999];
+	char	buffer[4096];
 	char	*tmp;
 	ssize_t	bytes_read;
 	size_t	total_length;
 
 	total_length = 0;
 	full_content = ms_strdup(d, "");
-	bytes_read = read(fd, buffer, 99999);
+	bytes_read = read(fd, buffer, 4096);
 	while (bytes_read > 0)
 	{
 		tmp = ms_realloc(d, full_content, total_length + bytes_read + 1);
@@ -67,7 +67,7 @@ char	*get_fd_content(t_data *d, int fd)
 		ft_memcpy(full_content + total_length, buffer, bytes_read);
 		total_length += bytes_read;
 		full_content[total_length] = '\0';
-		bytes_read = read(fd, buffer, 99999);
+		bytes_read = read(fd, buffer, 4096);
 	}
 	if (bytes_read == -1)
 		return (free(full_content), NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 19:21:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 13:25:43 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ int	free_data(t_data *data)
 	free_count += free_void_array((void ***)&data->environ);
 	free_count += safe_free(data->cwd);
 	free_count += safe_free(data->prev_cwd);
+	free_count += safe_free(data->msh_wd);
 	free_count += safe_free(data->man_wd);
+	free_count += safe_free(data->heredoc_wd);
 	free_count += safe_free(data->history_wd);
 	free_count += safe_free(data->logname);
 	free_count += safe_free(data->start_wd);
-	free_count += safe_free(data->msh_wd);
 	free_count += safe_free(data->home_wd);
 	free_count += safe_free(data->prv_input);
 	if (data->heredocfd != -1)

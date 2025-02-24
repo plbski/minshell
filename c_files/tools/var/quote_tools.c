@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 03:26:34 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 19:16:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 13:13:45 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	remove_quotes(t_data *d, char **str)
 		if (add_character(*str, i, &sgqt, &dbqt))
 			new_str[j++] = (*str)[i];
 	new_str[j] = '\0';
-	free(*str);
-	*str = new_str;
+	setstr(d, str, ms_strdup(d, new_str));
+	free(new_str);
 }
 
 int	in_quote(char *str, int index)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/23 23:50:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 12:45:39 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <readline/history.h>
 # include <termios.h>
 # include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define ERR_NOT_FOUND 	2
 # define ERR_NOT_EXEC 	1

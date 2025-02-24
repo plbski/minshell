@@ -3010,3 +3010,138 @@ echo |
 echo cool |
 cool '
 echo cool |
+clear
+pwd
+clear
+pwd
+ls
+echo cool >> output.txt
+clear
+pwd
+ls
+echo cool | cat >> output.txt
+clear
+> a > b > c > d
+ls *
+clear
+echo *
+echo $(pwd)
+cool
+./minishell
+clear
+ls | cat | cat | cat
+clear
+cool '
+<< ls
+<< cat
+ls | cat | cat | cat
+echo $(pwd)
+> a > b > c > d
+echo *
+echo cool | cat >> output.txt
+exit 24
+ls | cat | cat |cat
+clear
+ls | cat | cat |cat
+clear
+ls | cat | cat | cat
+ls | cat | cat |cat
+ls | cat | cat | cat
+clear
+ls | cat
+cat | cat | ls
+dd
+bash
+cat | cat | ls
+ls | cat | cat
+l
+ld
+cler
+clear
+cat | cat | ls
+spdam
+deb=1
+cat | cat | ls
+cat makefile | cat makefile | ls
+ls
+pwd
+clear
+ls | cat
+clear
+ls | cat | cat
+clear
+bash
+clear
+cat | cat | ls
+cat | cat
+bash
+cat | cat |cat
+clear
+bash
+cat | cat | ls
+deb=1
+cat | cat |ls
+pwd
+ls | ls | ls
+ls | pwd | echo cool
+clear
+cat | cat | ls
+lfneknees
+cat | ls
+pwd
+cat | ls
+ls
+clear
+./minishell
+ls | cat
+cat | ls
+./minishell
+cat | cat | ls
+cat | ls
+cat | cat | ;s
+cat | cat | ls
+bash
+cat | cat | ls
+clkear
+clear
+cat | cat
+cat | ls
+clear
+cat | cat | ls
+cat
+clear
+cat
+clear
+cat
+ls | cat
+vlrst
+clear
+ls | cat
+cat | cat | ls
+ls | cat
+clear
+git branch -a
+echo a b c
+echo -n a b c
+clear
+sourcer
+source
+cat | cat | ls
+clear
+cat | cat | ls
+clear
+cat | cat | ls
+clear
+cat | cat | ls
+echo cool | cat
+cat | cat | ls
+clear
+cat | ls
+cat | cat | ls
+cat | ls
+cat | cat | ls
+ls | cat
+cat | cat
+cat | cat | ls
+clear
+cat | cat | ls

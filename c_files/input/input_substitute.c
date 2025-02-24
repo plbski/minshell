@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_substitute.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:44:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 11:30:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 13:01:35 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,24 @@ char	*get_cmd_subst(t_data *d, char *str, int *i, char *ret_cmd)
 
 	*i += 2;
 	par_value = copy_until_char(d, str, i, ")");
-	if (pipe(pipefd) == -1)
+	if (!par_value || pipe(pipefd) == -1)
 		custom_exit(d, "pipe in cmdsubstr", NULL, EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
 		custom_exit(d, "fork in cmdsubstr", NULL, EXIT_FAILURE);
 	if (pid == 0)
 		handle_child(d, par_value, pipefd);
+	free(par_value);
 	waitpid(pid, &status, 0);
 	close(pipefd[1]);
 	setstr(d, &ret_cmd, get_fd_content(d, pipefd[0]));
-	close(pipefd[0]);
 	if (!ret_cmd)
-		return (ft_strdup(""));
+		return (ms_strdup(d, ""));
 	if (ret_cmd[ft_strlen(ret_cmd) - 1] == '\n')
 		ret_cmd[ft_strlen(ret_cmd) - 1] = '\0';
 	while (*i > 0 && str[*i] && str[(*i - 1)] != ')')
 		(*i)++;
-	return (ret_cmd);
+	return (close(pipefd[0]), ret_cmd);
 }
 
 char	*replace_split(t_data *d, char *split, int start)
@@ -61,7 +61,7 @@ char	*replace_split(t_data *d, char *split, int start)
 	j = start;
 	subst = get_cmd_subst(d, split, &j, NULL);
 	if (!subst)
-		subst = ft_strdup("");
+		subst = ms_strdup(d, "");
 	while (j - 1 >= 0 && split[j] && split[j - 1] != ')')
 		j++;
 	new_str = str_insert(split, start, j - 1, subst);

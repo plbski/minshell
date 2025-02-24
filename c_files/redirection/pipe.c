@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 23:14:51 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 16:18:23 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
+
+
+static void	close_fds_and_free(int **pfds, int *pids, int end)
+{
+	int	i;
+
+	i = -1;
+	while (++i <= end)
+	{
+		close(pfds[i][0]);
+		close(pfds[i][1]);
+		free(pfds[i]);
+	}
+	free(pids);
+	free(pfds);
+}
 
 static int	cleanup(int or_std, int **fds, int *pids, int pipes_count)
 {
@@ -21,14 +37,6 @@ static int	cleanup(int or_std, int **fds, int *pids, int pipes_count)
 	exit_st = 0;
 	i = -1;
 	while (++i < pipes_count)
-	{
-		close(fds[i][0]);
-		close(fds[i][1]);
-		free(fds[i]);
-	}
-	free(fds);
-	i = -1;
-	while (++i < pipes_count)
 		waitpid(pids[i], NULL, 0);
 	if (waitpid(pids[i], &status, 0) != -1)
 	{
@@ -37,7 +45,10 @@ static int	cleanup(int or_std, int **fds, int *pids, int pipes_count)
 		else if (WIFSIGNALED(status))
 			exit_st = 128 + WTERMSIG(status);
 	}
-	return (close(or_std), dup2(or_std, STDIN_FILENO), close(or_std), exit_st);
+	close_fds_and_free(fds, pids, pipes_count);
+	dup2(or_std, STDIN_FILENO);
+	close(or_std);
+	return (exit_st);
 }
 
 static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
@@ -57,7 +68,10 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 	}
 	cmd = update_node_expansion(d, cmd);
 	if (cmd)
+	{
 		handle_command_token(d, cmd, 1);
+		clear_tokens(token_first(cmd));
+	}
 }
 
 static void	iterate_pipes(t_data *d, t_token *strt_cmd, int **pfds, int *pids)
@@ -80,6 +94,7 @@ static void	iterate_pipes(t_data *d, t_token *strt_cmd, int **pfds, int *pids)
 				execute_cmd(d, strt_cmd, pfds[i - 1], NULL);
 			else
 				execute_cmd(d, strt_cmd, pfds[i - 1], pfds[i]);
+			close_fds_and_free(pfds, pids, pipes_len);
 			custom_exit(d, NULL, NULL, d->last_exit);
 		}
 		close(pfds[i][1]);
