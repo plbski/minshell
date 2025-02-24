@@ -3010,138 +3010,153 @@ echo |
 echo cool |
 cool '
 echo cool |
-clear
-pwd
-clear
-pwd
 ls
-echo cool >> output.txt
-clear
-pwd
-ls
-echo cool | cat >> output.txt
-clear
-> a > b > c > d
-ls *
-clear
-echo *
 echo $(pwd)
-cool
+echo $(ls | cat >> output)
+echo cool > a > b > c
+(echo cool | cat >> output) >> output.txt
+clear
+$MSH
+cd minishell
+ls
+cd mainmini
+clear
+minishell
+clear
+$0
+<< here 
+< ola
+<< ola
+clear
+cat qwkfq 2>> output
+cat qwkfq -1>> output
+cd -
+SEGLEN=3
+ls
+cd c_files
+SEGLEN=300
+mls
+qwiprf'
+deb=1
+echo ola; ls > output | cat
+deb=1
+echo ola; ls > output | cat
+deb=1
+ls
+var $deb
+deb=1
+echo ola; ls > output | cat
+> ola > b > c > d
+clear
+var="ls | cat"
+deb=0
+clear
+$var
+clear
+echo $var
+var="&& echo cool"
+echo lol $var
+$var
+bash
+var="ls && cat"
+var=""
+$var
+var="(echo $(pwd) | cat) && var2="$var && $var"
+var="$var"
+$var
+var=$var
+$var
+echo var
+var="echo var && $var"
+$var
+var="echo var; $var"
+$var
+ls | cat | cat | cat
+ls | cat >> output | cat | cat
+clear
+ls | cat olqwf
+$?
+minishell
+$PATH
 ./minishell
 clear
-ls | cat | cat | cat
+exec c_files
+./c_files
 clear
-cool '
-<< ls
-<< cat
-ls | cat | cat | cat
-echo $(pwd)
-> a > b > c > d
-echo *
-echo cool | cat >> output.txt
-exit 24
-ls | cat | cat |cat
+ls
+cd c_files
 clear
-ls | cat | cat |cat
+ls
+cd init
 clear
-ls | cat | cat | cat
-ls | cat | cat |cat
-ls | cat | cat | cat
-clear
-ls | cat
-cat | cat | ls
-dd
+ls
+./init.c
 bash
-cat | cat | ls
-ls | cat | cat
-l
-ld
 cler
 clear
-cat | cat | ls
-spdam
-deb=1
-cat | cat | ls
-cat makefile | cat makefile | ls
-ls
 pwd
+env
+unset SHLVL PATH _ PWD
+env
+export a=b
+export
+unset MSH SEGLEN a
+export
+bash
+exit 13
+bash
+$?
+bash
+exit 1 b c
+exit a b c
+bash
+ola=3
+export
+export | grep ola
 clear
-ls | cat
-clear
+var
+export ola
+echo $ola
+unset ola
+export ola+=3
+echo $ola
+ola+=5
+echo $ola
+32Ola=3
+32Ola=3 && echo ola
+32Ola=3 || echo ola
+cd 
+cd -
+ls c_files
+source
+source b
+source c
+bash
+source
+bash
+"''"
+"''
+"'"'
+bash
+cat 
+cat | cat | ls
+ls
+cat | cat | ls
+make re
+cat | cat | ls
+ls | ls | ls
+echo cool | echo cool | echo cool
+ls | cat | cat
+echo cool | echo cool | echo cool
 ls | cat | cat
 clear
-bash
-clear
-cat | cat | ls
-cat | cat
-bash
-cat | cat |cat
-clear
-bash
-cat | cat | ls
-deb=1
-cat | cat |ls
-pwd
-ls | ls | ls
-ls | pwd | echo cool
-clear
-cat | cat | ls
-lfneknees
-cat | ls
-pwd
-cat | ls
-ls
-clear
-./minishell
-ls | cat
-cat | ls
-./minishell
-cat | cat | ls
-cat | ls
-cat | cat | ;s
-cat | cat | ls
-bash
-cat | cat | ls
-clkear
-clear
-cat | cat
-cat | ls
-clear
-cat | cat | ls
-cat
-clear
-cat
-clear
-cat
-ls | cat
-vlrst
+ls | cat | cat
+ls | cat | cat | cat
+ls | cat | cat | cat | cat | cat |cat | cat | cat | cat |cat |cat |cat |cat |cat |cat | cat | cat
 clear
 ls | cat
-cat | cat | ls
-ls | cat
+ls | cat | cat | cat | cat | cat |cat | cat | cat | cat |cat |cat |cat |cat |cat |cat | cat | cat
 clear
-git branch -a
-echo a b c
-echo -n a b c
-clear
-sourcer
-source
+ls | cat | cat | cat | cat | cat |cat | cat | cat | cat |cat |cat |cat |cat |cat |cat | cat | cat
 cat | cat | ls
-clear
-cat | cat | ls
-clear
-cat | cat | ls
-clear
-cat | cat | ls
-echo cool | cat
-cat | cat | ls
-clear
-cat | ls
-cat | cat | ls
-cat | ls
-cat | cat | ls
-ls | cat
-cat | cat
-cat | cat | ls
-clear
-cat | cat | ls
+cat | cat | cat | ls

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 13:25:43 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:51:01 by pbuet            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	free_data(t_data *data)
 	free_count += safe_free(data->start_wd);
 	free_count += safe_free(data->home_wd);
 	free_count += safe_free(data->prv_input);
+	reset_redir(data);
+	restore_fds(data);
 	if (data->heredocfd != -1)
 		close(data->heredocfd);
 	return (free_count);
