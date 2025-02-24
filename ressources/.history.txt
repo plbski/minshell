@@ -3160,3 +3160,33 @@ clear
 ls | cat | cat | cat | cat | cat |cat | cat | cat | cat |cat |cat |cat |cat |cat |cat | cat | cat
 cat | cat | ls
 cat | cat | cat | ls
+ls | cat | cat | cat | cat | cat |cat | cat | cat | cat |cat |cat |cat |cat |cat |cat | cat | cat
+clear
+cat | cat | ls
+cat | ls
+bash
+cat | ls
+clear
+ls
+pwd
+clear
+cat | ls
+clear
+ls | cat oqwf
+$?
+clkear
+clear
+cat | ls
+ls | cat | cat
+clear
+cat | cat | cat | cat | ls
+bash
+clear
+ls
+clear
+echo cool >> output
+> a > b > c > d
+echo cool > a > b > c > d
+echo cool > a > b > c > d > e
+ls *
+clear

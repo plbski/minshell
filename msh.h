@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/24 17:22:53 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/24 18:48:07 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,5 +355,7 @@ void		swap_tokens(t_token *a, t_token *b);
 char		*get_next_line(int fd);
 int			only_chars(char *str, char *to_contain);
 int			validate_token_sequence(t_data *d, t_token *tok);
+void		free_pfds_and_pids(int **pfds, int *pids, int count);
+int			cleanup(int **fds, int *pids, int pipes_count);
 
 #endif

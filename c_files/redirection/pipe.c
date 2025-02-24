@@ -3,59 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 18:03:38 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/24 18:48:54 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
-
-
-static void	close_fds_and_free(int **pfds, int *pids, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		close(pfds[i][0]);
-		close(pfds[i][1]);
-		free(pfds[i]);
-		i++;
-	}
-	free(pfds);
-	free(pids);
-}
-
-static int	cleanup(int **fds, int *pids, int pipes_count)
-{
-	int	i;
-	int	status;
-	int	exit_st;
-
-	exit_st = 0;
-	i = -1;
-	while (++i < pipes_count)
-		waitpid(pids[i], NULL, 0);
-	if (waitpid(pids[i], &status, 0) != -1)
-	{
-		if (WIFEXITED(status))
-			exit_st = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			exit_st = 128 + WTERMSIG(status);
-	}
-	close_fds_and_free(fds, pids, pipes_count);
-	return (exit_st);
-}
 
 static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 {
 	d->fork_child++;
 	if (fd_in)
 	{
-		close(fd_in[1]); 
+		close(fd_in[1]);
 		if (dup2(fd_in[0], STDIN_FILENO) == -1)
 			custom_exit(d, "dup2", NULL, EXIT_FAILURE);
 		close(fd_in[0]);
@@ -75,45 +37,38 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 	}
 }
 
+static void	handle_pipe_child(t_data *d, t_token *cmd, int i, int **pfds)
+{
+	if (i == 0 && (d->var + 1) > 1)
+		execute_cmd(d, cmd, NULL, pfds[i]);
+	else if (i == 0)
+		execute_cmd(d, cmd, NULL, NULL);
+	else if (i == d->var)
+		execute_cmd(d, cmd, pfds[i - 1], NULL);
+	else
+		execute_cmd(d, cmd, pfds[i - 1], pfds[i]);
+	custom_exit(d, NULL, NULL, d->last_exit);
+}
+
 static void	iterate_pipes(t_data *d, t_token *cmd, int **pfds, int *pids)
 {
 	int		i;
-	int		num_cmds;
 
-	num_cmds = d->var + 1;
-	i = 0;
-	while (i < num_cmds)
+	i = -1;
+	while (++i < d->var + 1)
 	{
-		if (i < num_cmds - 1)
-		{
-			if (pipe(pfds[i]) == -1)
-				custom_exit(d, "error in pipe_fd", NULL, EXIT_FAILURE);
-		}
+		if (i < d->var && pipe(pfds[i]) == -1)
+			custom_exit(d, "error in pipe_fd", NULL, EXIT_FAILURE);
 		pids[i] = fork();
 		if (pids[i] < 0)
 			custom_exit(d, "fork", NULL, EXIT_FAILURE);
 		if (pids[i] == 0)
-		{
-			if (i == 0)
-			{
-				if (num_cmds > 1)
-					execute_cmd(d, cmd, NULL, pfds[i]);
-				else
-					execute_cmd(d, cmd, NULL, NULL);
-			}
-			else if (i == num_cmds - 1)
-				execute_cmd(d, cmd, pfds[i - 1], NULL);
-			else
-				execute_cmd(d, cmd, pfds[i - 1], pfds[i]);
-			custom_exit(d, NULL, NULL, d->last_exit);
-		}
-		if (i > 0)
-		{
-			close(pfds[i - 1][0]);
-			close(pfds[i - 1][1]);
-		}
+			handle_pipe_child(d, cmd, i, pfds);
 		cmd = cmd->pipe_out;
-		i++;
+		if (i <= 0)
+			continue ;
+		close(pfds[i - 1][0]);
+		close(pfds[i - 1][1]);
 	}
 }
 
@@ -125,10 +80,11 @@ static void	init_pipes(t_data *d, t_token *strt_cmd, int pipes_len, int i)
 	pipe_fds = ms_malloc(d, sizeof(int *) * (pipes_len + 1));
 	i = -1;
 	while (++i < pipes_len + 1)
-		pipe_fds[i] = malloc(sizeof(int) * 2);
+		pipe_fds[i] = ms_malloc(d, sizeof(int) * 2);
 	pids = ms_malloc(d, sizeof(pid_t) * (pipes_len + 1));
 	d->var = pipes_len;
 	iterate_pipes(d, strt_cmd, pipe_fds, pids);
+	d->var = 0;
 	setup_signal(1, 0);
 	d->last_exit = cleanup(pipe_fds, pids, pipes_len);
 	setup_signal(0, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 17:51:01 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/24 18:51:38 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,28 @@ int	free_void_array(void ***item)
 	return (free_count);
 }
 
+void	close_stds(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		if (data->base_stds[i] != -1)
+		{
+			close(data->base_stds[i]);
+			data->base_stds[i] = -1;
+		}
+		if (data->saved_stds[i] != -1)
+		{
+			close(data->saved_stds[i]);
+			data->saved_stds[i] = -1;
+		}
+	}
+	if (data->heredocfd != -1)
+		close(data->heredocfd);
+}
+
 int	free_data(t_data *data)
 {
 	int	free_count;
@@ -64,9 +86,6 @@ int	free_data(t_data *data)
 	free_count += safe_free(data->start_wd);
 	free_count += safe_free(data->home_wd);
 	free_count += safe_free(data->prv_input);
-	reset_redir(data);
-	restore_fds(data);
-	if (data->heredocfd != -1)
-		close(data->heredocfd);
+	close_stds(data);
 	return (free_count);
 }
