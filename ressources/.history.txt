@@ -3647,3 +3647,9 @@ deb=1
 << a | cat | cat | cat
 << a | cat | cat | cat | << b
 clear
+<< a | cat | cat | cat | << b
+clear
+<< alo
+<< alo | << cool
+<< alo | cat
+<< alo | cat | << top

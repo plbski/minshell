@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 02:20:38 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/25 12:02:30 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 12:08:52 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,25 @@
 
 char	*name_heredoc(t_data *d)
 {
-	const char	*base = {"0123456789ABCDEF"};
+	const char	*base = "0123456789ABCDEF";
 	pid_t		pid;
 	int			j;
+	char		tmp[9];
 	char		*result;
 
-	j = 0;
+	j = 8;
+	tmp[j] = '\0';
 	pid = getpid() + d->fork_child;
-	result = malloc(9);
+
+	while (j > 0)
+	{
+		tmp[--j] = base[pid % 16];
+		pid /= 16;
+	}
+	result = ft_strjoin("/ressources/", &tmp[j]);
 	if (!result)
 		custom_exit(d, "alloc in heredoc\n", NULL, EXIT_FAILURE);
-	while (pid > 16)
-	{
-		result[j] = base[pid % 16];
-		pid = pid / 16;
-		j ++;
-	}
-	result = ft_megajoin(d->start_wd, "/ressources/", result, NULL);
+	result = ft_megajoin(d->start_wd, result, NULL, NULL);
 	if (!result)
 		custom_exit(d, "alloc in heredoc\n", NULL, EXIT_FAILURE);
 	return (result);

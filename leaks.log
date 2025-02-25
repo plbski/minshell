@@ -1,1016 +1,392 @@
-==2651643== Memcheck, a memory error detector
-==2651643== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==2651643== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==2651643== Command: ./minishell
-==2651643== Parent PID: 2651642
-==2651643== 
-==2651708== 
-==2651708== FILE DESCRIPTORS: 7 open (3 std) at exit.
-==2651708== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2651708==    <inherited from parent>
-==2651708== 
-==2651708== Open AF_UNIX socket 43: <unknown>
-==2651708==    <inherited from parent>
-==2651708== 
-==2651708== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
-==2651708==    <inherited from parent>
-==2651708== 
-==2651708== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
-==2651708==    <inherited from parent>
-==2651708== 
-==2651708== 
-==2651708== HEAP SUMMARY:
-==2651708==     in use at exit: 411,883 bytes in 11,006 blocks
-==2651708==   total heap usage: 19,097 allocs, 8,091 frees, 1,668,232 bytes allocated
-==2651708== 
-==2651708== 8 bytes in 1 blocks are still reachable in loss record 3 of 73
-==2651708==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651708==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x110A79: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708== 
-==2651708== 16 bytes in 1 blocks are still reachable in loss record 9 of 73
-==2651708==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651708==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x110A19: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708== 
-==2651708== 16 bytes in 2 blocks are still reachable in loss record 10 of 73
-==2651708==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651708==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x110A4C: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651708== 
-==2651708== LEAK SUMMARY:
-==2651708==    definitely lost: 0 bytes in 0 blocks
-==2651708==    indirectly lost: 0 bytes in 0 blocks
-==2651708==      possibly lost: 0 bytes in 0 blocks
-==2651708==    still reachable: 40 bytes in 4 blocks
-==2651708==         suppressed: 411,843 bytes in 11,002 blocks
-==2651708== 
-==2651708== For lists of detected and suppressed errors, rerun with: -s
-==2651708== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==2651709== 
-==2651709== FILE DESCRIPTORS: 7 open (3 std) at exit.
-==2651709== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2651709==    <inherited from parent>
-==2651709== 
-==2651709== Open AF_UNIX socket 43: <unknown>
-==2651709==    <inherited from parent>
-==2651709== 
-==2651709== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
-==2651709==    <inherited from parent>
-==2651709== 
-==2651709== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
-==2651709==    <inherited from parent>
-==2651709== 
-==2651709== 
-==2651709== HEAP SUMMARY:
-==2651709==     in use at exit: 411,883 bytes in 11,006 blocks
-==2651709==   total heap usage: 19,121 allocs, 8,115 frees, 1,668,922 bytes allocated
-==2651709== 
-==2651709== 8 bytes in 1 blocks are still reachable in loss record 3 of 73
-==2651709==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651709==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x110A79: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709== 
-==2651709== 16 bytes in 1 blocks are still reachable in loss record 9 of 73
-==2651709==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651709==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x110A19: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709== 
-==2651709== 16 bytes in 2 blocks are still reachable in loss record 10 of 73
-==2651709==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651709==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x110A4C: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651709== 
-==2651709== LEAK SUMMARY:
-==2651709==    definitely lost: 0 bytes in 0 blocks
-==2651709==    indirectly lost: 0 bytes in 0 blocks
-==2651709==      possibly lost: 0 bytes in 0 blocks
-==2651709==    still reachable: 40 bytes in 4 blocks
-==2651709==         suppressed: 411,843 bytes in 11,002 blocks
-==2651709== 
-==2651709== For lists of detected and suppressed errors, rerun with: -s
-==2651709== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==2651797== 
-==2651797== FILE DESCRIPTORS: 7 open (3 std) at exit.
-==2651797== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2651797==    <inherited from parent>
-==2651797== 
-==2651797== Open AF_UNIX socket 43: <unknown>
-==2651797==    <inherited from parent>
-==2651797== 
-==2651797== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
-==2651797==    <inherited from parent>
-==2651797== 
-==2651797== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
-==2651797==    <inherited from parent>
-==2651797== 
-==2651797== 
-==2651797== HEAP SUMMARY:
-==2651797==     in use at exit: 412,204 bytes in 11,016 blocks
-==2651797==   total heap usage: 19,296 allocs, 8,280 frees, 1,673,076 bytes allocated
-==2651797== 
-==2651798== 
-==2651798== FILE DESCRIPTORS: 7 open (3 std) at exit.
-==2651798== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2651798==    <inherited from parent>
-==2651798== 
-==2651798== Open AF_UNIX socket 43: <unknown>
-==2651798==    <inherited from parent>
-==2651798== 
-==2651798== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
-==2651798==    <inherited from parent>
-==2651798== 
-==2651798== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
-==2651798==    <inherited from parent>
-==2651798== 
-==2651798== 
-==2651798== HEAP SUMMARY:
-==2651798==     in use at exit: 412,204 bytes in 11,016 blocks
-==2651798==   total heap usage: 19,296 allocs, 8,280 frees, 1,673,074 bytes allocated
-==2651798== 
-==2651798== 8 bytes in 1 blocks are still reachable in loss record 3 of 75
-==2651798==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651798==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x110A79: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FBA4: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798== 
-==2651798== 9 bytes in 2 blocks are still reachable in loss record 4 of 75
-==2651798==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651798==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x11456B: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798== 
-==2651798== 16 bytes in 1 blocks are still reachable in loss record 10 of 75
-==2651798==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651798==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x110A19: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FBA4: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798== 
-==2651798== 16 bytes in 2 blocks are still reachable in loss record 11 of 75
-==2651798==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651798==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x110A4C: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FBA4: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798== 
-==2651798== 176 bytes in 2 blocks are still reachable in loss record 30 of 75
-==2651798==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651798==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651798== 
-==2651798== LEAK SUMMARY:
-==2651798==    definitely lost: 0 bytes in 0 blocks
-==2651798==    indirectly lost: 0 bytes in 0 blocks
-==2651798==      possibly lost: 0 bytes in 0 blocks
-==2651798==    still reachable: 225 bytes in 8 blocks
-==2651798==         suppressed: 411,979 bytes in 11,008 blocks
-==2651798== 
-==2651798== For lists of detected and suppressed errors, rerun with: -s
-==2651798== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==2651797== 8 bytes in 1 blocks are still reachable in loss record 3 of 75
-==2651797==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651797==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x110A79: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FBA4: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797== 
-==2651797== 9 bytes in 2 blocks are still reachable in loss record 4 of 75
-==2651797==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651797==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x11456B: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797== 
-==2651797== 16 bytes in 1 blocks are still reachable in loss record 10 of 75
-==2651797==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651797==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x110A19: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FBA4: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797== 
-==2651797== 16 bytes in 2 blocks are still reachable in loss record 11 of 75
-==2651797==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651797==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x110A4C: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FBA4: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797== 
-==2651797== 176 bytes in 2 blocks are still reachable in loss record 30 of 75
-==2651797==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651797==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651797== 
-==2651797== LEAK SUMMARY:
-==2651797==    definitely lost: 0 bytes in 0 blocks
-==2651797==    indirectly lost: 0 bytes in 0 blocks
-==2651797==      possibly lost: 0 bytes in 0 blocks
-==2651797==    still reachable: 225 bytes in 8 blocks
-==2651797==         suppressed: 411,979 bytes in 11,008 blocks
-==2651797== 
-==2651797== For lists of detected and suppressed errors, rerun with: -s
-==2651797== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==2651796== 
-==2651796== FILE DESCRIPTORS: 7 open (3 std) at exit.
-==2651796== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2651796==    <inherited from parent>
-==2651796== 
-==2651796== Open AF_UNIX socket 43: <unknown>
-==2651796==    <inherited from parent>
-==2651796== 
-==2651796== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
-==2651796==    <inherited from parent>
-==2651796== 
-==2651796== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
-==2651796==    <inherited from parent>
-==2651796== 
-==2651796== 
-==2651796== HEAP SUMMARY:
-==2651796==     in use at exit: 412,625 bytes in 11,022 blocks
-==2651796==   total heap usage: 19,292 allocs, 8,270 frees, 1,673,056 bytes allocated
-==2651796== 
-==2651796== 5 bytes in 1 blocks are still reachable in loss record 1 of 73
-==2651796==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651796==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10BF00: remove_quotes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x115BB3: update_node_expansion (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x1160B7: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10FBA4: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796== 
-==2651796== 25 bytes in 6 blocks are still reachable in loss record 11 of 73
-==2651796==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651796==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x11456B: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796== 
-==2651796== 616 bytes in 7 blocks are still reachable in loss record 31 of 73
-==2651796==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651796==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651796== 
-==2651796== LEAK SUMMARY:
-==2651796==    definitely lost: 0 bytes in 0 blocks
-==2651796==    indirectly lost: 0 bytes in 0 blocks
-==2651796==      possibly lost: 0 bytes in 0 blocks
-==2651796==    still reachable: 646 bytes in 14 blocks
-==2651796==         suppressed: 411,979 bytes in 11,008 blocks
-==2651796== 
-==2651796== For lists of detected and suppressed errors, rerun with: -s
-==2651796== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==2651643== Invalid read of size 1
-==2651643==    at 0x118C56: ft_memcpy (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10AB04: ms_realloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10A71D: get_fd_content (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10FBF0: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==  Address 0xd2700c1 is 0 bytes after a block of size 1 alloc'd
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10A6C0: get_fd_content (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10FBF0: get_subsh_output (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10FCA4: get_subsh_out (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10FEB5: solve_subshell (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116107: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== Warning: invalid file descriptor -1 in syscall close()
-==2651643== Invalid read of size 1
-==2651643==    at 0x118C56: ft_memcpy (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10AB04: ms_realloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10A71D: get_fd_content (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x114B6F: consumate_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E406: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==  Address 0xd298b61 is 0 bytes after a block of size 1 alloc'd
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10A6C0: get_fd_content (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x114B6F: consumate_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E406: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== Warning: invalid file descriptor -1 in syscall close()
-==2652833== Warning: invalid file descriptor -1 in syscall close()
-==2652832== Warning: invalid file descriptor -1 in syscall close()
-==2652833== 
-==2652833== FILE DESCRIPTORS: 14 open (3 std) at exit.
-==2652833== Open file descriptor 13: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt000
-==2652833==    at 0xCE4A53B: open (open64.c:41)
-==2652833==    by 0x114B46: consumate_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115CE1: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110730: execute_cmd (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110807: handle_pipe_child (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110969: iterate_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110AA2: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== Open file descriptor 12: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt000
-==2652833==    at 0xCE4A53B: open (open64.c:41)
-==2652833==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== Open file descriptor 11: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt000
-==2652833==    at 0xCE4A53B: open (open64.c:41)
-==2652833==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== Open file descriptor 10: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt00
-==2652833==    at 0xCE4A53B: open (open64.c:41)
-==2652833==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== Open file descriptor 9: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2652833==    at 0xCE4A53B: open (open64.c:41)
-==2652833==    by 0x114B46: consumate_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115CE1: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== Open file descriptor 8: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2652833==    at 0xCE4A53B: open (open64.c:41)
-==2652833==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== Open file descriptor 7: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2652833==    at 0xCE4A53B: open (open64.c:41)
-==2652833==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2652833==    <inherited from parent>
-==2652833== 
-==2652833== Open AF_UNIX socket 43: <unknown>
-==2652833==    <inherited from parent>
-==2652833== 
-==2652833== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
-==2652833==    <inherited from parent>
-==2652833== 
-==2652833== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
-==2652833==    <inherited from parent>
-==2652833== 
-==2652833== 
-==2652833== HEAP SUMMARY:
-==2652833==     in use at exit: 414,457 bytes in 11,104 blocks
-==2652833==   total heap usage: 21,091 allocs, 9,987 frees, 1,754,457 bytes allocated
-==2652833== 
-==2652832== 
-==2652832== FILE DESCRIPTORS: 14 open (3 std) at exit.
-==2652832== Open file descriptor 13: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt000
-==2652832==    at 0xCE4A53B: open (open64.c:41)
-==2652832==    by 0x114B46: consumate_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115CE1: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110730: execute_cmd (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x1107A5: handle_pipe_child (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110969: iterate_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110AA2: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== Open file descriptor 12: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt000
-==2652832==    at 0xCE4A53B: open (open64.c:41)
-==2652832==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== Open file descriptor 11: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt000
-==2652832==    at 0xCE4A53B: open (open64.c:41)
-==2652832==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== Open file descriptor 10: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt00
-==2652832==    at 0xCE4A53B: open (open64.c:41)
-==2652832==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== Open file descriptor 9: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2652832==    at 0xCE4A53B: open (open64.c:41)
-==2652832==    by 0x114B46: consumate_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115CE1: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== Open file descriptor 8: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2652832==    at 0xCE4A53B: open (open64.c:41)
-==2652832==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== Open file descriptor 7: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2652832==    at 0xCE4A53B: open (open64.c:41)
-==2652832==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2652832==    <inherited from parent>
-==2652832== 
-==2652832== Open AF_UNIX socket 43: <unknown>
-==2652832==    <inherited from parent>
-==2652832== 
-==2652832== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
-==2652832==    <inherited from parent>
-==2652832== 
-==2652832== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
-==2652832==    <inherited from parent>
-==2652832== 
-==2652832== 
-==2652832== HEAP SUMMARY:
-==2652832==     in use at exit: 414,457 bytes in 11,104 blocks
-==2652832==   total heap usage: 21,078 allocs, 9,974 frees, 1,754,327 bytes allocated
-==2652832== 
-==2652832== 4 bytes in 2 blocks are definitely lost in loss record 2 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x112CE8: get_valid_key (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x112FF4: exec_export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x1131EE: export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E230: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 4 bytes in 2 blocks are definitely lost in loss record 3 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x112CE8: get_valid_key (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x112FF4: exec_export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x11322F: export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E230: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 4 bytes in 4 blocks are definitely lost in loss record 4 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x116DFE: ft_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x114AC8: setup_args (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115C07: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 8 bytes in 1 blocks are still reachable in loss record 7 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110A79: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 16 bytes in 1 blocks are still reachable in loss record 14 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110A19: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 16 bytes in 2 blocks are still reachable in loss record 15 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110A4C: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 16 bytes in 4 blocks are indirectly lost in loss record 16 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x11456B: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 60 bytes in 1 blocks are definitely lost in loss record 26 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x10A881: ms_strjoin (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10A36B: replace_strstr (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E1A9: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 264 bytes in 3 blocks are indirectly lost in loss record 41 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== 368 (88 direct, 280 indirect) bytes in 1 blocks are definitely lost in loss record 43 of 89
-==2652832==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652832==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652832== 
-==2652832== LEAK SUMMARY:
-==2652832==    definitely lost: 160 bytes in 10 blocks
-==2652832==    indirectly lost: 280 bytes in 7 blocks
-==2652832==      possibly lost: 0 bytes in 0 blocks
-==2652832==    still reachable: 40 bytes in 4 blocks
-==2652832==         suppressed: 413,977 bytes in 11,083 blocks
-==2652832== 
-==2652832== For lists of detected and suppressed errors, rerun with: -s
-==2652832== ERROR SUMMARY: 14 errors from 7 contexts (suppressed: 0 from 0)
-==2652833== 4 bytes in 2 blocks are definitely lost in loss record 2 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x112CE8: get_valid_key (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x112FF4: exec_export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x1131EE: export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E230: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 4 bytes in 2 blocks are definitely lost in loss record 3 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x112CE8: get_valid_key (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x112FF4: exec_export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x11322F: export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E230: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 4 bytes in 4 blocks are definitely lost in loss record 4 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x116DFE: ft_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x114AC8: setup_args (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115C07: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 8 bytes in 1 blocks are still reachable in loss record 7 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110A79: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 16 bytes in 1 blocks are still reachable in loss record 14 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110A19: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 16 bytes in 2 blocks are still reachable in loss record 15 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x10AA4C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110A4C: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x110B96: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116065: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 16 bytes in 4 blocks are indirectly lost in loss record 16 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x11456B: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 60 bytes in 1 blocks are definitely lost in loss record 26 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x10A881: ms_strjoin (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10A36B: replace_strstr (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E1A9: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 264 bytes in 3 blocks are indirectly lost in loss record 41 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== 368 (88 direct, 280 indirect) bytes in 1 blocks are definitely lost in loss record 43 of 89
-==2652833==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2652833==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2652833== 
-==2652833== LEAK SUMMARY:
-==2652833==    definitely lost: 160 bytes in 10 blocks
-==2652833==    indirectly lost: 280 bytes in 7 blocks
-==2652833==      possibly lost: 0 bytes in 0 blocks
-==2652833==    still reachable: 40 bytes in 4 blocks
-==2652833==         suppressed: 413,977 bytes in 11,083 blocks
-==2652833== 
-==2652833== For lists of detected and suppressed errors, rerun with: -s
-==2652833== ERROR SUMMARY: 14 errors from 7 contexts (suppressed: 0 from 0)
-==2651643== Warning: invalid file descriptor -1 in syscall read()
-==2651643== 
-==2651643== FILE DESCRIPTORS: 13 open (3 std) at exit.
-==2651643== Open file descriptor 12: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt000
-==2651643==    at 0xCE4A53B: open (open64.c:41)
-==2651643==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== Open file descriptor 11: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt000
-==2651643==    at 0xCE4A53B: open (open64.c:41)
-==2651643==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== Open file descriptor 10: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt00
-==2651643==    at 0xCE4A53B: open (open64.c:41)
-==2651643==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== Open file descriptor 9: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2651643==    at 0xCE4A53B: open (open64.c:41)
-==2651643==    by 0x114B46: consumate_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115CE1: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== Open file descriptor 8: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2651643==    at 0xCE4A53B: open (open64.c:41)
-==2651643==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== Open file descriptor 7: /home/gvalente/Desktop/42_Projects/core_3/Minishell/ressources/.heredoc.txt0
-==2651643==    at 0xCE4A53B: open (open64.c:41)
-==2651643==    by 0x111754: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x111875: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115FD9: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==2651643==    <inherited from parent>
-==2651643== 
-==2651643== Open AF_UNIX socket 43: <unknown>
-==2651643==    <inherited from parent>
-==2651643== 
-==2651643== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
-==2651643==    <inherited from parent>
-==2651643== 
-==2651643== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
-==2651643==    <inherited from parent>
-==2651643== 
-==2651643== 
-==2651643== HEAP SUMMARY:
-==2651643==     in use at exit: 414,388 bytes in 11,099 blocks
-==2651643==   total heap usage: 21,055 allocs, 9,956 frees, 1,753,969 bytes allocated
-==2651643== 
-==2651643== 4 bytes in 2 blocks are definitely lost in loss record 2 of 85
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x112CE8: get_valid_key (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x112FF4: exec_export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x1131EE: export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E230: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== 4 bytes in 2 blocks are definitely lost in loss record 3 of 85
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x112CE8: get_valid_key (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x112FF4: exec_export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x11322F: export (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E230: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== 4 bytes in 4 blocks are definitely lost in loss record 4 of 85
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x116DFE: ft_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x114AC8: setup_args (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115C07: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== 16 bytes in 4 blocks are indirectly lost in loss record 13 of 85
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x10A99F: ms_strdup (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x11456B: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== 60 bytes in 1 blocks are definitely lost in loss record 22 of 85
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x10A881: ms_strjoin (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10A36B: replace_strstr (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E1A9: execute_command (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x115D02: handle_command_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x11607F: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116161: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3DC: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== 264 bytes in 3 blocks are indirectly lost in loss record 37 of 85
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== 368 (88 direct, 280 indirect) bytes in 1 blocks are definitely lost in loss record 39 of 85
-==2651643==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2651643==    by 0x11619A: new_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x114585: set_tok (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x1146D6: get_split_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x1147BF: tokenize_string (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10E3A4: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x10F0BF: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643==    by 0x116C19: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
-==2651643== 
-==2651643== LEAK SUMMARY:
-==2651643==    definitely lost: 160 bytes in 10 blocks
-==2651643==    indirectly lost: 280 bytes in 7 blocks
-==2651643==      possibly lost: 0 bytes in 0 blocks
-==2651643==    still reachable: 0 bytes in 0 blocks
-==2651643==         suppressed: 413,948 bytes in 11,082 blocks
-==2651643== 
-==2651643== For lists of detected and suppressed errors, rerun with: -s
-==2651643== ERROR SUMMARY: 14 errors from 7 contexts (suppressed: 0 from 0)
+==2673200== Memcheck, a memory error detector
+==2673200== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2673200== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2673200== Command: ./minishell
+==2673200== Parent PID: 2673199
+==2673200== 
+==2673200== Conditional jump or move depends on uninitialised value(s)
+==2673200==    at 0x118DF4: ft_strlen (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x119005: ft_strjoin (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10B5E6: ft_megajoin (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x110403: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==  Uninitialised value was created by a heap allocation
+==2673200==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673200==    by 0x110371: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200== 
+==2673200== Conditional jump or move depends on uninitialised value(s)
+==2673200==    at 0x1190AD: ft_strjoin (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10B5E6: ft_megajoin (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x110403: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==  Uninitialised value was created by a heap allocation
+==2673200==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673200==    by 0x110371: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200== 
+==2673532== 
+==2673532== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2673532== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2673532==    <inherited from parent>
+==2673532== 
+==2673532== Open AF_UNIX socket 43: <unknown>
+==2673532==    <inherited from parent>
+==2673532== 
+==2673532== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
+==2673532==    <inherited from parent>
+==2673532== 
+==2673532== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
+==2673532==    <inherited from parent>
+==2673532== 
+==2673532== 
+==2673532== HEAP SUMMARY:
+==2673532==     in use at exit: 415,352 bytes in 11,182 blocks
+==2673532==   total heap usage: 19,359 allocs, 8,177 frees, 1,703,595 bytes allocated
+==2673532== 
+==2673532== 9 bytes in 1 blocks are definitely lost in loss record 4 of 76
+==2673532==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673532==    by 0x110371: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532== 
+==2673532== 16 bytes in 1 blocks are still reachable in loss record 11 of 76
+==2673532==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673532==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x110BB4: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532== 
+==2673532== 32 bytes in 1 blocks are still reachable in loss record 19 of 76
+==2673532==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673532==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x110B54: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532== 
+==2673532== 32 bytes in 4 blocks are still reachable in loss record 20 of 76
+==2673532==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673532==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x110B87: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673532== 
+==2673532== LEAK SUMMARY:
+==2673532==    definitely lost: 9 bytes in 1 blocks
+==2673532==    indirectly lost: 0 bytes in 0 blocks
+==2673532==      possibly lost: 0 bytes in 0 blocks
+==2673532==    still reachable: 80 bytes in 6 blocks
+==2673532==         suppressed: 415,263 bytes in 11,175 blocks
+==2673532== 
+==2673532== For lists of detected and suppressed errors, rerun with: -s
+==2673532== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+==2673537== 
+==2673537== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2673537== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2673537==    <inherited from parent>
+==2673537== 
+==2673537== Open AF_UNIX socket 43: <unknown>
+==2673537==    <inherited from parent>
+==2673537== 
+==2673537== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
+==2673537==    <inherited from parent>
+==2673537== 
+==2673537== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
+==2673537==    <inherited from parent>
+==2673537== 
+==2673537== 
+==2673537== HEAP SUMMARY:
+==2673537==     in use at exit: 415,361 bytes in 11,183 blocks
+==2673537==   total heap usage: 19,333 allocs, 8,150 frees, 1,703,000 bytes allocated
+==2673537== 
+==2673534== 
+==2673534== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2673534== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2673534==    <inherited from parent>
+==2673534== 
+==2673534== Open AF_UNIX socket 43: <unknown>
+==2673534==    <inherited from parent>
+==2673534== 
+==2673534== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
+==2673534==    <inherited from parent>
+==2673534== 
+==2673534== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
+==2673534==    <inherited from parent>
+==2673534== 
+==2673534== 
+==2673534== HEAP SUMMARY:
+==2673534==     in use at exit: 415,352 bytes in 11,182 blocks
+==2673534==   total heap usage: 19,359 allocs, 8,177 frees, 1,703,595 bytes allocated
+==2673534== 
+==2673533== 
+==2673533== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2673533== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2673533==    <inherited from parent>
+==2673533== 
+==2673533== Open AF_UNIX socket 43: <unknown>
+==2673533==    <inherited from parent>
+==2673533== 
+==2673533== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
+==2673533==    <inherited from parent>
+==2673533== 
+==2673533== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
+==2673533==    <inherited from parent>
+==2673533== 
+==2673533== 
+==2673533== HEAP SUMMARY:
+==2673533==     in use at exit: 415,352 bytes in 11,182 blocks
+==2673533==   total heap usage: 19,359 allocs, 8,177 frees, 1,703,595 bytes allocated
+==2673533== 
+==2673534== 9 bytes in 1 blocks are definitely lost in loss record 4 of 76
+==2673534==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673534==    by 0x110371: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534== 
+==2673534== 16 bytes in 1 blocks are still reachable in loss record 11 of 76
+==2673534==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673534==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x110BB4: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534== 
+==2673534== 32 bytes in 1 blocks are still reachable in loss record 19 of 76
+==2673534==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673534==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x110B54: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534== 
+==2673534== 32 bytes in 4 blocks are still reachable in loss record 20 of 76
+==2673534==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673534==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x110B87: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673534== 
+==2673534== LEAK SUMMARY:
+==2673534==    definitely lost: 9 bytes in 1 blocks
+==2673534==    indirectly lost: 0 bytes in 0 blocks
+==2673534==      possibly lost: 0 bytes in 0 blocks
+==2673534==    still reachable: 80 bytes in 6 blocks
+==2673534==         suppressed: 415,263 bytes in 11,175 blocks
+==2673534== 
+==2673534== For lists of detected and suppressed errors, rerun with: -s
+==2673534== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+==2673537== 9 bytes in 1 blocks are definitely lost in loss record 4 of 77
+==2673537==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673537==    by 0x110371: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537== 
+==2673537== 9 bytes in 1 blocks are definitely lost in loss record 5 of 77
+==2673537==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673537==    by 0x110371: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x11086B: execute_cmd (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110942: handle_pipe_child (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110AA4: iterate_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110BDD: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537== 
+==2673537== 16 bytes in 1 blocks are still reachable in loss record 12 of 77
+==2673537==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673537==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110BB4: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537== 
+==2673537== 32 bytes in 1 blocks are still reachable in loss record 20 of 77
+==2673537==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673537==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110B54: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537== 
+==2673537== 32 bytes in 4 blocks are still reachable in loss record 21 of 77
+==2673537==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673537==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110B87: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673537== 
+==2673537== LEAK SUMMARY:
+==2673537==    definitely lost: 18 bytes in 2 blocks
+==2673537==    indirectly lost: 0 bytes in 0 blocks
+==2673537==      possibly lost: 0 bytes in 0 blocks
+==2673537==    still reachable: 80 bytes in 6 blocks
+==2673537==         suppressed: 415,263 bytes in 11,175 blocks
+==2673537== 
+==2673537== For lists of detected and suppressed errors, rerun with: -s
+==2673537== ERROR SUMMARY: 6 errors from 4 contexts (suppressed: 0 from 0)
+==2673533== 9 bytes in 1 blocks are definitely lost in loss record 4 of 76
+==2673533==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673533==    by 0x110371: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533== 
+==2673533== 16 bytes in 1 blocks are still reachable in loss record 11 of 76
+==2673533==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673533==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x110BB4: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533== 
+==2673533== 32 bytes in 1 blocks are still reachable in loss record 19 of 76
+==2673533==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673533==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x110B54: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533== 
+==2673533== 32 bytes in 4 blocks are still reachable in loss record 20 of 76
+==2673533==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673533==    by 0x10AA6C: ms_malloc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x110B87: init_pipes (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x110CD1: pipe_handler (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x1160D0: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673533== 
+==2673533== LEAK SUMMARY:
+==2673533==    definitely lost: 9 bytes in 1 blocks
+==2673533==    indirectly lost: 0 bytes in 0 blocks
+==2673533==      possibly lost: 0 bytes in 0 blocks
+==2673533==    still reachable: 80 bytes in 6 blocks
+==2673533==         suppressed: 415,263 bytes in 11,175 blocks
+==2673533== 
+==2673533== For lists of detected and suppressed errors, rerun with: -s
+==2673533== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+==2673200== 
+==2673200== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2673200== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2673200==    <inherited from parent>
+==2673200== 
+==2673200== Open AF_UNIX socket 43: <unknown>
+==2673200==    <inherited from parent>
+==2673200== 
+==2673200== Open file descriptor 42: /home/gvalente/.config/Code/logs/20250225T105701/ptyhost.log
+==2673200==    <inherited from parent>
+==2673200== 
+==2673200== Open file descriptor 3: /home/gvalente/Desktop/42_Projects/core_3/Minishell/leaks.log
+==2673200==    <inherited from parent>
+==2673200== 
+==2673200== 
+==2673200== HEAP SUMMARY:
+==2673200==     in use at exit: 415,217 bytes in 11,173 blocks
+==2673200==   total heap usage: 19,335 allocs, 8,162 frees, 1,703,237 bytes allocated
+==2673200== 
+==2673200== 9 bytes in 1 blocks are definitely lost in loss record 3 of 70
+==2673200==    at 0xCCB8899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2673200==    by 0x110371: name_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x111798: ft_heredoc (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1118E4: handle_hered_redir (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116044: handle_token (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x1161CC: iterate_tokens (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10E3E5: exec_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x10F0C8: process_input (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200==    by 0x116C84: main (in /home/gvalente/Desktop/42_Projects/core_3/Minishell/minishell)
+==2673200== 
+==2673200== LEAK SUMMARY:
+==2673200==    definitely lost: 9 bytes in 1 blocks
+==2673200==    indirectly lost: 0 bytes in 0 blocks
+==2673200==      possibly lost: 0 bytes in 0 blocks
+==2673200==    still reachable: 0 bytes in 0 blocks
+==2673200==         suppressed: 415,208 bytes in 11,172 blocks
+==2673200== 
+==2673200== For lists of detected and suppressed errors, rerun with: -s
+==2673200== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
