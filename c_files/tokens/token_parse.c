@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 23:50:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 00:56:14 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static t_token	*get_split_tokens(t_data *d, char **splits, t_token *lst)
 			continue ;
 		}
 		lst = set_tok(d, lst, &splits[i], prv_eval);
-		if (lst->type != tk_arg && !lst->is_rd)
+		if (lst->type != tk_arg && lst->type != tk_cmdsep && !lst->is_rd)
 		{
 			if (prv_eval)
 				prv_eval->nxt_eval = lst;

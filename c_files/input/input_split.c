@@ -56,7 +56,7 @@ char	*get_token_in_split(t_data *d, char *str, int *i)
 		if (!joined)
 			custom_exit(d, "alloc of split token failed", NULL, EXIT_FAILURE);
 	}
-	else if (char_in_str(str[*i], "()"))
+	else if (char_in_str(str[*i], "();"))
 	{
 		joined = char_join(str[(*i)++], '\0', '\0', '\0');
 		if (!joined)
@@ -76,7 +76,7 @@ char	*get_new_split(t_data *d, char *str, int *i)
 		return (new_split);
 	len = *i;
 	while (str[len] && !(str[len] == '$' && str[len + 1] == ')') \
-		&& (!char_in_str(str[len], "()<>&| ") || in_quote(str, len)))
+		&& (!char_in_str(str[len], "()<>&|; ") || in_quote(str, len)))
 		len++;
 	size = (len - *i + 1);
 	new_split = ms_malloc(d, size);

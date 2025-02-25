@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 23:14:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 21:27:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_token	*update_node_expansion(t_data *d, t_token *node)
 		node->name = ms_strdup(d, "");
 	if (!node->name[0])
 		return (node);
-	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/'))
+	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/') && d->home_wd[0] != '?')
 		replace_strstr(d, &node->name, "~", d->home_wd);
 	if (chr_amnt(node->name, '$'))
 	{

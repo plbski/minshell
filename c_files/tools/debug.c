@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 19:21:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 00:54:29 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	show_exec_info(t_data *d, t_token *node, char *arg, char **flg)
 t_token	*show_token_info(t_data *d, t_token *node, char *prx, int spacing)
 {
 	const char	*args[8] = {prx, node->name, "", "", "", "", "", ""};
-	const char	*arg_cols[] = {RED, GREY, DR0, DR1, DR2, CYAN, BLUE, YELLOW};
+	const char	*arg_cols[] = {RED, GREY, DR0, DR1, \
+			DR2, CYAN, BLUE, YELLOW, DB4, DB2};
 	int			i;
 
 	args[2] = d->types_names[node->type];

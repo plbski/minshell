@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbuet <pbuet@student.42.fr>                +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/24 17:22:59 by pbuet            ###   ########.fr       */
+/*   Updated: 2025/02/24 21:36:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	init_data_var(t_data *d)
 	d->env_list = NULL;
 	d->tmp_list = NULL;
 	d->var_list = NULL;
+	d->prompt_msg = NULL;
 	d->prv_input = NULL;
 	d->heredoc_wd = NULL;
 	d->heredocfd = -1;

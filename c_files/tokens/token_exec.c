@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 23:15:46 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 02:11:44 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,32 @@ t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
 	return (free_void_array((void ***)&flags), nxt);
 }
 
-static t_token	*skip_nodes(t_data *d, t_token *node)
+static t_token	*skip_nodes(t_data *d, t_token *nod)
 {
 	int		min_par;
 
-	min_par = node->par;
+	min_par = nod->par;
 	if (d->debug_mode)
 		printf("%sskipping lower par tokens >%s ", RED, RESET);
-	node = node->next;
-	if (node && node->next)
+	nod = nod->next;
+	if (nod && nod->next)
 	{
 		if (d->debug_mode)
-			printf("'%s%s%s' ", YELLOW, node->name, RESET);
-		node = node->next;
+			printf("'%s%s%s' ", YELLOW, nod->name, RESET);
+		nod = nod->next;
 	}
-	while (node && (node->par > min_par || \
-			(node->type != tk_cmd && node->type != tk_logical)))
+	while (nod && (nod->par > min_par || \
+			(nod->type != tk_cmd && nod->type != tk_logical)))
 	{
 		if (d->debug_mode)
-			printf("'%s%s%s' ", YELLOW, node->name, RESET);
-		node = node->next;
+			printf("'%s%s%s' ", YELLOW, nod->name, RESET);
+		nod = nod->next;
 	}
 	if (d->debug_mode)
 		printf("\n");
-	if (node && (node->is_rd || node->type == tk_pipe))
-		return (node->next);
-	return (node);
+	if (nod && (nod->is_rd || nod->type == tk_pipe || chr_amnt(nod->name, '=')))
+		return (nod->next);
+	return (nod);
 }
 
 static t_token	*handle_logical_token(t_data *d, t_token *node)
@@ -87,16 +87,16 @@ static t_token	*handle_token(t_data *d, t_token *node)
 		handle_hered_redir(d, node->next);
 		return (node->next->next);
 	}
-	if (type == tk_logical)
+	else if (type == tk_logical)
 		return (handle_logical_token(d, node));
+	else if (chr_amnt(node->name, '='))
+		export(d, node->name, NULL, 1);
 	else if (type == tk_cmd)
 	{
 		if (node->pipe_out)
 			return (pipe_handler(d, node));
 		return (handle_command_token(d, node, 1));
 	}
-	if (type == tk_arg && chr_amnt(node->name, '=') == 1)
-		export(d, node->name, NULL, 1);
 	return (node->next);
 }
 

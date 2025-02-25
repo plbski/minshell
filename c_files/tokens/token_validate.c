@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 23:31:57 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 00:27:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/24 01:04:01 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	validate_token_sequence(t_data *d, t_token *tk)
 {
 	while (tk)
 	{
+		if (tk->type == tk_arg && tk->prv && tk->prv->type == tk_cmdsep)
+			tk->type = tk_cmd;
 		if ((tk->type == tk_logical || tk->type == tk_pipe || \
 				tk->type == tk_cmdsep || tk->is_rd) && !validate_tk_type(tk))
 			break ;

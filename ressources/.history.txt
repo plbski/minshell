@@ -3190,3 +3190,389 @@ echo cool > a > b > c > d
 echo cool > a > b > c > d > e
 ls *
 clear
+cat | ls
+ls | cat | cat
+clear
+cat | cat | la
+echo ola > a > b > c
+cd -
+cd ~
+ls
+cd ..
+ls
+cd ..
+pwd
+clear
+pwd
+cd -
+pwd
+cd ~
+cd ..
+cd ~
+cd ..
+ lmlm
+cd ..
+cd ~
+cd ..
+clear
+cd -
+cd-
+bash
+cd~
+cd ..
+cd -
+cd ..
+cd ~
+cd ola
+cd 
+cd l
+cd 
+cd -
+cd ~
+cd ..
+ls
+cd ~
+cd
+bash
+cd ~
+#echo 
+echo $LOGNAME
+echo $USER
+bash
+s
+cd
+$?
+cd ~
+bash
+clear
+m
+ls
+clear
+l
+k
+pwd
+clear
+ls
+pwd
+clear
+pwd
+ssdf
+sf
+clear
+pwd
+clear
+ls
+cd ~
+clear
+pwd
+l
+pw
+clear
+pwd
+ls
+cd
+cd -
+cd .
+cd . - -
+cd .
+cd ..
+cd -
+cd .
+cd.
+p
+l
+s
+d
+a
+l
+s
+a
+k
+d
+cd
+cd .
+cd ..
+cd -
+ls
+ls qwd
+l
+p
+w
+l
+k
+l
+echo $cwd
+l
+w
+a
+w
+s
+d
+s
+p
+l
+a
+s
+c
+l
+d
+s
+a
+s
+a
+x
+l
+w
+a
+s
+d
+ls
+cd ~
+a
+l
+a
+s
+d
+l
+s
+a
+c
+s
+d
+l
+d
+s
+l
+s
+a
+f
+l
+a
+s
+l
+clear
+l
+p
+w
+a
+sds
+clear
+l
+ps
+l
+p
+w
+d
+s
+a
+s
+a
+d
+s
+l
+p
+o
+clear
+p
+o
+a
+s
+d
+l
+ls
+k
+s
+a
+kl
+l
+$
+ll
+clear
+l
+pwd
+clear
+o
+l
+f
+echo cool
+k
+l
+o
+p
+clear
+env
+clear
+pwd
+clear
+ls
+pwd
+cd
+cd .
+céear
+clear
+cd
+cd -
+cd
+cd -
+clear
+cd
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd .
+cd ..
+cd ~
+cd .
+cd ..
+clear
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd.
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+ls
+pwd
+clear
+ls
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+cd -
+pwd
+cd ..
+pwd
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+bash
+cd -
+cd ~
+cd ..
+cd n
+cd ~
+cd ..
+cd~
+cd ~
+cd ..
+cd ~
+cd ..
+cd ~
+cd ..
+pwd
+cd -
+pwd
+cd -
+cd...
+cd ..
+pwd
+cd ..
+bash
+pwd
+ls
+clear
+cd .file
+cd System
+clear
+ls
+cd ..
+ls
+cd etc
+clear
+ls
+cd bashrc
+cat bashrc
+clear
+pwd
+cd ..
+ls
+cd tmp
+clear
+ls
+cd ..
+clear
+ls
+cd var
+ls
+cd tmp
+clear
+ls
+cd ....
+cd ..
+cd ../,,
+cd ../..
+cd ../../..
+cd ../..
+cd ~
+cd ..
+cd -
+cd Users/
+pwd
+ls
+cd ..
+cd ~
+cd pwd
+cd l
+cd -
+cd --
+cd -
+cd
+cd ~
+clear
+pwd
+cd ..
+cd -
+d
+SEGLEN=4
+l
+p
+echo $SEGLEN
+SEGLEN=2
+clear
+export SEGLEN=2
+SEGLEN=2
+SEGLEN=10
+SEGLEN=2
+cd ..
+SEGLEN=2
+cd ..
+cd -
+l
+dl
+s
+a
+f
+clear
+pwd
+SEGLEN=2
+cd .
+cd ..

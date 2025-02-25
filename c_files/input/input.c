@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/24 14:06:32 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/24 22:00:00 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-static void	play_anim(char *str, int i, int bt, const char **cols)
+static void	play_anim(const char *str, int i, int bt, const char **cols)
 {
 	int			time;
 	int			lens[14];
@@ -63,72 +63,17 @@ static void	init_anim(t_data *d, char *prompt)
 	free(str);
 }
 
-static void	split_prm(t_data *d, char **str, char *headcol, char *seg)
-{
-	const char	*cl[] = {D4, D3, D2, D1, D0};
-	char		**spl;
-	int			i;
-	int			arr_len;
-
-	spl = ms_split(d, *str, '/');
-	arr_len = get_arr_len((void **)spl);
-	if (seg && ft_atoi(seg) / arr_len < 1)
-		setstr(d, &seg, ft_itoa(arr_len));
-	i = arr_len;
-	while (i-- > 1)
-	{
-		if (i == 1 && spl[i][0] != '~' && !spl[i + 1])
-			setstr(d, &spl[i], ms_strjoin(d, "/", spl[i]));
-		if (spl[i + 1] && seg && ft_strlen(spl[i]) > ft_atoi(seg) / arr_len)
-			spl[i][ft_atoi(seg) / arr_len] = '\0';
-		if (!spl[i + 1] || char_in_str('$', spl[i]))
-			setstr(d, &spl[i], ms_strjoin(d, headcol, spl[i]));
-		else
-			setstr(d, &spl[i], ft_megajoin(cl[(i * 5) / arr_len], \
-				spl[i], "/", DRESET));
-	}
-	setstr(d, str, contract_str(d, spl));
-	free_void_array((void ***)&spl);
-	safe_free(seg);
-}
-
-char	*get_prompt_message(t_data *d)
-{
-	char	*msh;
-	char	*cwd_part;
-	char	*cut_cwd;
-	char	*prmpt;
-
-	msh = ft_megajoin("\001" PRM_START "\002", "msh ", DRESET, NULL);
-	if (!msh)
-		return (NULL);
-	cut_cwd = ms_strdup(d, d->cwd);
-	replace_strstr(d, &cut_cwd, d->home_wd, "~");
-	setstr(d, &cut_cwd, ms_strjoin(d, "/", cut_cwd));
-	cwd_part = ms_strjoin(d, "", cut_cwd);
-	free(cut_cwd);
-	if (!cwd_part)
-		custom_exit(d, "alloc of cwd_part (prompt)\n", NULL, EXIT_FAILURE);
-	prmpt = ms_strjoin(d, msh, cwd_part);
-	if (char_in_str('/', prmpt) && PRM_SEGLEN > 0)
-		split_prm(d, &prmpt, PRM_HEAD, get_env_value(d, d->env_list, "SEGLEN"));
-	if (!prmpt)
-		custom_exit(d, "Prompt alloc failed", NULL, EXIT_FAILURE);
-	setstr(d, &prmpt, \
-			ft_megajoin(prmpt, "\001" PRM_CMB "\002", "$ ", DRESET));
-	return (free(cwd_part), free(msh), prmpt);
-}
-
 int	process_input(t_data *d, int start)
 {
-	char	*prompt;
 	char	*user_input;
 
-	prompt = get_prompt_message(d);
+	if (!d->prompt_msg)
+		d->prompt_msg = get_prompt_message(d);
+	if (!d->prompt_msg)
+		d->prompt_msg = ms_strdup(d, "Minishell > ");
 	if (start)
-		init_anim(d, prompt);
-	user_input = readline(prompt);
-	free(prompt);
+		init_anim(d, d->prompt_msg);
+	user_input = readline(d->prompt_msg);
 	if (!user_input)
 		return (0);
 	if (only_space(user_input))

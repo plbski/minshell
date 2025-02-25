@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 18:51:38 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/24 21:36:57 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	free_data(t_data *data)
 	free_count += safe_free(data->history_wd);
 	free_count += safe_free(data->logname);
 	free_count += safe_free(data->start_wd);
+	free_count += safe_free(data->prompt_msg);
 	free_count += safe_free(data->home_wd);
 	free_count += safe_free(data->prv_input);
 	close_stds(data);
