@@ -3576,3 +3576,9 @@ pwd
 SEGLEN=2
 cd .
 cd ..
+ls *
+clear
+pwd
+echo cool && echo top
+echo cool || echo top
+> a > b > c
