@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 11:51:54 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:05:55 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 			printf("%s", content);
 		unlink(d->heredoc_wd);
 		d->heredocfd = -1;
-		return (close(d->heredocfd), safe_free(content), NULL);
+		return (safe_free(content), NULL);
 	}
 	save_stds(d);
 	dup2(d->heredocfd, STDIN_FILENO);

@@ -3653,3 +3653,61 @@ clear
 << alo | << cool
 << alo | cat
 << alo | cat | << top
+<< alo | << cool | << top
+clear
+<< alo | << cool | << top
+deb=1
+<< alo | << cool | << top
+clear
+<< alo | << cool | << top
+lc
+<< ola
+clear
+<< a | << b
+clear
+<< a
+<< a | << b
+clear
+<< a
+deb=1
+<< a
+cldear
+<< a
+<< a | << b
+<< a | << b | cat
+bash
+<< a
+echo cool && << a
+cat << a
+<< a
+cat << a
+clear
+cat << o
+deb=1
+cat << o | cat << b | cat << p
+<< a
+cat << o
+a
+cat << o
+clear
+make re
+cat << o
+cat < output
+cat << o
+cat << o | cat << b | cat << c
+<< a << b << c << d
+./minishell
+cat << o | cat << b | cat << c
+<< a << b << c << d
+cat << o | cat << b | cat << c
+cat << o | cat << b | cat << c'
+cat << o | cat << b | cat << c'
+cat << o | cat << b | cat << c'
+cat << o | cat << b | cat << c'
+cat << o | cat << b | cat << c
+clear
+cat << o
+clear
+make re
+clear
+cat << o

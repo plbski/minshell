@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/25 11:43:35 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:23:19 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef enum e_builtins
 typedef struct s_token
 {
 	char			*name;
+	char			*cnt_hered;
 	t_tktype		type;
 	struct s_token	*prv;
 	struct s_token	*next;
@@ -96,6 +97,7 @@ typedef struct s_data
 	t_dblist		*env_list;
 	t_dblist		*tmp_list;
 	t_dblist		*var_list;
+	t_dblist		*heredocs_fds;
 	char			**bltin_names;
 	const char		**types_names;
 	char			**environ;
@@ -281,12 +283,11 @@ t_token		*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, \
 		char **flags);
 
 //		redirection/redir.c
-int			handle_hered_redir(t_data *d, t_token *hered_arg);
 t_token		*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags);
 
 //		redirection/heredoc.c
 int			exec_heredoc(char *nd, char *print, int heredoc_fd);
-int			ft_heredoc(char *end, t_data *d, char *print);
+char		*ft_heredoc(char *end, t_data *d, char *print);
 
 //		builtins/ls.c
 DIR			*get_directory(t_data *d, char *arg);
@@ -360,5 +361,6 @@ void		free_pfds_and_pids(int **pfds, int *pids, int count);
 int			cleanup(int **fds, int *pids, int pipes_count);
 char		*get_prompt_message(t_data *d);
 char		*name_heredoc(t_data *d);
+void		set_heredocs(t_data *d, t_token *tok);
 
 #endif

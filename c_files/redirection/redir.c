@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 18:21:58 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 19:29:45 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,33 @@ static int	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 	return (FCT_OK);
 }
 
+static int	handle_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
+{
+	int		fd;
+	char	*file_name;
+
+	save_stds(d);
+	if (!cmd || !cmd->red_arg || !cmd->red_arg->cnt_hered)
+		custom_exit(d, "error in hered", NULL, EXIT_FAILURE);
+	file_name = ms_strjoin(d, d->start_wd, "/heredoc_output");
+	fd = open(file_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (fd == -1)
+		custom_exit(d, "error in redir heredoc", NULL, EXIT_FAILURE);
+	write(fd, cmd->red_arg->cnt_hered, ft_strlen(cmd->red_arg->cnt_hered));
+	close(fd);
+	fd = get_fd(d, file_name, tk_red_in);
+	if (fd == -1)
+		custom_exit(d, "error heredoc", NULL, EXIT_FAILURE);
+	if (dup2(fd, STDIN_FILENO) == -1)
+		custom_exit(d, "dup2 fail handle_redin", NULL, EXIT_FAILURE);
+	if (!cmd->redir->redir)
+		d->last_exit = execute_command(d, cmd->name, arg, flags);
+	unlink(file_name);
+	close(fd);
+	reset_redir(d);
+	return (FCT_OK);
+}
+
 t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	t_token		*next;
@@ -99,7 +126,7 @@ t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 				d->last_exit = FCT_FAIL, next);
 	}
 	if (cmd->redir->type == tk_hered)
-		d->var = handle_hered_redir(d, cmd->redir->next);
+		d->var = handle_heredoc(d, cmd, arg, flags);
 	else if (cmd->redir->type == tk_red_app)
 		d->var = handle_redir_app(d, cmd, arg, flags);
 	else if (cmd->redir->type == tk_red_out)

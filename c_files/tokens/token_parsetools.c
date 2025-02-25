@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parsetools.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 23:32:23 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 19:29:33 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,39 @@ void	set_redir_redir(t_token *tok)
 		tok->redir = NULL;
 		if (tok->is_rd)
 			set_redir_arg(tok);
+		tok = tok->next;
+	}
+}
+
+void	set_heredocs(t_data *d, t_token *tok)
+{
+	char	*f_name;
+	char	*content;
+	int		fd;
+
+	while (tok)
+	{
+		if (tok->type == tk_hered)
+		{
+			f_name = ft_heredoc(tok->next->name, d, "heredoc> ");
+			if (!f_name)
+				break ;
+			fd = open(f_name, O_RDONLY);
+			if (fd == -1)
+				break ;
+			content = get_fd_content(d, fd);
+			if (!content)
+			{
+				close(fd);
+				break ;
+			}
+			tok->next->type = tk_arg;
+			setstr(d, &tok->next->cnt_hered, content);
+			close(fd);
+			if (access(f_name, F_OK) != -1)
+				unlink(f_name);
+			safe_free(f_name);
+		}
 		tok = tok->next;
 	}
 }

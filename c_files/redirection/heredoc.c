@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 11:42:27 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:27:23 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,28 @@ int	exec_heredoc(char *nd, char *print, int heredoc_fd)
 	return (setup_signal(0, 0), 1);
 }
 
-int	ft_heredoc(char *end, t_data *d, char *print)
+char	*ft_heredoc(char *end, t_data *d, char *print)
 {
 	int		heredoc_fd;
 	int		heredoc_success;
+	char	*file_name;
 
-	setstr(d, &d->heredoc_wd, name_heredoc(d));
-	heredoc_fd = open(d->heredoc_wd, O_RDWR | O_TRUNC | O_CREAT, 0644);
+	file_name = NULL;
+	setstr(d, &file_name, name_heredoc(d));
+	if (!file_name)
+		custom_exit(d, "name in heredoc", NULL, EXIT_FAILURE);
+	heredoc_fd = open(file_name, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (heredoc_fd == -1)
+	{
+		safe_free(file_name);
 		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
+	}
 	setup_signal(1, 1);
 	heredoc_success = exec_heredoc(end, print, heredoc_fd);
+	close(heredoc_fd);
 	if (heredoc_success)
-		return (heredoc_fd);
+		return (file_name);
 	ft_dprintf(2, "msh: write error: Broken pipe\n");
-	return (close(heredoc_fd), -1);
-}
-
-int	handle_hered_redir(t_data *d, t_token *hered_arg)
-{
-	if (d->heredocfd != -1)
-	{
-		close(d->heredocfd);
-		d->heredocfd = -1;
-	}
-	if (!hered_arg)
-		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);
-	if (hered_arg)
-		d->heredocfd = ft_heredoc(hered_arg->name, d, "heredoc> ");
-	return (FCT_OK);
+	safe_free(file_name);
+	return (NULL);
 }

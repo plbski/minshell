@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:44:39 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 13:01:35 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:59:56 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*get_cmd_subst(t_data *d, char *str, int *i, char *ret_cmd)
 		ret_cmd[ft_strlen(ret_cmd) - 1] = '\0';
 	while (*i > 0 && str[*i] && str[(*i - 1)] != ')')
 		(*i)++;
-	return (close(pipefd[0]), ret_cmd);
+	return (ret_cmd);
 }
 
 char	*replace_split(t_data *d, char *split, int start)

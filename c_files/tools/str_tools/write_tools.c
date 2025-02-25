@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 13:13:23 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:00:27 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*get_fd_content(t_data *d, int fd)
 		full_content[total_length] = '\0';
 		bytes_read = read(fd, buffer, 4096);
 	}
+	close(fd);
 	if (bytes_read == -1)
 		return (free(full_content), NULL);
 	return (full_content);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 00:56:14 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 16:44:56 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ t_token	*tokenize_string(t_data *d, char *prompt)
 	free_void_array((void ***)&splits);
 	token = token_first(token);
 	set_redir_redir(token);
+	set_heredocs(d, token);
 	link_token_pipes(token);
 	set_subshells(d, token);
 	if (!validate_token_sequence(d, token))

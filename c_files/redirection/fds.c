@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 02:20:38 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/25 12:08:52 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:40:17 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*name_heredoc(t_data *d)
 	j = 8;
 	tmp[j] = '\0';
 	pid = getpid() + d->fork_child;
-
 	while (j > 0)
 	{
 		tmp[--j] = base[pid % 16];

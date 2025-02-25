@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell_solve.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 01:39:10 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 19:05:24 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 18:51:50 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static int	solve_subsh_in(t_data *d, t_token *start, t_token *rd)
 		}
 		fd = open(rd->next->name, O_RDONLY);
 	}
-	else
-		fd = ft_heredoc(rd->next->name, d, "heredoc> ");
 	if (fd == -1)
 		custom_exit(d, "fd read file in subsh_in", NULL, EXIT_FAILURE);
 	pid = fork();
@@ -75,7 +73,7 @@ static char	*get_subsh_output(t_data *d, t_token *start, int rd_fd)
 	waitpid(pid, &status, 0);
 	close(pipefd[1]);
 	setstr(d, &ret, get_fd_content(d, pipefd[0]));
-	return (close(pipefd[0]), ret);
+	return (ret);
 }
 
 static t_token	*get_subsh_out(t_data *d, t_token *start, t_token *redir)

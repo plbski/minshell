@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 02:11:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 18:37:13 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
 	if ((should_redir && node->redir) || d->heredocfd != -1)
 	{
 		if (!validate_redir(d, node->redir))
-			return (nxt);
+			return (free_void_array((void ***)&flags), nxt);
 		if (node->redir && node->redir->redir)
 			nxt = handle_mult_redirs(d, node, arg, flags);
 		else if (node->redir)
 			nxt = handle_redir_cmd(d, node, arg, flags);
-		if (d->heredocfd != -1)
-			nxt = consumate_heredoc(d, node, arg, flags);
 	}
 	else
 		d->last_exit = execute_command(d, node->name, arg, flags);
@@ -82,12 +80,7 @@ static t_token	*handle_token(t_data *d, t_token *node)
 	t_tktype	type;
 
 	type = node->type;
-	if (type == tk_hered)
-	{
-		handle_hered_redir(d, node->next);
-		return (node->next->next);
-	}
-	else if (type == tk_logical)
+	if (type == tk_logical)
 		return (handle_logical_token(d, node));
 	else if (chr_amnt(node->name, '='))
 		export(d, node->name, NULL, 1);
@@ -99,6 +92,17 @@ static t_token	*handle_token(t_data *d, t_token *node)
 	}
 	return (node->next);
 }
+
+// void	clean_heredoc(t_token *node)
+// {
+// 	while (node)
+// 	{
+// 		if (node->rd_fd != -1)
+// 			close(node->rd_fd);
+		
+// 		node = node->next;
+// 	}
+// }
 
 void	iterate_tokens(t_data *d, t_token *node)
 {

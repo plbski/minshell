@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:33:06 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 17:04:17 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 17:30:47 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_token	*new_token(char *name, t_token *prv, t_tktype type, int parenth_order)
 	token->prv = prv;
 	if (prv)
 		prv->next = token;
+	token->cnt_hered = NULL;
 	token->par = parenth_order;
 	token->rd_fd = 0;
 	token->name = name;
@@ -80,6 +81,8 @@ void	clear_tokens(t_token *token)
 		token = token->next;
 		if (tmp->name)
 			free(tmp->name);
+		if (tmp->cnt_hered)
+			free(tmp->cnt_hered);
 		free(tmp);
 	}
 }
