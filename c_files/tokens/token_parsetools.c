@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parsetools.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 19:29:33 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:39:49 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,35 +64,13 @@ void	set_redir_redir(t_token *tok)
 	}
 }
 
-void	set_heredocs(t_data *d, t_token *tok)
+int	set_heredocs(t_data *d, t_token *tok)
 {
-	char	*f_name;
-	char	*content;
-	int		fd;
-
 	while (tok)
 	{
-		if (tok->type == tk_hered)
-		{
-			f_name = ft_heredoc(tok->next->name, d, "heredoc> ");
-			if (!f_name)
-				break ;
-			fd = open(f_name, O_RDONLY);
-			if (fd == -1)
-				break ;
-			content = get_fd_content(d, fd);
-			if (!content)
-			{
-				close(fd);
-				break ;
-			}
-			tok->next->type = tk_arg;
-			setstr(d, &tok->next->cnt_hered, content);
-			close(fd);
-			if (access(f_name, F_OK) != -1)
-				unlink(f_name);
-			safe_free(f_name);
-		}
+		if (tok->type == tk_hered && !set_heredoc(d, tok))
+			return (0);
 		tok = tok->next;
 	}
+	return (1);
 }

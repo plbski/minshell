@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/23 19:16:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 00:14:49 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static void	handle_joined_arg(t_data *d, char *key, char *value, int tmp_mem)
 
 	key[ft_strlen(key) - 1] = '\0';
 	node = get_dblst_at_key(d->env_list, key);
-	if (!node)
-		node = get_dblst_at_key(d->tmp_list, key);
 	if (!node)
 		node = get_dblst_at_key(d->var_list, key);
 	if (!node)
@@ -115,7 +113,7 @@ static int	exec_export(t_data *d, char *arg, int tmp_mem)
 		new_node = dblst_new(ft_megajoin(key, "=", value, NULL));
 		if (!new_node->content)
 			custom_exit(d, "content for node", NULL, EXIT_FAILURE);
-		if (!tmp_mem)
+		if (!tmp_mem || same_str(key, "HOME") || same_str(key, "PATH"))
 			dblst_add_back(&d->env_list, new_node);
 		else if (!set_key_value(d, d->var_list, key, value))
 			dblst_add_back(&d->var_list, new_node);

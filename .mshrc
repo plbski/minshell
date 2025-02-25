@@ -20,7 +20,6 @@
 # echo -n "res = overwrite: only this line > " && echo "first line" > file && echo "only this line" > file && cat file && rm file  
 # echo -n "res = append multiple: line1 line2 > " && echo "line1" > file && echo "line2" >> file && cat file && rm file  
 # echo -n "res = here-document: end marker works > " && cat <<EOF > file && echo "end marker works" >> file && cat file && rm file
-
 # (ls -l | wc -l) > count.txt; cat count.txt; rm "count.txt"
 # echo -n "test" > file1.txt > file2.txt; echo "file1 is: "; cat file1.txt; echo "file2 is: "; cat file2.txt; rm file1.txt; rm file2.txt
 

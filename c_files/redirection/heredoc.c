@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 19:27:23 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:35:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	should_skip_line(char *line, int *print_line)
 	return (0);
 }
 
-int	exec_heredoc(char *nd, char *print, int heredoc_fd)
+int	exec_heredoc(char *nd, char *print, int fd)
 {
 	char	*line;
 	int		print_prompt;
@@ -62,8 +62,8 @@ int	exec_heredoc(char *nd, char *print, int heredoc_fd)
 			free(line);
 			break ;
 		}
-		write(heredoc_fd, line, ft_strlen(line));
-		write(heredoc_fd, "\n", 1);
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
 		safe_free(line);
 	}
 	return (setup_signal(0, 0), 1);
@@ -90,7 +90,32 @@ char	*ft_heredoc(char *end, t_data *d, char *print)
 	close(heredoc_fd);
 	if (heredoc_success)
 		return (file_name);
-	ft_dprintf(2, "msh: write error: Broken pipe\n");
 	safe_free(file_name);
 	return (NULL);
+}
+
+int	set_heredoc(t_data *d, t_token *tok)
+{
+	char	*f_name;
+	char	*content;
+	int		fd;
+
+	f_name = ft_heredoc(tok->next->name, d, "heredoc> ");
+	if (!f_name)
+		return (0);
+	fd = open(f_name, O_RDONLY);
+	if (fd == -1)
+	{
+		free(f_name);
+		return (0);
+	}
+	content = get_fd_content(d, fd);
+	close(fd);
+	unlink(f_name);
+	safe_free(f_name);
+	if (!content)
+		return (0);
+	tok->next->type = tk_arg;
+	setstr(d, &tok->next->cnt_hered, content);
+	return (1);
 }

@@ -3739,3 +3739,417 @@ cat
 sleep 400
 $$
 l
+clear
+meklqmv
+clear
+gre ola
+grep ola
+cat
+echo "   ola" "	"
+bash
+echo "   ola" "	" "cool"
+bash
+clear
+echo "  " "  " "l"
+bash
+echo "			a"
+echo "			a" "   b"
+echo "			" "   b"
+echo "   ola" "	" "cool"
+echo "   ola" "	" "cool" "super"
+bash
+echo "cat lol.c | cat > lol.c"
+bash
+echo "£$"
+bash
+echo "$$$$"
+echo "$"
+bash
+deb=1
+echo "$"
+bash
+echo "$"
+echo "$$"
+echo "$$$"
+echo "$$$a"
+echo "$"
+echo "$$$a"
+echo "$$"
+echo "$$$"
+echo "$$a"
+echo "$$$a"
+echo "$$$$$$a"
+echo "$a"
+bash
+echo
+cat
+cl
+ls
+ls l
+ls
+clear
+ls la
+ls -la
+clear
+echo '$USER'
+echo '$$^
+echo '$$'
+echo '$$>'
+echo '$$>>'
+echo '$$>>>'
+echo '$$>>>>>>'
+echo '$$<<<<>>>>>>'
+echo '|$$<<<<>>>>>>'
+bash
+echo '|$$<<<<>>>>>>;'
+echo '|$$<<<<>>>>>>/'
+echo '|$$<<<<>>>>>>\'
+env
+clear
+export a=b
+env
+clear
+export a=b
+export
+export ola=3
+env | grep ola
+unset quaj
+$
+unset qiwond
+$?
+export ola=3
+env | grep ola
+unset
+$?
+unset qw
+$?
+export ola=3
+unset $ola
+bash
+echo $ola
+env | grep ola
+export olala=3
+echo $olala
+echo $olq
+echo "$"
+echo $ola
+echo $
+$
+bash
+$a
+$f
+bash
+$afqeg
+$?
+bash
+$ola
+$SHLVL
+bash
+export
+export ___z
+export
+mshell
+$mshell
+cd mshell
+pwd
+cd /Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell
+cd cd /Users/giuliovalente/Desktop
+cd /Users/giuliovalente/Desktop
+cd -
+clear
+export
+env
+unset 
+unset qwmf
+$?
+bash
+unset $olq
+unset $alo
+bash
+unset $
+unset ""
+bash
+unset ''
+unset $alo
+bash
+unseth $SHLVL
+unset $SHLVL
+unset $
+unset "   "
+bash
+unset "		"
+unset a b c d f e f g h i j k l m n o p q u w r s t i x uv a k lq p o is u v a l kc " o" ~ $ $$ $$$$$ "$" "$$"
+echo $$
+echo $$$$$
+$$$$
+echo $$$$$
+echo $____a
+echo $___.
+echo $
+echo $$
+echo $$$
+echo $$$$
+echo $$$$a
+echo $$abc
+echo $$$abc
+bash
+unset $
+unset $$
+unset $___a
+unset $____$
+unset $____SHLVL
+unset $____SHLVL$
+unset $____SHLVL?
+unset "$   SHLVL?"
+echo "$    SHLVL"
+bash
+echo "$    SHLVL"
+bash
+echo "$SHLVL"
+echo "$ SHLVL"
+echo "$      ?"
+echo "$$"
+bash
+echo "$   $"
+bash
+echo "$SHLVL?$PWD"
+echo "$SHLVL????$PWD"
+echo "$SHLVLPWD"
+bash
+export cool="a b"
+echo $cool
+export "a b"="c
+export "a b"=c
+bash
+export cool=a
+echo $co ol
+echo "$co ol"
+bash
+echo "$     "
+echo "ola    $SHLVL"
+echo "ola    $"
+deb=1
+echo "ola    $"
+clear
+echo "ola    $"
+deb=1
+echo "ola    $"
+echo "ola    $$"
+echo "ola    $$$"
+echo "ola    $$$a"
+bash
+unset SHLVL
+$?
+minishell
+clear
+echo $SHLVL
+pwd pwd pwd
+bash
+../../core_2/So_Long/make re
+../../core_2/So_Long/make
+../../core_2/So_Long/so_long
+../../core_2/So_Long/so_long Randomap.ber
+cat ../../core_2/minitalk/minitalk.subject.pdf 
+clear
+./../../core_1/FT_PRINTF/a.out
+./../../core_1/FT_PRINTF/a.out 1 2
+./../../core_1/FT_PRINTF/a.out "alo"
+clear
+ls
+awk
+wc
+bash
+PATH=/Users:/Users/giuliovalente
+ls
+pwd
+ls
+cat
+open /
+cd /
+vim do.c
+ls
+PATH=$PWD
+echo $PATH
+ls
+PATH=$PWD
+echo $PATH
+ls
+test
+echo pwd
+pwd
+PATH+=/Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell/dir
+test
+echo $PATH
+unset PATH
+PATH=$PWD:$PWD/dir
+echo $PATH
+PATH=$PWD
+PATH+=:/Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell/dir
+echo $PATH
+PATH=1
+echo $PATH
+var
+unset PATH
+env
+env | grep PATH
+PATH=$PWD
+PATH+=:/Users/giuliovalente/Desktop/42/42_Projects_GIT/core_3/minishell/dir
+echo $PATH
+PATH=$PWD
+echo $PATH
+var
+ola=2
+unset PATH
+PATH=$PWD
+echo $PATH
+PATH+=:$PWD/dir
+echo $PATH
+test
+cc test.c
+test
+cc test.c -o a.out
+./a.out
+unset PATH
+PATH=$PWD
+a.out
+PATH+=:$PWD/dir
+cc dir/test.c
+cc dir/test.c -o dir/test
+cc test.c -o test
+test
+./test
+min
+test
+bash
+test
+testos
+clear
+minishell
+unset PATH
+testos
+echo $PATH
+minishell
+test
+tetsos
+testos
+minishell
+qfjeopjf
+testos
+unset PATH
+test
+dir/testos
+dir/subdir/testos
+PATH=$pwd/dir/subdir
+testos
+echo $PATH
+PATH=$PWD/dir/subdir
+echo $PATH
+testos
+PATH+=:$PWD/dir
+testos
+dir/testos
+unset PATH
+dir/testos
+PATH=$PWD
+dir/testos
+unset PATH
+PATH=$PWD/dir
+dir/testos
+unset PATH
+PATH=$PWD/subdir
+testos
+/dir/testos
+PATH=$PWD/subdir/
+testos
+unset PATH
+PATH=$PWD
+testos
+exec testos
+testos
+minishell
+dir/testos
+testos
+clear
+ls
+env | grep PATH
+clear
+testos
+unset PATH
+clear
+PATH=$PWD
+clear
+testos
+echo $PATH
+env | grep PATH
+env
+var
+PATH=3
+echo $PATH
+unset PATH
+PATH=23
+echo $PATH
+env | grep PATH
+olapo
+env | grep PATH
+unset PATH
+PATH=/
+ks
+ls
+unset PATH
+ls
+PATH=3
+ls
+PATH=3
+ls
+unset PATH
+ls
+PATH=$PWD
+testos
+$PWD
+echo $PATH
+ls
+PATH=la
+ls
+unset PATH
+PATH=3l
+ls
+PATH=$PWD
+ls
+PATH+=:$PWD/dir/subdir
+testos
+minishell
+/dir/testos
+bash
+/dir/testos
+/bin/bash
+minishell
+<< alo
+<< alo | cat | << b | cat | << c | cat
+cat | cat | cat
+ls | cat | cat
+cat | cat | ls
+<< alo
+clear
+<< alo
+cat << alo
+cat << l
+bash
+<< alo
+cat << alo | cat << cool | cat | << alo
+cat << alo | cat << cool | cat | cat
+cat << alo | cat
+cat << alo | cat | cat
+cat << alo | cat << cool | cat | cat
+cat | cat | ls
+cat << a | cat << b
+<< alo
+cat << ola
+cat << alo << ola << c << d
+cat << a << b << c << d << e
+deb=1
+cat << a << b << c << d << e
+lclear
+clear
+deb=0
+clear
+cat << a << b << c << d << e

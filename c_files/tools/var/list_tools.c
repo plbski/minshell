@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:27:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 22:50:09 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,11 @@ void	init_env_list(t_data *d, char **env)
 		dblst_clear(&d->env_list, free);
 	if (received_end)
 	{
-		d->tmp_list = arr_to_dblst((void **)env);
 		d->env_list = arr_to_dblst((void **)env);
 	}
 	else
 	{
 		d->env_list = arr_to_dblst((void **)base_env);
-		d->tmp_list = arr_to_dblst((void **)base_env);
 		d->environ = base_env;
 	}
 	if (!d->env_list)

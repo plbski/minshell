@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 11:45:10 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 23:44:30 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 	char	*str;
 
 	str = NULL;
-	if (!split[*i + 1])
-		str = ft_strdup("$");
-	else if (split[*i + 1] == '$')
+	if (split[*i + 1] == '$')
 		str = ft_itoa(getpid());
 	else if (split[*i + 1] == '?')
 		str = ft_itoa(d->last_exit);
 	else if (split[*i + 1] == '0')
 		str = ft_strjoin(d->msh_wd, "/minishell");
+	else if (split[*i] == '$' && split[*i + 1] == '\"')
+		str = ft_strdup("$");
 	else
 		return (NULL);
 	if (!str)
@@ -38,21 +38,19 @@ char	*expand_segment(t_data *d, char *split, int *i)
 	int		start;
 	char	*var_name;
 	char	*value;
-	char	*str;
+	char	*spc_str;
 
-	str = expand_special_segment(d, split, i);
-	if (str)
-		return (str);
+	spc_str = expand_special_segment(d, split, i);
+	if (spc_str)
+		return (spc_str);
 	(*i)++;
 	start = *i;
 	while (split[*i] && (ft_isalnum(split[*i]) || split[*i] == '_'))
 		(*i)++;
 	var_name = copy_until_char(d, split, &start, "$?'\"./");
 	if (!var_name)
-		custom_exit(d, "Alloc in expand\n", NULL, -1);
+		return (split);
 	value = get_env_value(d, d->env_list, var_name);
-	if (!value)
-		value = get_env_value(d, d->tmp_list, var_name);
 	if (!value)
 		value = get_env_value(d, d->var_list, var_name);
 	free(var_name);

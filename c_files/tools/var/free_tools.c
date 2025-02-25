@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:35:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 21:36:57 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 22:49:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ int	free_data(t_data *data)
 	free_count = 0;
 	free_count += dblst_size(data->env_list);
 	dblst_clear(&data->env_list, free);
-	free_count += dblst_size(data->tmp_list);
-	dblst_clear(&data->tmp_list, free);
-	free_count += dblst_size(data->tmp_list);
+	free_count += dblst_size(data->var_list);
 	dblst_clear(&data->var_list, free);
 	free_count += free_void_array((void ***)&data->bltin_names);
 	free_count += free_void_array((void ***)&data->types_names);

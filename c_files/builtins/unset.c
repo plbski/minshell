@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:26:40 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 23:12:19 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 22:53:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int	remove_element(t_dblist **list, char *arg)
 
 static int	exec_unset(t_data *d, char *arg)
 {
-	int	has_unset;
-
+	if (!arg)
+		return (FCT_OK);
 	if (!is_valid_identifier(arg))
 	{
 		ft_dprintf(2, "msh: unset: `%s': not a valid identifier\n", arg);
@@ -53,12 +53,8 @@ static int	exec_unset(t_data *d, char *arg)
 	}
 	if (!arg)
 		return (FCT_FAIL);
-	has_unset = 0;
-	has_unset += remove_element(&d->env_list, arg);
-	has_unset += remove_element(&d->tmp_list, arg);
-	has_unset += remove_element(&d->var_list, arg);
-	if (!has_unset)
-		return (FCT_FAIL);
+	remove_element(&d->env_list, arg);
+	remove_element(&d->var_list, arg);
 	return (FCT_OK);
 }
 

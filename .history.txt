@@ -19,7 +19,7 @@ ls | cat
 ls | ls
 ls | ls
 ls | ls
-ls | cat | ls
+ls | cat | ls			
 ls | cat | ls 1
 ls | cat | ls 1
 ./trier "1 2 17 3 59 32"

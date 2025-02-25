@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:46:30 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/25 11:03:39 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:39:35 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,18 @@ int	cleanup(int **fds, int *pids, int pipes_count)
 	}
 	free_pfds_and_pids(fds, pids, pipes_count + 1);
 	return (exit_st);
+}
+
+t_token	*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, char **flags)
+{
+	t_token	*last_red_arg;
+
+	while (cmd->redir)
+	{
+		cmd->red_arg = cmd->redir->next;
+		handle_redir_cmd(d, cmd, arg, flags);
+		last_red_arg = cmd->red_arg;
+		cmd->redir = cmd->redir->redir;
+	}
+	return (last_red_arg);
 }

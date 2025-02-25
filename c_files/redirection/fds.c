@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 02:20:38 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/25 17:40:17 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:26:27 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*name_heredoc(t_data *d)
 	result = ft_strjoin("/ressources/", &tmp[j]);
 	if (!result)
 		custom_exit(d, "alloc in heredoc\n", NULL, EXIT_FAILURE);
-	result = ft_megajoin(d->start_wd, result, NULL, NULL);
+	setstr(d, &result, ft_megajoin(d->start_wd, result, NULL, NULL));
 	if (!result)
 		custom_exit(d, "alloc in heredoc\n", NULL, EXIT_FAILURE);
 	return (result);

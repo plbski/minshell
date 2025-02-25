@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 19:29:45 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:41:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static int	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 		custom_exit(d, "dup2 fail handle_redapp", NULL, EXIT_FAILURE);
 	else if (dup2(fd, STDIN_FILENO) == -1)
 		custom_exit(d, "dup2 fail handle_redin", NULL, EXIT_FAILURE);
+	close(fd);
 	if (!cmd->redir->redir)
 		d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
@@ -101,10 +102,11 @@ static int	handle_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 		custom_exit(d, "error heredoc", NULL, EXIT_FAILURE);
 	if (dup2(fd, STDIN_FILENO) == -1)
 		custom_exit(d, "dup2 fail handle_redin", NULL, EXIT_FAILURE);
+	close(fd);
 	if (!cmd->redir->redir)
 		d->last_exit = execute_command(d, cmd->name, arg, flags);
 	unlink(file_name);
-	close(fd);
+	free(file_name);
 	reset_redir(d);
 	return (FCT_OK);
 }
@@ -136,18 +138,4 @@ t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (d->var != FCT_OK)
 		d->last_exit = d->var;
 	return (d->var = 0, next);
-}
-
-t_token	*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, char **flags)
-{
-	t_token	*last_red_arg;
-
-	while (cmd->redir)
-	{
-		cmd->red_arg = cmd->redir->next;
-		handle_redir_cmd(d, cmd, arg, flags);
-		last_red_arg = cmd->red_arg;
-		cmd->redir = cmd->redir->redir;
-	}
-	return (last_red_arg);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/25 16:39:43 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 22:49:22 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	init_data_var(t_data *d)
 	d->start_wd = NULL;
 	d->environ = NULL;
 	d->env_list = NULL;
-	d->tmp_list = NULL;
 	d->var_list = NULL;
 	d->prompt_msg = NULL;
 	d->prv_input = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 18:37:13 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:16:54 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,6 @@ static t_token	*handle_token(t_data *d, t_token *node)
 	}
 	return (node->next);
 }
-
-// void	clean_heredoc(t_token *node)
-// {
-// 	while (node)
-// 	{
-// 		if (node->rd_fd != -1)
-// 			close(node->rd_fd);
-		
-// 		node = node->next;
-// 	}
-// }
 
 void	iterate_tokens(t_data *d, t_token *node)
 {
