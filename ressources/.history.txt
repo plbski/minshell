@@ -3615,4 +3615,35 @@ minishell
 << ola | cat
 << ola << pou
 << ola | << pou
+<< ola
+clear
 << ola | cat | << cool | cat
+clear
+deb=1
+<< ola | cat | << cool | cat
+clear
+<< ola | cat | << cool | cat
+bash
+<< ola | << cat
+<< ola | << cat | << e | << a | << b
+<< ola
+<< ola  << ocool
+bash
+<< ola | << alo | << alqwd
+<< ola | cat | << alo | cat | << alqwd
+deb-1
+<< ola | cat | << alo | cat | << alqwd
+<< ola | cat
+<< ola | cat | cat
+clear
+<< ola | cat | cat
+<< ola | cat | << alo | cat
+<< a << b << c
+deb-1
+deb=1
+<< a << b << c
+<< a | << b | << c
+<< a | cat
+<< a | cat | cat | cat
+<< a | cat | cat | cat | << b
+clear

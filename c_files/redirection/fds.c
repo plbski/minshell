@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 02:20:38 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/23 18:43:52 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 12:02:30 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
+
+char	*name_heredoc(t_data *d)
+{
+	const char	*base = {"0123456789ABCDEF"};
+	pid_t		pid;
+	int			j;
+	char		*result;
+
+	j = 0;
+	pid = getpid() + d->fork_child;
+	result = malloc(9);
+	if (!result)
+		custom_exit(d, "alloc in heredoc\n", NULL, EXIT_FAILURE);
+	while (pid > 16)
+	{
+		result[j] = base[pid % 16];
+		pid = pid / 16;
+		j ++;
+	}
+	result = ft_megajoin(d->start_wd, "/ressources/", result, NULL);
+	if (!result)
+		custom_exit(d, "alloc in heredoc\n", NULL, EXIT_FAILURE);
+	return (result);
+}
 
 int	get_fd(t_data *d, char *file_path, t_tktype r_type)
 {

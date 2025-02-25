@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/24 21:42:27 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 11:43:35 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,5 +359,6 @@ int			validate_token_sequence(t_data *d, t_token *tok);
 void		free_pfds_and_pids(int **pfds, int *pids, int count);
 int			cleanup(int **fds, int *pids, int pipes_count);
 char		*get_prompt_message(t_data *d);
+char		*name_heredoc(t_data *d);
 
 #endif

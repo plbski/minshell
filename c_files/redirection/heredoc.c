@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 11:21:32 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:42:27 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,39 +69,12 @@ int	exec_heredoc(char *nd, char *print, int heredoc_fd)
 	return (setup_signal(0, 0), 1);
 }
 
-int	create_heredoc_wd(t_data *d)
-{
-	char	*base_heredoc;
-	char	*nbr_str;
-	int		nbr;
-
-	base_heredoc = ms_strjoin(d, d->start_wd, "/ressources");
-	nbr = 0;
-	while (access(base_heredoc, F_OK) != -1)
-	{
-		nbr_str = ft_itoa(nbr++);
-		setstr(d, &base_heredoc, ms_strjoin(d, base_heredoc, ))
-	}
-}
-
 int	ft_heredoc(char *end, t_data *d, char *print)
 {
 	int		heredoc_fd;
 	int		heredoc_success;
-	char	*here_name;
-	int		nbr;
 
-	nbr = 0;
-	here_name = d->heredoc_wd;
-	while (access(here_name, F_OK) != -1)
-	{
-		here_name = ft_itoa(nbr++);
-		if (!here_name)
-			custom_exit(d, "alloc in heredoc", NULL, EXIT_FAILURE);
-		setstr(d, &here_name, ms_strjoin(d, d->heredoc_wd, here_name));
-	}
-	if (here_name != d->heredoc_wd)
-		setstr(d, &d->heredoc_wd, here_name);
+	setstr(d, &d->heredoc_wd, name_heredoc(d));
 	heredoc_fd = open(d->heredoc_wd, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (heredoc_fd == -1)
 		custom_exit(d, "error in heredoc", NULL, EXIT_FAILURE);

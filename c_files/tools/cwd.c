@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 22:58:30 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 01:51:56 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 11:43:59 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static void	split_prm(t_data *d, char **str, char *headcol, char *seg)
 	int			i;
 	int			arr_len;
 
-	if (!seg)
-		seg = ft_itoa(PRM_SEGLEN);
 	spl = ms_split(d, *str, '/');
 	arr_len = get_arr_len((void **)spl);
 	if (seg && ft_atoi(seg) / arr_len < 1)

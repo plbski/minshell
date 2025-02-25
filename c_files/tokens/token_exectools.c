@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 11:18:48 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:51:54 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 		content = get_fd_content(d, d->heredocfd);
 		if (content)
 			printf("%s", content);
-		if (access(d->heredoc_wd, F_OK) != -1)
-			execute_command(d, "rm", d->heredoc_wd, NULL);
-		return (d->heredocfd = -1, close(d->heredocfd), safe_free(content), NULL);
+		unlink(d->heredoc_wd);
+		d->heredocfd = -1;
+		return (close(d->heredocfd), safe_free(content), NULL);
 	}
 	save_stds(d);
 	dup2(d->heredocfd, STDIN_FILENO);
@@ -85,7 +85,7 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 	reset_redir(d);
 	d->heredocfd = -1;
 	close(d->heredocfd);
-	execute_command(d, "rm", d->heredoc_wd, NULL);
+	unlink(d->heredoc_wd);
 	if (cmd->red_arg)
 		return (cmd->red_arg->next);
 	return (cmd->next);

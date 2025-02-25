@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 11:06:53 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:55:05 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 	cmd = update_node_expansion(d, cmd);
 	if (cmd)
 	{
-		handle_command_token(d, cmd, 1);
+		if (cmd->type == tk_cmd)
+			handle_command_token(d, cmd, 1);
+		else if (cmd->type == tk_hered)
+			handle_hered_redir(d, cmd->next);
 		clear_tokens(token_first(cmd));
 	}
 }
