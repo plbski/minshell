@@ -3711,3 +3711,31 @@ clear
 make re
 clear
 cat << o
+pwd
+clear
+;
+ech oc cool;
+echo cool
+clear
+bash
+cat
+bash
+$$
+clear
+cat
+clear
+sleep 20
+sleep 100
+clear
+cat
+$$
+cat
+$$
+cat
+$$
+cat
+$$
+cat
+sleep 400
+$$
+l

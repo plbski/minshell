@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:14:36 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 22:18:20 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,10 @@ static void	sigint_handler(int sig __attribute__((unused)))
 	rl_redisplay();
 }
 
-/**
- * @note setup CTRL-\. It does nothing but the prompt as to be redisplayed
- * no error possible
- * @attention 
- */
 static void	sigquit_handler(int sig __attribute__((unused)))
 {
 	rl_on_new_line();
 	rl_redisplay();
-}
-
-/**
- * @note Ctrl-d handler - must free stuff on quit
- * @attention Carefull not to create zombie processes on quit!
- * @todo Call function exit() and redirect to that function
- */
-static void	sigterm_handler(int sig __attribute__((unused)))
-{
-	return ;
 }
 
 static void	sigint_handler_heredoc(int sig)
@@ -68,7 +53,7 @@ void	setup_signal(int is_waiting, int is_heredoc)
 	sa_quit.sa_flags = 0;
 	sigemptyset(&sa_quit.sa_mask);
 	sigaction(SIGQUIT, &sa_quit, NULL);
-	sa_term.sa_handler = sigterm_handler;
+	sa_term.sa_handler = SIG_IGN;
 	sa_term.sa_flags = 0;
 	sigemptyset(&sa_term.sa_mask);
 	sigaction(SIGTERM, &sa_term, NULL);
