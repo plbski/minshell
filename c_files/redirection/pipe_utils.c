@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_2.c                                           :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:46:30 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/24 18:47:44 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:03:39 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int	cleanup(int **fds, int *pids, int pipes_count)
 		else if (WIFSIGNALED(status))
 			exit_st = 128 + WTERMSIG(status);
 	}
-	free_pfds_and_pids(fds, pids, pipes_count);
+	free_pfds_and_pids(fds, pids, pipes_count + 1);
 	return (exit_st);
 }

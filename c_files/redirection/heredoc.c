@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 19:16:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 11:21:32 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,21 @@ int	exec_heredoc(char *nd, char *print, int heredoc_fd)
 		safe_free(line);
 	}
 	return (setup_signal(0, 0), 1);
+}
+
+int	create_heredoc_wd(t_data *d)
+{
+	char	*base_heredoc;
+	char	*nbr_str;
+	int		nbr;
+
+	base_heredoc = ms_strjoin(d, d->start_wd, "/ressources");
+	nbr = 0;
+	while (access(base_heredoc, F_OK) != -1)
+	{
+		nbr_str = ft_itoa(nbr++);
+		setstr(d, &base_heredoc, ms_strjoin(d, base_heredoc, ))
+	}
 }
 
 int	ft_heredoc(char *end, t_data *d, char *print)

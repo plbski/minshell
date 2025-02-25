@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_exectools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 19:16:05 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/25 11:18:48 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ t_token	*consumate_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 		content = get_fd_content(d, d->heredocfd);
 		if (content)
 			printf("%s", content);
-		execute_command(d, "rm", d->heredoc_wd, NULL);
-		return (safe_free(content), NULL);
+		if (access(d->heredoc_wd, F_OK) != -1)
+			execute_command(d, "rm", d->heredoc_wd, NULL);
+		return (d->heredocfd = -1, close(d->heredocfd), safe_free(content), NULL);
 	}
 	save_stds(d);
 	dup2(d->heredocfd, STDIN_FILENO);

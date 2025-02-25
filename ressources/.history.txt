@@ -3582,3 +3582,37 @@ pwd
 echo cool && echo top
 echo cool || echo top
 > a > b > c
+clear
+ls
+pwd
+cat | cat | ls
+ls | cat | cat | cat
+cat | cat | cat | ls
+clear
+pwd
+pwd && echo cool >> redir.txt | cat
+> a > b > c > d >> a >> c >> d >> g
+(echo cool | echo top) >> redir
+echo a (export a b && echo $a) || b 
+echo a (export a b && echo $a) || cat
+echo a && (export a b && echo $a) || cat
+export a b && echo 
+ls qwfq
+cd ~ && cd - && echo $cd
+exec c_files
+exec ./c_files
+minishell
+/bin/ls
+/bin/ls 2> redir
+/bin/lqqewfq 2> redir
+||
+&
+<
+>
+>>
+<<
+<< ola
+<< ola | cat
+<< ola << pou
+<< ola | << pou
+<< ola | cat | << cool | cat
