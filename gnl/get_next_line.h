@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:14:16 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/14 21:17:14 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/11 08:48:06 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include "stdlib.h"
 # include "unistd.h"
@@ -28,6 +28,11 @@ typedef struct s_t_data
 	char	buffer[MAXSIZE];
 	char	leftover[MAXSIZE];
 }	t_data;
+
 char	*get_next_line(int fd);
+int		contains(const char *s, char c);
+char	*ft_strdup(const char *s);
+int		update_fd(t_data *d, int fd, int index, ssize_t b_read);
+char	*handle_leftover(t_data *d);
 
 #endif

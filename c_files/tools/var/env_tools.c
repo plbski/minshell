@@ -1,0 +1,101 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_tools.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/24 13:18:16 by giuliovalen       #+#    #+#             */
+/*   Updated: 2025/02/23 19:16:58 by giuliovalen      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../msh.h"
+
+void	update_environ(t_data *d)
+{
+	char		**new_env;
+	int			i;
+
+	if (!d->env_list)
+	{
+		i = -1;
+		while (d->environ && d->environ[++i])
+		{
+			free(d->environ[i]);
+			d->environ[i] = NULL;
+		}
+		return ;
+	}
+	new_env = dblst_to_arr(d->env_list);
+	if (!new_env)
+		return ;
+	if (d->environ)
+		free_void_array((void ***)&d->environ);
+	d->environ = new_env;
+}
+
+//		Value is a copy and must be freed after use
+char	*get_env_value(t_data *d, t_dblist *list, char *key)
+{
+	t_dblist	*element;
+	char		*no_key;
+	char		*value;
+
+	if (!list)
+		return (NULL);
+	element = get_dblst_at_key(list, key);
+	if (!element || !element->content)
+		return (NULL);
+	no_key = ms_rem_prefix(d, (char **)&element->content, key, 1);
+	value = ms_rem_prefix(d, &no_key, "=", 1);
+	free(no_key);
+	return (value);
+}
+
+void	update_env_var(t_data *d, t_dblist *list, char **var, char *key)
+{
+	char	*new_var_value;
+
+	new_var_value = get_env_value(d, list, key);
+	if (new_var_value)
+	{
+		safe_free(*var);
+		*var = new_var_value;
+	}
+	else if (!*var)
+		*var = ms_strdup(d, "?");
+}
+
+int	update_env_variables(t_data *d)
+{
+	char	*value;
+
+	d->debug_mode = 0;
+	value = get_env_value(d, d->var_list, "deb");
+	if (value)
+	{
+		d->debug_mode = ft_atoi(value);
+		safe_free(value);
+	}
+	update_env_var(d, d->env_list, &d->home_wd, "HOME");
+	update_env_var(d, d->env_list, &d->logname, "LOGNAME");
+	return (1);
+}
+
+int	set_key_value(t_data *d, t_dblist *list, char *key, char *value)
+{
+	t_dblist	*element;
+	char		*new_line;
+
+	element = get_dblst_at_key(list, key);
+	if (!element)
+		return (0);
+	new_line = ft_megajoin(key, "=", value, NULL);
+	if (!new_line)
+		return (custom_exit(d, "Node alloc failed", NULL, EXIT_FAILURE));
+	if (element->content)
+		free(element->content);
+	element->content = new_line;
+	return (1);
+}

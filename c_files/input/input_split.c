@@ -1,0 +1,126 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_parser.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/13 18:03:58 by giuliovalen       #+#    #+#             */
+/*   Updated: 2025/02/14 03:25:36 by giuliovalen      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../msh.h"
+
+int	get_directed_redir(t_data *d, char *str, int *i, char **joined)
+{
+	char	*split;
+	int		u;
+
+	*joined = NULL;
+	u = *i;
+	split = copy_until_char(d, str, &u, ">");
+	if (!split)
+		custom_exit(d, "alloc in input split", NULL, EXIT_FAILURE);
+	if (str[u + 1] == '>' && str[u + 2] == '>')
+	{
+		setstr(d, joined, ms_strjoin(d, split, ">>"));
+		*i = u + 3;
+	}
+	else if (str[u + 1] == '>')
+	{
+		setstr(d, joined, ms_strjoin(d, split, ">"));
+		*i = u + 2;
+	}
+	free(split);
+	return (*joined != NULL);
+}
+
+char	*get_token_in_split(t_data *d, char *str, int *i)
+{
+	char	first;
+	char	*joined;
+
+	joined = NULL;
+	if (str[*i] == '$' && str[*i + 1] == '(')
+		return (get_cmd_subst(d, str, i, joined));
+	if (ft_isdigit(str[*i]) && get_directed_redir(d, str, i, &joined))
+		return (joined);
+	if (char_in_str(str[*i], "<>&|"))
+	{
+		first = str[(*i)++];
+		if (str[*i] == first)
+			joined = char_join(first, str[(*i)++], '\0', '\0');
+		else
+			joined = char_join(first, '\0', '\0', '\0');
+		if (!joined)
+			custom_exit(d, "alloc of split token failed", NULL, EXIT_FAILURE);
+	}
+	else if (char_in_str(str[*i], "();"))
+	{
+		joined = char_join(str[(*i)++], '\0', '\0', '\0');
+		if (!joined)
+			custom_exit(d, "alloc of split token failed", NULL, EXIT_FAILURE);
+	}
+	return (joined);
+}
+
+char	*get_new_split(t_data *d, char *str, int *i)
+{
+	char	*new_split;
+	int		len;
+	int		size;
+
+	new_split = get_token_in_split(d, str, i);
+	if (new_split)
+		return (new_split);
+	len = *i;
+	while (str[len] && !(str[len] == '$' && str[len + 1] == ')') \
+		&& (!char_in_str(str[len], "()<>&|; ") || in_quote(str, len)))
+		len++;
+	size = (len - *i + 1);
+	new_split = ms_malloc(d, size);
+	len = 0;
+	while (len < size - 1)
+		new_split[len++] = str[(*i)++];
+	new_split[len] = '\0';
+	return (new_split);
+}
+
+char	**split_input(t_data *d, char *input)
+{
+	t_dblist	*list;
+	int			i;
+	int			input_len;
+	char		**splits;
+	char		*split;
+
+	list = NULL;
+	input_len = ft_strlen(input);
+	i = 0;
+	while (i < input_len && input[i])
+	{
+		while (input[i] == ' ' || input[i] == '\t')
+			i++;
+		if (!input[i])
+			break ;
+		split = get_new_split(d, input, &i);
+		if (split)
+			dblst_add_back(&list, dblst_new((void *)split));
+	}
+	splits = dblst_to_arr(list);
+	if (d->debug_mode)
+		show_char_array("splits", splits);
+	dblst_clear(&list, free);
+	solve_cmd_substitutes(d, &splits);
+	return (splits);
+}
+
+void	unquote_splits(t_data *d, char **splits)
+{
+	int	i;
+
+	i = -1;
+	while (splits[++i])
+		remove_chars(d, &splits[i], "\'\"");
+}
