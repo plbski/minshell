@@ -4170,3 +4170,6 @@ clear
 <<a <<b <<c <<d
 pwd
 echo cool | echo top
+unset
+clear
+<< a | << b
