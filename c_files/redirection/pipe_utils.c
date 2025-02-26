@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:46:30 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/26 21:53:44 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/27 00:32:24 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void	select_main_redir(t_token *cmd)
 	while (rd)
 	{
 		if (rd->type == tk_hered)
-			cmd->last_in = rd;
+			last_in = rd;
 		else if (rd->type == tk_red_in && \
 			(!last_in || last_in->type != tk_hered))
 			last_in = rd;
-		else
+		else if (rd->type == tk_red_app || rd->type == tk_red_out)
 			last_out = rd;
 		rd = rd->redir;
 	}
@@ -103,15 +103,44 @@ void	select_main_redir(t_token *cmd)
 
 t_token	*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, char **flags)
 {
-	t_token	*last_red_arg;
+	int		fd;
+	t_token	*start_redir;
 
+	save_stds(d);
+	start_redir = cmd->redir;
 	select_main_redir(cmd);
+	if (cmd->last_in)
+	{
+		cmd->redir = cmd->last_in;
+		cmd->red_arg = cmd->last_in->next;
+		handle_redir_cmd(d, cmd, arg, flags);
+	}
+	if (cmd->last_out)
+	{
+		cmd->redir = cmd->last_out;
+		cmd->red_arg = cmd->last_out->next;
+		handle_redir_cmd(d, cmd, arg, flags);
+	}
+	d->last_exit = execute_command(d, cmd->name, arg, flags);
+	reset_redir(d);
+	if (access(d->heredoc_wd, F_OK) != -1)
+		unlink(d->heredoc_wd);
+	cmd->redir = start_redir;
 	while (cmd->redir)
 	{
 		cmd->red_arg = cmd->redir->next;
-		handle_redir_cmd(d, cmd, arg, flags);
-		last_red_arg = cmd->red_arg;
+		if ((cmd->last_out && cmd->redir == cmd->last_out) || \
+			(cmd->last_in && cmd->redir == cmd->last_in))
+		{
+			cmd->redir = cmd->redir->redir;
+			continue ;
+		}
+		if (cmd->redir->type == tk_red_out || cmd->redir->type == tk_red_app)
+		{
+			fd = get_fd(d, cmd->red_arg->name, cmd->redir->type);
+			close(fd);
+		}
 		cmd->redir = cmd->redir->redir;
 	}
-	return (last_red_arg);
+	return (get_last_arg(cmd->red_arg));
 }

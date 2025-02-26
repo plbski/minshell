@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 21:24:20 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/27 00:09:03 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

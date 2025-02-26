@@ -205,3 +205,86 @@ echo cool < a << b < c
 echo cool >> a >> b >> c
 cat < a < b < c
 bash
+echo > output.txt
+echo ola > output.txt
+echo ola > a b c
+bash
+echo ola > a b c
+deb=1
+echo ola > a b c
+deb=1
+echo ola > a b c
+echo ola > a
+clear
+echo ola > a
+echo ola > a b c
+echo ola > a > b
+clear
+echo ola > a > b
+echo ola
+echo ola > b
+echo ola > a > b
+echo ola > a > b > c > d
+echo ola -n > a > b > c > d
+echo -n ola > d
+echo ola > a > b > c >> d
+echo << a << b << c << d
+cat
+cat << a << b
+deb=1
+cat << a << b
+cat << a
+cat << o << a
+cat < o < a
+cat < c_files
+cat < a
+cat < a < b
+cat << a << b
+make re
+.
+cat << a << b
+o
+a
+cat << a << b
+cat << a
+cat << alo
+cat << a
+<< a 
+<< ls
+ls
+<< o
+bash
+cat << a | cat << b | cat << c
+cat << a > b > c > d >> f << ola
+<< a > b > c > d >> f << ola
+cat << a > b > c > d >> f << ola
+ls
+cat << a > b > c > d >> f << ola
+cat << o
+cat << o > b
+cat << o << a
+cat << o > b
+cat << o > b > c > d
+cat << o > b
+cat << o
+echo a >> b > c
+echo a > a
+echo a > a > b
+echo a > a > b > c
+echo 0 > a
+echo a > b
+echo a
+echo alo
+echo o > a
+echo o > a > b > c
+cat << a > b > c > d >> f << ola
+cat << a << b << c
+cat << a > b > c > d >> f << ola | cat << a > b > c > d >> f << ola | cat << a > b > c > d >> f << ola
+cat << a > a > b > c > d | cat << b > e > f > g > h | cat < c > i > j > k > l
+cat << a > a > b > c > d | cat << b > e > f > g > h | cat << c > i > j > k > l
+cat << a > FILE_A | cat << a > FILE_B | cat << a | FILE_C
+cat << EOF > FILE_A | cat << EOF > FILE_B | cat << EOF > FILE_C
+deb=1
+cat << EOF > FILE_A | cat << EOF > FILE_B | cat << EOF > FILE_C
+cat << EOF > FILE_A | cat << EOF > FILE_A | cat << EOF > FILE_A
+cat << EOF> a > b > c

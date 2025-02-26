@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_exectools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 19:22:14 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 23:42:45 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static t_token	*set_args(t_data *d, t_token *cmd, \
 
 	list = NULL;
 	node = arg_token->next;
-	while (node && (node->type == tk_arg || (cmd->redir && cmd->redir == node)))
+	while (node && (node->type == tk_arg || (node->is_rd)))
 	{
-		if (!node->is_rd && (!cmd->red_arg || cmd->red_arg != node))
+		if (!node->is_rd && cmd && !node->prv->is_rd)
 		{
-			cmd = update_node_expansion(d, node);
+			node = update_node_expansion(d, node);
 			if (!node->name)
 				node->name = ms_strdup(d, "");
 			dblst_add_back(&list, dblst_new((void *)ms_strdup(d, node->name)));
@@ -53,7 +53,7 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 		return (NULL);
 	if (arg_token->type != tk_arg)
 		return (arg_token);
-	cmd = update_node_expansion(d, arg_token);
+	arg_token = update_node_expansion(d, arg_token);
 	if (!arg_token->name)
 		arg_token->name = ft_strdup("");
 	*arg = arg_token->name;

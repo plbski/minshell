@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 18:32:16 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/27 00:02:54 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ static int	add_line(t_data *d, char *nd, char **full, char **line)
 		safe_free(*line);
 		return (0);
 	}
-	buffer = ms_strjoin(d, *full, trunc);
+	buffer = ft_megajoin(*full, *line, "\n", NULL);
+	if (!buffer)
+		custom_exit(d, "alloc in add line\n", NULL, EXIT_FAILURE);
 	free(*full);
 	free(*line);
 	*full = buffer;
