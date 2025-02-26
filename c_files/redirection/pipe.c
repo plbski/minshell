@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 17:35:33 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 01:12:42 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,9 @@ static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
 		close(fd_out[1]);
 	}
 	cmd = update_node_expansion(d, cmd);
-	if (cmd)
-	{
-		if (cmd->type == tk_cmd)
-			handle_command_token(d, cmd, 1);
-		clear_tokens(token_first(cmd));
-	}
+	if (cmd && cmd->type == tk_cmd)
+		handle_command_token(d, cmd, 1);
+	clear_tokens(token_first(cmd));
 }
 
 static void	handle_pipe_child(t_data *d, t_token *cmd, int i, int **pfds)

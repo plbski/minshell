@@ -4153,3 +4153,20 @@ clear
 deb=0
 clear
 cat << a << b << c << d << e
+pwd
+clear
+export a b c && unset a b c
+export a b c && unset a b c a=b c=d a=$PWD
+export a=b
+export a b c d=f e=$PWD && unset a b c
+unset
+exit 5
+exit 1024912302o
+<<ao
+ls
+clear
+<< ao
+<<ao
+<<a <<b <<c <<d
+pwd
+echo cool | echo top

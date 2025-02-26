@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/26 00:14:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 01:03:22 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	handle_no_value_export(t_data *d, char *key, int tmp_mem)
 	char		*new_content;
 
 	if (get_dblst_node(d->env_list, key))
-		return (FCT_OK);
+		return (safe_free(key), FCT_OK);
 	if (!tmp_mem)
 	{
 		var_node = get_dblst_at_key(d->var_list, key);
@@ -84,14 +84,14 @@ static int	handle_no_value_export(t_data *d, char *key, int tmp_mem)
 		if (get_dblst_node(d->env_list, new_content))
 		{
 			free(new_content);
-			return (FCT_OK);
+			return (safe_free(key), FCT_OK);
 		}
 		dblst_add_back(&d->env_list, dblst_new(new_content));
 		update_environ(d);
 	}
 	else if (!get_dblst_node(d->var_list, key))
 		dblst_add_back(&d->var_list, dblst_new(ms_strdup(d, key)));
-	return (FCT_OK);
+	return (safe_free(key), FCT_OK);
 }
 
 static int	exec_export(t_data *d, char *arg, int tmp_mem)

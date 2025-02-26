@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 00:35:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 01:09:57 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	*ft_heredoc(char *end, t_data *d, char *print)
 	close(heredoc_fd);
 	if (heredoc_success)
 		return (file_name);
+	unlink(file_name);
 	safe_free(file_name);
 	return (NULL);
 }
