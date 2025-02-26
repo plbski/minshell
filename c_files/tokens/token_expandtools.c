@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_expandtools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:11:49 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 23:14:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 17:19:09 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ t_token	*swap_redir_cmd(t_data *d, t_token *tk)
 	t_token	*red_arg;
 	t_token	*cmd;
 
+	(void)d;
 	if (!tk || !tk->is_rd || tk->type == tk_hered || !tk->next)
 		return (tk);
 	if ((!tk->prv || (tk->prv->type != tk_cmd && tk->prv->type != tk_arg)))
 	{
 		red_arg = tk->next;
-		cmd = new_token(ms_strdup(d, "null"), tk->prv, tk_cmd, tk->par);
+		cmd = new_token("null", tk->prv, tk_cmd, tk->par);
 		if (tk->prv)
 			tk->prv->next = cmd;
 		tk->prv = cmd;

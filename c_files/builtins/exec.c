@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 23:51:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 18:42:15 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ int	valid_exec(const char *file, int *fct_ret, int exec, int prnt)
 	char		buff[4];
 
 	*fct_ret = FCT_OK;
-	if (is_directory(file))
+	if (access(file, F_OK) == -1 || is_directory(file))
 	{
 		if (prnt)
 			print_exec_error(file, ERR_IS_DIR, exec);
-		return (*fct_ret = CMD_IS_DIR, 0);
+		return (*fct_ret = 127 - is_directory(file), 0);
 	}
 	fd = open(file, O_RDONLY);
-	if (fd == -1 || access(file, F_OK) == -1)
+	if (fd == -1)
 		*fct_ret = CMD_NOT_FOUND;
 	else if (fstat(fd, &st) == -1 || \
 		!S_ISREG(st.st_mode) || !(st.st_mode & S_IXUSR))

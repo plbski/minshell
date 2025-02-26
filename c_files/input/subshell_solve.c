@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell_solve.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 01:39:10 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 22:01:41 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 18:39:36 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static t_token	*get_subsh_out(t_data *d, t_token *start, t_token *redir)
 		output = get_subsh_output(d, start, redir->rd_fd);
 	if (!output)
 		output = ms_strdup(d, "");
-	cmd = new_token(ft_strdup("echo"), start, tk_cmd, redir->par);
+	cmd = new_token("echo", start, tk_cmd, redir->par);
 	start->next = cmd;
 	arg = new_token(output, cmd, tk_arg, redir->par);
 	redir->rd_fd = -1;
@@ -104,7 +104,7 @@ static t_token	*get_subsh_out(t_data *d, t_token *start, t_token *redir)
 		cmd->pipe_out = redir->next;
 	else
 		cmd->redir = redir;
-	return (cmd->next = arg, cmd->red_arg = redir->next, cmd);
+	return (free(output), cmd->next = arg, cmd->red_arg = redir->next, cmd);
 }
 
 t_token	*solve_subshell(t_data *d, t_token *start)

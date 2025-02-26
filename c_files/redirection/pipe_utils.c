@@ -3,27 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:46:30 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/26 00:39:35 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 21:53:44 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
+
+void	redirect_pipe_stds(t_data *d, int *fd_in, int *fd_out)
+{
+	if (fd_in)
+	{
+		close(fd_in[1]);
+		if (dup2(fd_in[0], STDIN_FILENO) == -1)
+			custom_exit(d, "dup2", NULL, EXIT_FAILURE);
+		close(fd_in[0]);
+	}
+	if (fd_out)
+	{
+		close(fd_out[0]);
+		if (dup2(fd_out[1], STDOUT_FILENO) == -1)
+			custom_exit(d, "dup2", NULL, EXIT_FAILURE);
+		close(fd_out[1]);
+	}
+}
+
+void	execute_cmd(t_data *d, t_token *cmd)
+{
+	cmd = update_node_expansion(d, cmd);
+	if (cmd && cmd->type == tk_cmd)
+		handle_command_token(d, cmd, 1);
+	clear_tokens(d->input_tokens);
+	d->input_tokens = NULL;
+	cmd = NULL;
+}
 
 void	free_pfds_and_pids(int **pfds, int *pids, int count)
 {
 	int	i;
 
 	i = 0;
-	while (i < count)
+	while (pfds && i < count)
 	{
 		free(pfds[i]);
 		i++;
 	}
-	free(pfds);
-	free(pids);
+	if (pfds)
+		free(pfds);
+	if (pids)
+		free(pids);
 }
 
 int	cleanup(int **fds, int *pids, int pipes_count)
@@ -47,10 +77,35 @@ int	cleanup(int **fds, int *pids, int pipes_count)
 	return (exit_st);
 }
 
+void	select_main_redir(t_token *cmd)
+{
+	t_token	*last_in;
+	t_token	*last_out;
+	t_token	*rd;
+
+	last_in = NULL;
+	last_out = NULL;
+	rd = cmd->redir;
+	while (rd)
+	{
+		if (rd->type == tk_hered)
+			cmd->last_in = rd;
+		else if (rd->type == tk_red_in && \
+			(!last_in || last_in->type != tk_hered))
+			last_in = rd;
+		else
+			last_out = rd;
+		rd = rd->redir;
+	}
+	cmd->last_in = last_in;
+	cmd->last_out = last_out;
+}
+
 t_token	*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, char **flags)
 {
 	t_token	*last_red_arg;
 
+	select_main_redir(cmd);
 	while (cmd->redir)
 	{
 		cmd->red_arg = cmd->redir->next;

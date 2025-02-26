@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:15:55 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 18:05:55 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:22:14 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_token	*set_args(t_data *d, t_token *cmd, \
 			cmd = update_node_expansion(d, node);
 			if (!node->name)
 				node->name = ms_strdup(d, "");
-			dblst_add_back(&list, dblst_new(ms_strdup(d, node->name)));
+			dblst_add_back(&list, dblst_new((void *)ms_strdup(d, node->name)));
 		}
 		node = node->next;
 	}
@@ -54,9 +54,9 @@ t_token	*setup_args(t_data *d, char **arg, t_token *cmd, char ***flags)
 	if (arg_token->type != tk_arg)
 		return (arg_token);
 	cmd = update_node_expansion(d, arg_token);
+	if (!arg_token->name)
+		arg_token->name = ft_strdup("");
 	*arg = arg_token->name;
-	if (!*arg)
-		*arg = ft_strdup("");
 	if (!arg_token->next)
 	{
 		*flags = NULL;

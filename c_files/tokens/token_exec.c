@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 00:16:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 21:24:20 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,12 @@ t_token	*handle_command_token(t_data *d, t_token *node, int should_redir)
 	return (free_void_array((void ***)&flags), nxt);
 }
 
-static t_token	*skip_nodes(t_data *d, t_token *nod)
+static t_token	*skip_nodes(t_data *d, t_token *nod, int min_par)
 {
-	int		min_par;
-
-	min_par = nod->par;
 	if (d->debug_mode)
-		printf("%sskipping lower par tokens >%s ", RED, RESET);
+		printf("%sSKIP lower par toks >%s%s", RED, RESET, nod->name);
+	if (!nod->next || nod->next->type == tk_cmd)
+		return (NULL);
 	nod = nod->next;
 	if (nod && nod->next)
 	{
@@ -72,7 +71,7 @@ static t_token	*handle_logical_token(t_data *d, t_token *node)
 	if ((same_str(node->name, "||") && d->last_exit != FCT_OK) || \
 	(same_str(node->name, "&&") && d->last_exit == FCT_OK))
 		return (node->next);
-	return (skip_nodes(d, node));
+	return (skip_nodes(d, node, node->par));
 }
 
 static t_token	*handle_token(t_data *d, t_token *node)

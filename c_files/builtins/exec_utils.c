@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 00:33:18 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 16:03:47 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char	*get_path_in_env(t_data *d, char *prg, int is_exec, int *fct_ret)
 	}
 	if (valid_exec(path_dir, fct_ret, is_exec, 0))
 		return (path_dir);
+	safe_free(path_dir);
 	valid_exec(prg, fct_ret, is_exec, 0);
 	print_exec_error(prg, *fct_ret, is_exec);
 	return (NULL);

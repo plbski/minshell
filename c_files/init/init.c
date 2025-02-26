@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/25 22:49:22 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 18:09:13 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	init_data_var(t_data *d)
 	d->prompt_msg = NULL;
 	d->prv_input = NULL;
 	d->heredoc_wd = NULL;
+	d->input_tokens = NULL;
 	d->heredocfd = -1;
 	d->var = 0;
 	d->shlvl = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 00:31:08 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 17:18:41 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
 	{
 		arg_name = ms_strdup(d, entry->d_name);
 		if (arg_name[0] != '.')
-			start = new_token(ms_strdup(d, arg_name), start, tk_arg, brk);
+			start = new_token(arg_name, start, tk_arg, brk);
 		free(arg_name);
 		entry = readdir(directory);
 	}
@@ -79,7 +79,7 @@ static	t_token	*set_tok(t_data *d, t_token *prv, char **sp, t_token *prv_evl)
 	if (type == tk_wildcard)
 		new_tok = fill_wildcard(d, prv, d->brackets);
 	else
-		new_tok = new_token(ms_strdup(d, *sp), prv, type, d->brackets);
+		new_tok = new_token(*sp, prv, type, d->brackets);
 	if (rd_fd < 3)
 		new_tok->rd_fd = rd_fd;
 	return (new_tok);

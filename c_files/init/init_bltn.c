@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bltn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:47:21 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/23 23:50:44 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 19:42:30 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ void	init_builtins_data(t_data *d)
 	init_builtins_names(d);
 	init_builtins_pointers(d);
 	init_types_names(d);
-	source(d, NULL, NULL, 0);
+	source(d, NULL, NULL, 1);
 }

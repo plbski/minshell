@@ -89,6 +89,7 @@ int	exec_input(t_data *d, char *input)
 	tokens = tokenize_string(d, input);
 	if (!tokens)
 		return (FCT_FAIL);
+	d->input_tokens = tokens;
 	start = token_first(tokens);
 	iterate_tokens(d, start);
 	if (d->heredocfd != -1)
@@ -96,5 +97,6 @@ int	exec_input(t_data *d, char *input)
 	if (d->debug_mode)
 		show_tokens_info(d, start, "End ", -1);
 	clear_tokens(start);
+	d->input_tokens = NULL;
 	return (FCT_OK);
 }

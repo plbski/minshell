@@ -3,49 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 00:22:17 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 01:12:42 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 18:40:42 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-static void	execute_cmd(t_data *d, t_token *cmd, int *fd_in, int *fd_out)
+static void	select_right_redir(t_data *d, int i, int **pfds)
 {
 	d->fork_child++;
-	if (fd_in)
-	{
-		close(fd_in[1]);
-		if (dup2(fd_in[0], STDIN_FILENO) == -1)
-			custom_exit(d, "dup2", NULL, EXIT_FAILURE);
-		close(fd_in[0]);
-	}
-	if (fd_out)
-	{
-		close(fd_out[0]);
-		if (dup2(fd_out[1], STDOUT_FILENO) == -1)
-			custom_exit(d, "dup2", NULL, EXIT_FAILURE);
-		close(fd_out[1]);
-	}
-	cmd = update_node_expansion(d, cmd);
-	if (cmd && cmd->type == tk_cmd)
-		handle_command_token(d, cmd, 1);
-	clear_tokens(token_first(cmd));
-}
-
-static void	handle_pipe_child(t_data *d, t_token *cmd, int i, int **pfds)
-{
 	if (i == 0 && (d->var + 1) > 1)
-		execute_cmd(d, cmd, NULL, pfds[i]);
+		redirect_pipe_stds(d, NULL, pfds[i]);
 	else if (i == 0)
-		execute_cmd(d, cmd, NULL, NULL);
+		redirect_pipe_stds(d, NULL, NULL);
 	else if (i == d->var)
-		execute_cmd(d, cmd, pfds[i - 1], NULL);
+		redirect_pipe_stds(d, pfds[i - 1], NULL);
 	else
-		execute_cmd(d, cmd, pfds[i - 1], pfds[i]);
-	custom_exit(d, NULL, NULL, d->last_exit);
+		redirect_pipe_stds(d, pfds[i - 1], pfds[i]);
 }
 
 static void	iterate_pipes(t_data *d, t_token *cmd, int **pfds, int *pids)
@@ -61,7 +38,12 @@ static void	iterate_pipes(t_data *d, t_token *cmd, int **pfds, int *pids)
 		if (pids[i] < 0)
 			custom_exit(d, "fork", NULL, EXIT_FAILURE);
 		if (pids[i] == 0)
-			handle_pipe_child(d, cmd, i, pfds);
+		{
+			select_right_redir(d, i, pfds);
+			free_pfds_and_pids(pfds, pids, d->var + 1);
+			execute_cmd(d, cmd);
+			custom_exit(d, NULL, NULL, d->last_exit);
+		}
 		cmd = cmd->pipe_out;
 		if (i <= 0)
 			continue ;

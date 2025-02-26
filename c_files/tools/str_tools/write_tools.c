@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 17:00:27 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:48:25 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,18 @@ int	get_char_index(char *str, char c)
 char	*get_fd_content(t_data *d, int fd)
 {
 	char	*full_content;
-	char	buffer[4096];
-	char	*tmp;
-	ssize_t	bytes_read;
-	size_t	total_length;
+	char	*line;
+	char	*buffer;
 
-	total_length = 0;
 	full_content = ms_strdup(d, "");
-	bytes_read = read(fd, buffer, 4096);
-	while (bytes_read > 0)
+	line = get_next_line(fd);
+	while (line)
 	{
-		tmp = ms_realloc(d, full_content, total_length + bytes_read + 1);
-		if (!tmp)
-			return (free(full_content), NULL);
-		full_content = tmp;
-		ft_memcpy(full_content + total_length, buffer, bytes_read);
-		total_length += bytes_read;
-		full_content[total_length] = '\0';
-		bytes_read = read(fd, buffer, 4096);
+		buffer = ms_strjoin(d, full_content, line);
+		free(line);
+		free(full_content);
+		full_content = buffer;
+		line = get_next_line(fd);
 	}
-	close(fd);
-	if (bytes_read == -1)
-		return (free(full_content), NULL);
 	return (full_content);
 }

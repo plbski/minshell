@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:33:06 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 17:30:47 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:46:47 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_token	*new_token(char *name, t_token *prv, t_tktype type, int parenth_order)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
+	token->last_in = NULL;
+	token->last_out = NULL;
 	token->next = NULL;
 	token->pipe_out = NULL;
 	token->prv = prv;
@@ -27,15 +29,15 @@ t_token	*new_token(char *name, t_token *prv, t_tktype type, int parenth_order)
 	token->cnt_hered = NULL;
 	token->par = parenth_order;
 	token->rd_fd = 0;
-	token->name = name;
+	token->name = ft_strdup(name);
+	if (!token->name)
+		return (free(token), NULL);
 	token->type = type;
 	token->red_arg = NULL;
 	token->redir = NULL;
-	token->subsh_out = NULL;
-	token->nxt_eval = NULL;
 	token->is_rd = (type == tk_red_app || type == tk_red_in || \
 		type == tk_red_out || type == tk_hered);
-	return (token);
+	return (token->subsh_out = NULL, token->nxt_eval = NULL, token);
 }
 
 t_token	*token_first(t_token *lst)
@@ -70,15 +72,16 @@ t_token	*get_token(t_token *lst, char *name)
 
 void	clear_tokens(t_token *token)
 {
+	t_token	*node;
 	t_token	*tmp;
 
 	if (!token)
 		return ;
-	token = token_first(token);
-	while (token)
+	node = token_first(token);
+	while (node)
 	{
-		tmp = token;
-		token = token->next;
+		tmp = node;
+		node = node->next;
 		if (tmp->name)
 			free(tmp->name);
 		if (tmp->cnt_hered)

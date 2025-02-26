@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/26 00:30:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/26 21:46:02 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ typedef struct s_token
 	struct s_token	*redir;
 	struct s_token	*red_arg;
 	struct s_token	*nxt_eval;
+	struct s_token	*last_in;
+	struct s_token	*last_out;
 	int				is_cmd_subst;
 	int				is_rd;
 	int				rd_fd;
@@ -97,6 +99,7 @@ typedef struct s_data
 	t_dblist		*env_list;
 	t_dblist		*var_list;
 	t_dblist		*heredocs_fds;
+	t_token			*input_tokens;
 	char			**bltin_names;
 	const char		**types_names;
 	char			**environ;
@@ -285,8 +288,7 @@ t_token		*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, \
 t_token		*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags);
 
 //		redirection/heredoc.c
-int			exec_heredoc(char *nd, char *print, int heredoc_fd);
-char		*ft_heredoc(char *end, t_data *d, char *print);
+char		*exec_heredoc(t_data *d, char *nd, char *print);
 
 //		builtins/ls.c
 DIR			*get_directory(t_data *d, char *arg);
@@ -305,7 +307,7 @@ int			pwd(t_data *d, char *arg, char **flags, int status);
 int			export(t_data *d, char *arg, char **flags, int tmp_mem);
 int			cd(t_data *d, char *arg, char **flags, int status);
 char		*get_rc_path(t_data *d);
-int			source(t_data *d, char *arg, char **flags, int status);
+int			source(t_data *d, char *arg, char **flags, int free_arg);
 int			doc(t_data *d, char *arg, char **flags, int status);
 int			echo(t_data *d, char *arg, char **flags, int status);
 
@@ -362,5 +364,7 @@ char		*get_prompt_message(t_data *d);
 char		*name_heredoc(t_data *d);
 int			set_heredoc(t_data *d, t_token *tok);
 int			set_heredocs(t_data *d, t_token *tok);
+void		redirect_pipe_stds(t_data *d, int *fd_in, int *fd_out);
+void		execute_cmd(t_data *d, t_token *cmd);
 
 #endif
