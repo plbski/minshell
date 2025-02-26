@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/04 16:33:59 by gvalente          #+#    #+#             */
-/*   Updated: 2024/10/07 16:38:33 by gvalente         ###   ########.fr       */
+/*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
+/*   Updated: 2025/01/16 19:42:32 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../header.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	cd(t_data *d, char *prompt)
 {
-	t_list	*cur;
+    char	*prompt_path;
 
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	cur = *lst;
-	while (cur->next != NULL)
-		cur = cur->next;
-	cur->next = new;
+	prompt_path = ft_remove_prefix(prompt, "cd ");
+	if (chdir(prompt_path) == -1)
+		printf("%s", "wrong path\n");
+	update_cwd(d);
+	free(prompt_path);
 }

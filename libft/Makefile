@@ -19,15 +19,11 @@ CC = gcc
 
 NAME = libft.a
 
-GREEN = \033[0;32m
-RESET = \033[0m
-
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
-	@echo "$(GREEN)Libft	successfully compiled.$(RESET)"
 
 all: $(NAME)
 
@@ -36,11 +32,9 @@ bonus: $(ALL_OBJ)
 
 clean:
 	rm -f $(ALL_OBJ)
-	@if [ -z "$(QUIET)" ]; then echo "Libft	cleaned"; fi
 
 fclean: clean
 	rm -f $(NAME)
-	@echo "Libft	fcleaned"
 
 re: fclean all
 

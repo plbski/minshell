@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:38:17 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/21 14:06:12 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2024/10/07 16:16:00 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

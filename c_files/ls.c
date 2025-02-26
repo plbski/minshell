@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ls.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/04 16:33:59 by gvalente          #+#    #+#             */
-/*   Updated: 2024/10/07 16:38:33 by gvalente         ###   ########.fr       */
+/*   Created: 2025/01/14 21:31:42 by gvalente          #+#    #+#             */
+/*   Updated: 2025/01/14 22:50:13 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../header.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	ls(t_data *d)
 {
-	t_list	*cur;
+	struct dirent	*entry;
+	DIR				*directory;
+	(void)d;
 
-	if (*lst == NULL)
+	directory = opendir(d->cwd);
+	if (directory == NULL)
+		return (0);
+	entry = readdir(directory);
+	while (entry != NULL)
 	{
-		*lst = new;
-		return ;
+		printf("%s	", entry->d_name);
+		entry = readdir(directory);
 	}
-	cur = *lst;
-	while (cur->next != NULL)
-		cur = cur->next;
-	cur->next = new;
+	printf("\n");
+	closedir(directory);
+	return (1);
 }
