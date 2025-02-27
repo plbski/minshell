@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:50:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/23 19:16:43 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 14:44:48 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**ms_split(t_data *d, const char *str, char remove)
 
 	if (!str)
 		return (NULL);
-	splits = ft_split(str, remove);
+	splits = ft_split(str, remove, '\0');
 	if (!splits)
 	{
 		ft_dprintf(2, "%s split failed\n", str);

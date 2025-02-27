@@ -35,9 +35,9 @@ static int	set_quotes(t_data *d, char **input)
 	qt_index = -1;
 	dbqt_index = -1;
 	quote_end = NULL;
-	if (chr_amnt(*input, '\'') % 2 == 1)
+	if (chr_amnt(*input, '\'', 0) % 2 == 1)
 		qt_index = get_char_index(*input, '\'');
-	if (chr_amnt(*input, '\"') % 2 == 1)
+	if (chr_amnt(*input, '\"', 0) % 2 == 1)
 		dbqt_index = get_char_index(*input, '\"');
 	if ((qt_index == -1 || in_quote(*input, qt_index)) && \
 		(dbqt_index == -1 || in_quote(*input, dbqt_index)))

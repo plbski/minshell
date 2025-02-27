@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 00:28:20 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 00:26:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 13:00:23 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	*exec_parse_heredoc(t_data *d, char *nd, char *print)
 			break ;
 		if (should_skip_line(line, &print_prompt))
 			continue ;
-		if (!nd || same_str(line, nd) || (chr_amnt(line, *nd) % 2 == 1))
+		if (!nd || same_str(line, nd) || (chr_amnt(line, *nd, 1) % 2 == 1))
 			break ;
 		add_line(d, &buffer, &full, &line);
 	}

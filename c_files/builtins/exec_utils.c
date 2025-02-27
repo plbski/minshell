@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 16:03:47 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:45:17 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*fetch_path(t_data *d, char *cmd_name)
 	path_env = get_env_value(d, d->env_list, "PATH");
 	if (!path_env)
 		return (ft_megajoin(d->cwd, "/", cmd_name, NULL));
-	splitted_path = ft_split(path_env, ':');
+	splitted_path = ft_split(path_env, ':', '\0');
 	free(path_env);
 	if (!splitted_path)
 		custom_exit(d, "Failed to split PATH", NULL, EXIT_FAILURE);

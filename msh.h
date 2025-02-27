@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/26 21:46:02 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:05:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ const char *remove, const char *replace);
 //		tools/str_tools/strcmp_tools.c
 int			same_str(const char *a, const char *b);
 int			char_in_str(char c, const char *txt);
-int			chr_amnt(const char *str, char c);
+int			chr_amnt(const char *str, char c, int quote_check);
 int			get_arr_len(void **arr);
 int			ft_strcmp(const char *s1, const char *s2);
 
@@ -318,7 +318,7 @@ void		set_redir_arg(t_token *tok);
 void		set_redir_redir(t_token *tok);
 
 //		tokens/token_parse.c
-t_tktype	get_token_type(t_token *prv_eval, char *str);
+t_tktype	get_token_type(t_token *prv_eval, t_token *prv, char *str);
 t_token		*tokenize_string(t_data *d, char *prompt);
 
 //		tokens/token_expand2.c
@@ -335,7 +335,6 @@ void		set_parenthesis_rdections(t_token *tok);
 char		*expand_special_segment(t_data *d, char *split, int *i);
 char		*expand_segment(t_data *d, char *split, int *i);
 char		*expand_split(t_data *d, char *split, int len, int i);
-void		expand_splits(t_data *d, char **splits);
 t_token		*update_node_expansion(t_data *d, t_token *node);
 
 //		tokens/token_exec.c
@@ -366,5 +365,6 @@ int			set_heredoc(t_data *d, t_token *tok);
 int			set_heredocs(t_data *d, t_token *tok);
 void		redirect_pipe_stds(t_data *d, int *fd_in, int *fd_out);
 void		execute_cmd(t_data *d, t_token *cmd);
+t_token		*fill_wildcard(t_data *d, t_token *start, char *str, int brk);
 
 #endif

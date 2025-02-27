@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 22:27:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 00:39:49 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 10:00:18 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ void	set_redir_redir(t_token *tok)
 {
 	while (tok)
 	{
+		if (tok->is_rd && (!tok->prv || tok->prv->type != tk_cmd) && \
+				tok->next && tok->next->next && tok->next->next->type == tk_cmd)
+		{
+			swap_tokens(tok->next, tok);
+			swap_tokens(tok->next->next, tok);
+			continue ;
+		}
 		tok->redir = NULL;
 		if (tok->is_rd)
 			set_redir_arg(tok);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/25 23:44:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 13:02:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 		str = ft_itoa(d->last_exit);
 	else if (split[*i + 1] == '0')
 		str = ft_strjoin(d->msh_wd, "/minishell");
-	else if (split[*i] == '$' && split[*i + 1] == '\"')
+	else if (split[*i + 1] == '\"' || !split[*i + 1])
 		str = ft_strdup("$");
 	else
 		return (NULL);
@@ -55,8 +55,6 @@ char	*expand_segment(t_data *d, char *split, int *i)
 		value = get_env_value(d, d->var_list, var_name);
 	free(var_name);
 	(*i)--;
-	if (!value)
-		return (ms_strdup(d, ""));
 	return (value);
 }
 
@@ -67,7 +65,7 @@ char	*expand_split(t_data *d, char *split, int len, int i)
 	int		spl_index;
 
 	spl_index = 0;
-	spl_values = ms_malloc(d, sizeof(char *) * len);
+	spl_values = ms_malloc(d, sizeof(char *) * (len));
 	while (i < len && split[i])
 	{
 		if (split[i] == '$' && in_quote(split, i) != 1)
@@ -87,29 +85,6 @@ char	*expand_split(t_data *d, char *split, int len, int i)
 	return (free_void_array((void ***)&spl_values), new_str);
 }
 
-void	expand_splits(t_data *d, char **splits)
-{
-	int		i;
-	int		splits_amount;
-	int		len;
-	char	*new_split;
-
-	i = -1;
-	while (splits[++i])
-	{
-		len = ft_strlen(splits[i]);
-		splits_amount = chr_amnt(splits[i], '$');
-		if (!splits_amount || (splits_amount == len && splits_amount > 2))
-			continue ;
-		new_split = expand_split(d, splits[i], ft_strlen(splits[i]), 0);
-		if (new_split)
-		{
-			free(splits[i]);
-			splits[i] = new_split;
-		}
-	}
-}
-
 t_token	*update_node_expansion(t_data *d, t_token *node)
 {
 	char	*new_name;
@@ -125,15 +100,13 @@ t_token	*update_node_expansion(t_data *d, t_token *node)
 	if (node->name[0] == '~' && (!node->name[1] || node->name[1] == '/') && \
 		d->home_wd[0] != '?')
 		replace_strstr(d, &node->name, "~", d->home_wd);
-	if (chr_amnt(node->name, '$'))
+	if (chr_amnt(node->name, '$', 0))
 	{
 		new_name = expand_split(d, node->name, ft_strlen(node->name), 0);
-		if (new_name && node->type == tk_cmd && chr_amnt(new_name, ' '))
+		if (new_name && node->type == tk_cmd && chr_amnt(new_name, ' ', 0))
 			node = insert_expanded_tokens(d, node, new_name);
-		else if (new_name)
-			setstr(d, &node->name, new_name);
 		else
-			setstr(d, &node->name, ms_strdup(d, ""));
+			setstr(d, &node->name, new_name);
 	}
 	remove_quotes(d, &node->name);
 	return (node);

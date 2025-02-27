@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:46:58 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/20 23:30:21 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 13:02:35 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*truncate_at_end(const char *str, char cut_letter)
 	int		i;
 	int		trunc_index;
 
-	if (!str || !chr_amnt(str, cut_letter))
+	if (!str || !chr_amnt(str, cut_letter, 0))
 		return (NULL);
 	i = ft_strlen(str);
 	while (--i >= 0)

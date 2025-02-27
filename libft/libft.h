@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:40:03 by gvalente          #+#    #+#             */
-/*   Updated: 2025/01/28 00:58:01 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 14:44:32 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
-char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c, char replace);
 void	*ft_memset(void *b, int c, size_t len);
 
 t_list	*ft_lstnew(void *content);

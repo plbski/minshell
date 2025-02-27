@@ -1,290 +1,272 @@
-ls
-clear
-env
-exit
-unset PATH
-ls
-echo $?
-exit
-claer
-clear
-/bin/ls
-cat|cat|ls
-clear
-ls | << end cat
-bash
-ls | cat << end
-<< end cat
-clear
-ls > out | cat
-cat out 
-clear
-touch test.c
-cc test.c -O LS
-cc test.c -o ls
-ls
-./ls
-pwd
-export PATH+=:/home/gvalente/Desktop/42_Projects/core_3/Minishell
-ls
-export PATH=:/home/gvalente/Desktop/42_Projects/core_3/Minishell
-ls
-exit
-cat << end
-ls
-cat << end
-bash
-cat << end
-echo $?
-cat
-echo $?
-cat << end
-bash
-exit
-ls
-echo a > out
-env
-cat < out
-< out cat
-exit
-ls
-top
-clear
-chmod  000 out
-(cat out || ls) || cat Makefile
-(cat out || ls) && echo a
-cat out || (ls && echo a)
-(cat out && cat Makefile) || ls
-clear
-ls > 
-exit
-exit 1
-exit > um
-ls | exit
-ls | cat
-clear
-hello
-code .
-echo -nnnnnnnn
-echo -nnnnnnnn -n a
-bash
-echo -
-echo -n -nnnnnnn -n-n
-echo -n-n
-echo -na
-echo ''
-''
-$fads
-export test=test
-test=fsd
-export
-test=''
-export
-export a
-export
-export te+s=t
-export test+=$test
-export
-export test=a
-export test+=$test
-export
-exit
-clear
-ls
-pwd
-cd | cat | ls
-clear
-ls
-ls | cat
-clear
-ls
-exit 4
-exit 5
-exit 5 | exit 3
-ls
-ls | cat
-clear
-ls | cat
-clear
-ls | cat
-ls
-pwd
-clear
-ls | cat
-<< alo
-make leaks
-make valgrind
-<< alo | cat << cool | << b | cat | cat << c
-<< alo
-ls
-pwd
-clear
-ls | cat
-ls | ca
-ls | cat
-clear
-ls | cat
-clear
-ls | cat
-ls | cat | cat | cat
-ls | cat << qp | cat << ao | cat << oala
-clear
-ls | cat << qp | cat << ao | cat << oala
-ls | cat << qp | cat << ao | cat << oalals && ls
-clear
-ls && ls
-ls || ls
-ls && ls
-ls || ls
-ls || ls || ls || ls
+olsa
+alo
+ola
 deb=1
-ls || ls
-echo cool || echo top
-clear
+<< al ls
 deb=1
-clear
-echo cool || echo top
-pwd || pwd
-deb=1
-pwd || pwd
-clear
-pwd || pwd
-pwd && pwd
-clear
-pwd || pwd || pwd
-pwd || pwd || pwd || pwd
-pwd || pwd || pwd || pwd || pwd
-pwd || (pwd || pwd) || (ls || pwd)
-olapo || (pwd || pwd) || (ls || pwd)
-olapo || (ouapao || pwd) || (ls || pwd)
-clear
-ls
-pwd
-clear
-ls
-pwd
-clear
-pwd && echo cool
-sleep 600
-cagt
-cat
+<< al ls
+<< al cat
+<< al cat << ol
+> output echo cool
+cat << olq
+$?
 bash
-cat
+cat << olq
+$?
+cat output | grep ola | more
 clear
-echo -nnn -nola
-echo -nnn olapo -nnn
+> output echo ola super top
+cat output
+cat output | grep ola | more
+klnlkn
+$?
+cat output
+cat | cat | ls
+~
+$
+slkgn
+$welkgn
+$fqwojglqw$qlkenf
+$sloas
+$a
+$olaqe
+$
+$$
+$
+$?
+$dskm
 bash
-echo -n -nn -nnn -cool - 
+$
+$kjn
 bash
-echo -n -nn -nnn
-echo alopa -n -nn -nnn
-ls | cat | cat
+$$sknwk$
+$kjdnsglks$
+$
+$ksn$
+$sldkn
+echo $klwenf
+"$"
+$
+"$aef"
+bash
+"$segj"
+$
+"$"
+"$alopa"
+echo "$alopa"
+bash
+"$alopa"
+$alopa
+"$alopa"
+al
+eqggn
+al
+l
 clear
-ls | cat | cat
-echo
+"$alopa"
+""
 bash
-echo cool
-echo ola
-echo ola -n
-echo ola -n cool
+""
+"$alopa"
 bash
+"alo"
+"$$"
+$a $b $c $d
+$e
+bash
+""
+$alopa
 clear
-echo -n ola
-echo -n ola cool
-echo -nnnnna ola cool
-echo -nnnnna ola cool -n -nnn
+$alopaa$SHLVL
 bash
-clear
-cat <<EOF > file
-deb=1
-cat <<EOF > file
-cat <<EOF
-cat <<EOF > file
-echo cool > a > b > c
-echo cool < a << b < c
-echo cool >> a >> b >> c
-cat < a < b < c
+$alopa
+"$alopa"
+'$alopa'
+'"$alopa"'
 bash
-echo > output.txt
-echo ola > output.txt
-echo ola > a b c
+"'$alopa'"
+echo '$alopa'
+echo "'$alopa'"
 bash
-echo ola > a b c
-deb=1
-echo ola > a b c
-deb=1
-echo ola > a b c
-echo ola > a
-clear
-echo ola > a
-echo ola > a b c
-echo ola > a > b
-clear
-echo ola > a > b
-echo ola
-echo ola > b
-echo ola > a > b
-echo ola > a > b > c > d
-echo ola -n > a > b > c > d
-echo -n ola > d
-echo ola > a > b > c >> d
-echo << a << b << c << d
-cat
-cat << a << b
-deb=1
-cat << a << b
-cat << a
-cat << o << a
-cat < o < a
-cat < c_files
-cat < a
-cat < a < b
-cat << a << b
+echo "''"
+bash
 make re
 .
-cat << a << b
-o
-a
-cat << a << b
-cat << a
-cat << alo
-cat << a
-<< a 
-<< ls
-ls
-<< o
+"'$olapo'"
+""
+"''"
+''''''
 bash
-cat << a | cat << b | cat << c
-cat << a > b > c > d >> f << ola
-<< a > b > c > d >> f << ola
-cat << a > b > c > d >> f << ola
+"'$olapo'"
+'"$olapo"'
+bash
+'"$olapo'"
+bash
+echo ""
+echo ''
+bash
+eho '"'
+echo '"'
+bash
+echo '"'
+echo "'"
+/bin/ls
+clear
+"/bin/ls"
+bash
+'/bin/ls'
+bash
+echo
+echo n
+echo -n n
+echo -n n -n
+echo -nnnna n
+echo '-n' -nnnna n
+bash
+exit
+exit 5
+exit "5"
+exit 5a
+exit 99999999999999999999999
+bash
+$?
+clear
+exec ls
+$?
+clear
+exec olapo
+$?
+/bin/ls/llapo
+$?
+$? + $?
+clear
+sleep 50
+olapo
+"$"
+echo "cat lol.c | cat > lol.c"
+echo "$"
+echo "$$"
+echo "$$$"
+echo "$$$$"
+echo "$$$$$a"
+clear
+echo 'ol'
+ls * > output | cat < output
+ls * > output && cat output
+mls * > output | grep c_files < output
+grep c_files < output
+mls * > output | grep c_files < output
+ls * > output
+mls *
+ls c_files
+mls c_files
+ls minishell_evalsheet (1).pdf 
+clear
+echo *
+bash
+ls 
+ls *
+echo *
+echo * && echo cool
+echo Reorder_list && echo * && echo done
+bash
+echo *
+bash
+ls *
+echo *
+echo '*'
+echo *
+clear
+ls *
+echo *
+bash
+echo ola*
+bash
+export ola'='a=3
+echo $ola
+<< EOF
+ola(
+ola(
+echo *
+echo *la
+echo '*'
+bash
+echo '*ola'
+echo *o*a
+echo ola*
+echo ola*sh
+echo ola*s
+clear
+echo ola*s
+clear
+echo ola*s
+echo o*
+echo ola*
+echo ola*o
+echo ola*.sh
+echo ola*.
+echo ola*oqwf
+echo ola*..sh
+echo ola*..alo
+echo ola*.
+echo ola*s
+echo ola*sh
+echo ola*s
+echo ola*.
+echo ola*s
+echo ola*sh
+echo ol*sh
+echo o*sh
+echo o*
+echo o*s
+echo o*sh
+echo o**a*sh
+echo o**a
+echo o**
+echo o**.sh
+bash
+echo o*a**o*.sh
+clear
 ls
-cat << a > b > c > d >> f << ola
-cat << o
-cat << o > b
-cat << o << a
-cat << o > b
-cat << o > b > c > d
-cat << o > b
-cat << o
-echo a >> b > c
-echo a > a
-echo a > a > b
-echo a > a > b > c
-echo 0 > a
-echo a > b
-echo a
-echo alo
-echo o > a
-echo o > a > b > c
-cat << a > b > c > d >> f << ola
-cat << a << b << c
-cat << a > b > c > d >> f << ola | cat << a > b > c > d >> f << ola | cat << a > b > c > d >> f << ola
-cat << a > a > b > c > d | cat << b > e > f > g > h | cat < c > i > j > k > l
-cat << a > a > b > c > d | cat << b > e > f > g > h | cat << c > i > j > k > l
-cat << a > FILE_A | cat << a > FILE_B | cat << a | FILE_C
-cat << EOF > FILE_A | cat << EOF > FILE_B | cat << EOF > FILE_C
-deb=1
-cat << EOF > FILE_A | cat << EOF > FILE_B | cat << EOF > FILE_C
-cat << EOF > FILE_A | cat << EOF > FILE_A | cat << EOF > FILE_A
-cat << EOF> a > b > c
+echo c_files/*
+c_files/*
+echo c_files/*
+echo c_files*
+echo c_files/*
+c1;2clear
+echo c_files/*
+echo c_files/ola*
+bash
+echo c_files/ola*
+echo c_files/*
+echo c_files/*.c
+echo c_files/mini*.c
+clear
+echo c_files/*
+clear
+echo *
+echo *ola
+clear
+echo *ola
+echo *o
+echo *sh
+echo c_files/*sh
+echo c_files/
+echo c_files/*
+echo c_files/*/*
+echo c_files/*
+clear
+echo c_files/*
+echo c_files/*/ola
+echo */*
+echo *
+echo c_files
+echo */c_files
+echo *
+echo **
+echo alo*
+echo *sh
+echo o*
+echo *
+bash
+clear

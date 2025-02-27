@@ -72,7 +72,7 @@ int	execute_command(t_data *d, char *cmd_name, char *arg, char **flags)
 			return (d->blt_fct[i](d, arg, flags, EXIT_SUCCESS));
 	if (same_str(cmd_name, "var") && d->var_list)
 		return (dblst_print_list(d->var_list, 0), FCT_OK);
-	else if (chr_amnt(cmd_name, '=') == 1)
+	else if (chr_amnt(cmd_name, '=', 1) == 1)
 		return (export(d, cmd_name, flags, 1));
 	else if (same_str(cmd_name, "declare") && arg && same_str(arg, "-x"))
 		return (export(d, flags[0], &flags[1], 0));
@@ -88,7 +88,7 @@ int	exec_input(t_data *d, char *input)
 
 	tokens = tokenize_string(d, input);
 	if (!tokens)
-		return (FCT_FAIL);
+		return (d->last_exit = FCT_FAIL, FCT_FAIL);
 	d->input_tokens = tokens;
 	start = token_first(tokens);
 	iterate_tokens(d, start);

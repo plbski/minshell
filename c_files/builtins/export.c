@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:09:44 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/26 01:03:22 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 12:59:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static int	exec_export(t_data *d, char *arg, int tmp_mem)
 	key = get_valid_key(d, arg);
 	if (!key)
 		return (CMD_NOT_FOUND);
-	if (!chr_amnt(arg, '='))
+	if (!chr_amnt(arg, '=', 1))
 		return (handle_no_value_export(d, key, tmp_mem));
 	value = ft_strchr(arg, '=') + 1;
 	if (key[ft_strlen(key) - 1] == '+')

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:25:15 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/17 23:20:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 13:03:31 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	char_in_str(char c, const char *txt)
 	return (0);
 }
 
-int	chr_amnt(const char *str, char c)
+int	chr_amnt(const char *str, char c, int check_quote)
 {
 	int	i;
 	int	occurence;
@@ -57,7 +57,7 @@ int	chr_amnt(const char *str, char c)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] == c)
+		if (str[i] == c && (!check_quote || !in_quote((char *)str, i)))
 			occurence++;
 	}
 	return (occurence);

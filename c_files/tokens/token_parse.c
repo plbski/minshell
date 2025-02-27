@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   token_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 17:18:41 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:12:50 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-t_tktype	get_token_type(t_token *prv_eval, char *str)
+t_tktype	get_token_type(t_token *prv_eval, t_token *prv, char *str)
 {
+	if (prv && prv->is_rd)
+		return (tk_arg);
 	if (same_str(str, "<"))
 		return (tk_red_in);
 	if (same_str(str, ">"))
@@ -28,33 +30,11 @@ t_tktype	get_token_type(t_token *prv_eval, char *str)
 		return (tk_cmdsep);
 	if (same_str(str, "&&") || same_str(str, "||"))
 		return (tk_logical);
-	if (same_str(str, "*"))
+	if (chr_amnt(str, '*', 1))
 		return (tk_wildcard);
 	if (prv_eval && prv_eval->type == tk_cmd)
 		return (tk_arg);
 	return (tk_cmd);
-}
-
-static t_token	*fill_wildcard(t_data *d, t_token *start, int brk)
-{
-	DIR				*directory;
-	struct dirent	*entry;
-	char			*arg_name;
-
-	directory = get_directory(d, d->cwd);
-	if (!directory)
-		custom_exit(d, "no dir for wildcard", NULL, EXIT_FAILURE);
-	entry = readdir(directory);
-	while (entry)
-	{
-		arg_name = ms_strdup(d, entry->d_name);
-		if (arg_name[0] != '.')
-			start = new_token(arg_name, start, tk_arg, brk);
-		free(arg_name);
-		entry = readdir(directory);
-	}
-	closedir(directory);
-	return (start);
 }
 
 static	t_token	*set_tok(t_data *d, t_token *prv, char **sp, t_token *prv_evl)
@@ -75,9 +55,9 @@ static	t_token	*set_tok(t_data *d, t_token *prv, char **sp, t_token *prv_evl)
 		rd_fd = ft_atoi(nbr_buffer);
 		ms_rem_prefix(d, sp, nbr_buffer, 0);
 	}
-	type = get_token_type(prv_evl, *sp);
+	type = get_token_type(prv_evl, prv, *sp);
 	if (type == tk_wildcard)
-		new_tok = fill_wildcard(d, prv, d->brackets);
+		new_tok = fill_wildcard(d, prv, *sp, d->brackets);
 	else
 		new_tok = new_token(*sp, prv, type, d->brackets);
 	if (rd_fd < 3)

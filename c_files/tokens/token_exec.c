@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 00:09:03 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 13:01:25 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static t_token	*skip_nodes(t_data *d, t_token *nod, int min_par)
 	}
 	if (d->debug_mode)
 		printf("\n");
-	if (nod && (nod->is_rd || nod->type == tk_pipe || chr_amnt(nod->name, '=')))
+	if (nod && (nod->is_rd || nod->type == tk_pipe || chr_amnt(nod->name, '=', 1)))
 		return (nod->next);
 	return (nod);
 }
@@ -81,7 +81,7 @@ static t_token	*handle_token(t_data *d, t_token *node)
 	type = node->type;
 	if (type == tk_logical)
 		return (handle_logical_token(d, node));
-	else if (chr_amnt(node->name, '='))
+	else if (chr_amnt(node->name, '=', 1))
 		export(d, node->name, NULL, 1);
 	else if (type == tk_cmd)
 	{
