@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:30:44 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 14:45:17 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/03 14:27:05 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	print_exec_error_2(const char *arg, int st, int loca)
 {
-	const char	*exc_lc[3] = {"is a directory", "Permission denied", \
+	const char	*exc_lc[3] = {"Is a directory", "Permission denied", \
 		"No such file or directory"};
-	const char	*exc_lc2[3] = {"cannot execute: Undefined error: 0", \
+	const char	*exc_lc2[3] = {NULL, \
 		"cannot execute", exc_lc2[0]};
 	const char	*exc_call[3] = {"not found", "Permission denied", "not found"};
 	const char	*exc_cl2[3] = {NULL, exc_lc2[1], NULL};
@@ -25,17 +25,18 @@ static void	print_exec_error_2(const char *arg, int st, int loca)
 	if (loca)
 	{
 		ft_dprintf(2, "%s\n", exc_lc[st]);
+		if (!exc_lc2[st])
+			return ;
 		ft_dprintf(2, "msh: exec: %s :", arg);
 		ft_dprintf(2, "%s\n", exc_lc2[st]);
 	}
 	else
 	{
 		ft_dprintf(2, "%s\n", exc_call[st]);
-		if (exc_cl2[st])
-		{
-			ft_dprintf(2, "msh: exec: %s :", arg);
-			ft_dprintf(2, "%s\n", exc_cl2[st]);
-		}
+		if (!exc_cl2[st])
+			return ;
+		ft_dprintf(2, "msh: exec: %s :", arg);
+		ft_dprintf(2, "%s\n", exc_cl2[st]);
 	}
 }
 
@@ -80,7 +81,7 @@ static char	*fetch_path(t_data *d, char *cmd_name)
 	while (splitted_path[++i])
 	{
 		cmd_path = ft_megajoin(splitted_path[i], "/", cmd_name, NULL);
-		if (access(cmd_path, F_OK) == 0 && !is_directory(cmd_path))
+		if (access(cmd_path, F_OK) == 0)
 			break ;
 		free(cmd_path);
 		cmd_path = NULL;
@@ -96,7 +97,7 @@ char	*get_path_in_env(t_data *d, char *prg, int is_exec, int *fct_ret)
 	path_dir = fetch_path(d, prg);
 	if (!path_dir)
 	{
-		print_exec_error(prg, CMD_NOT_FOUND, is_exec);
+		print_exec_error(prg, ERR_NOT_FOUND, is_exec);
 		return (NULL);
 	}
 	if (valid_exec(path_dir, fct_ret, is_exec, 0))

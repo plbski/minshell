@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/27 00:11:30 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/03 14:13:09 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	handle_args(t_data *d, char *argv[])
 	args_list = arr_to_dblst((void **)(argv + 2));
 	args = dblst_to_arr(args_list);
 	dblst_clear(&args_list, free);
-	d->last_exit = exec(d, script, args, 0);
+	d->last_exit = exec(d, script, args, 1);
 	safe_free(script);
 	custom_exit(d, NULL, NULL, EXIT_CHILD);
 	return (FCT_FAIL);

@@ -270,3 +270,33 @@ echo o*
 echo *
 bash
 clear
+ls
+pwd
+clear
+echo cat > a > b > c > d
+>a echo cat > b > c > d
+ls | echo cool | cat
+cat << top > b | cat << ola > c | cat << alo > d | cat << super << ola
+cleaer
+clear
+$0
+unset
+export a b c > a > b > c
+bash
+export a b c=oh > a > b > c
+echo $c
+echo -n $c
+exec c_files
+clear
+exec c_files
+exec minishell
+exec c_files
+clear
+exec c_files
+clear
+c_files
+exec ./c_files
+./c_files
+exec ./c_files
+exec c_files
+clear
