@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/03/04 12:23:07 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:14:09 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../msh.h"
 
-static int	handle_interruptions(char **line, char **full)
+static int	handle_interruptions(t_data *d, char **line, char **full, char *nd)
 {
 	if (g_quit_in_heredoc || !*line)
 	{
+		if (!*line)
+			ft_dprintf(2, "\nbash: warning: here-document at line %d \
+delimited by end-of-file (wanted `%s')", d->line_index, nd);
 		write(1, "\n", 1);
 		g_quit_in_heredoc = 0;
 		safe_free(*full);
 		safe_free(*line);
 		*full = NULL;
+		setup_signal(0, 0);
 		return (1);
 	}
 	return (0);
@@ -64,7 +68,7 @@ static int	add_line(t_data *d, char *nd, char **full, char **line)
 	return (1);
 }
 
-char	*exec_heredoc(t_data *d, char *nd, char *print)
+char	*exec_heredoc(t_data *d, char *end, char *print)
 {
 	char	*full;
 	char	*line;
@@ -79,11 +83,11 @@ char	*exec_heredoc(t_data *d, char *nd, char *print)
 			ft_dprintf(STDOUT_FILENO, "%s", print);
 		print_prompt = 1;
 		line = get_next_line(STDIN_FILENO);
-		if (handle_interruptions(&line, &full))
+		if (handle_interruptions(d, &line, &full, end))
 			return (NULL);
 		if (should_skip_line(line, &print_prompt))
 			continue ;
-		if (!add_line(d, nd, &full, &line))
+		if (!add_line(d, end, &full, &line))
 			break ;
 	}
 	setup_signal(0, 0);

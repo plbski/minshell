@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/03/04 12:33:26 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 15:32:12 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <sys/ioctl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <termios.h>
 
 # define ERR_NOT_FOUND 	2
 # define ERR_NOT_EXEC 	1
@@ -126,6 +127,7 @@ typedef struct s_data
 	int				brackets;
 	int				fork_child;
 	int				var;
+	int				line_index;
 	int				(*blt_fct[11])(struct s_data *d, char *a, char **f, int s);
 }	t_data;
 
@@ -221,7 +223,7 @@ void		show_exec_info(t_data *d, t_token *node, char *arg, char **flg);
 t_token		*show_token_info(t_data *d, t_token *node, char *prx, int spacing);
 void		show_tokens_info(t_data *d, t_token *start, char *prfx, int i);
 void		show_cmd_status(t_data *d, t_token *node);
-void		show_char_array(char *arr_name, char **arr);
+void		show_char_array(char *arr_name, char **arr, int debug);
 
 //		tools/cwd.c
 char		*custom_get_cwd(t_data *d);
@@ -367,5 +369,6 @@ int			set_heredocs(t_data *d, t_token *tok);
 void		redirect_pipe_stds(t_data *d, int *fd_in, int *fd_out);
 void		execute_cmd(t_data *d, t_token *cmd);
 t_token		*fill_wildcard(t_data *d, t_token *start, char *str, int brk);
+void		disable_echoctl(void);
 
 #endif

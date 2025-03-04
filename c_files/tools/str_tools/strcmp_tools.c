@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strcmp_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:25:15 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 13:03:31 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:41:57 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	char_in_str(char c, const char *txt)
 {
 	int	i;
 
+	if (!txt || !txt[0])
+		return (0);
 	i = -1;
 	while (txt[++i])
 	{

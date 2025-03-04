@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:23:52 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/03/03 14:18:50 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:15:32 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	exec_handle_child(t_data *d, char *prg, char **argv)
 {
 	char	**new_args;
+	char	**environ;
 
 	d->fork_child++;
 	if (ft_strstr(prg, ".sh") && argv[0] && !same_str(argv[0], prg))
@@ -26,26 +27,30 @@ static int	exec_handle_child(t_data *d, char *prg, char **argv)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	update_environ(d);
-	execve(prg, argv, d->environ);
+	environ = d->environ;
+	d->environ = NULL;
+	free_data(d);
+	execve(prg, argv, environ);
 	setstr(d, &argv[0], ms_strdup(d, "/bin/sh"));
-	execve("/bin/sh", argv, d->environ);
+	execve("/bin/sh", argv, environ);
 	free_void_array((void ***)&new_args);
 	return (FCT_FAIL);
 }
 
-static int	exec_handle_parent(pid_t child_pid)
+static int	exec_handle_parent(t_data *d, pid_t child_pid)
 {
 	int		wait_status;
 
 	setup_signal(1, 0);
 	if (waitpid(child_pid, &wait_status, 0) == -1)
-		return (perror("waitpid"), -1);
+		return (-1);
 	setup_signal(0, 0);
 	if (WIFEXITED(wait_status))
 		return (WEXITSTATUS(wait_status));
 	else if (WIFSIGNALED(wait_status))
 	{
-		printf("\n");
+		if (!d->fork_child)
+			printf("\n");
 		return (128 + WTERMSIG(wait_status));
 	}
 	return (-1);
@@ -119,5 +124,5 @@ int	exec(t_data *d, char *prg, char **argv, int is_direct)
 		return (perror("fork"), -1);
 	if (child_pid == 0)
 		return (exec_handle_child(d, prg_path, argv));
-	return (free(prg_path), exec_handle_parent(child_pid));
+	return (free(prg_path), exec_handle_parent(d, child_pid));
 }

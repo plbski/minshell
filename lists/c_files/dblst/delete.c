@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:23:03 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/12 17:37:50 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:39:01 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	print_prefixed_content(void *content)
 	int		i;
 	int		has_value;
 
-	if (!content)
-		return ;
 	str = (char *)content;
+	if (!str || (str[0] == '_' && (!str[1] || str[1] == '=')))
+		return ;
 	printf("declare -x ");
 	i = -1;
 	has_value = 0;

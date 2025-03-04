@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/03/04 12:09:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 15:35:15 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	process_input(t_data *d, int start)
 	if (start && d->fork_child == 0)
 		init_anim(d, d->prompt_msg);
 	user_input = readline(d->prompt_msg);
+	d->line_index++;
 	if (!user_input)
 		return (0);
 	if (only_space(user_input))

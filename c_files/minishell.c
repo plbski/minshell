@@ -6,7 +6,7 @@
 /*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/03/03 14:13:09 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:18:33 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ static void	init_msh(t_data *d, char *path, char **env)
 		d->prv_input[ft_strlen(d->prv_input) - 1] = '\0';
 }
 
+void	disable_echoctl(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
 int	main(int argc, char *argv[], char **env)
 {
 	t_data	data;
@@ -48,6 +57,7 @@ int	main(int argc, char *argv[], char **env)
 	started = 1;
 	data.debug_mode = argc > 1;
 	init_msh(&data, argv[0], env);
+	disable_echoctl();
 	if (argc > 1)
 		return (handle_args(&data, argv));
 	while (42)

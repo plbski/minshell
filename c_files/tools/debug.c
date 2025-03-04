@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:41:32 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/24 00:54:29 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 14:54:48 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,24 @@ void	show_cmd_status(t_data *d, t_token *node)
 	printf("\n");
 }
 
-void	show_char_array(char *arr_name, char **arr)
+void	show_char_array(char *arr_name, char **arr, int debug)
 {
 	int	i;
 
-	printf("%s%s[%d] > %s", GREY, arr_name, get_arr_len((void **)arr), RESET);
+	if (debug)
+		printf("%s%s[%d] > %s", GREY, arr_name, \
+			get_arr_len((void **)arr), RESET);
 	i = -1;
 	while (arr[++i])
-		printf("'%s%s%s' ", MENTHA_GREEN, arr[i], RESET);
-	printf("\n");
+	{
+		if (!debug)
+		{
+			if (chr_amnt(arr[i], '=', 1))
+				printf("%s\n", arr[i]);
+		}
+		else
+			printf("'%s%s%s' ", MENTHA_GREEN, arr[i], RESET);
+	}
+	if (debug)
+		printf("\n");
 }

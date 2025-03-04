@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:29:41 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/24 21:49:00 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:14:50 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ static char	*get_cd_path(t_data *d, char *arg)
 	return (ms_strdup(d, arg));
 }
 
+int	validate_cd(char *path)
+{
+	if (access(path, F_OK) == -1)
+		ft_dprintf(2, "msh: cd: %s: No such file or directory\n", path);
+	else if (!is_directory(path))
+		ft_dprintf(2, "msh: cd: %s: Not a directory\n", path);
+	else if (access(path, X_OK) == -1)
+		ft_dprintf(2, "msh: cd: %s: Permission denied\n", path);
+	else
+		return (1);
+	return (0);
+}
+
 int	cd(t_data *d, char *arg, char **flags, int status)
 {
 	char	*path;
@@ -49,9 +62,10 @@ int	cd(t_data *d, char *arg, char **flags, int status)
 	path = get_cd_path(d, arg);
 	if (!path)
 		return (status);
+	if (!validate_cd(path))
+		return (free(path), FCT_FAIL);
 	if (chdir(path) == -1)
 	{
-		ft_dprintf(2, "msh: cd: %s: No such file or directory\n", path);
 		free(path);
 		return (status);
 	}

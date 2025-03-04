@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_wildcard.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:44:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 16:18:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:50:19 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void	fill_uffix(t_data *d, char *str, char **suffix, char **prefix)
 	arr_len = get_arr_len((void **)split);
 	if (split[0] && str[0] != '*')
 		*prefix = ms_strdup(d, split[0]);
-	if (split[arr_len - 1] && arr_len > 1)
+	if (arr_len > 1 && split[arr_len - 1])
 		*suffix = ms_strdup(d, split[arr_len - 1]);
 	else if (split[0] && str[0] == '*')
 		*suffix = ms_strdup(d, split[0]);
 	if (d->debug_mode)
-		show_char_array("wc", split);
+		show_char_array("wc", split, 1);
 	free_void_array((void ***)&split);
 }
 
@@ -119,12 +119,14 @@ t_token	*fill_wildcard(t_data *d, t_token *start, char *str, int brk)
 	wc_node = get_wc_tokens(d, brk, prefix, suffix);
 	safe_free(suffix);
 	safe_free(prefix);
-	if (!wc_node)
-		return (new_token(to_check, start, tk_arg, brk));
 	free(to_check);
+	if (!wc_node)
+		return (new_token(str, start, tk_arg, brk));
 	wc_start = token_first(wc_node);
 	sort_wildcard_tokens(wc_start);
-	wc_start->prv = start;
-	start->next = wc_start;
-	return (wc_node);
+	if (start)
+		start->next = wc_start;
+	else
+		wc_start->type = tk_cmd;
+	return (wc_start->prv = start, wc_node);
 }

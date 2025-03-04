@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
+/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/03/04 12:05:28 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:07:42 by gvalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	init_data_var(t_data *d)
 	d->shlvl = 0;
 	d->brackets = 0;
 	d->fork_child = 0;
+	d->line_index = 0;
 	d->last_exit = FCT_OK;
 }
 

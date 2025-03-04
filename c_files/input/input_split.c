@@ -110,7 +110,7 @@ char	**split_input(t_data *d, char *input)
 	}
 	splits = dblst_to_arr(list);
 	if (d->debug_mode)
-		show_char_array("splits", splits);
+		show_char_array("splits", splits, 1);
 	dblst_clear(&list, free);
 	solve_cmd_substitutes(d, &splits);
 	return (splits);

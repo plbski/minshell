@@ -87,6 +87,7 @@ static int	find_unvalid_sequence(const char *inp)
 	char		prev;
 	int			i;
 
+	return (0);
 	prev = '\0';
 	i = -1;
 	while (inp[++i])

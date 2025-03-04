@@ -239,3 +239,335 @@ $0
 $9
 $1
 $0
+ls
+pwed
+clear
+export
+export __a=3
+export
+clear
+export _
+export
+export __
+export
+clear
+env
+export a=3
+env | grep a
+clear
+env
+clear
+env
+clear
+env
+export a=3
+env
+clear
+export ola
+env
+clear
+export alopa
+env
+export
+clear
+export alo=3
+env
+clear
+export
+env
+export alopa=3
+export
+env
+export bbb
+export
+env
+export "bbb"
+env
+export
+env
+<< eof ls
+cat
+<< alo
+sleep 30
+slep 50
+sleep 0
+sleep 50
+cat
+clear
+sleep 50
+^/
+<< aol
+sleep 50
+clear
+sleep 50
+cat
+a
+cat
+clear
+cat
+clear
+cat
+<< ola
+<< alo
+clear
+cd dir
+clear
+cd dir
+cd a
+cd dir
+$?
+cd 
+cd dir
+$?
+cd a
+ls a
+ls -la a
+pwd
+cd a
+pwd
+clear
+cd a
+$?
+ls
+$?
+clear
+ls
+pwd
+clear
+echo
+unset
+cat | cat | ls
+ls | cat
+ls | cat | cat
+cat | cat
+cat | cat | ls
+clear
+ls
+pwd
+cat
+clear
+./minishell
+ls | cat
+ls | cat 
+cat | cat | ls
+cagt
+cat
+clear
+cat |  cat
+cat | cat
+clar
+clear
+cat | cat | ls
+bash
+clear
+bash
+ls >= 3
+ls >= 4 4 3
+mls
+ls
+clear
+ls | cat
+clear
+cat | ls
+clear
+cat | cat | ls
+clear
+cat | cat | ls
+clear
+ls | cat
+cat | cat | ls
+cat  | cat | ls
+clear
+cat | cat | cat | ls
+cat | cat | ls
+clear
+cat | cat | cat | ls
+ls && ls
+clear
+ls *
+clear
+ls *sh
+echo *s
+echo *iles
+echo msh*
+clear
+pwd pwd pwd
+echo a > b > c > d
+echo *
+ls c_files/*
+ls c_files*
+ls *
+clear
+ls olapo*olapa
+cd c_files
+clear
+ls al*c
+ls a*c
+ls *c
+ls *sh
+ls *ll
+ls min*ell
+clear
+ls a*c
+ls *m
+ls *h
+clear
+ls *h
+ls *
+clear
+ls *m
+ls aefa*maellf
+ls *
+ls *m
+ls *mqwfojq
+ls *h
+ls *
+ls awfawgf*
+ls *wfqw
+ls qwfqf*wefq
+ls ls
+ls && ls | cat
+cat | cat | cat | cat | cat | sleep 10 | cat | echo cool
+clear
+echo '
+echo $
+echo $$
+$$
+clear
+echo $oqwf
+$?
+bash
+clear
+unset $NG
+$?
+bash
+make re
+echo $WLFKNQ
+unset #$RNQELGN
+unset $EIFQEON AFLLKN PATH
+echo $PATH
+clear
+unset $KWJFQ lknEF PATH
+ls
+clear
+PATH=/bin/
+ls
+clear
+ls *sfa
+echo afaw*af
+echo *
+clear
+pwd
+cd ..
+cd /
+cd -
+cd /
+pwd
+cd /
+cd ~/Desktop
+cd ..
+cd /
+cd -
+unset PATH
+cd /
+cd -
+cd ~
+cd -
+unset WFWQ $AENGF PATH
+cd /
+cd -
+cd $(PWD)
+clear
+unset PATH
+cd $PWD
+unset PWD
+cd $PWD
+cd $(pwd)
+clear
+cat
+clear
+cat
+<< ola
+cd /
+<< alo
+/bin/ls
+/bin/echo ola
+"   "
+"/nom"
+"/bin/ls"
+clear
+man int
+man INT
+man integer
+exit -2147483648
+exit ---1234
+exit -2147483648
+exit -2147483649
+exit -2147483649123
+/bin/echo
+$?
+/bin/ls oqwf
+$?
+clear
+/bin/ls qowf
+$?
+clear
+$? + $?
+$?
+clear
+echo "~"
+echo "~
+echo '~'
+echo ~
+clear
+echo "$~"
+bash
+echo "$
+echo "$"
+echo "$a"
+echo "$~"
+clear
+unset
+clear
+cd ~ && /bin/ls
+cd ..
+cd -
+cd .
+pwd
+clear
+pwd
+cd ..
+pwd
+cd ..
+pwd
+cd /
+pwd
+clear
+$PWDminishell
+$PWD/minishell
+echo a > a > b > c > d << ola << pqwf
+clear
+<<
+<< a | cat | << b | cat | << c | cat | << d | cat
+clear
+ls >> ls_output | pwd >> pwd_output | cat < pwd_output
+ls && echo cool ola top && ls | cat | pwd | cat || echo non && export bon && unset bon && export pas_bon=bon && unset pas_bon && export && env
+clear
+***
+bash
+ls *
+clear
+*
+clear
+**
+*
+deb=1
+*
+bash
+ressources
+*
+clear
+*
+ls *
+***
+* a **qw fq* 
