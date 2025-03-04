@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 17:32:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 13:23:23 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ char	*expand_special_segment(t_data *d, char *split, int *i)
 		str = ft_strjoin(d->msh_wd, "/minishell");
 	else if (split[*i + 1] == '\"' || !split[*i + 1])
 		str = ft_strdup("$");
+	else if (ft_isdigit(split[*i + 1]) && split[*i + 2])
+	{
+		str = ft_strdup(split + *i + 2);
+		(*i) += ft_strlen(split + *i + 1);
+	}
 	else
 		return (NULL);
 	if (!str)

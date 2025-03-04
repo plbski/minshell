@@ -91,7 +91,8 @@ static int	find_unvalid_sequence(const char *inp)
 	i = -1;
 	while (inp[++i])
 	{
-		if (!prev && !in_quote(inp, i) && char_in_str(inp[i], tok_a))
+		if (!prev && !ft_isdigit(inp[i]) && \
+!in_quote(inp, i) && char_in_str(inp[i], tok_a))
 			prev = inp[i];
 		else if (prev && inp[i] != ' ' && inp[i] != '\t')
 		{

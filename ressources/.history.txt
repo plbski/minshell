@@ -57,3 +57,185 @@ echo a b c > a > b > c
 clear
 echo a < < b
 echo a <    < b
+cd ressources/
+ls
+cat _Eval.pf
+cat _Eval.pdf
+clear
+ls
+mls
+ls
+mls
+ls *
+clear
+ls *olapo
+ls *sts
+ls *s
+ls *shell
+ls mini*
+ls make*
+ls *make
+ls *file
+clear
+ls *s
+ls *ls
+ls *ts
+bash
+echo *ts
+echo dpr*
+bash
+ls qef* && echo found
+ls qef* || echo found
+bash
+clear
+ls qef* || echo found
+mls qefnqe
+mls qiewnfg
+mls 
+ ls 
+mls *
+clear
+$0
+$0
+$$
+$0
+$?
+$0
+deb=1
+$0
+$
+$?
+$0
+>
+<
+>>
+><
+<>
+clear
+$$
+$$$$$$$$
+$$0
+0
+00
+0
+000
+0
+00A
+0
+00
+000
+$?
+clear
+$=0
+$?
+bash
+a=0
+$=0
+$$$$=0
+bash
+123=2
+bash
+a123=3
+echo $a123
+a123=0
+echo $a123
+env | grep a123
+export | grep a123
+a123+=3
+echo $a123
+unset a123
+echo $123
+env | grep a123
+export | grep a123
+echo 00 && echo 01
+$0
+$123
+$omda
+bash
+$1234
+$asoj
+$123
+$aasdlk || $1234a || $1234
+bash
+$aasdlk|| $1234
+bash
+$1234
+bash
+$1234
+bash
+$1234
+$1234 $
+$1234 $$
+bash
+$1234 || echo cool
+$1234 && echo cool
+$1234
+$1234 || echo top
+lksneflk || echo cool
+$1234 || echo top
+clear
+$1234 || echo top
+$1
+$123
+$1
+$123
+$1
+$11
+$12
+clear
+$1
+$11
+$111
+$1111
+1234=3
+bash
+$1
+$12
+$12 && echo cool
+$123
+$1234
+$1234 || echo bonjour
+$1
+$12
+$11
+$11a
+bash
+$PWD
+$PW2
+clear
+export PW2=3
+echo $PW2
+$PW2
+export 1W=3
+$123
+$1234
+$
+bash
+$
+$$
+$1
+$12
+$123
+$1234
+$PWA1
+$P1
+bash
+make re
+.
+./minishell
+.
+$1
+$123
+$1
+$0
+clear
+$$
+$$$
+$1234
+$1
+$2
+$3
+$0
+$9
+$1
+$0
