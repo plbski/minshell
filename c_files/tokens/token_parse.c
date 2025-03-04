@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:56:26 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 13:12:50 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:39:04 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 t_tktype	get_token_type(t_token *prv_eval, t_token *prv, char *str)
 {
-	if (prv && prv->is_rd)
-		return (tk_arg);
 	if (same_str(str, "<"))
 		return (tk_red_in);
 	if (same_str(str, ">"))
@@ -32,6 +30,8 @@ t_tktype	get_token_type(t_token *prv_eval, t_token *prv, char *str)
 		return (tk_logical);
 	if (chr_amnt(str, '*', 1))
 		return (tk_wildcard);
+	if (prv && prv->is_rd)
+		return (tk_arg);
 	if (prv_eval && prv_eval->type == tk_cmd)
 		return (tk_arg);
 	return (tk_cmd);

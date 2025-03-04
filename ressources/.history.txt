@@ -44,3 +44,16 @@ bash
 ls > > b
 deb=1
 ls > > b
+echo ola > a > b
+echo b > > c
+echo b > > c
+echo b > > c
+echo b >    > c
+clear
+echo b >    > c
+deb=1
+echo b >    > c
+echo a b c > a > b > c
+clear
+echo a < < b
+echo a <    < b

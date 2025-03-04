@@ -77,3 +77,23 @@ int	set_pipe(t_data *d, char **input)
 	}
 	return (check_pipe_validity(d, input, pipe_index));
 }
+
+int	find_unvalid_patterns(char *input)
+{
+	const char	patterns[12][4] = {"| |", "& &", "& |", "| &", \
+		"&|", "|&", ">|", "<|", "|>", "|<", "< <", "> >"};
+	char		*pattern;
+	int			i;
+
+	i = -1;
+	while (++i < 12)
+	{
+		pattern = ft_strstr(input, patterns[i]);
+		if (pattern)
+			break ;
+	}
+	if (pattern)
+		return (printf("msh: syntax error near unexpected token `%c'\n", \
+				pattern[0]), 1);
+	return (0);
+}

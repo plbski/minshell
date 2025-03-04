@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/03/04 11:06:07 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:33:26 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ void		setup_signal(int is_waiting, int is_heredoc);
 
 //		input/input_check.c
 int			validate_input(t_data *d, char **input);
+int			find_unvalid_patterns(char *input);
 
 //		input/input_execute.c
 char		**get_flags(t_data *d, const char *name, const char *arg, \
