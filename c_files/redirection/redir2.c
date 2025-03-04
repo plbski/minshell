@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:19:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 16:33:10 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 11:54:48 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_token	*handle_mult_redirs(t_data *d, t_token *cmd, char *arg, char **flags)
 	save_stds(d);
 	select_main_redir(cmd);
 	set_last_redirs(d, cmd, arg, flags);
-	if (d->var != FCT_FAIL) 
+	if (d->var != FCT_FAIL)
 		d->last_exit = execute_command(d, cmd->name, arg, flags);
 	reset_redir(d);
 	if (access(d->heredoc_wd, F_OK) != -1)

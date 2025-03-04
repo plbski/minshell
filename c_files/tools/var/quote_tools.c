@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 03:26:34 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 12:04:15 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 11:06:11 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	remove_quotes(t_data *d, char **str)
 	free(new_str);
 }
 
-int	in_quote(char *str, int index)
+int	in_quote(const char *str, int index)
 {
 	int	i;
 	int	in_double_quote;

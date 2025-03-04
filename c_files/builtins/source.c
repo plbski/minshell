@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   source.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 10:50:51 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 19:42:42 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/03/04 11:28:12 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	execute_line(t_data *d, char *arg, int *ret_value, int index)
 	char	*line;
 	char	line_buff[4048];
 	int		ms_fd;
+	int		line_len;
 
 	ms_fd = open(arg, O_RDONLY);
 	if (ms_fd < 0)
@@ -32,14 +33,15 @@ int	execute_line(t_data *d, char *arg, int *ret_value, int index)
 	close(ms_fd);
 	if (!line)
 		return (*ret_value = FCT_OK, 0);
+	if (char_in_str(line[0], "#\n\0"))
+		return (free(line), 1);
+	line_len = ft_strlen(line);
+	if (line_len > 0 && line[line_len - 1] == '\n')
+		line[line_len - 1] = '\0';
+	if (!validate_input(d, &line))
+		return (free(line), *ret_value = FCT_FAIL, 1);
 	ft_strlcpy(line_buff, line, 4048);
 	free(line);
-	if (line_buff[0] == '#')
-		return (1);
-	if (ft_strlen(line_buff) > 0 && line_buff[ft_strlen(line_buff) - 1] == '\n')
-		line_buff[ft_strlen(line_buff) - 1] = '\0';
-	if (!line_buff[0] || line_buff[0] == '\n')
-		return (1);
 	return (*ret_value = exec_input(d, line_buff), 1);
 }
 

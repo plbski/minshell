@@ -14,6 +14,7 @@ CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 
 GREEN = \033[0;32m
+CYAN =	\033[36m
 RESET = \033[0m
 
 NAME = lists.a
@@ -23,17 +24,17 @@ NAME = lists.a
 
 $(NAME): $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
-	@echo "$(GREEN)Lists	successfully compiled.$(RESET)"
+	@echo "Lists	$(GREEN)compiled$(RESET)"
 
 all: $(NAME)
 
 clean:
 	rm -f $(OBJECTS)
-	@if [ -z "$(QUIET)" ]; then echo "Lists	cleaned"; fi
+	@if [ -z "$(QUIET)" ]; then echo "Lists	$(CYAN)cleaned$(RESET)"; fi
 
 fclean: clean
 	rm -f $(NAME)
-	@echo "Lists	fcleaned"
+	@echo "Lists	$(CYAN)force cleaned$(RESET)"
 
 re: fclean all
 

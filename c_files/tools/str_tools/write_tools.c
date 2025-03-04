@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:06:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/26 15:48:25 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:58:02 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_all_digit(char *str)
 	return (1);
 }
 
-int	get_char_index(char *str, char c)
+int	get_char_index(const char *str, char c)
 {
 	int	i;
 

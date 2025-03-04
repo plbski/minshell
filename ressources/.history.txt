@@ -1,0 +1,46 @@
+ls
+echo cool
+ls
+doc git_init
+clear
+cat
+<< ola
+<< alo
+<< a
+<< "  "
+bash
+<< "  "
+<< " "
+<< "  "
+<< "alo"
+<< "  "
+echo coool >> "ola.txt"
+cat << "ola.txt"
+cat "ola.txt"
+echo top >> cool.txt; echo hip >> 3.txt
+cat 1.txt
+bash
+cat 1.txt 2.txt 3.txt
+bash
+cat < 1.txt 2.txt 3.txt
+bash
+cat < 1.txt < 2.txt < 3.txt
+bash
+< 1.txt cat
+< 1.txt cat 2.txt 3.txt
+bash
+< 1.txt cat 2.txt 3.txt | cat
+< 1.txt cat 2.txt 3.txt | ls
+rm 1.txt 2.txt 3.txt
+unset
+clear
+export
+source
+ls > > b
+ls > > 
+echo b > b
+ls > > b
+bash
+ls > > b
+deb=1
+ls > > b

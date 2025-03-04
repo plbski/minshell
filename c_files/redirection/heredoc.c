@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 00:02:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:23:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	handle_interruptions(char **line, char **full)
 {
-	if (g_quit_in_heredoc || !line)
+	if (g_quit_in_heredoc || !*line)
 	{
 		write(1, "\n", 1);
 		g_quit_in_heredoc = 0;
@@ -93,8 +93,12 @@ char	*exec_heredoc(t_data *d, char *nd, char *print)
 int	set_heredoc(t_data *d, t_token *tok)
 {
 	char	*content;
+	char	*end;
 
-	content = exec_heredoc(d, tok->next->name, "heredoc> ");
+	end = ms_strdup(d, tok->next->name);
+	remove_quotes(d, &end);
+	content = exec_heredoc(d, end, "heredoc> ");
+	free(end);
 	if (!content)
 		return (0);
 	tok->next->type = tk_arg;

@@ -6,14 +6,14 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 23:17:45 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/21 15:13:04 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:06:47 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSH_STYLE_H
 # define MSH_STYLE_H
 
-# define START_ANIM_TEXT "~~~ Minishell by gvlente & pbuet ~~~ lv "
+# define START_ANIM_TEXT "    Minishell by gvlente & pbuet     lv "
 
 # define RED			"\033[31m"
 # define GREEN			"\033[32m"

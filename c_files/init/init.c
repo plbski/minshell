@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvalente <gvalente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:54:32 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/26 18:09:13 by gvalente         ###   ########.fr       */
+/*   Updated: 2025/03/04 12:05:28 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	init_msh_directories(t_data *d, char *path)
 		d->msh_wd = ms_strjoin(d, d->start_wd, truncated_path);
 	}
 	safe_free(truncated_path);
-	d->man_wd = ms_strjoin(d, d->msh_wd, "/doc/");
+	d->man_wd = ms_strjoin(d, d->msh_wd, "/ressources/doc/");
 	d->heredoc_wd = ms_strjoin(d, d->msh_wd, "/ressources/.heredoc.txt");
 	d->history_wd = ms_strjoin(d, d->msh_wd, "/ressources/.history.txt");
 	read_history(d->history_wd);

@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:14:36 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/25 22:18:20 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:16:29 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,15 @@ void	setup_signal(int is_waiting, int is_heredoc)
 		sa_int.sa_handler = SIG_IGN;
 	else
 		sa_int.sa_handler = sigint_handler;
-	sa_int.sa_flags = 0;
 	sigemptyset(&sa_int.sa_mask);
 	sigaction(SIGINT, &sa_int, NULL);
 	if (is_waiting || is_heredoc)
 		sa_quit.sa_handler = SIG_IGN;
 	else
 		sa_quit.sa_handler = sigquit_handler;
-	sa_quit.sa_flags = 0;
 	sigemptyset(&sa_quit.sa_mask);
 	sigaction(SIGQUIT, &sa_quit, NULL);
 	sa_term.sa_handler = SIG_IGN;
-	sa_term.sa_flags = 0;
 	sigemptyset(&sa_term.sa_mask);
 	sigaction(SIGTERM, &sa_term, NULL);
 }

@@ -36,15 +36,15 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include
 LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
 
-GREEN = 	\033[0;32m
+GREEN = 	\033[0;32;1m
 BLUE = 		\033[34m
 MAGENTA = 	\033[35m
-CYAN = 		\033[36m
+CYAN = \033[1;36m
 RESET = 	\033[0m
 
 $(MINISHELL_NAME): $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(GNL) $(DPRINTF) $(LISTS)
 	$(CC) $(CFLAGS) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -DNO_COLOR -o $(MINISHELL_NAME) $(LDFLAGS)
-	@echo "$(MAGENTA)$(MINISHELL_NAME) successfully built.$(RESET)"
+	@echo "$(MINISHELL_NAME) $(GREEN)compiled$(RESET)"
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) --no-print-directory
@@ -62,10 +62,10 @@ all: $(MINISHELL_NAME)
 
 debug: $(MINISHELL_NAME) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(DPRINTF) $(GNL) $(LISTS)
 	$(CC) $(CFLAGS) -fsanitize=address -g $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
-	@echo "$(MAGENTA)$(MINISHELL_NAME) -fsan successfully built.$(RESET)"
+	@echo "$(MINISHELL_NAME) -fsan $(GREEN)compiled$(RESET)"
 
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=a.supp --log-file="leaks.log" ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=ressources/a.supp --log-file="ressources/leaks.log" ./minishell
 
 leaks: all
 	leaks --atExit -- ./minishell
@@ -76,12 +76,21 @@ clean:
 	make -C $(LISTS_DIR) --no-print-directory clean
 	make -C $(GNL_DIR) --no-print-directory clean
 	rm -f $(MINISHELL_NAME)
+	@echo "$(MINISHELL_NAME) $(CYAN)cleaned$(RESET)"
 
-fclean: clean
+quiet_clean:
+	make -C $(LIBFT_DIR) --no-print-directory clean QUIET=1
+	make -C $(DPRINTF_DIR) --no-print-directory clean QUIET=1
+	make -C $(LISTS_DIR) --no-print-directory clean QUIET=1
+	make -C $(GNL_DIR) --no-print-directory clean QUIET=1
+	rm -f $(MINISHELL_NAME)
+
+fclean: quiet_clean
 	make -C $(LIBFT_DIR) --no-print-directory fclean QUIET=1
 	make -C $(DPRINTF_DIR) --no-print-directory fclean QUIET=1
 	make -C $(LISTS_DIR) --no-print-directory fclean QUIET=1
 	make -C $(GNL_DIR) --no-print-directory fclean QUIET=1
+	@echo "$(MINISHELL_NAME) $(CYAN)force cleaned$(RESET)"
 
 re: fclean all
 

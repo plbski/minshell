@@ -68,7 +68,7 @@ static int	set_par(t_data *d, char **input, int i)
 		if (new_input[i] != ')')
 			continue ;
 		if (!has_open)
-			return (printf("syntax error near unexpected token `)'\n"), 0);
+			return (printf("msh: syntax error near unexpected token `)'\n"), 0);
 		has_open--;
 	}
 	if (!has_open)
@@ -80,8 +80,39 @@ static int	set_par(t_data *d, char **input, int i)
 	return (free(input_end), free(*input), *input = new_input, 1);
 }
 
+static int	find_unvalid_sequence(const char *inp)
+{
+	const char	tok_a[5] = "|&<>;";
+	const char	unvsq[5][5] = {"&;", "|;", ">|;&", "<|;&", "|&"};
+	char		prev;
+	int			i;
+
+	prev = '\0';
+	i = -1;
+	while (inp[++i])
+	{
+		if (!prev && !in_quote(inp, i) && char_in_str(inp[i], tok_a))
+			prev = inp[i];
+		else if (prev && inp[i] != ' ' && inp[i] != '\t')
+		{
+			if (char_in_str(inp[i], unvsq[get_char_index((char *)tok_a, prev)]))
+				return (ft_dprintf(2, "msh: syntax error near \
+unexpected token `%c'\n", inp[i]), 1);
+			prev = '\0';
+			if (!in_quote(inp, i) && char_in_str(inp[i], tok_a))
+				prev = inp[i];
+		}
+	}
+	if (!prev)
+		return (0);
+	return (ft_dprintf(2, "msh: syntax error near \
+unexpected token `newline'\n"), 1);
+}
+
 int	validate_input(t_data *d, char **input)
 {
+	if (find_unvalid_sequence(*input))
+		return (0);
 	if (!set_quotes(d, input) || !set_par(d, input, -1) || !set_pipe(d, input))
 		return (0);
 	return (1);

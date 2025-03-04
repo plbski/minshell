@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:04:55 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/27 13:05:16 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/03/04 11:06:07 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void		set_strarr(char ***to_replace, char **new_arr);
 //		tools/str_tools/write_tools.c
 int			is_builtin_cmd(t_data *d, char *str);
 int			is_all_digit(char *str);
-int			get_char_index(char *str, char c);
+int			get_char_index(const char *str, char c);
 char		*get_fd_content(t_data *d, int fd);
 
 //		tools/str_tools/strget_tools.c
@@ -194,7 +194,7 @@ int			set_key_value(t_data *d, t_dblist *list, char *key, char *value);
 //		tools/var/quote_tools.c
 int			is_only_quotes(char *str);
 void		remove_quotes(t_data *d, char **str);
-int			in_quote(char *str, int index);
+int			in_quote(const char *str, int index);
 char		*get_last_line(t_data *d, const char *filename);
 
 //		tools/var/var_tools.c

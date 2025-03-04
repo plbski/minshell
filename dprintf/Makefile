@@ -10,21 +10,25 @@ CC = gcc
 
 NAME = printf.a
 
+GREEN = \033[0;32m
+CYAN =	\033[36m
+RESET = \033[0m
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJ)
 	ar rcs $(NAME) $(OBJ)
-	@echo "PRINTF generated"
+	@echo "dprintf $(GREEN)compiled$(RESET)"
 
 all: $(NAME)
 
 clean:
 	rm -f $(OBJ)
-	@if [ -z "$(QUIET)" ]; then echo "dprintf	cleaned"; fi
+	@if [ -z "$(QUIET)" ]; then echo "dprintf	$(CYAN)cleaned$(RESET)"; fi
 
 fclean: clean
 	rm -f $(NAME)
-	@echo "dprintf	successfully compiled"
+	@echo "dprintf	$(CYAN)force cleaned$(RESET)"
 
 re: fclean all
