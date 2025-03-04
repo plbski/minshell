@@ -23,3 +23,9 @@
 # (ls -l | wc -l) > count.txt; cat count.txt; rm "count.txt"
 # echo -n "test" > file1.txt > file2.txt; echo "file1 is: "; cat file1.txt; echo "file2 is: "; cat file2.txt; rm file1.txt; rm file2.txt
 # echo ""; echo "END"
+
+echo "Test redirection" > file.txt
+cat < file.txt
+echo "Another line" >> file.txt
+cat file.txt > copy.txt
+grep "line" < file.txt > result.txt

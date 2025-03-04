@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:47:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 00:34:22 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 16:32:37 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	handle_redir_out(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (!cmd->last_in && !cmd->last_out)
 		save_stds(d);
 	fd = get_fd(d, cmd->red_arg->name, tk_red_out);
-	if (fd == -1)
+	if (fd <= -1)
 		return (FCT_FAIL);
 	if (cmd->redir->rd_fd > 0 && dup2(fd, cmd->redir->rd_fd) == -1)
 		custom_exit(d, "dup2 fail handle_redapp", NULL, EXIT_FAILURE);
@@ -46,7 +46,7 @@ static int	handle_redir_app(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (!cmd->last_in && !cmd->last_out)
 		save_stds(d);
 	fd = get_fd(d, cmd->red_arg->name, tk_red_app);
-	if (fd == -1)
+	if (fd <= -1)
 		return (FCT_FAIL);
 	if (cmd->redir->rd_fd != -1 && dup2(fd, cmd->redir->rd_fd) == -1)
 		custom_exit(d, "dup2 fail handle_redapp", NULL, EXIT_FAILURE);
@@ -75,7 +75,7 @@ static int	handle_redir_in(t_data *d, t_token *cmd, char *arg, char **flags)
 	if (!cmd->last_in && !cmd->last_out)
 		save_stds(d);
 	fd = get_fd(d, file_name, tk_red_in);
-	if (fd == -1)
+	if (fd <= -1)
 		return (FCT_FAIL);
 	if (cmd->redir->rd_fd != -1 && dup2(fd, cmd->redir->rd_fd) == -1)
 		custom_exit(d, "dup2 fail handle_redapp", NULL, EXIT_FAILURE);
@@ -99,7 +99,7 @@ static int	handle_heredoc(t_data *d, t_token *cmd, char *arg, char **flags)
 		custom_exit(d, "error in hered", NULL, EXIT_FAILURE);
 	setstr(d, &d->heredoc_wd, name_heredoc(d));
 	fd = open(d->heredoc_wd, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	if (fd == -1)
+	if (fd <= -1)
 		custom_exit(d, "error in redir heredoc", NULL, EXIT_FAILURE);
 	write(fd, cmd->red_arg->cnt_hered, ft_strlen(cmd->red_arg->cnt_hered));
 	close(fd);
@@ -143,5 +143,5 @@ t_token	*handle_redir_cmd(t_data *d, t_token *cmd, char *arg, char **flags)
 		d->var = handle_redir_in(d, cmd, arg, flags);
 	if (d->var != FCT_OK)
 		d->last_exit = d->var;
-	return (d->var = 0, next);
+	return (next);
 }

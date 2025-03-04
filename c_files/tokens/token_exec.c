@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:15:07 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 13:01:25 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 16:32:53 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static t_token	*skip_nodes(t_data *d, t_token *nod, int min_par)
 	}
 	if (d->debug_mode)
 		printf("\n");
-	if (nod && (nod->is_rd || nod->type == tk_pipe || chr_amnt(nod->name, '=', 1)))
+	if (nod && (nod->is_rd || nod->type == tk_pipe || \
+			chr_amnt(nod->name, '=', 1)))
 		return (nod->next);
 	return (nod);
 }
@@ -117,5 +118,6 @@ void	iterate_tokens(t_data *d, t_token *node)
 			}
 		}
 		node = handle_token(d, node);
+		d->var = 0;
 	}
 }

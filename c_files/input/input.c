@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:51:46 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/27 09:49:54 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 17:37:10 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	process_input(t_data *d, int start)
 		d->prompt_msg = get_prompt_message(d);
 	if (!d->prompt_msg)
 		d->prompt_msg = ms_strdup(d, "Minishell > ");
-	if (start)
+	if (start && d->fork_child == 0)
 		init_anim(d, d->prompt_msg);
 	user_input = readline(d->prompt_msg);
 	if (!user_input)

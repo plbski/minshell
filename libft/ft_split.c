@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:16:33 by gvalente          #+#    #+#             */
-/*   Updated: 2025/02/27 15:10:29 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 16:22:56 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	**get_splits(char const *s, char c, char **strs, char replace)
 		while (s[i] && s[i] != c)
 			strs[count][u++] = s[i++];
 		if (replace != '\0' && s[i] != '\0')
-            strs[count][u++] = replace;
+			strs[count][u++] = replace;
 		strs[count][u] = '\0';
 		count++;
 	}

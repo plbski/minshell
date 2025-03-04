@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:21:54 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 13:02:07 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 17:32:16 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ char	*expand_split(t_data *d, char *split, int len, int i)
 	int		spl_index;
 
 	spl_index = 0;
-	spl_values = ms_malloc(d, sizeof(char *) * (len));
-	while (i < len && split[i])
+	spl_values = ms_malloc(d, sizeof(char *) * (len + 1));
+	while (i < (len + 1) && split[i])
 	{
 		if (split[i] == '$' && in_quote(split, i) != 1)
 		{

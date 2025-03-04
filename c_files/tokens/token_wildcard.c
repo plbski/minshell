@@ -6,7 +6,7 @@
 /*   By: giuliovalente <giuliovalente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:44:46 by giuliovalen       #+#    #+#             */
-/*   Updated: 2025/02/27 15:27:26 by giuliovalen      ###   ########.fr       */
+/*   Updated: 2025/02/27 16:18:50 by giuliovalen      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,14 @@ int	validate_entry(char *entry_name, char *prefix, char *suffix)
 	return (1);
 }
 
-static char	*get_dir_name(t_data *d, char **prefix)
-{
-	char	*dir_name;
-
-	dir_name = ms_strdup(d, d->cwd);
-	if (*prefix && chr_amnt(*prefix, '/', 1))
-	{
-		setstr(d, &dir_name, ft_megajoin(d->cwd, "/", *prefix, NULL));
-		*prefix = NULL;
-	}
-	if (!dir_name)
-		custom_exit(d, "alloc in wc_tok\n", NULL, EXIT_FAILURE);
-	return (dir_name);
-}
-
 static t_token	*get_wc_tokens(t_data *d, int brk, char *prefix, char *suffix)
 {
 	DIR				*directory;
 	struct dirent	*entry;
-	char			*dir_name;
 	char			*entry_name;
 	t_token			*wc_node;
 
-	dir_name = get_dir_name(d, &prefix);
-	directory = get_directory(d, dir_name);
-	free(dir_name);
+	directory = get_directory(d, d->cwd);
 	if (!directory)
 		return (NULL);
 	entry = readdir(directory);
@@ -126,16 +108,20 @@ t_token	*fill_wildcard(t_data *d, t_token *start, char *str, int brk)
 	t_token			*wc_start;
 	char			*prefix;
 	char			*suffix;
+	char			*to_check;
 
+	to_check = ms_strdup(d, str);
+	remove_chars(d, &to_check, "/");
 	suffix = NULL;
 	prefix = NULL;
-	if (!same_str(str, "*"))
-		fill_uffix(d, str, &suffix, &prefix);
+	if (!same_str(to_check, "*"))
+		fill_uffix(d, to_check, &suffix, &prefix);
 	wc_node = get_wc_tokens(d, brk, prefix, suffix);
 	safe_free(suffix);
 	safe_free(prefix);
 	if (!wc_node)
-		return (new_token(str, start, tk_arg, brk));
+		return (new_token(to_check, start, tk_arg, brk));
+	free(to_check);
 	wc_start = token_first(wc_node);
 	sort_wildcard_tokens(wc_start);
 	wc_start->prv = start;
