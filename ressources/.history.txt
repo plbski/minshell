@@ -571,3 +571,7 @@ clear
 ls *
 ***
 * a **qw fq* 
+ls
+pwd
+clear
+./minishell

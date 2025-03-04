@@ -64,9 +64,6 @@ debug: $(MINISHELL_NAME) $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) $(LIBFT) $(DPRINT
 	$(CC) $(CFLAGS) -fsanitize=address -g $(MINISHELL_SRC) $(MINISHELL_PRG_SRC) -L$(LIBFT_DIR) $(GNL) $(DPRINTF) $(LISTS) -lft -o $(MINISHELL_NAME) $(LDFLAGS)
 	@echo "$(MINISHELL_NAME) -fsan $(GREEN)compiled$(RESET)"
 
-valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=ressources/a.supp --log-file="ressources/leaks.log" ./minishell
-
 leaks: all
 	leaks --atExit -- ./minishell
 
