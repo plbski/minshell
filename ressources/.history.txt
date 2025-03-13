@@ -515,63 +515,127 @@ clear
 $? + $?
 $?
 clear
-echo "~"
-echo "~
-echo '~'
-echo ~
+ls qwf
+cat
 clear
-echo "$~"
-bash
-echo "$
-echo "$"
-echo "$a"
-echo "$~"
+"ls"
+'ls'
 clear
-unset
+"echo" $USER
+"echo" '$USER'
+"echo" "$USER"
+"echo" "$USER~"
+"echo" $USER~
+"echo" "$USER" "~
+echo $SHLVL
 clear
-cd ~ && /bin/ls
-cd ..
-cd -
-cd .
-pwd
-clear
-pwd
-cd ..
-pwd
-cd ..
-pwd
-cd /
-pwd
-clear
-$PWDminishell
-$PWD/minishell
-echo a > a > b > c > d << ola << pqwf
-clear
-<<
-<< a | cat | << b | cat | << c | cat | << d | cat
-clear
-ls >> ls_output | pwd >> pwd_output | cat < pwd_output
-ls && echo cool ola top && ls | cat | pwd | cat || echo non && export bon && unset bon && export pas_bon=bon && unset pas_bon && export && env
-clear
-***
-bash
-ls *
-clear
-*
-clear
-**
-*
-deb=1
-*
-bash
-ressources
-*
-clear
-*
-ls *
-***
-* a **qw fq* 
+""$foo""ech''"$bar"o salut
+<< eof
+cat << eof
+cat << eof"
+cat << "eof"
 ls
-pwd
 clear
-./minishell
+ls
+mkdir a
+cd a
+mkdir b
+cd b
+rm -rf ../../a
+pwd
+ls
+cd ..
+su root
+ls
+where is the text
+salut
+ls
+skhsa
+cat | cat | ls
+echo foo > echo_out | cat > cat_out
+cat cat_out 
+cat echo_out 
+export foo
+echo $foo
+export foo=HOME
+export $foo=salut
+export foo=HOME
+echo $foo
+export $foo=salut
+export HOME=salut
+export foo=echo
+$foo bro
+echo $foo$foo
+echo "$foo"foo
+echo "$foo"$$foo
+\
+'
+'
+"
+|
+echo |
+echo ''home''
+echo ''home''bro
+echo -n -n
+echo -n -n ok
+echo -n -nnnnnnnn ok
+x=13
+HOME=/ cd
+exit | exit
+echo $"HOME ALO"
+echo "$HOME ALO"
+echo $HOME
+env
+export
+foo=13
+export
+ls
+unset PATH
+ls
+cd c/..
+cd ..
+ls
+mls
+()
+&&
+echo && gcc || echo
+(echo && gcc) || echo
+(echo ok && gcc) || echo not ok
+echo ok && (gcc || echo not ok)
+echo ok && (gcc && echo not ok)
+(echo ok && gcc) && echo not ok
+((echo ok && gcc) && echo not ok) || echo fuck this
+( (echo ok && gcc) && echo not ok) || echo fuck this
+ls
+./minishell 
+> foo echo foo
+cat foo 
+>> foo echo foo > foo
+cat foo
+>> foo echo foo > foo
+cat foo
+>> foo echo foo > foo < wtf
+>> foo echo foo > foo > wtf < wtf
+export baz=foo && unset baz && echo $baz
+<< eof << eof << eof << eof cat | echo << eof
+cat << eof << eof
+htop | less
+>> foo echo foo > foo > wtf < wtfgvlkfshslkhvsbv
+fsbv;ldsjl;fsj
+jljvsd
+clear
+ls
+htop | less
+ls
+clear
+ls
+.
+clear
+ls -R /
+sleep 5;
+sleep 5
+sleep 5;
+ls
+vim .
+./minishell 
+echo broo
